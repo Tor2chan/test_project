@@ -1,0 +1,150 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.user' | translate },
+                { label: 'userManagement.role.name'| translate }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'userManagement.role.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.role.criteria.role' | translate }}</label>
+                                <input pInputText [(ngModel)]="criteria.name" type="text" (keyup.enter)="fetchData()" />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.role.criteria.status' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    placeholder="กรุณาเลือก"
+                                    [(ngModel)]="criteria.activeFlag"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="fetchData()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'userManagement.role.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                [label]="'common.button.add' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="fetchData($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 75%">
+                        {{ 'userManagement.role.criteria.role' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'common.table.column.status' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%" permission menuCode="SDB-UM2003,SDB-UM1007">
+                        {{ 'common.table.column.manage' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.name }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center" permission menuCode="SDB-UM2003,SDB-UM1007">
+                        <div class=" flex justify-content-center gap-2">
+                            <span permission menuCode="SDB-UM2003" (click)="openPage('EDIT', item.roleId)" class="pi pi-pencil cursor-pointer"></span>
+                            <span permission menuCode="SDB-UM1007" (click)="openPage('MANY', item.roleId, item.name)" class="pi pi-user-plus cursor-pointer" [pTooltip]="'common.role.usrlist' | translate"></span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="4">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-role-manage
+        [item]="editData"
+        [mode]="mode"
+        [lang]="lang"
+        (backToListPage)="openPage($event)"
+    ></app-role-manage>
+</div>

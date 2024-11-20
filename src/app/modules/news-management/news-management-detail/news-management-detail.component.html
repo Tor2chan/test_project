@@ -1,0 +1,145 @@
+<p-panel *ngIf="mode === 'VIEW' && item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0"
+            [model]="[ news_information,
+                {
+                    label: 'newsManagement.newsDetail' | translate,
+                },  
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+
+        >
+        </p-breadcrumb>
+    </ng-template>
+    <header class="d-flex justify-content-md-between">
+        <h3 style="color: red">{{ 'newsManagement.detail' | translate }}</h3>
+        <hr style="border-top: 1px solid red" />
+    </header>
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col-12 lg:col-12 xl:col-12 md:block sm:block align-items-center justify-content-center">
+                <div class="flex flex-wrap">
+                    <div
+                        class="flex md:flex-auto lg:flex-auto sm:flex-auto align-items-center justify-content-center"
+                        style="object-fit: contain"
+                    >
+                        <!-- function not found -->
+                        <!-- (load)="onCheckImageSize($event)" -->
+                        <p-image
+                            *ngIf="imgSrc"
+                            [src]="imgSrc"
+                            [preview]="true"
+                            alt="coverNews"
+                            [style]="imageStyle"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '420px',
+                                'object-fit': 'contain',
+                                'object-position': 'center',
+                                'max-height.px': '420',
+                                'max-width.px': '670'
+                            }"
+                        />
+                    </div>
+                    <div class="flex col-12 lg:flex-auto sm:flex-auto align-content-center">
+                        <div class="col-12 align-items-center justify-content-center">
+                            <div class="flex flex-wrap">
+                                <div class="col-12">
+                                    <header class="d-flex justify-content-md-between">
+                                        <h3 style="color: red">{{ 'newsManagement.newsHeadlines' | translate }}: {{ item.newsHeading }}</h3>
+                                        <hr style="border-top: 1px solid red" />
+                                    </header>
+
+                                </div>
+
+                                <div
+                                    class="col-12"
+
+                                >
+                                    <div class="">
+                                        <p-editor
+                                            [readonly]="true"
+                                            [(ngModel)]="item.newsDetail"
+                                            [style]="{height: '470px',}"
+                                        >
+                                            <ng-template pTemplate="header" [disabled]="true">
+                                            </ng-template>
+                                        </p-editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- asd -->
+
+        <div class="flex-wrap">
+            <div class="flex justify-content-between">
+                <div class="col-12">
+                    <p-table
+                        [value]="items"
+                        [totalRecords]="totalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchTable($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-left" scope="col" style="width: 90%">
+                                    {{ 'newsManagement.fileName' | translate }}
+                                </th>
+                                <th class="text-center" scope="col" style="width: 10%">
+                                    {{ 'common.button.download' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <!-- ดิงชื่อไฟล์ -->
+                                <td>{{ lang === 'th' ? item.fileNameTh : item.fileNameEn }}</td>
+                                <td>
+                                    <p-button
+                                        [label]="'common.button.download' | translate"
+                                        icon="pi pi-download"
+                                        styleClass="p-button-secondary p-button-sm"
+                                        size="small"
+                                        (click)="previewFile(item)"
+                                    >
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="text-center" colspan="2">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center gap-2 mt-4">
+        <div class="">
+            <p-button
+                [label]="'common.button.back' | translate"
+                icon="pi pi-angle-left"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (click)="onBack()"
+            >
+            </p-button>
+        </div>
+    </div>
+</p-panel>

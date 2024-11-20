@@ -1,0 +1,213 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="coursepublicMain">
+    <div *ngIf="mode === 'CREATE'">
+        <div>
+            <div class="p-fluid mt-4">
+                <header class="d-flex justify-content-md-between">
+                    <div class="flex justify-content-between">
+                        <div class="">
+                            <h3 style="color: var(--font-color-header)">
+                                {{ 'menu.course.courseManagement.addCourseRound' | translate }}
+                            </h3>
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 1px solid var(--font-color-header)" />
+                </header>
+            </div>
+        </div>
+        <div class="d-flex justify-content-md-between">
+            <header class="d-flex justify-content-md-between">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h5 class="text-primary">
+                            {{ 'courseManagement.menuTab.general.tabCourseInformation.name' | translate }}
+                        </h5>
+                    </div>
+                </div>
+                <hr />
+            </header>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{ 'courseManagement.tabRoundGeneral.list.criteria.publicName' | translate }}</label
+            >
+
+            <p-dropdown
+                [options]="courseMainList"
+                [(ngModel)]="coursepublicMain.courseId"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                [placeholder]="'common.pleaseSelect' | translate"
+                (onFilter)="lazyLoadCourseMain($event)"
+                [class]="showError == true && !!!coursepublicMain.courseId ? 'ng-invalid ng-dirty' : ''"
+                [virtualScroll]="true"
+                (onClick)="lazyLoadCourseMain()"
+                [itemSize]="30"
+            ></p-dropdown>
+            <small *ngIf="showError && !!!coursepublicMain.courseId" class="p-error" id="text-error">
+                {{ 'common.pleaseSelect' | translate }}
+            </small>
+        </div>
+
+        <br />
+    </div>
+
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5" *ngIf="mode === 'EDIT'">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+
+    <div>
+        <h5 class="text-primary">{{ 'courseManagement.tabRoundGeneral.tabThumbnail.name' | translate }}</h5>
+        <hr />
+        <div class="col-12 flex grid">
+            <div class="lg:col-6 md:col-6 sm:col-12 pl-0">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailNameTh' | translate }}</label
+                >
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="coursepublicMedia.mediaNameTh"
+                    [class]="showError == true && !!!coursepublicMedia.mediaNameTh ? 'ng-invalid ng-dirty' : ''"
+                />
+                <small *ngIf="showError && !!!coursepublicMedia.mediaNameTh" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+            <div class="lg:col-6 md:col-6 sm:col-12 pr-0">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailNameEn' | translate }}</label
+                >
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="coursepublicMedia.mediaNameEn"
+                    [class]="showError == true && !!!coursepublicMedia.mediaNameEn ? 'ng-invalid ng-dirty' : ''"
+                />
+                <small *ngIf="showError && !!!coursepublicMedia.mediaNameEn" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div>
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailFile' | translate }}</label
+                >
+                <span
+                    *ngIf="coursepublicMedia.filename && !showUpload"
+                    class="pi pi-pencil cursor-pointer"
+                    (click)="onEditImage()"
+                ></span>
+            </div>
+
+            <div *ngIf="masCourseType && !!!coursepublicMedia.filename">
+                <img
+                    *ngIf="masCourseType.filename && !showUpload"
+                    [src]="imgSrc"
+                    alt="thumbnailFile"
+                    [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                />
+            </div>
+
+            <div *ngIf="masCourseType && !!!coursepublicMain.filename">
+                <p-image
+                    *ngIf="masCourseType.filename && !showUpload"
+                    [src]="imgSrc"
+                    alt="thumbnailFile"
+                    [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                    [imageStyle]="{
+                        width: '100%',
+                        height: '200px',
+                        'object-fit': 'contain',
+                        'object-position': 'center',
+                        'max-height.px': '400',
+                    }"
+                />
+            </div>
+
+            <div>
+                <p-fileUpload
+                    *ngIf="showUpload || !!!coursepublicMedia.filename"
+                    #fileUpload
+                    (uploadHandler)="onAdvancedUpload($event)"
+                    (onRemove)="onRemoveUpload($event, fileUpload)"
+                    [chooseLabel]="'newsManagement.uploadFile' | translate"
+                    name="file"
+                    accept=".png, .jpg, .jpeg"
+                    [auto]="true"
+                    [maxFileSize]="2000000000"
+                    [multiple]="false"
+                    [customUpload]="true"
+                    [fileLimit]="1"
+                    [class]="
+                        showError == true && this.showUpload && !!!coursepublicMedia.filename
+                            ? 'ng-invalid ng-dirty'
+                            : ''
+                    "
+                    [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                    (load)="onCheckImageSize($event)"
+                >
+                </p-fileUpload>
+
+                <!-- <img
+                    *ngIf="coursepublicMedia.filename && !!!showUpload"
+                    [src]="imgSrc"
+                    alt="thumbnailFile"
+                    [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                /> -->
+
+                <!-- <div style="opacity: 60%">{{ 'newsManagement.sizePNGJPG' | translate }}</div> -->
+
+                <small *ngIf="showError && !!!this.showUpload" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+
+                <!-- <small *ngIf="showErrorOverImg && showError" class="p-error" id="text-error">
+                    {{ 'common.alert.overImg' | translate }}
+                </small> -->
+            </div>
+
+            <small *ngIf="showError && !!!coursepublicMedia" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

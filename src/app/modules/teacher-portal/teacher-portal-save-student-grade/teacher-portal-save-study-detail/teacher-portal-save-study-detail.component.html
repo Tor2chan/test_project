@@ -1,0 +1,199 @@
+<div *ngIf="mode === 'LIST'">
+    <p-panel>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-9">
+                        <h3 style="color: var(--font-color-header)">
+                            {{ 'teacherPortal.savestudyresult' | translate }}
+                        </h3>
+                    </div>
+                </div>
+            </header>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-9">
+                        <h3 style="color: black">{{ 'teacherPortal.courseinfo' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid; color: black" />
+            </header>
+        </div>
+        <div class="p-fluid formgrid grid mt-4">
+            <div class="col-8">
+                <h3 style="color: gray">{{ courseDetail }}</h3>
+            </div>
+            <div class="col-4">
+                <p-button
+                    [label]="'teacherPortal.coursedetail' | translate"
+                    icon="pi pi-search"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="previewCoursepublic()"
+                >
+                </p-button>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-9">
+                        <h3 style="color: black">{{ 'teacherPortal.studentInfo' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid; color: black" />
+            </header>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="col-4">
+                            <label>{{ 'teacherPortal.studentId' | translate }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <label>{{ courseInfoData.memberId }}</label>
+                        </div>
+                        <!-- <div class="col-4">
+                            <p-button
+                                [label]="'teacherPortal.studentDetail' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="openPage(undefined, false)"
+                            >
+                            </p-button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="col-4">
+                            <label>{{ 'teacherPortal.nameSurname' | translate }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <span *ngIf="lang == 'th'"
+                                >{{ courseInfoData.prefixnameNameTh }} {{ courseInfoData.memberFirstnameTh }}
+                                {{ courseInfoData.memberLastnameTh }}</span
+                            >
+                            <span *ngIf="lang != 'th'"
+                                >{{ courseInfoData.prefixnameNameEn }} {{ courseInfoData.memberFirstnameEn }}
+                                {{ courseInfoData.memberLastnameEn }}</span
+                            >
+                        </div>
+                        <!-- <div class="col-4">
+                            <p-button
+                                [label]="'teacherPortal.coursestudydetail' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="openPage(undefined, false)"
+                            >
+                            </p-button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-9">
+                        <h3 style="color: black">{{ 'teacherPortal.grade' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid; color: black" />
+            </header>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <label>*{{ 'teacherPortal.point' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid col-12">
+                        <input pInputText type="text" [(ngModel)]="gradeSelected.score" (blur)="fetchData($event)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <label>*{{ 'teacherPortal.grade' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid col-12">
+                        <p-dropdown
+                            [options]="gradeList"
+                            [(ngModel)]="gradeSelected.gradeSymbol"
+                            [optionLabel]="'gradeSymbol'"
+                            optionValue="gradeSymbol"
+                            [showClear]="true"
+                            [filter]="false"
+                            [placeholder]="'teacherPortal.pleaseselect' | translate"
+                            [disabled]="true"
+                        ></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-content-center gap-2 mt-4">
+            <div class="">
+                <p-button
+                    permission
+                    menuCode="SDB-TC100501"
+                    *ngIf="courseInfoData.studyStatus != '30016002'"
+                    [label]="'teacherPortal.savestudyresult' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="onSave(courseInfoData)"
+                >
+                </p-button>
+            </div>
+            <div class="">
+                <p-button
+                    permission
+                    menuCode="SDB-TC100502"
+                    *ngIf="courseInfoData.studyStatus != '30016002'"
+                    [label]="'teacherPortal.saveconfirmresult' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="onSaveAndConfirm(courseInfoData)"
+                >
+                </p-button>
+            </div>
+            <div class="">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (click)="onBack()"
+                >
+                </p-button>
+            </div>
+        </div>
+    </p-panel>
+</div>

@@ -1,0 +1,36 @@
+.vl {
+    border-left: 1px solid gray;
+}
+a {
+    color: #495057;
+}
+.menulist{
+    background: rgb(244 244 244);
+    border-color: lightgrey;
+    color: #495057  !important;
+    font-weight: bold;
+    border-radius: 5px;
+
+}
+.menulist:hover {
+    background: rgb(244 244 244);
+    border-color: lightgrey;
+    color: #495057  !important;
+    font-weight: bold;
+  }
+
+@media screen and (min-width: 768px) {
+    .md\:block {
+        display: flex !important;
+    }
+}
+// .image-container {
+//     width: 300px;
+//     height: 200px;
+//     overflow: hidden;
+//   }
+//   .image-container p-image {
+//     width: 100%;
+//     height: auto;
+//     object-fit: cover;
+//   }

@@ -1,0 +1,280 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{ 'courseManagement.tabRoundGeneral.tabInstructor.table.name' | translate }}</h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'courseManagement.tabGeneral.tabTeachingProfessor.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12 flex grid pl-3">
+                        <div class="flex align-items-center mr-4">
+                            <p-radioButton
+                                name="instructorType"
+                                [value]="false"
+                                [(ngModel)]="item.instructorType"
+                                inputId="internalMain"
+                                (onClick)="onChangeInstructorType($event)"
+                            />
+                            <label for="internalMain" class="ml-2">
+                                {{ 'courseManagement.tabRoundGeneral.tabInstructor.form.radio.internal' | translate }}
+                            </label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton
+                                name="instructorType"
+                                [value]="true"
+                                [(ngModel)]="item.instructorType"
+                                inputId="externalMain"
+                                (onClick)="onChangeInstructorType($event)"
+                            />
+                            <label for="externalMain" class="ml-2">
+                                {{ 'courseManagement.tabRoundGeneral.tabInstructor.form.radio.external' | translate }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-12 flex align-items-center gap-2">
+                        <p-inputSwitch [(ngModel)]="item.instructorMain"> </p-inputSwitch>
+                        <label class="font-bold">{{
+                            'courseManagement.tabRoundGeneral.tabInstructor.form.switch.instructorMain' | translate
+                        }}</label>
+                    </div>
+                    <div *ngIf="!item.instructorType" class="col-12 md:col-12 flex">
+                        <div class="field lg:col-6 md:col-6 sm:col-12 p-0 pr-2">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a>
+                                {{
+                                    'courseManagement.tabRoundGeneral.tabInstructor.form.instructorName' | translate
+                                }}</label
+                            >
+                            <p-dropdown
+                                [options]="personalList"
+                                [(ngModel)]="item.instructorId"
+                                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                optionValue="value"
+                                [showClear]="true"
+                                [filter]="true"
+                                (onClick)="lazyLoadPersonal()"
+                                (onFilter)="lazyLoadPersonal($event)"
+                                (onChange)="changePersonal()"
+                                [placeholder]="'common.pleaseSelect' | translate"
+                            ></p-dropdown>
+                            <small
+                                *ngIf="showError && !!!item.instructorId && item.instructorType != true"
+                                class="p-error"
+                                id="text-error"
+                                >{{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                    <div *ngIf="item.instructorType" class="col-12 md:col-12">
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabRoundGeneral.tabInstructor.form.externalNameTh' | translate
+                                }}</label
+                            >
+                            <p-autoComplete
+                                id="externalNameTh"
+                                #externalNameTh
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalNameTh"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameTh"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalNameTh && item.instructorType === true"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabRoundGeneral.tabInstructor.form.externalNameEn' | translate
+                                }}</label
+                            >
+                            <p-autoComplete
+                                id="externalNameEn"
+                                #externalNameEn
+                                field="displayText"
+                                [(ngModel)]="item.externalNameEn"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameEn"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalNameEn && item.instructorType === true"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.tabRoundGeneral.tabInstructor.table.email' | translate }}</label
+                            >
+                            <p-autoComplete
+                                id="externalEmail"
+                                #externalEmail
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalEmail"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="email"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalEmail && item.instructorType === true"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <div class="flex justify-content-center mb-4">
+                            <img
+                                [src]="userImg"
+                                alt="user"
+                                height="240"
+                                width="240"
+                                style="
+                                    size: 50%;
+                                    border-radius: 50%;
+                                    box-shadow: inset;
+                                    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+                                "
+                            />
+                        </div>
+                        <div class="flex justify-content-center">
+                            <p-fileUpload
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUpload($event)"
+                                (onRemove)="onRemoveUpload($event, fileUpload)"
+                                mode="basic"
+                                [chooseLabel]="'newsManagement.uploadPic' | translate"
+                                name="file"
+                                accept="image/*"
+                                [auto]="true"
+                                [maxFileSize]="2000000000"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                            >
+                            </p-fileUpload>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid m-4" *ngIf="!item.instructorType">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">&nbsp;</h3>
+            <h5>{{ 'courseManagement.tabRoundGeneral.tabInstructor.form.manageCourse' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+    <div class="m-4" *ngIf="!item.instructorType">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div class="flex align-items-center gap-2">
+                            <p-checkbox
+                                [(ngModel)]="item.saveGradeFlag"
+                                [binary]="true"
+                                inputId="saveGradeFlag"
+                            ></p-checkbox>
+                            <label class="font-bold">{{
+                                'courseManagement.tabRoundGeneral.tabInstructor.form.saveGradeFlag' | translate
+                            }}</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <div class="flex align-items-center gap-2">
+                            <p-checkbox
+                                [(ngModel)]="item.saveMoodleFlag"
+                                [binary]="true"
+                                inputId="saveMoodleFlag"
+                            ></p-checkbox>
+                            <label class="font-bold">{{
+                                'courseManagement.tabRoundGeneral.tabInstructor.form.saveMoodleFlag' | translate
+                            }}</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <div class="flex align-items-center gap-2">
+                            <p-checkbox
+                                [(ngModel)]="item.receiveEmailFlag"
+                                [binary]="true"
+                                inputId="receiveEmailFlag"
+                            ></p-checkbox>
+                            <label class="font-bold">{{
+                                'courseManagement.tabRoundGeneral.tabInstructor.form.receiveEmailFlag' | translate
+                            }}</label>
+                        </div>
+                        <small class="ml-5" style="color: var(--surface-500)">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาเลือกหากต้องการรับอีเมล'
+                                    : 'Please select if you would like to receive emails.'
+                            }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

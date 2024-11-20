@@ -1,0 +1,299 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[ user, username,
+            {
+                label: ((mode === 'CREATE' ?
+                'common.mode.add' : 'common.mode.edit') | translate)
+                + ('userManagement.user.name' | translate)
+            }]"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                    <div class="">
+                        <h3 style="color: var(--font-color-header)">
+                            {{  ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                            ('userManagement.user.name' | translate) }}
+                        </h3>
+                    </div>
+                <hr style="border-top: 1px solid var(--font-color-header)" class="mt-0" />
+            </header>
+        </div>
+
+        <div class="m-2">
+            <div class="mt-4 mb-2">
+                <header class="d-flex justify-content-between">
+                    <h5>{{  'userManagement.user.form.account' | translate  }}</h5>
+                    <hr style="border-top: 1px solid" />
+                </header>
+            </div>
+
+            <div class="p-fluid p-formgrid grid ml-2">
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 mb-0">
+                        <label for="refUserId" style="height: 25px">{{
+                            'userManagement.user.form.name' | translate
+                        }}</label>
+                        <p-dropdown
+                            [disabled]="mode === 'EDIT'"
+                            [options]="personalList"
+                            [(ngModel)]="item.refUserId"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onFilter)="lazyLoadPersonal($event)"
+                            (onChange)="loadAutUserData($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                        ></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 mb-0">
+                        <label for="username" style="height: 25px">{{
+                            'userManagement.user.form.username' | translate
+                        }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.username" />
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="firstnameTh" style="height: 25px">{{
+                            'userManagement.user.form.firstnameTh' | translate
+                        }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.firstnameTh" />
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="lastnameTh" style="height: 25px">{{
+                            'userManagement.user.form.lastnameTh' | translate
+                        }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.lastnameTh" />
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="firstnameEn" style="height: 25px">{{
+                            'userManagement.user.form.firstnameEn' | translate
+                        }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.firstnameEn" />
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="lastnameEn" style="height: 25px">{{
+                            'userManagement.user.form.lastnameEn' | translate
+                        }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.lastnameEn" />
+                    </div>
+                </div>
+
+
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="email" style="height: 25px">{{ 'userManagement.user.form.email' | translate }}</label>
+                        <input [disabled]="true" pInputText type="text" [(ngModel)]="item.email" />
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="telephone" style="height: 25px">{{ 'userManagement.user.form.tel' | translate }}</label>
+                        <input pInputText type="text" [(ngModel)]="item.telephone" />
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12 py-0">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="deptIdLevel1" style="height: 25px">คณะ</label>
+                        <p-dropdown
+                            [disabled]="true"
+                            [options]="departmentLv1List"
+                            [(ngModel)]="item.depIdLevel1"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onFilter)="lazyLoadDepartmentLv1($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                        ></p-dropdown>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label for="deptIdLevel2" style="height: 25px" >ภาควิชา</label>
+                        <p-dropdown
+                            [disabled]="true"
+                            [options]="departmentLv2List"
+                            [(ngModel)]="item.depIdLevel2"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onFilter)="lazyLoadDepartmentLv2($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                        ></p-dropdown>
+                    </div>
+                </div>
+
+                <!--
+                    <div class="p-fluid formgrid grid col-12" *ngIf="item.refUserId">
+                        <div class="field col-12">
+                            <label style="height: 25px">{{ 'userManagement.user.form.signature' | translate }}</label>
+                            <input disabled pInputText type="text" [(ngModel)]="item.userSignaturePath" />
+                        </div>
+                    </div>
+                    -->
+
+            </div>
+
+            <!-- <div class="p-fluid mt-4 mx-4" *ngIf="item.refUserId">
+                <header class="d-flex justify-content-md-between my-4">
+                    <div class="flex justify-content-between">
+                        <div class="">
+                            <h3 style="color: black">{{ 'userManagement.user.form.password' | translate }}</h3>
+                        </div>
+                    </div>
+                    <hr style="border-top: 1px solid" class="mt-0" />
+                </header>
+            </div>
+            <div class="mt-4 mx-5" *ngIf="item.refUserId">
+                <div class="ml-2 mb-6">
+                    <p>{{ 'userManagement.user.form.text1' | translate }}</p>
+                    <p>{{ 'userManagement.user.form.text2' | translate }}</p>
+                </div>
+            </div> -->
+
+
+        </div>
+
+        <div class="m-2">
+            <div class="mt-4 mb-2" *ngIf="item.refUserId">
+                <header class="d-flex justify-content-between">
+                    <h5>{{ 'userManagement.user.form.status' | translate }}</h5>
+                    <hr style="border-top: 1px solid" />
+                </header>
+            </div>
+
+           <!-- <div class="p-fluid p-formgrid grid ml-2"  *ngIf="item.refUserId">
+                <div class="mb-0">
+                    <p-inputSwitch [(ngModel)]="item.activeFlag"></p-inputSwitch>
+                </div>
+                <div class="">
+                    <label for="activeFlag" style="height: 25px">{{
+                        item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+                    }}</label>
+                </div>
+
+
+            </div> -->
+
+
+        </div>
+
+
+        <div class="mt-4 mx-5">
+
+            <div class="p-fluid formgrid grid col-12 pt-2 pl-3 gap-4 pb-0 align-items-center" *ngIf="item.refUserId">
+                <div class="mb-0">
+                    <p-inputSwitch [(ngModel)]="item.activeFlag"></p-inputSwitch>
+                </div>
+                <div class="">
+                    <label for="activeFlag" style="height: 25px">{{
+                        item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+                    }}</label>
+                </div>
+            </div>
+
+            <div class="p-fluid formgrid grid col-12 pt-0 pb-0 mb-0" *ngIf="item.refUserId">
+                <div class="lg:col-3 sm:col-12 gap-4 flex align-items-center pt-0 pb-0">
+                    <div>
+                        <p-inputSwitch [(ngModel)]="item.activePeriodStatus"></p-inputSwitch>
+                    </div>
+                    <div>
+                        <label for="temp" style="height: 25px">{{ 'userManagement.user.form.activeDate' | translate }}</label>
+                    </div>
+                </div>
+
+                <div class="lg:col-9 sm:col-12 flex pt-0 pl-2">
+                    <div class="lg:col-4 sm:col-6 pt-0">
+                        <label for="activePeriodStatus" style="height: 25px">{{ 'userManagement.user.form.activeDateStart' | translate }}</label>
+                        <p-calendar
+                            [disabled]="!item.activePeriodStatus"
+                            [(ngModel)]="item.activePeriodStart"
+                            [showIcon]="true"
+                            inputId="activePeriodStart"
+                            [hideOnDateTimeSelect]="true"
+                            appThaiCalendar
+                            [lang]="lang"
+                        ></p-calendar>
+                    </div>
+                    <div class="lg:col-4 sm:col-6 pt-0">
+                        <label for="activePeriodStatus" style="height: 25px">{{ 'userManagement.user.form.activeDateEnd' | translate }}</label>
+                        <p-calendar
+                            [disabled]="!item.activePeriodStatus"
+                            [(ngModel)]="item.activePeriodEnd"
+                            [showIcon]="true"
+                            inputId="activePeriodEnd"
+                            [hideOnDateTimeSelect]="true"
+                            appThaiCalendar
+                            [lang]="lang"
+                        ></p-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-fluid formgrid grid col-12 pt-2 pl-3 mb-0 mt-4" *ngIf="item.refUserId">
+                <h5 class="mb-0 pb-2">{{ 'userManagement.user.form.accessLevel' | translate }} : </h5>
+
+                <div *ngFor="let al of accessLevelList" class="flex align-items-center col-12">
+                    <p-radioButton name="accessLevel" [value]="al.value" [(ngModel)]="item.accessLevel"></p-radioButton>
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? al.nameTh : al.nameEn }}</label
+                    >
+                </div>
+            </div>
+
+            <div class="p-fluid formgrid grid col-12" *ngIf="item.refUserId">
+                <div class="field col-12">
+                    <label for="roleIds" style="height: 25px">{{ 'userManagement.role.name' | translate }}</label>
+                    <p-multiSelect
+                        [options]="roleList"
+                        [(ngModel)]="item.roleIds"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        display="chip"
+                        optionValue="value"
+                        [showClear]="true"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    >
+                    </p-multiSelect>
+                </div>
+            </div>
+            <div class="p-fluid formgrid grid col-12"></div>
+            <div class="flex justify-content-center gap-2 mt-4">
+                <div class="">
+                    <p-button
+                        [label]="'common.button.save' | translate"
+                        icon="pi pi-save"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        [disabled]="processing"
+                        (click)="onSave()"
+                    >
+                    </p-button>
+                </div>
+                <div class="">
+                    <p-button
+                        [label]="'common.button.cancel' | translate"
+                        icon="pi pi-times-circle"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                        (click)="onBack()"
+                    >
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-panel>

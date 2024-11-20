@@ -1,0 +1,200 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm" permission menuCode="SDB-MS2001" >
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/faculty' },
+                { label: 'master.facultyInf.name' | translate, routerLink: '/master/faculty' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.facultyInf.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.facultyInf.criteria.facultyDepartmentCode' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.depCode"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.facultyInf.criteria.facultyDepartmentName' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.depNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.facultyInf.criteria.educationUsed' | translate }}</label>
+                                <p-dropdown
+                                    [options]="educationStatusList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.educationStatus"
+                                ></p-dropdown>
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'common.status.name' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.activeFlag"
+                                ></p-dropdown>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.facultyInf.table.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <span class="align-items-center pt-2"
+                    >{{ 'common.syncLastest' | translate }} {{ syncDate | formatdatetime : lang }}</span
+                >
+                <p-button
+                    permission
+                    menuCode="SDB-MS2002"
+                    [label]="progress < 100 ? progress + ' %' : ('master.facultyInf.updateButtom' | translate)"
+                    icon="pi pi-sync"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="onRepull()"
+                >
+                </p-button>
+
+                <p-button
+                    permission
+                    menuCode="SDB-MS2003"
+                    [label]="'common.button.export' | translate"
+                    icon="pi pi-download"
+                    styleClass="p-button-success p-button-sm p-button-outlined"
+                    size="small"
+                >
+                </p-button>
+            </div>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 10%">
+                        {{ 'master.facultyInf.table.column.facultyDepartmentCode' | translate }}
+                    </th>
+                    <th scope="col" style="width: 30%">
+                        {{ 'master.facultyInf.table.column.facultyDepartmentNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="width: 30%">
+                        {{ 'master.facultyInf.table.column.facultyDepartmentNameEn' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.facultyInf.table.column.educationUsed' | translate }}
+                    </th>
+                    <!-- <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.status' | translate }}
+                    </th> -->
+                    <!-- <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.facultyInf.table.column.lastUpdate' | translate }}
+                    </th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.depCode }}</td>
+                    <td class="">
+                        <span class="flex" style="font-weight: bold">{{ item.depNameTh }}</span>
+                        <span class="flex">{{ item.depNameAbbrTh }}-{{ item.depNameShortTh }}</span>
+                    </td>
+                    <td class="">
+                        <span class="flex" style="font-weight: bold">{{ item.depNameEn }}</span>
+                        <span class="flex">{{ item.depNameAbbrEn }}-{{ item.depNameShortEn }}</span>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.educationStatus" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.educationStatus" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <!-- <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td> -->
+                    <!-- <td class="text-center">&nbsp;</td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="7">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>

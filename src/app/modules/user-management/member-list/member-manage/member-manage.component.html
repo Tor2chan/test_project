@@ -1,0 +1,504 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="item && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                user,
+                member,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('userManagement.member.form.name' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div>
+        <div class="p-fluid mt-4 mx-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h3 style="color: var(--font-color-header)">
+                            {{
+                                ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                                    ('userManagement.member.form.name' | translate)
+                            }}
+                        </h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid var(--font-color-header)" class="mt-0" />
+            </header>
+            <header class="d-flex justify-content-md-between my-4">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h3 style="color: black">{{ 'userManagement.member.form.information' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid" class="mt-0" />
+            </header>
+        </div>
+        <div class="p-fluid mt-4 mx-4">
+            <div class="col-12 md:col-12">
+                <div class="flex justify-content-center mb-4">
+                    <img
+                        [src]="userImg"
+                        alt="user"
+                        height="240"
+                        width="240"
+                        style="
+                            size: 50%;
+                            border-radius: 50%;
+                            box-shadow: inset;
+                            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+                        "
+                    />
+                </div>
+
+                <div class="flex justify-content-center">
+                    <p-fileUpload
+                        #fileUpload
+                        (uploadHandler)="onAdvancedUpload($event)"
+                        (onRemove)="onRemoveUpload($event, fileUpload)"
+                        mode="basic"
+                        chooseLabel="อัปโหลดรูปภาพ"
+                        name="file"
+                        accept="image/*"
+                        [auto]="true"
+                        [maxFileSize]="2000000000"
+                        [multiple]="false"
+                        [customUpload]="true"
+                        [fileLimit]="1"
+                    >
+                    </p-fileUpload>
+                </div>
+                <span class="flex justify-content-center py-2" style="opacity: 50%; font-size: small">
+                    *ขนาดภาพที่แนะนำ 240x240
+                </span>
+            </div>
+
+            <div class="flex justify-content-center">
+                <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '50%' }">
+                    <div class="flex align-items-center gap-3 mb-3">
+                        <label for="username" class="font-semibold w-6rem">{{
+                            'userManagement.member.form.usernameUp' | translate
+                        }}</label>
+
+                        <input
+                            pInputText
+                            id="username"
+                            type="text"
+                            [placeholder]="item.username"
+                            #contactemail="ngModel"
+                            [(ngModel)]="editUsernameText"
+                            required
+                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                            [style]="{ width: '100%' }"
+                        />
+                    </div>
+                    <div class="flex align-items-center gap-3 mb-5">
+                        <label class="font-semibold w-6rem"></label>
+                        <div class="md-errors-spacer" [hidden]="contactemail.valid || contactemail.untouched">
+                            <div *ngIf="contactemail.errors && contactemail.errors?.['required']">
+                                <a style="color: red">
+                                    {{ lang == 'th' ? 'จำเป็นต้องกรอกข้อมูล' : 'Username is required' }}
+                                </a>
+                            </div>
+                            <div *ngIf="contactemail.errors && contactemail.errors?.['pattern']">
+                                <a style="color: red; font-size: small">
+                                    {{
+                                        lang == 'th'
+                                            ? 'อีเมลที่คุณกรอกไม่ถูกต้อง กรุณาตรวจสอบรูปแบบใหม่อีกครั้ง, อีเมลที่ถูกต้องควรประกอบด้วยชื่อผู้ใช้ (@) โดเมน และนามสกุลโดเมน (เช่น .com, .net)'
+                                            : 'The email you entered is incorrect. Please double-check the format, A valid email address consists of a username, an @ symbol, a domain, and a top-level domain (e.g., .com, .net).'
+                                    }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-end gap-2">
+                        <p-button
+                            [label]="'common.button.save' | translate"
+                            (onClick)="editUsername(editUsernameText)"
+                            [disabled]="contactemail.errors || contactemail.errors?.['pattern'] ||  contactemail.errors && contactemail.errors?.['required']? true:false"
+                        />
+                    </div>
+                </p-dialog>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="col-12 sm:col-12 md:col-10 lg:col-10 py-0 pr-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.usernameUp' | translate }}</label
+                    >
+                    <input pInputText type="text" [disabled]="true" [(ngModel)]="item.username" />
+                </div>
+                <div class="col-4 sm:col-2 md:col-2 lg:col-2 px- py-0">
+                    <label style="height: 1px">&nbsp;</label>
+                    <p-button
+                        [label]="'common.button.edit' | translate"
+                        icon="pi pi-pencil"
+                        styleClass="p-button-primary p-button-sm "
+                        size="small"
+                        [disabled]="processing"
+                        (onClick)="editUsername(null)"
+                    >
+                    </p-button>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.email' | translate }}</label
+                    >
+                    <input pInputText type="text" [disabled]="true" [(ngModel)]="item.memberEmail" />
+                    <small>{{ 'userManagement.member.form.news' | translate }}</small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                    <label style="height: 25px">{{ 'userManagement.member.form.accountFormat' | translate }}</label>
+                    <p-dropdown
+                        [disabled]="true"
+                        [options]="memberChannelList"
+                        [(ngModel)]="item.memberChannel"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 grid-flex grid pr-0 pl-3">
+                <div class="pb-1">
+                    <label style="height: 25px">{{ 'userManagement.member.form.country' | translate }} :</label>
+                </div>
+                <div class="pl-3 flex grid">
+                    <div *ngFor="let items of memberCountryTypeList" class="flex align-items-center mr-3">
+                        <p-radioButton
+                            name="memberCountryType"
+                            [value]="items.value"
+                            [(ngModel)]="item.memberCountryType"
+                            inputId="ingredient1"
+                            (click)="changeMemberCountryType(item.memberCountryType)"
+                        ></p-radioButton>
+                        <label for="ingredient1" class="ml-2 justify-content-center">
+                            {{ lang === 'th' ? items.nameTh : items.nameEn }}</label
+                        >
+                    </div>
+                </div>
+                <div class="col flex-wrap p-0">
+                    <p-dropdown
+                        [disabled]="item.memberCountryType == 30028001 || item.memberCountryType == null ? true : false"
+                        [options]="countryList"
+                        [(ngModel)]="item.countryId"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        (onFilter)="lazyLoadCountry($event)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.idCard' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberCardno" />
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px">{{ 'userManagement.member.form.memberCode' | translate }}</label>
+                    <input [disabled]="true" pInputText type="text" [(ngModel)]="item.memberNo" />
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.prefixName' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="prefixnameList"
+                        [(ngModel)]="item.prefixnameId"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        (onFilter)="lazyLoadPrefixname($event)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.firstnameTh' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberFirstnameTh" />
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.lastnameTh' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberLastnameTh" />
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.firstnameEn' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberFirstnameEn" />
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.lastnameEn' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberLastnameEn" />
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 flex grid pl-3 gap-2 align-items-center">
+                <div class="pb-1">
+                    <label style="height: 25px">{{ 'userManagement.member.form.gender' | translate }} :</label>
+                </div>
+                <div class="pl-3 grid flex">
+                    <div *ngFor="let items of genderList" class="flex align-items-center mr-3">
+                        <p-radioButton
+                            name="memberGender"
+                            [value]="items.value"
+                            [(ngModel)]="item.memberGender"
+                            inputId="ingredient1"
+                        ></p-radioButton>
+                        <label for="ingredient1" class="ml-2 justify-content-center">
+                            {{ lang === 'th' ? items.nameTh : items.nameEn }}</label
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.birthdate' | translate }}</label
+                    >
+                    <p-calendar
+                        inputId="memberBirthdate"
+                        [(ngModel)]="item.memberBirthdate"
+                        [showIcon]="true"
+                        [hideOnDateTimeSelect]="true"
+                        [lang]="lang"
+                        appThaiCalendar
+                        [lang]="lang"
+                        [clickYear]="clickMemberBirthdate"
+                        (onYearChange)="clickMemberBirthdate = true"
+                        (onSelect)="clickMemberBirthdate = false"
+                    ></p-calendar>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.tel' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberPhoneno" />
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 mb-0 pr-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.address' | translate }}</label
+                    >
+                    <textarea
+                        rows="2"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.memberAdderss.addressDetail"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.province' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="provinceList"
+                        [(ngModel)]="item.memberAdderss.addressProvince"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        (onFilter)="lazyLoadProvince($event)"
+                        (onChange)="lazyLoadAmphur(null)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.district' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="amphurList"
+                        [(ngModel)]="item.memberAdderss.addressAmphur"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        [disabled]="!item.memberAdderss.addressProvince"
+                        (onFilter)="lazyLoadAmphur($event)"
+                        (onChange)="lazyLoadTambon(null)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.subDistrict' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="tambonList"
+                        [(ngModel)]="item.memberAdderss.addressTambon"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        [disabled]="!(item.memberAdderss.addressProvince && item.memberAdderss.addressAmphur)"
+                        (onFilter)="lazyLoadTambon($event)"
+                        (onChange)="changeTambon($event)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0 pt-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.zipcode' | translate }}</label
+                    >
+                    <input pInputText type="text" [(ngModel)]="item.memberAdderss.addressZipcode" />
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4 mx-4">
+            <header class="d-flex justify-content-md-between my-4">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h3 style="color: black">{{ 'userManagement.member.form.status' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid" class="mt-0" />
+            </header>
+        </div>
+
+        <div class="p-fluid mt-4 mx-4">
+            <div class="col-12 md:col-12 grid-flex grid pr-0">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.highest' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="highestEducationalList"
+                        [(ngModel)]="item.maxEducation"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                    <label style="height: 25px"
+                        ><a style="color: red">*</a>{{ 'userManagement.member.form.jobStatus' | translate }}</label
+                    >
+                    <p-dropdown
+                        [options]="currentJobList"
+                        [(ngModel)]="item.currentJob"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid mt-4 mx-4">
+            <header class="d-flex justify-content-md-between my-4">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h3 style="color: black">{{ 'userManagement.user.form.status' | translate }}</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid" class="mt-0" />
+            </header>
+        </div>
+        <div class="mt-4 mx-5">
+            <div class="p-fluid formgrid grid col-12 pt-2 pl-3 gap-4 pb-0 align-items-center">
+                <div class="mb-0 ml-2">
+                    <p-inputSwitch [(ngModel)]="item.activeFlag"></p-inputSwitch>
+                </div>
+                <div class="">
+                    <label style="height: 25px">{{
+                        item ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+                    }}</label>
+                </div>
+            </div>
+
+            <div class="p-fluid formgrid grid col-12"></div>
+            <div class="flex justify-content-center gap-2 mt-4">
+                <div class="">
+                    <p-button
+                        [label]="'common.button.save' | translate"
+                        icon="pi pi-save"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        [disabled]="processing"
+                        (click)="onSave()"
+                    >
+                    </p-button>
+                </div>
+                <div class="">
+                    <p-button
+                        [label]="'common.button.cancel' | translate"
+                        icon="pi pi-times-circle"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                        (click)="onBack()"
+                    >
+                    </p-button>
+                </div>
+            </div>
+
+            <p-confirmDialog #dublecCheck>
+                <ng-template pTemplate="headless" let-message>
+                    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+                        <div
+                            class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+                        >
+                            <i class="pi pi-question text-5xl"></i>
+                        </div>
+                        <span class="font-bold text-2xl block mb-2 mt-4">
+                            {{ message.header }}
+                        </span>
+                        <p class="mb-0">{{ message.message }}</p>
+                        <div class="flex align-items-center gap-2 mt-4">
+                            <button pButton (click)="dublecCheck.accept()" class="w-8rem"></button>
+                            <button pButton (click)="dublecCheck.reject()" class="p-button-outlined w-8rem"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-confirmDialog>
+        </div>
+    </div>
+</p-panel>

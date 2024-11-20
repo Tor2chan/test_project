@@ -1,0 +1,204 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast ></p-toast>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/website-banner' },
+                { label: 'menu.master.news.websiteBanner' | translate, routerLink: '/master/website-banner' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.websiteBanner.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.websiteBanner.criteria.bannerName' | translate }}</label>
+                                <input pInputText [(ngModel)]="criteria.bannerName" type="text" (keyup.enter)="onSearch()" />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="line-height: 2.5" htmlFor="age1">{{
+                                    'master.websiteBanner.criteria.updateDate' | translate
+                                }}</label>
+
+                                <p-calendar
+                                    [showIcon]="true"
+                                    inputId="lastUpDateList"
+                                    [(ngModel)]="criteria.lastUpDateList"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [hideOnDateTimeSelect]="true"
+                                    appThaiCalendar
+                                    [lang]="lang"
+                                    [clickYear]="clickYear"
+                                    (onYearChange)="clickYear = true"
+                                    (onSelect)="clickYear = false"
+                                    ></p-calendar>
+                            </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.websiteBanner.criteria.createBy' | translate }}</label>
+                                    <input pInputText [(ngModel)]="criteria.fullNameTh" type="text" (keyup.enter)="onSearch()" />
+                                </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.websiteBanner.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                menuCode="SDB-MS16003"
+                [label]="'common.button.add' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE')"
+            ></p-button>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.websiteBanner.table.column.bannerName' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 15%">
+                        {{ 'master.websiteBanner.table.column.link' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.websiteBanner.table.column.lastUpdate' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.websiteBanner.table.column.createBy' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.websiteBanner.table.column.bannerImg' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.websiteBanner.table.column.orderBanner' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.status' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'common.mode.edit' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td class="text-center">{{ item.bannerName }}</td>
+                    <td class="text-left"><a [href]="item.bannerLink">{{item.bannerLink}}</a></td>
+                    <td class="text-center">{{item.updateDate | formatdate : lang}}</td>
+                    <td class="text-center">{{ lang === 'th' ? item.fullNameTh : item.fullNameEn }}</td>
+                    <td class="text-center">
+                    <div *ngIf="item.base64">
+                        <p-image [preview]="true" alt="Banner Img 1680x600" width="97" height="25" [src]="item.base64" />
+                    </div>
+                    <div *ngIf="!!!item.base64">
+                        <p-image alt="Banner Img 1680x600" width="97" height="25" [src]="imgSrc" />
+                    </div> </td>
+                    <td class="text-center">{{item.orderBy}}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center">
+                        <span
+                            (click)="openPage('EDIT', item.bannerId)"
+                            class="pi pi-pencil cursor-pointer pr-2"
+                        ></span>
+                        <span
+                            class="pi pi-trash cursor-pointer"
+                            (click)="deleteBanner(item.bannerId)"
+                        ></span>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="9">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-confirmDialog
+                    header="{{ lang === 'th' ? 'การยืนยัน' : 'Confirmation' }}"
+                    key="confirm1"
+                    icon="pi pi-exclamation-triangle"
+                    message="{{ 'newsManagement.comfirmDelete' | translate }}"
+                    [style]="{ width: '350px' }"
+                    acceptButtonStyleClass="p-button-text"
+                    rejectButtonStyleClass="p-button-text"
+                    acceptLabel="{{ lang === 'th' ? 'ลบ' : 'Yes' }}"
+                    rejectLabel="{{ lang === 'th' ? 'ยกเลิก' : 'No' }}"
+                >
+                </p-confirmDialog>
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-website-banner-manage
+        [mode]="mode"
+        (backToListPage)="openPage($event)"
+        [item]="editData"
+    ></app-website-banner-manage>
+</div>

@@ -1,0 +1,352 @@
+<p-toast id="lv1" (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="modeChilde === 'MAIN'">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ information, consentmanage,
+            {
+                label:
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                    ('menu.master.consent.name' | translate)
+            }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">
+                {{ (mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate }}{{ 'master.consentManagement.table.common.addForm' | translate }}
+
+            </h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+    <div class="flex-wrap">
+        <header>
+            <h5>{{ 'master.consentManagement.form.detailSection' | translate }}</h5>
+        </header>
+        <hr />
+        <div class="d-flex justify-content-md-between">
+
+            <div class="pl-2 field-radiobutton flex grid mb-0">
+                <div class="mr-2">
+                    <label><a  style="color: red">*</a> {{ 'master.consentManagement.table.column.formType' | translate }} : </label>
+                </div>
+                <div class="pt-2 pl-2 flex grid">
+                    <div class="mr-2">
+                        <input type="radio" id="ApplyFormembership" value="30018001" [(ngModel)]="item.formType" />
+                        <label for="ApplyFormembership">{{
+                            'master.consentManagement.form.formType.listType.register' | translate
+                            }}</label>
+                    </div>
+                    <div class="mr-2">
+                        <input type="radio" id="IssueAcertificate" value="30018002" [(ngModel)]="item.formType" />
+                        <label for="IssueAcertificate">{{
+                        'master.consentManagement.form.formType.listType.consentCert' | translate
+                        }}</label>
+                    </div>
+                    <div class="mr-2">
+                        <input type="radio" id="ApplyForcourse" value="30018004" [(ngModel)]="item.formType" />
+                        <label for="ApplyForcourse">{{
+                            'master.consentManagement.form.formType.listType.applycourse' | translate
+                        }}</label>
+                    </div>
+                    <div class="mr-2">
+                        <input type="radio" id="other" value="30018003" [(ngModel)]="item.formType" />
+                        <label for="other">{{ 'master.consentManagement.form.formType.listType.etc' | translate }}</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <small *ngIf="showError && !!!item.formType" class="p-error" id="text-error">
+            {{ 'common.pleaseEnter' | translate }}
+        </small>
+    </div>
+    <br />
+    <div class="d-flex justify-content-md-between ">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.criteria.formNameTh' | translate }} </label>
+        </div>
+        <input
+            class="p-fluid p-formgrid col-12 md: col-12"
+            type="text"
+            pInputText
+            [(ngModel)]="item.formNameTh"
+            rows="2"
+            cols="40"
+        />
+    </div>
+    <small *ngIf="showError && !!!item.formNameTh" class="p-error" id="text-error">
+        {{ 'common.pleaseEnter' | translate }}
+    </small>
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.criteria.formNameEn' | translate }} </label>
+        </div>
+        <input
+            class="p-fluid p-formgrid col-12 md: col-12"
+            type="text"
+            pInputText
+            [(ngModel)]="item.formNameEn"
+            rows="2"
+            cols="40"
+        />
+    </div>
+    <small *ngIf="showError && !!!item.formNameEn" class="p-error" id="text-error">
+        {{ 'common.pleaseEnter' | translate }}
+    </small>
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.criteria.versionNo' | translate }} </label>
+        </div>
+        <input
+            class="p-fluid p-formgrid col-12 md: col-12"
+            type="text"
+            pInputText
+            [(ngModel)]="item.versionNo"
+            rows="2"
+            cols="40"
+        />
+    </div>
+    <small *ngIf="showError && !!!item.versionNo" class="p-error" id="text-error">
+        {{ 'common.pleaseEnter' | translate }}
+    </small>
+    <br />
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.form.formType.formDetailTh' | translate }} </label>
+        </div>
+        <p-editor [(ngModel)]="item.formDetailTh" [style]="{ height: '320px' }">
+            <ng-template pTemplate="header">
+                <span class="ql-formats">
+                    <select class="ql-size">
+                        <option value="small"></option>
+                        <option selected></option>
+                        <option value="large"></option>
+                        <option value="huge"></option>
+                    </select>
+                </span>
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <select class="ql-align">
+                        <option selected></option>
+                        <option value="center"></option>
+                        <option value="right"></option>
+                        <option value="justify"></option>
+                    </select>
+                </span>
+            </ng-template>
+        </p-editor>
+    </div>
+    <small *ngIf="showError && !!!item.formDetailTh" class="p-error" id="text-error">
+        {{ 'common.pleaseEnter' | translate }}
+    </small>
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.form.formType.formDetailEn' | translate }} </label>
+        </div>
+        <p-editor [(ngModel)]="item.formDetailEn" [style]="{ height: '320px' }">
+            <ng-template pTemplate="header">
+                <span class="ql-formats">
+                    <select class="ql-size">
+                        <option value="small"></option>
+                        <option selected></option>
+                        <option value="large"></option>
+                        <option value="huge"></option>
+                    </select>
+                </span>
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <select class="ql-align">
+                        <option selected></option>
+                        <option value="center"></option>
+                        <option value="right"></option>
+                        <option value="justify"></option>
+                    </select>
+                </span>
+            </ng-template>
+        </p-editor>
+    </div>
+    <small *ngIf="showError && !!!item.formDetailEn" class="p-error" id="text-error">
+        {{ 'common.pleaseEnter' | translate }}
+    </small>
+    <br />
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.form.formType.note' | translate }} (TH)</label>
+        </div>
+        <input
+            [(ngModel)]="item.formNoteTh"
+            class="p-fluid p-formgrid col-12 md: col-12"
+            type="text"
+            pInputText
+            rows="2"
+            cols="40"
+        />
+        <small *ngIf="showError && !!!item.formNoteTh" class="p-error" id="text-error">
+            {{ 'common.pleaseEnter' | translate }}
+        </small>
+    </div>
+    <div class="d-flex justify-content-md-between pt-5">
+        <div class="field-radiobutton">
+            <label><a  style="color: red">*</a> {{ 'master.consentManagement.form.formType.note' | translate }} (EN)</label>
+        </div>
+        <input
+            [(ngModel)]="item.formNoteEn"
+            class="p-fluid p-formgrid col-12 md: col-12"
+            type="text"
+            pInputText
+            rows="2"
+            cols="40"
+        />
+        <small *ngIf="showError && !!!item.formNoteEn" class="p-error" id="text-error">
+            {{ 'common.pleaseEnter' | translate }}
+        </small>
+    </div>
+    <br />
+
+    <div class="flex-wrap">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">
+                    {{ 'master.consentManagement.form.formType.subform.consentPersonal' | translate }}
+                </h5>
+            </div>
+            <p-button
+                [label]="'master.consentManagement.form.formType.subform.name' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-info p-button-sm"
+                size="small"
+                (click)="openPage('CREATE_CHILDE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+
+        <p-confirmDialog
+            header="{{ 'newsManagement.comfirmDeleteHeader' | translate }}"
+            key="confirm1"
+            icon="pi pi-exclamation-triangle"
+            message="{{ 'newsManagement.comfirmDelete' | translate }}"
+            [style]="{ width: '350px' }"
+        ></p-confirmDialog>
+        <p-table
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            styleClass="p-datatable-striped"
+            (onPage)="fetchTable($event)"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="items.length === 0 ? '' : ('common.table.pageMessage' | translate)"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center" style="width: 5%">{{ 'common.table.column.no' | translate }}</th>
+                    <th style="width: 80%">
+                        {{ 'master.consentManagement.form.formType.subform.consentPersonal' | translate }}
+                    </th>
+                    <th class="text-center" style="width: 15%">{{ 'common.manage' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === "th" ? item.consentDiscloseTh : item.consentDiscloseEn }}</td>
+                    <td class="text-center">
+                        <span (click)="openPage('EDIT_CHILDE', item)" class="pi pi-pencil cursor-pointer pr-2"></span>
+                        <span class="pi pi-trash cursor-pointer" (click)="deleteConsentDisclose($event, item)"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="3">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+    <div class="flex-wrap">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'newsManagement.status' | translate }}</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="col-12 lg:col-4 md:col-8 sm:col-12 flex align-items-center">
+            <p-inputSwitch [(ngModel)]="item.consentStatus"></p-inputSwitch>
+            <label class="pl-3">{{ 'newsManagement.active' | translate }}</label>
+        </div>
+        <!-- <div class="d-flex justify-content-md-between">
+            <div class="field-radiobutton">
+                <label> {{ 'master.consentManagement.form.formType.tableAgree.nameBtn' | translate }} </label>
+            </div>
+            <input
+                [(ngModel)]="item.acceptButton"
+                class="p-fluid p-formgrid col-12 md: col-12"
+                type="text"
+                pInputText
+                rows="5"
+                cols="20"
+            />
+        </div>
+        <small *ngIf="showError && !!!item.acceptButton" class="p-error" id="text-error">
+            {{ 'common.pleaseEnter' | translate }}
+        </small> -->
+        <br />
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    permission
+                    [menuCode]="mode === 'CREATE' ? 'SDB-MS1002' : 'SDB-MS1004'"
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<div *ngIf="modeChilde === 'CREATE_CHILDE' || modeChilde === 'EDIT_CHILDE'">
+    <!-- function not found -->
+    <!-- (callback)="callBack($event)" -->
+    <app-consent-disclose-management
+        [modeChilde]="modeChilde"
+        [mode]="mode"
+        [item]="editData"
+        (backToMain)="callbackChilde($event)"
+    ></app-consent-disclose-management>
+</div>

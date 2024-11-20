@@ -1,0 +1,508 @@
+<p-toast id="lv1" (onClose)="onClose($event)"></p-toast>
+
+<p-panel *ngIf="modeChilde === 'MAIN'">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0"
+            [model]="[ news_information,
+                {
+                    label: 'newsManagement.addNewsInformation' | translate,
+                },
+                
+            ]"[home]="{ icon: 'pi pi-home', routerLink: '/' }"
+
+        >
+        </p-breadcrumb>
+    </ng-template>
+    <header class="d-flex justify-content-md-between">
+        
+        <h3 style="color: red">{{ 'newsManagement.addGeneralNewsInformation' | translate }}</h3>
+        <hr style="border-top: 1px solid red" />
+        <h5>{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.detailSection' | translate }}</h5>
+        <p-divider type="solid"></p-divider>
+    </header>
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid pb-4">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col">
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label
+                                ><a  style="color: red">*</a
+                                >{{ 'newsManagement.newsType' | translate }}</label
+                            >
+
+                            <p-dropdown
+                                [options]="newsFormatList"
+                                [(ngModel)]="item.newsFormat"
+                                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                optionValue="value"
+                                [showClear]="true"
+                                [filter]="false"
+                                [placeholder]="'newsManagement.refNewsType' | translate"
+                                [class]="showError == true && !!!item.newsFormat ? 'ng-invalid ng-dirty' : ''"
+                            >
+                            </p-dropdown>
+                            <small *ngIf="showError && !!!item.newsFormat" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label
+                                >{{ 'newsManagement.newsHilight' | translate }}</label
+                            >
+                            <p-dropdown
+                                [options]="hilightNewsList"
+                                [(ngModel)]="item.newsHilight"
+                                [optionLabel]="'value'"
+                                optionValue="value"
+                                [showClear]="true"
+                                [filter]="false"
+                                [placeholder]="'newsManagement.newsHilight' | translate"
+                                [class]="showError == true && !!!item.newsHilight ? 'ng-invalid ng-dirty' : ''"
+                            >
+                            </p-dropdown>
+                            <small *ngIf="showError && !!!item.newsHilight" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label
+                                ><a style="color: red">*</a
+                                >{{ 'newsManagement.newsHeadlines' | translate }}</label
+                            >
+                            <input
+                                pInputText
+                                type="text"
+                                [(ngModel)]="item.newsHeading"
+                                placeholder="{{ 'newsManagement.newsHeadlines' | translate }}"
+                                [class]="showError == true && !!!item.newsHeading ? 'ng-invalid ng-dirty' : ''"
+                            />
+                            <small *ngIf="showError && !!!item.newsHeading" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid pb-4">
+            <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                <label
+                    ><a style="color: red">*</a
+                    ><b>{{ 'newsManagement.newsDetail' | translate }}</b></label
+                >
+                <small *ngIf="showError && !!!item.newsDetail" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+
+            <div class="col-12 lg:col-12 xl:col-12 md:block sm:block align-items-center justify-content-center">
+                <div class="col-12 lg:col-8 md:col-12 sm:col-12 align-items-center justify-content-left">
+                    <p-editor
+                        [(ngModel)]="item.newsDetail"
+                        [style]="{
+                    height: '470px',}"
+                        [class]="showError == true && !!!item.newsDetail ? 'ng-invalid ng-dirty' : ''"
+                    >
+                        <ng-template pTemplate="header">
+                            <span class="ql-formats">
+                                <select class="ql-size">
+                                    <option value="small"></option>
+                                    <option selected></option>
+                                    <option value="large"></option>
+                                    <option value="huge"></option>
+                                </select>
+                            </span>
+                            <span class="ql-formats">
+                                <button type="button" class="ql-bold" aria-label="Bold"></button>
+                                <button type="button" class="ql-italic" aria-label="Italic"></button>
+                                <button type="button" class="ql-underline" aria-label="Underline"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-list" value="ordered"></button>
+                                <button class="ql-list" value="bullet"></button>
+                                <select class="ql-align">
+                                    <option selected></option>
+                                    <option value="center"></option>
+                                    <option value="right"></option>
+                                    <option value="justify"></option>
+                                </select>
+                            </span>
+                        </ng-template>
+                    </p-editor>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col">
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <div class="flex align-items-center mb-2">
+                                <label
+                                    ><a  style="color: red">*</a
+                                    >{{ 'newsManagement.cover' | translate }}</label
+                                >
+                                &nbsp;&nbsp;
+                                <label
+                                    *ngIf="item.filename && !showUpload"
+                                    class="pi pi-trash cursor-pointer flex justify-content-center"
+                                    (click)="showUpload = !showUpload"
+                                ></label>
+                                &nbsp;&nbsp;
+
+
+                            </div>
+                            <!-- <small >{{ 'common.button.validateImg670x420' | translate }}</small> -->
+                            <!-- <small *ngIf="showError && !!!item.filename" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small> -->
+                        </div>
+                        <div
+                            class="col-12 lg:col-12 xl:col-12 md:block sm:block align-items-center justify-content-center"
+                        >
+                        <div class=" col-8">
+
+
+                        <p-fileUpload
+                                    #fileUpload
+                                    *ngIf="showUpload"
+                                    (uploadHandler)="onAdvancedUpload($event)"
+                                    (onRemove)="onRemoveUpload($event, fileUpload)"
+                                    [chooseLabel]="'common.button.uploadImg' | translate"
+                                    name="file"
+                                    accept="image/*"
+                                    [auto]="true"
+                                    [invalidFileSizeMessageDetail]="lang == 'th' ? 'โปรดลองอีกครั้ง':'Please try again' "
+                                    [invalidFileSizeMessageSummary]="lang == 'th'? 'ไฟล์ที่อัปโหลดมีขนาดเกิน 5 MB':'The uploaded file exceeds the size 5 MB'"
+                                    [multiple]="false"
+                                    [customUpload]="true"
+                                    [fileLimit]="1"
+                                    (load)="onCheckImageSize($event)"
+                                    [class]="  showError == true && this.showUpload && !!!item.filename
+                                    ? 'ng-invalid ng-dirty': ''">
+                                </p-fileUpload>
+                            </div>
+                            <div class="flex align-items-center justify-content-left" style="object-fit: contain">
+
+                                <p-image
+                                    *ngIf="item.filename && !showUpload"
+                                    [src]="imgSrc"
+                                    [preview]="true"
+                                    alt="coverNews"
+                                    [style]="imageStyle"
+
+                                    [imageStyle]="{
+                                        width: '100%',
+                                        height: '420px',
+                                        'object-fit': 'contain',
+                                        'object-position': 'left',
+                                        'max-height.px': '420',
+                                        'max-width.px': '670'
+                                    }"
+                                />
+
+                            </div>
+                            <small style="color: red;" *ngIf="showErrorOverImg && showError">{{ 'common.button.validateImg670x420' | translate }}</small>
+                            <small *ngIf="showError && !!!this.showUpload" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col">
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label>{{ 'newsManagement.newsRange' | translate }}</label>
+                        </div>
+                        <p-divider type="solid"></p-divider>
+                        <div class="flex">
+                            <div class="flex-1 md:flex-none flex align-items-center justify-content">
+                                <div class="formgrid grid col-12">
+                                    <div class="col-12 lg:col-6 md:col-8 sm:col-12">
+                                        <label
+                                            ><a style="color: red">*</a
+                                            >{{ 'newsManagement.publicRelationStartDate' | translate }}</label
+                                        >
+                                    </div>
+                                    <div class="col-12 lg:col-12 md:col-8 sm:col-12">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="newsStart"
+                                            [(ngModel)]="item.newsStart"
+                                            [placeholder]="'common.pleaseSelect' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickNewsStart"
+                                            (onYearChange)="clickNewsStart = true"
+                                            (onSelect)="clickNewsStart = false"
+                                            [class]="
+                                                showError == true && !!!item.newsStart ? 'ng-invalid ng-dirty' : ''
+                                            "
+                                        ></p-calendar>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 md:flex-none flex align-items-center justify-content">
+                                <div class="formgrid grid col-12">
+                                    <div class="col-12 lg:col-6 md:col-8 sm:col-12">
+                                        <label
+                                            ><a  style="color: red">*</a
+                                            >{{ 'newsManagement.publicRelationEndDate' | translate }}</label
+                                        >
+                                    </div>
+                                    <div class="col-12 lg:col-12 md:col-8 sm:col-12">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="newsEnd"
+                                            [(ngModel)]="item.newsEnd"
+                                            [placeholder]="'common.pleaseSelect' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickNewsEnd"
+                                            (onYearChange)="clickNewsEnd = true"
+                                            (onSelect)="clickNewsEnd = false"
+                                            [class]="showError == true && !!!item.newsEnd ? 'ng-invalid ng-dirty' : ''"
+                                        ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.newsStart && !!!item.newsEnd"
+                            class="p-error"
+                            id="text-error"
+                        >
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col">
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label>{{ 'newsManagement.newNews' | translate }}</label>
+                        </div>
+                        <p-divider type="solid"></p-divider>
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12 flex align-items-center">
+                            <p-inputSwitch [(ngModel)]="item.newFlag" (onChange)="newStatus($event)"></p-inputSwitch>
+                            <label class="pl-3">{{ 'newsManagement.newNews' | translate }}</label>
+                        </div>
+                        <!-- asd -->
+                        <div class="flex" *ngIf="item.newFlag">
+                            <div class="flex-1 md:flex-none flex align-items-center justify-content">
+                                <div class="formgrid grid col-12">
+                                    <div class="col-12 lg:col-6 md:col-8 sm:col-12">
+                                        <label
+                                            ><a  style="color: red">*</a
+                                            >{{ 'newsManagement.newNewsStartDate' | translate }}</label
+                                        >
+                                    </div>
+                                    <div class="col-12 lg:col-12 md:col-8 sm:col-12">
+                                        <p-calendar
+                                            inputId="newsStart"
+                                            [(ngModel)]="item.newIconStart"
+                                            [showIcon]="true"
+                                            appThaiCalendar
+                                            [lang]="translate.currentLang"
+                                            [class]="
+                                                showError == true && !!!item.newIconStart ? 'ng-invalid ng-dirty' : ''
+                                            "
+                                        ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 md:flex-none flex align-items-center justify-content">
+                                <div class="formgrid grid col-12">
+                                    <div class="col-12 lg:col-6 md:col-8 sm:col-12">
+                                        <label
+                                            ><a  style="color: red">*</a
+                                            >{{ 'newsManagement.newNewsEndDate' | translate }}</label
+                                        >
+                                    </div>
+                                    <div class="col-12 lg:col-12 md:col-8 sm:col-12">
+                                        <p-calendar
+                                            inputId="newsEnd"
+                                            [(ngModel)]="item.newIconEnd"
+                                            [showIcon]="true"
+                                            appThaiCalendar
+                                            [lang]="translate.currentLang"
+                                            [class]="
+                                                showError == true && !!!item.newIconEnd ? 'ng-invalid ng-dirty' : ''
+                                            "
+                                        ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <small
+                                *ngIf="showError && !!!item.newIconStart && !!!item.newIconEnd"
+                                class="p-error"
+                                id="text-error"
+                            >
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                        <!-- asd -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col">
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12">
+                            <label>{{ 'newsManagement.status' | translate }}</label>
+                        </div>
+                        <p-divider type="solid"></p-divider>
+                        <div class="col-12 lg:col-4 md:col-8 sm:col-12 flex align-items-center">
+                            <p-inputSwitch [(ngModel)]="item.activeFlag"></p-inputSwitch>
+                            <label class="pl-3">{{ 'newsManagement.active' | translate }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-wrap">
+            <div class="flex justify-content-between">
+                <div>
+                    <label>{{ 'newsManagement.document' | translate }}</label>
+                </div>
+                <div>
+                    <p-button
+                        [label]="'newsManagement.uploadFile' | translate"
+                        icon="pi pi-upload"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        (click)="openPage('CREATE_CHILDE')"
+                    >
+                    </p-button>
+                </div>
+            </div>
+            <p-divider type="solid"></p-divider>
+            <div class="col-12">
+                <p-confirmDialog
+                    header="{{ 'newsManagement.comfirmDeleteHeader' | translate }}"
+                    key="confirm1"
+                    icon="pi pi-exclamation-triangle"
+                    message="{{ 'newsManagement.comfirmDelete' | translate }}"
+                    [style]="{ width: '350px' }"
+                ></p-confirmDialog>
+                <p-table
+                    [value]="items"
+                    [totalRecords]="totalRecords"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [lazy]="true"
+                    [rows]="5"
+                    [rowsPerPageOptions]="[5, 10, 20]"
+                    styleClass="p-datatable-striped"
+                    (onPage)="fetchTable($event)"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [showCurrentPageReport]="true"
+                    [currentPageReportTemplate]="items.length === 0 ? '' : ('common.table.pageMessage' | translate)"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th scope="col" class="text-center" style="width: 5%">
+                                {{ 'common.table.column.no' | translate }}
+                            </th>
+                            <th scope="col" style="width: 10%">
+                                {{ 'newsManagement.fileName' | translate }}
+                            </th>
+                            <th scope="col" class="text-center" style="width: 10%">
+                                {{ 'Link' | translate }}
+                            </th>
+                            <th scope="col" class="text-center" style="width: 5%">
+                                {{ 'newsManagement.manage' | translate }}
+                            </th>
+                            <!-- <th scope="col" class="text-center" style="width: 5%" *ngIf="mode === 'CREATE'">
+                                            {{ 'newsManagement.manage' | translate }}
+                                        </th> -->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td class="text-center">
+                                {{ item.rowNum }}
+                            </td>
+                            <td>{{ lang === 'th' ? item.fileNameTh : item.fileNameEn }}</td>
+                            <td class="text-center">
+                                <span
+                                    *ngIf="item.filename"
+                                    class="pi pi-file-pdf text-primary cursor-pointer"
+                                    (click)="previewFile(item)"
+                                ></span>
+                            </td>
+                            <td class="text-center">
+                                <span
+                                    class="pi pi-trash cursor-pointer"
+                                    (click)="deleteNewsInfoAttach($event, item)"
+                                ></span>
+                            </td>
+                            <!-- <td class="text-center"  *ngIf="mode === 'CREATE'">
+                                            <span
+                                                class="pi pi-trash cursor-pointer"
+                                                (click)="deleteNewsInfoAttach($event, item)"
+                                            ></span>
+                                        </td> -->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td class="text-center" colspan="4">{{ 'common.dataNotFound' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center gap-2 mt-4">
+        <div class="">
+            <p-button
+                [label]="'common.button.save' | translate"
+                icon="pi pi-save"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="onSave()"
+            >
+            </p-button>
+        </div>
+        <div class="">
+            <p-button
+                [label]="'common.button.cancel' | translate"
+                icon="pi pi-times-circle"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (click)="onBack()"
+            >
+            </p-button>
+        </div>
+    </div>
+</p-panel>
+<div *ngIf="modeChilde === 'CREATE_CHILDE' || modeChilde === 'EDIT_CHILDE'">
+    <!-- function not found  -->
+    <!-- (callback)="callBack($event)" -->
+    <app-news-management-documents-manage
+        [modeChilde]="modeChilde"
+        [item]="editData"
+        (backToMain)="callbackChilde($event)"
+    ></app-news-management-documents-manage>
+</div>

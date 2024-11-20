@@ -1,0 +1,1 @@
+export type MoodleActivityData = {[key: string]: { [key: string]: any }};

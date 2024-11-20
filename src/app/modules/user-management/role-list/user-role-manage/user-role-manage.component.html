@@ -1,0 +1,200 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="mode === 'CREATE' && initForm" permission menuCode="SDB-UM1007">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.user' | translate },
+                { label: 'userManagement.role.name' | translate, routerLink: '/user-management/role' },
+                { label: 'userManagement.userRole.name.add' | translate }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid">
+        <header class="d-flex justify-content-md-between">
+            <div class="flex justify-content-between">
+                <h3 style="color: var(--font-color-header)">{{ 'userManagement.userRole.name.add' | translate }}</h3>
+                <p-button
+                    [label]="'common.button.back' | translate"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    icon="pi pi-chevron-left"
+                    (click)="onBack()"
+                >
+                </p-button>
+            </div>
+        </header>
+        <hr style="border-top: 1px solid var(--font-color-header)" />
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.userRole.table.column.username' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.username"
+                                    type="text"
+                                    (keyup.enter)="fetchData()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.userRole.table.column.fullname' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.firstnameTh"
+                                    type="text"
+                                    (keyup.enter)="fetchData()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.userRole.table.column.email' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.email"
+                                    type="text"
+                                    (keyup.enter)="fetchData()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'userManagement.userRole.table.column.department' | translate }}</label>
+                                <!-- [disabled]="[30025004, 30025003, 30025002].includes(accessLevel)" -->
+                                <p-dropdown
+                                    [options]="departmentLevel1List"
+                                    [(ngModel)]="criteria.depIdLevel1"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    (onClick)="lazyLoadDepartmentLevel1()"
+                                    (onFilter)="lazyLoadDepartmentLevel1($event)"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="fetchData()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <div class="flex gap-4">
+                    <span>
+                        <h5 class="mt-2 mb-0">{{ 'userManagement.userRole.table.name' | translate }}</h5>
+                    </span>
+                    <span>
+                        <h2 style="color: var(--font-color-header)">({{ name }})</h2>
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (click)="onSave()"
+                />
+            </div>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [(selection)]="selectDatas"
+            [value]="items"
+            dataKey="userId"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="rows"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="fetchData($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" style="width: 5%" class="text-center">&nbsp;</th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'userManagement.userRole.table.column.username' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 25%">
+                        {{ 'userManagement.userRole.table.column.fullname' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 20%">
+                        {{ 'userManagement.userRole.table.column.email' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 30%">
+                        {{ 'userManagement.userRole.table.column.department' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                    </td>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>
+                        <span class="flex">
+                            {{ lang === 'th' ? item.firstnameTh : item.firstnameEn }}
+                            &nbsp;&nbsp;
+                            {{ lang === 'th' ? item.lastnameTh : item.lastnameEn }}
+                        </span>
+                    </td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ lang === 'th' ? item.depNameTh : item.depNameEn }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="6">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <br /><br />
+    </div>
+</p-panel>

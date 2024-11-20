@@ -1,0 +1,375 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<p-panel *ngIf="item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+            { label: 'common.module.master' | translate, routerLink: '/master/setting-receipt'},
+            { label: 'master.settingReceipt.name' | translate, routerLink: '/master/setting-receipt'}]"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div>
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.settingReceipt.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="m-2">
+        <!-- header -->
+        <div class="mt-4 mb-2">
+            <header class="d-flex justify-content-between">
+                <h5>{{ 'master.settingReceipt.header' | translate }}</h5>
+                <hr style="border-top: 1px solid" />
+            </header>
+
+            <div class="p-fluid p-formgrid grid mr-2 ml-2">
+                <div class="col-12">
+                    <div>
+                        <label
+                        ><a style="color: red">*</a>
+                            {{ 'master.settingReceipt.logo' | translate }}
+                        </label
+                        >
+                        <span
+                            *ngIf="item.logoPath && !showUploadLogo"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageLogo()"
+                        ></span>
+                    </div>
+
+                    <div *ngIf=" !!!item.filename">
+                        <p-image
+                            *ngIf="item.logoPath && !showUploadLogo"
+                            class="p-0 col-12"
+                            [src]="imgSrcLogo"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'center',
+                                'max-height.px': '400',
+                            }"
+                        />
+
+                    </div>
+                    <div >
+                        <p-fileUpload
+                            *ngIf="showUploadLogo || !!!item.logoPath"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadLogo($event)"
+                            (onRemove)="onRemoveUploadLogo($event, fileUpload)"
+                            [chooseLabel]=" 'common.pleaseSelect' | translate "
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="showError == true && !!!item.logoPath ? 'ng-invalid ng-dirty' : ''"
+                            [ngStyle]="{ 'max-width.px': 400, 'max-height.px': 400 }"
+                            (load)="onCheckImageSize($event)"
+                            >
+                            <!-- <ng-template pTemplate="content" let-files >
+                                <div *ngIf="!!!item.logoPath">{{ 'common.dragAndDrop' | translate}}</div>
+                            </ng-template> -->
+
+                        </p-fileUpload>
+
+
+
+
+                        <div style="opacity: 60%;">{{  lang === 'th' ? '.png/.jpg/.jpeg ขนาด 400x400px' : '.png/.jpg/.jpeg size 400x400px' }}</div>
+
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{ lang ==='th' ? 'กรุณาใส่ภาพขนาดไม่เกิน 400x400 px' : 'Please upload an image no larger than 400x400 px.' }}
+                        </small>
+                    </div>
+
+                    <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+
+
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.taxId' | translate }}
+                    </label>
+                    <p-inputNumber
+                        mode="decimal"
+                        [useGrouping]="false"
+                        [(ngModel)]="item.depTaxId"
+                        [class]="showError == true && !!!item.depTaxId ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.depTaxId" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.depNameTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="item.depNameTh"
+                        [class]="showError == true && !!!item.depNameTh ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.depNameTh" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.depNameEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="item.depNameEn"
+                        [class]="showError == true && !!!item.depNameEn ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.depNameEn" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.depAddressTh' | translate }}
+                    </label>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.depAddressTh"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                        [class]="showError == true && !!!item.depAddressTh ? 'ng-invalid ng-dirty' : ''"
+                    ></textarea>
+                    <small *ngIf="showError && !!!item.depAddressTh" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.depAddressEn' | translate }}
+                    </label>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.depAddressEn"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                        [class]="showError == true && !!!item.depAddressEn ? 'ng-invalid ng-dirty' : ''"
+                    ></textarea>
+                    <small *ngIf="showError && !!!item.depAddressEn" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        {{ 'master.settingReceipt.receiptPrefix' | translate }}
+                    </label>
+                    <input pInputText type="text" [(ngModel)]="item.receiptPrefix" />
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="mt-4 mb-2">
+            <header class="d-flex justify-content-between">
+                <h5>{{ 'master.settingReceipt.footer' | translate }}</h5>
+                <hr style="border-top: 1px solid" />
+            </header>
+
+            <div class="p-fluid p-formgrid grid mr-2 ml-2">
+                <div class="col-12">
+                    <label style="height: 25px">
+                        {{ 'master.settingReceipt.noteTh' | translate }}
+                    </label>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.receiptNoteTh"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                    ></textarea>
+                </div>
+                <div class="col-12">
+                    <label style="height: 25px">
+                        {{ 'master.settingReceipt.noteEn' | translate }}
+                    </label>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.receiptNoteEn"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                    ></textarea>
+                </div>
+                <div class="col-12">
+                    <label style="height: 25px">
+                        {{ 'master.settingReceipt.remark' | translate }}
+                    </label>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        pInputTextarea
+                        [(ngModel)]="item.receiptRemark"
+                        style="resize: vertical; min-height: 80px; max-height: 200px"
+                    ></textarea>
+                </div>
+
+                <div class="col-12">
+                    <div>
+                        <label
+                        ><a style="color: red">*</a>
+                        {{ 'master.settingReceipt.signature' | translate }}
+                        </label
+                        >
+                        <span
+                            *ngIf="item.staffSignaturePath && !showUploadStaffSignature"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageStaffSignature()"
+                        ></span>
+                    </div>
+
+                    <div *ngIf=" !!!item.filename">
+                        <p-image
+                            *ngIf="item.staffSignaturePath && !showUploadStaffSignature"
+                            class="p-0 col-12"
+                            [src]="imgSrcStaffSignature"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'center',
+                                'max-height.px': '400',
+                            }"
+                        />
+
+                    </div>
+
+                    <div >
+                        <p-fileUpload
+                            *ngIf="showUploadStaffSignature || !!!item.staffSignaturePath"
+                            #fileUploadSign
+                            (uploadHandler)="onAdvancedUploadStaffSignature($event)"
+                            (onRemove)="onRemoveUploadStaffSignature($event, fileUploadSign)"
+                            [chooseLabel]=" 'common.pleaseSelect' | translate "
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="showError == true && !!!item.staffSignaturePath ? 'ng-invalid ng-dirty' : ''"
+                            [ngStyle]="{ 'max-width.px': 400, 'max-height.px': 400 }"
+                            (load)="onCheckImageSize($event)"
+
+                        >
+                            <!-- <ng-template pTemplate="content" let-files >
+                                <div *ngIf="!!!item.staffSignaturePath">{{ 'common.dragAndDrop' | translate}}</div>
+                            </ng-template> -->
+
+                        </p-fileUpload>
+                        <div style="opacity: 60%;">{{  lang === 'th' ? '.png/.jpg/.jpeg ขนาด 400x400px' : '.png/.jpg/.jpeg size 400x400px' }}</div>
+
+
+                        <small *ngIf="showError && !!!item.filename" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{ 'กรุณาใส่ภาพขนาดไม่เกิน 400x400 px' | translate }}
+                        </small>
+                    </div>
+
+                    <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.staffName' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="item.staffName"
+                        [class]="showError == true && !!!item.staffName ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.staffName" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+                <div class="col-12">
+                    <label style="height: 25px">
+                        <a style="color: red">*</a>
+                        {{ 'master.settingReceipt.staffPosition' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="item.staffPosition"
+                        [class]="showError == true && !!!item.staffPosition ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.staffPosition" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col m-4">
+            <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+                <!-- <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.cancel' | translate"
+                        icon="pi pi-times-circle"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                    ></p-button>
+                </div> -->
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        permission
+                        menuCode="SDB-MS14002"
+                        [label]="'common.button.save' | translate"
+                        icon="pi pi-save"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        (onClick)="onSave()"
+                        [disabled]="processing"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</p-panel>

@@ -1,0 +1,356 @@
+<div *ngIf="mode === 'LIST'" permission menuCode="SDB-TC1005" >
+    <p-panel>
+        <div class="p-fluid">
+            <header class="flex justify-content-between">
+                <div class="flex align-items-end">
+                    <h3 style="color: var(--font-color-header)">{{ 'teacherPortal.savestudyresult' | translate }}</h3>
+               </div>
+                <div class="flex align-items-end">
+                    <p-button [label]="'teacherPortal.viewcoursedetail' | translate" icon=""
+                        styleClass="p-button-primary p-button-sm" size="small" (click)="previewCoursepublic()">
+                    </p-button>
+                </div>
+            </header>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </div>
+        <div class="p-fluid mt-4 formgrid grid ">
+            <div class="col-6">
+                <h3 style="color: gray">{{courseInfoData.courseCode +
+                    '-' +
+                (lang === 'th' ? courseInfoData.publicNameTh : courseInfoData.publicNameEn)}}</h3>  
+            </div>
+        </div>
+        <div class="mt-4">
+            <p-accordion [activeIndex]="0">
+                <p-accordionTab [header]="'common.searchData' | translate">
+                    <div class="container">
+                        <div class="formgrid grid ml-1">
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'teacherPortal.memberId' | translate }}</label>
+                                    <input pInputText type="text" [(ngModel)]="criteria.memberNo"
+                                         />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'teacherPortal.nameSurname' | translate }}</label>
+                                    <input  *ngIf="lang=='th'" pInputText type="text" [(ngModel)]="criteria.nameOrSurnameTh"
+                                     />
+                                    <input  *ngIf="lang!='th'" pInputText type="text" [(ngModel)]="criteria.nameOrSurnameEn"
+                                     />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'teacherPortal.coursestatus' | translate }}</label>
+                                    <p-dropdown [options]="studyStatusList" [(ngModel)]="criteria.studyStatus"
+                                        [optionLabel]="lang==='th'?'nameTh':'nameEn'" optionValue="value"
+                                        [showClear]="true" [filter]="false" [placeholder]="'teacherPortal.pleaseselect' | translate">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-content-center gap-2 mt-4">
+                            <div class="">
+                                <p-button [label]="'common.button.search' | translate" icon="pi pi-search"
+                                    styleClass="p-button-primary p-button-sm" size="small" (click)="onSearch()">
+                                </p-button>
+                            </div>
+                            <div class="">
+                                <p-button [label]="'common.button.clear' | translate" icon="pi pi-refresh"
+                                    styleClass="p-button-secondary p-button-sm" size="small" (click)="onClear()">
+                                </p-button>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div class="mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                            <h3 style="color: black">{{'teacherPortal.studentlist'| translate}}</h3>
+                        </div>
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-4" >
+                            <span *ngIf="!passGradeFlag"><label style="color: red;">*{{'teacherPortal.pleaseInputPassStatus' | translate}}</label></span>
+                        </div>
+                        <div class="field col-12 formgrid grid sm:col-12 md:col-6 lg:col-4" >
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-6"></div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-6" style="text-align: right;">
+                                <p-confirmDialog
+                                header="{{ 'common.button.confirmation' | translate }}"
+                                key="confirm5"
+                                icon="pi pi-exclamation-triangle"
+                                message="{{ 'teacherPortal.confirmProcessGrade' | translate }}"
+                                [style]="{width: '350px'}"
+                                acceptButtonStyleClass="p-button-text"
+                                rejectButtonStyleClass="p-button-text"
+                            ></p-confirmDialog>
+                                <button *ngIf="courseInfoData.coursepublicStatus != 30014006 "pButton [disabled]="!passGradeFlag" styleClass="p-button-primary p-button-sm" icon="pi pi-sync" 
+                                [label]="totalRecordAfterSync < this.totalRecordBeforeSync ? totalRecordAfterSync + '/'+totalRecordBeforeSync :'teacherPortal.processGradeFromMoodle' | translate" (click)="onProcessGradeFromMoodle($event)"> 
+                                </button>
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                                <p-button [label]="'teacherPortal.export' | translate" icon="pi pi-download"
+                                    styleClass="p-button-primary p-button-sm" size="small" (click)="onExport()">
+                                </p-button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid;color: black;" />
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid col-12">
+                        <p-table
+                            [value]="items"
+                            [totalRecords]="totalRecords"
+                            [paginator]="false"
+                            [rowHover]="true"
+                            [lazy]="true"
+                            [rows]="5"
+                            [rowsPerPageOptions]="[5,10,20]"
+                            styleClass="p-datatable-striped"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                            (onPage)="onSearch($event)"
+                            [showCurrentPageReport]="true"
+                            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th scope="col" class="text-center" style="width: 5%">
+                                        {{ 'common.table.column.no' | translate }}
+                                    </th>
+                                    <th scope="col" style="width: 9%">{{ 'teacherPortal.memberId' | translate }}
+                                    </th>
+                                    <th scope="col" style="width: 15%">{{ 'teacherPortal.nameSurname' | translate }}</th>
+                                    <th scope="col" class="text-center" style="width: 15%">{{ 'teacherPortal.coursestudydetail' | translate }}</th>
+                                    <!-- <th scope="col" class="text-center" style="width: 10%">
+                                        {{ 'teacherPortal.status' | translate }}
+                                    </th> -->
+                                    <th scope="col" class="text-center" style="width: 10%">
+                                        {{ 'teacherPortal.point' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%">
+                                        {{ 'teacherPortal.grade' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 11%">
+                                        {{ 'teacherPortal.resultStatus' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 20%">
+                                        {{ 'teacherPortal.manage' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%">{{'teacherPortal.certificate'|translate}}</th>
+                                    <th scope="col" class="text-center" style="width: 5%">{{'teacherPortal.remark'| translate}}</th>
+                                    
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td class="text-center">{{ item.rowNum }}</td>
+                                    <td>{{ item.memberNo }}</td>
+                                    <td>
+                                        <span *ngIf="lang=='th'">{{item.prefixnameNameTh}} {{item.memberFirstnameTh}}
+                                            {{item.memberLastnameTh}}</span>
+                                        <span *ngIf="lang!='th'">{{item.prefixnameNameEn}} {{item.memberFirstnameEn}}
+                                            {{item.memberLastnameEn}}</span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span
+                                            class="pi pi-search cursor-pointer" (click)="openDialog(item)"></span>
+                                    </td>
+                                    <!-- <td class="text-center">
+                                        {{lang=='th'?item.studyStatusNameLo:item.studyStatusNameEn}}
+                                    </td> -->
+                                    <td class="text-center">
+                                        <!-- {{item.resultScore==undefined?'-':item.resultScore}} -->
+                                        <input pInputText [disabled]="item.studyStatus == 30016002" 
+                                        type="text" [(ngModel)]="item.resultScore" 
+                                        placeholder="" 
+                                        class="text-center" 
+                                        (blur)="fetchData($event,item)" 
+                                        (ngModelChange)="changeResultScore($event,item)"
+                                        />
+                                        
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- {{item.resultGrade==undefined?'-':item.resultGrade}} -->
+                                        <p-dropdown
+                                            [options]="gradeList"
+                                            appendTo="body"
+                                            [(ngModel)]="item.resultGrade"
+                                            [optionLabel]="'gradeSymbol'"
+                                            optionValue="gradeSymbol"
+                                            [showClear]="false"
+                                            [filter]="false"
+                                            [placeholder]="item.resultGrade==undefined?('common.pleaseSelect' | translate):item.resultGrade "
+                                            (ngModelChange)="changeResultGrade($event,item)"
+                                            [disabled]="item.studyStatus == 30016002"
+                                        ></p-dropdown>
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- {{item.passStatus==undefined?'-':(item.passStatus?"pass":"fail")}} -->
+                                        <span class="flex" *ngIf="item.studyStatus == 30016002">
+                                            <p-tag [value]="lang=='th'?item.studyStatusNameLo:item.studyStatusNameEn" severity="success" [rounded]="true" class="ml-1"></p-tag>
+                                        </span>
+                                        <span class="flex" *ngIf="item.studyStatus == 30016001">
+                                            <p-tag [value]="lang=='th'?item.studyStatusNameLo:item.studyStatusNameEn"  [rounded]="true" class="ml-1"></p-tag>
+                                        </span>
+                                    </td>
+                                    <td class="flex  gap-2 mt-6">
+                                        <!-- <span (click)="openPage('EDIT', item)"
+                                            class="pi pi-pencil cursor-pointer"></span> -->
+                                            <div class="">
+                                                <button pButton
+                                                    permission
+                                                    menuCode="SDB-TC100501"
+                                                    [disabled]="item.studyStatus == 30016002 || courseInfoData.coursepublicStatus == 30014006||totalRecordAfterSync < this.totalRecordBeforeSync || item.resultScore > 100  || !passGradeFlag"
+                                                    [label]="'teacherPortal.savestudyresult' | translate"
+                                                    styleClass="p-button-primary p-button-sm"
+                                                    size="small"
+                                                    (click)="onSaveOnly(item)"
+                                                >
+                                            </button>
+                                            </div>
+                                            <div class="">
+                                                <button pButton
+                                                    permission
+                                                    menuCode="SDB-TC100502"
+                                                    [disabled]="item.studyStatus == 30016002 || courseInfoData.coursepublicStatus == 30014006 || totalRecordAfterSync < this.totalRecordBeforeSync || item.resultScore > 100 || (item.resultGrade=='' && item.resultScore=='') ||(item.resultGrade==undefined && item.resultScore==undefined) ||(item.resultGrade=='' && item.resultScore==undefined) ||(item.resultGrade==undefined && item.resultScore=='') || !passGradeFlag"
+                                                    [label]="'teacherPortal.saveconfirmresult' | translate"
+                                                    styleClass="p-button-primary p-button-sm"
+                                                    style="background-color: #22c55e;border-color: #22c55e;"
+                                                    size="small"
+                                                    (click)="onSaveAndConfirm(item)"
+                                                >
+                                                </button>
+                                            </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.genPdfDate!=undefined"
+                                        class="pi pi-print cursor-pointer" (click)="printCertificateTh(item)"> TH </span>
+                                        <br>
+                                         <span *ngIf="item.genPdfDate!=undefined"
+                                        class="pi pi-print cursor-pointer" (click)="printCertificateEn(item)"> EN</span>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <span><label  *ngIf="item.resultScore>100" style="color: red;">{{ 'teacherPortal.scoreMoreThan100' | translate }}</label>
+                                        </span>
+                                        <!-- <span *ngIf="item.studyStatus == 30016002 && !item.passStatus">{{'teacherPortal.Fail'|translate}}</span> -->
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td class="text-center" colspan="9">{{ 'common.dataNotFound' | translate }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div class="flex justify-content-center gap-2 mt-4">
+                            <p-confirmDialog
+                                header="{{ 'common.button.confirmation' | translate }}"
+                                key="confirm1"
+                                icon="pi pi-exclamation-triangle"
+                                message="{{ 'teacherPortal.confirmCourseSuccess' | translate }}"
+                                [style]="{width: '350px'}"
+                                acceptButtonStyleClass="p-button-text"
+                                rejectButtonStyleClass="p-button-text"
+                            ></p-confirmDialog>
+                            <p-confirmDialog
+                                header="{{ 'common.button.confirmation' | translate }}"
+                                key="confirmCancel"
+                                icon="pi pi-exclamation-triangle"
+                                message="{{ 'teacherPortal.confirmCancel' | translate }}"
+                                [style]="{width: '350px'}"
+                                acceptButtonStyleClass="p-button-text"
+                                rejectButtonStyleClass="p-button-text"
+                            ></p-confirmDialog>
+                            <div class="">
+                                <p-button
+                                    [label]="'teacherPortal.savecoursecomplete' | translate"
+                                    icon="pi pi-save"
+                                    styleClass="p-button-primary p-button-sm"
+                                    size="small"
+                                    *ngIf="items.length!=0 && courseInfoData.coursepublicStatus != 30014006 && !pointMoreThan100Flag && sendResultFlag"
+                                    (click)="onSave($event)"
+                                    [disabled]="totalRecordAfterSync < this.totalRecordBeforeSync"
+                                ></p-button>
+                            </div>
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.cancel' | translate"
+                                    icon="pi pi-times-circle"
+                                    styleClass="p-button-secondary p-button-sm"
+                                    size="small"
+                                    (click)="onBack($event)"
+                                ></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <p-dialog [(visible)]="visible" [style]="{ width: '50rem' }" [header]="'teacherPortal.coursestudydetail' | translate">
+                    <div class="card">
+                        <div
+                                *ngIf="moodleActivityNewArray && moodleActivityNewArray && moodleActivityNewArray.length > 0">
+                                <div *ngFor="let item of moodleActivityNewArray"
+                                    class="flex inline-flex justify-between w-full border hover:bg-gray-200 border-gray-300 rounded-lg shadow-md p-3 my-2">
+                                    <div class="flex grid col-12" style="border-radius: 15px;border:solid 1px lightgray;border-bottom: solid 3px lightgray">
+                                        <div *ngIf="item.cmid != null" class="line-clamp-1 col-6" style="font-weight: bold;font-size: larger;vertical-align: middle;">{{ item.itemname }}</div>
+                                        <div *ngIf="item.graderaw!=undefined" class="line-clamp-1 col-4" style="font-weight: bold;font-size: larger;vertical-align: middle;">ได้คะแนน {{item.graderaw}} เต็ม {{item.grademax}}</div>
+                                        <div *ngIf="item.graderaw==undefined" class="line-clamp-1 col-4" style="font-weight: bold;font-size: larger;vertical-align: middle;"></div>
+                                        <div class="col-2" style="text-align: right;">
+                                            <svg *ngIf="formatMoodleCMID(item) == 0"
+                                                class="w-6 h-6 text-gray-300 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
+                                                clip-rule="evenodd" />
+                                            </svg>
+    
+                                            <svg *ngIf="formatMoodleCMID(item) == 1"
+                                                class="w-6 h-6 text-green-500 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <svg *ngIf="formatMoodleCMID(item) == 2"
+                                                class="w-6 h-6 text-green-500 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <svg *ngIf="formatMoodleCMID(item) == 3"
+                                                class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex inline-flex justify-between w-full border hover:bg-gray-200 border-gray-300 rounded-lg shadow-md p-3 my-2">
+                                    <div class="flex grid col-12" style="border-radius: 15px;border:solid 1px lightgray;border-bottom: solid 3px lightgray">
+                                        <div class="line-clamp-1 col-6" style="font-weight: bold;font-size: larger;vertical-align: middle;">{{'teacherPortal.total' | translate}}</div>
+                                        <div class="line-clamp-1 col-6" style="font-weight: bold;font-size: larger;vertical-align: middle;text-align: right;">{{sumGradeRaw}} {{'teacherPortal.point' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </p-dialog>
+            </div>
+    </p-panel>
+</div>
+<div *ngIf="mode === 'EDIT'">
+    <app-teacher-portal-save-study-detail [mainmode]="mode" [lang]="lang" (backToListPage)="openPage($event)"></app-teacher-portal-save-study-detail>
+</div>

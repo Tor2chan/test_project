@@ -1,0 +1,60 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card mt-4">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">
+                {{ 'financeManagement.financeImport.import.check.check' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="m-2">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col-12">
+                <div class=" " style="margin-bottom: 5px; padding-bottom: 0px; padding-top: 0px">
+                    <label style="height: 25px">{{
+                        'financeManagement.financeImport.import.select.course' | translate
+                    }}</label>
+                    <p-dropdown
+                        [options]="coursepublicList"
+                        [(ngModel)]="coursepublicId"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        (onChange)="onChangeCoursepublic($event)"
+                        (onFilter)="lazyLoadCoursepublicMain($event)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                    ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="col m-4">
+            <div class="flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.back' | translate"
+                        icon="pi pi-angle-left"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                        [disabled]="processing"
+                        (onClick)="onBack()"
+                    ></p-button>
+                </div>
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.next' | translate"
+                        icon="pi pi-chevron-right"
+                        iconPos="right"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        [disabled]="processing"
+                        (onClick)="onNext()"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

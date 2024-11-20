@@ -1,0 +1,38 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden wrapper-backgroud">
+    <div class="flex flex-column align-items-center justify-content-center">
+            <div class="introduction">
+                <div class="introduction-content shadow-2 ">
+                    <div>
+                <img src="../../../../../assets/layout/images/logo-swu.png" alt="logo" class="mb-5 w-17rem flex-shrink-0">
+                <div class="text-center mb-5">
+                    <div style="color: #DA2129;" class="text-6xl font-bold mb-3">Lifelong Learning</div>
+                    <span style="color: #5D5D5D;;" class="text-2xl font-medium">{{ 'login.header' | translate }}</span>
+                </div>
+                <div class="m-2">
+
+                    <div>
+
+                        <label for="username" class="block text-900 font-medium">&nbsp;</label>
+                        <input id="username" [(ngModel)]="loginForm.username" type="text" [placeholder]=" 'login.placeholder.username' | translate " pInputText class="w-full md:w-30rem" style="padding:1rem">
+
+                        <label for="password" class="block text-900 font-medium">&nbsp;</label>
+                        <p-password id="password" [(ngModel)]="loginForm.password" [placeholder]=" 'login.placeholder.password' | translate " [feedback]="false" [toggleMask]="true" styleClass="mb-5 w-full " inputStyleClass="w-full p-3 md:w-30rem" (keyup.enter)="onLogin()" />
+                    </div>
+
+                    <!-- <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                        <div class="flex align-items-center">
+                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+                            <label for="rememberme1" class="text-xl">{{'login.rememberPassword' | translate}}</label>
+                        </div>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer text-xl" style="color: #DA2129">{{ 'login.forgetPassword' | translate }}</a>
+                    </div> -->
+                    <button [disabled]="processing" pButton pRipple [label]=" 'login.btnLogin' | translate" class="w-full p-3 text-xl" style="background-color: #DA2129;" (click)="onLogin()" ></button>
+                </div>
+                <span style="color: white;" >{{version}}</span>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

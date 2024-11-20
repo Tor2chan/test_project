@@ -1,0 +1,151 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{ 'courseManagement.tabRoundGeneral.tabOtherIllustrations.form.imgFile' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'courseManagement.tabRoundGeneral.tabOtherIllustrations.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div>
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabRoundGeneral.tabOtherIllustrations.form.imgFile' | translate
+                                }}
+                            </label>
+                            <span
+                                *ngIf="item.filename && !showUpload"
+                                class="pi pi-pencil cursor-pointer"
+                                (click)="onEditImage()"
+                            ></span>
+                        </div>
+
+                        <div class="">
+                            <p-fileUpload
+                                *ngIf="showUpload || !!!item.filename"
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUpload($event)"
+                                (onRemove)="onRemoveUpload($event, fileUpload)"
+                                [chooseLabel]="'newsManagement.pleaseUpload' | translate"
+                                name="file"
+                                accept=".png, .jpg, .jpeg"
+                                [auto]="true"
+                                [maxFileSize]="5000000"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                                [showUploadButton]="false"
+                                [showCancelButton]="false"
+                                [class]="showError == true && this.showUpload && !!!item.filename ? 'ng-invalid ng-dirty' : ''"
+                                [ngStyle]="{ 'max-width.px': 400, 'max-height.px': 400 }"
+                                (load)="onCheckImageSize($event)"
+                            >
+                            </p-fileUpload>
+                            <p-image
+                                *ngIf="item.filename && !showUpload"
+                                class="p-0 col-12"
+                                [src]="imgSrc"
+                                alt="thumbnailFile"
+                                [imageStyle]="{
+                                    width: '100%',
+                                    height: '200px',
+                                    'object-fit': 'contain',
+                                    'object-position': 'center',
+                                    'max-height.px': '400',
+                                }"
+                            />
+
+                            <div style="opacity: 60%;">{{
+                                'newsManagement.sizePNGJPG' | translate
+                            }}</div>
+
+                            <small *ngIf="showError && this.showUpload" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+
+                            <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                                {{ 'common.alert.overImg' | translate }}
+                            </small>
+
+                        </div>
+
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabRoundGeneral.tabOtherIllustrations.form.imgNameTh' | translate
+                            }}</label
+                        >
+                        <input
+                            pInputText
+                            type="text"
+                            [placeholder]=" 'common.pleaseEnter' | translate "
+                            [(ngModel)]="item.mediaNameTh"
+                            [class]="showError == true && !!!item.mediaNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.mediaNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabRoundGeneral.tabOtherIllustrations.form.imgNameEn' | translate
+                            }}</label
+                        >
+                        <input
+                            pInputText
+                            type="text"
+                            [placeholder]=" 'common.pleaseEnter' | translate "
+                            [(ngModel)]="item.mediaNameEn"
+                            [class]="showError == true && !!!item.mediaNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.mediaNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

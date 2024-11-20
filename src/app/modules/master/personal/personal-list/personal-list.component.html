@@ -1,0 +1,336 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm" permission menuCode="SDB-MS3001">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/personal' },
+                { label: 'master.personalLists.name' | translate, routerLink: '/master/personal' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.personalLists.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.buasriID' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.buasriId"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.personalName' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.fullname"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.position' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.positionTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label for="depIdLevel1">{{
+                                    'master.personalLists.criteria.department' | translate
+                                }}</label>
+                                <p-dropdown
+                                    [options]="departmentList"
+                                    [(ngModel)]="criteria.depIdLevel1"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    (onFilter)="lazyLoadDepartment($event)"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.email' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.email"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.personalType' | translate }}</label>
+                                <p-dropdown
+                                    [options]="personalTypeList"
+                                    [(ngModel)]="criteria.personalType"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.personalStatus' | translate }}</label>
+                                <p-dropdown
+                                    [options]="statusNameThList"
+                                    [(ngModel)]="criteria.statusNameTh"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filters]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div> -->
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.criteria.personalStatus' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.statusNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.personalLists.table.column.status' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    [(ngModel)]="criteria.activeFlag"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between align-items-center">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.personalLists.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <span class="align-items-center pt-2">{{ 'common.syncLastest' | translate }} {{ syncDate | formatdatetime: lang }}</span>
+                <p-button
+                    permission
+                    menuCode="SDB-MS3002"
+                    [label]="
+                        progress < 100 ? progress + ' %' : ('master.personalLists.table.common.updateBtn' | translate)
+                    "
+                    icon="pi pi-sync"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="onRepull()"
+                    [disabled]="progress < 100"
+                >
+                </p-button>
+                <p-button
+                    permission
+                    menuCode="SDB-MS3003"
+                    label="{{ 'master.personalLists.table.common.exportBtn' | translate }}"
+                    icon="pi pi-download"
+                    styleClass="p-button-success p-button-sm p-button-outlined"
+                    outlined="true"
+                    severity="success"
+                />
+            </div>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.personalLists.table.column.buasriID' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.personalLists.table.column.personalName' | translate }}
+                    </th>
+                    <th scope="col" style="width: 10%">
+                        {{ 'master.personalLists.table.column.position' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.personalLists.table.column.faculty' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.personalLists.table.column.department' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">{{ 'master.personalLists.table.column.email' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.personalLists.table.column.personalType' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 1%">
+                        {{ 'master.personalLists.table.column.status' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 9%">
+                        {{ 'master.personalLists.table.column.personalStatus' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.personalLists.dialog.name' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td class="text-center">{{ item.buasriId }}</td>
+                    <td>{{ lang === 'th' ? item.fullNameTh : item.fullNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.positionTh : item.positionEn }}</td>
+                    <td>{{ lang === 'th' ? item.depNameLv1Th : item.depNameLv1En }}</td>
+                    <td>{{ lang === 'th' ? item.depNameLv2Th : item.depNameLv2En }}</td>
+                    <td>{{ item.email }}</td>
+                    <td class="text-center">{{ lang === 'th' ? item.personalTypeTh : item.personalTypeEn }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center">{{ lang === 'th' ? item.statusNameTh : item.statusNameEn }}</td>
+                    <td class="text-center">
+                        <span (click)="openDialog(item)" class="pi pi-search cursor-pointer"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="9">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-dialog [(visible)]="visible" [style]="{ width: '50rem' }" [header]="'master.personalLists.dialog.name' | translate">
+
+                <div class="card">
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.buasriID' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small>{{ viewData.buasriId }}</small>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div  class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.position' | translate }}:</strong>
+                        </div>
+                        <div  class="col-9">
+                            <small>
+                                {{ lang === 'th' ? viewData.positionTh : viewData.positionEn }}</small
+                            >
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.prefixName' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small> {{ lang === 'th' ? viewData.prefixTh : viewData.prefixEn }}</small>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.personalName' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small>{{
+                                lang === 'th' ? viewData.firstnameTh : viewData.firstnameEn
+                            }}</small>
+                            &nbsp;
+                            <small>{{
+                                lang === 'th' ? viewData.lastnameTh : viewData.lastnameEn
+                            }}</small>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'courseManagement.courseList.faculty' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small>{{ lang === 'th' ? viewData.depNameLv1Th : viewData.depNameLv1En }}</small>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.department' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small>{{ lang === 'th' ? viewData.depNameLv2Th : viewData.depNameLv2En }}</small>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3">
+                            <strong>{{ 'master.personalLists.dialog.details.email' | translate }}:</strong>
+                        </div>
+                        <div class="col-9">
+                            <small> {{ viewData.email }}</small>
+                        </div>
+                    </div>
+
+                    <!-- <label>เบอร์โทร:</label><br> -->
+                </div>
+        </p-dialog>
+    </div>
+</p-panel>

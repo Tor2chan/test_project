@@ -1,0 +1,225 @@
+<p-toast id="lv1" (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="modeChilde === 'MAIN'">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ item1, item2,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.occupantion.name' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.occupantion.name' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.occupantion.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <!-- <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantion.form.occupantionGroup' | translate }}</label
+                        >
+                        <p-dropdown
+                            [options]="occupationGroupList"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onFilter)="lazyLoadOccupationGroup($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                            [(ngModel)]="item.occupationGroupId"
+                            [class]="showError == true && !!!item.occupationGroupId ? 'ng-invalid ng-dirty' : ''"
+                        ></p-dropdown>
+                        <small *ngIf="showError && !!!item.occupationId" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div> -->
+                    <div class="col-12 md:col-12">
+                        <label>{{ 'master.occupantion.form.occupantionCode' | translate }}</label>
+                        <input
+                            pInputText
+                            [disabled]="true"
+                            [(ngModel)]="item.occupationCode"
+                            placeholder="AUTO GENERATE"
+                            type="text"
+                            [class]="
+                                mode === 'EDIT' && showError == true && !!!item.occupationCode
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                        />
+                        <small
+                            *ngIf="mode === 'EDIT' && showError && !!!item.occupationCode"
+                            class="p-error"
+                            id="text-error"
+                        >
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantion.form.occupantionNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.occupationNameTh"
+                            type="text"
+                            [class]="showError == true && !!!item.occupationNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.occupationNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantion.form.occupantionNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.occupationNameEn"
+                            type="text"
+                            [class]="showError == true && !!!item.occupationNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.occupationNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ lang === 'th' ? 'สถานะ' : 'Access' }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+
+
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.occupantion.form.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                permission
+                menuCode="SDB-MS5004"
+                [label]="'common.button.add' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE_CHILDE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+        <p-table
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="fetchTable($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 35%">
+                        {{ 'master.occupantion.form.table.column.skillName' | translate }}
+                    </th>
+                    <!-- <th scope="col" style="width: 35%">{{ 'master.occupantion.form.table.column.skillFormat' | translate }}</th> -->
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.occupantion.form.table.column.level' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">{{ 'common.manage' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.generalSkillNameTh : item.generalSkillNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.levelNameTh : item.levelNameTh }}</td>
+                    <!-- <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td> -->
+                    <td class="text-center">
+                        <span (click)="openPage('EDIT_CHILDE', item)" class="pi pi-pencil cursor-pointer"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="6">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    permission
+                    [menuCode]="mode === 'CREATE' ? 'SDB-MS5002' : 'SDB-MS5003'"
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<div *ngIf="modeChilde === 'CREATE_CHILDE' || modeChilde === 'EDIT_CHILDE'">
+    <app-occupation-manage-add-skills
+        [modeChilde]="modeChilde"
+        [item]="editData"
+        (backToMain)="callbackChilde($event)"
+    ></app-occupation-manage-add-skills>
+</div>

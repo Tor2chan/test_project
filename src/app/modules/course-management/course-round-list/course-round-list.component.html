@@ -1,0 +1,386 @@
+<p-toast></p-toast>
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb class="col-12 p-0" [home]="{ icon: 'pi pi-home', routerLink: '/' }" [model]="breadcrumItems">
+        </p-breadcrumb>
+    </ng-template>
+
+    <div *ngIf="mode === 'LIST'">
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h3 style="color: var(--font-color-header)">
+                            {{ 'courseManagement.roundList.name' | translate }}
+                        </h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="">
+                            <p-button
+                                permission
+                                menuCode="SDB-CM2002"
+                                [label]="'common.button.add' | translate"
+                                icon="pi pi-plus-circle"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="openPage('CREATE')"
+                            >
+                            </p-button>
+                        </div>
+                        <div class="">
+                            <p-button
+                                permission
+                                menuCode="SDB-CM2013"
+                                [label]="'common.button.export' | translate"
+                                icon="pi pi-download"
+                                styleClass="p-button-outlined p-button-sm"
+                                size="small"
+                                (click)="onExport()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border-top: 1px solid var(--font-color-header)" />
+            </header>
+        </div>
+
+        <div class="mt-4">
+            <p-accordion [activeIndex]="0">
+                <p-accordionTab [header]="'common.searchData' | translate">
+                    <div class="container">
+                        <div class="formgrid grid ml-1">
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'courseManagement.roundList.faculty' | translate
+                                    }}</label>
+                                    <p-dropdown
+                                        [disabled]="[30025004, 30025003, 30025002].includes(accessLevel)"
+                                        [options]="departmentLevel1List"
+                                        [(ngModel)]="criteria.depIdLevel1"
+                                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [filter]="true"
+                                        (onClick)="lazyLoadDepartmentLevel1()"
+                                        (onFilter)="lazyLoadDepartmentLevel1($event)"
+                                        (onChange)="lazyLoadDepartmentLevel2()"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'courseManagement.roundList.department' | translate
+                                    }}</label>
+                                    <p-dropdown
+                                        [disabled]="!criteria.depIdLevel1 || [30025004, 30025003].includes(accessLevel)"
+                                        [options]="departmentLevel2List"
+                                        [(ngModel)]="criteria.depIdLevel2"
+                                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [filter]="true"
+                                        (onClick)="lazyLoadDepartmentLevel2()"
+                                        (onFilter)="lazyLoadDepartmentLevel2($event)"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'courseManagement.roundList.course' | translate
+                                    }}</label>
+                                    <input
+                                        pInputText
+                                        type="text"
+                                        [(ngModel)]="criteria.publicNameTh"
+                                        (keyup.enter)="onSearch()"
+                                    />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'courseManagement.roundList.status' | translate
+                                    }}</label>
+                                    <p-dropdown
+                                        [options]="courseOpeningList"
+                                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [(ngModel)]="criteria.coursepublicStatus"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-content-center gap-2 mt-4">
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.search' | translate"
+                                    icon="pi pi-search"
+                                    styleClass="p-button-primary p-button-sm"
+                                    size="small"
+                                    (click)="onSearch()"
+                                >
+                                </p-button>
+                            </div>
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.clear' | translate"
+                                    icon="pi pi-refresh"
+                                    styleClass="p-button-secondary p-button-sm"
+                                    size="small"
+                                    (click)="onClear()"
+                                >
+                                </p-button>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-8">
+                        <h3 style="color: var(--font-color-header)">
+                            {{ 'courseManagement.roundList.list' | translate }}
+                        </h3>
+                    </div>
+                </div>
+            </header>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </div>
+        <p-confirmDialog
+            header="{{ lang === 'th' ? 'การยืนยัน' : 'Confirmation' }}"
+            key="confirm1"
+            icon="pi pi-exclamation-triangle"
+            message="{{ 'newsManagement.comfirmDelete' | translate }}"
+            [style]="{ width: '350px' }"
+            acceptButtonStyleClass="p-button-text"
+            rejectButtonStyleClass="p-button-text"
+            acceptLabel="{{ lang === 'th' ? 'ลบ' : 'Yes' }}"
+            rejectLabel="{{ lang === 'th' ? 'ยกเลิก' : 'No' }}"
+        >
+        </p-confirmDialog>
+        <!-- table -->
+
+        <p-dataView
+            #dv
+            [value]="items"
+            [rows]="rows"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            [totalRecords]="totalRecords"
+            [lazy]="true"
+            (onPage)="onSearch($event)"
+        >
+            <!-- พี่ปอ ให้comment ไว้ก่อน เพราะยังเลือกวันที่ไม่ได้ -->
+            <!-- [chipList]="[
+                {
+                    text:
+                        'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.createDate'
+                        | translate,
+                    icon: 'pi pi-home',
+                    menuCode: 'SDB-CM2004'
+                },
+                { text: 'Offline', icon: '' },
+                {
+                    text: 'courseManagement.tabCompare.tabSectionComparativeCurriculum' | translate,
+                    icon: '',
+                    menuCode: 'SDB-CM2004'
+                },
+                {
+                    text: 'courseManagement.courseApproval.instructor.assProf' | translate,
+                    icon: '',
+                    menuCode: 'SDB-CM2004'
+                }
+            ]" -->
+
+            <ng-template let-item pTemplate="listItem">
+                <app-card-list-common
+                    class="w-full shadow-4 rounded mt-4"
+                    [title]="'[' + item.courseCode + '] - ' + (lang === 'th' ? item.publicNameTh : item.publicNameEn)"
+                    [titleStatus]="{
+                        text: lang === 'th' ? item.coursepublicStatusTh : item.coursepublicStatusEn,
+                        callBackData: { eventName: 'POPUPSTATUS', data: item }
+                    }"
+                    [titleStatusColor]="item.coursepublicStatus === 30014003 ? 'green' : 'coral'"
+                    [imgFlag]="true"
+                    [imgUrl]="item.thumbnail ? baseUrl + item.thumbnail : 'assets/layout/images/dummy/400x400.svg'"
+                    [detail]="lang === 'th' ? item.courseDescTh : item.courseDescEn"
+                    [person]="[
+                        {
+                            text: lang === 'th' ? 'สร้างโดย : ' + item.fullNameTh : 'Create by : ' + item.fullNameEn,
+                            icon: 'pi pi-user'
+                        },
+                        { text: lang === 'th' ? item.depNameTh : item.depNameEn, icon: 'pi pi-building' },
+                        { text: item.email, icon: item.email ? 'pi pi-envelope' : '' }
+                    ]"
+                    [menuList]="[
+                        {
+                            text: 'common.button.card.detail' | translate,
+                            icon: 'pi pi-search',
+                            display: true,
+                            callBackData: { eventName: 'VIEW', data: item },
+                            menuCode: 'SDB-CM2004'
+                        },
+                        {
+                            text: 'menu.course.courseManagement.editCourseRound' | translate,
+                            icon: 'pi pi-pencil',
+                            callBackData: { eventName: 'EDIT', data: item },
+                            display: [30014001, 30014007, 30014008].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM2003'
+                        },
+                        {
+                            text: 'common.button.card.adjust' | translate,
+                            icon: 'pi pi-pencil',
+                            callBackData: { eventName: 'EDIT', data: item },
+                            display: [30014003].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM2019'
+                        },
+                        {
+                            text: 'newsManagement.deleteInfo' | translate,
+                            icon: 'pi pi-trash',
+                            callBackData: { eventName: 'DELETE', data: item },
+                            display: [30014001, 30014007, 30014008].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM200101'
+                        },
+                        {
+                            text: 'userManagement.member.name' | translate,
+                            icon: 'pi pi-users',
+                            display: [30014003, 30014004, 30014005, 30014006].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM2005'
+                        },
+                        {
+                            text: 'common.button.card.send' | translate,
+                            icon: 'pi pi-send',
+                            callBackData: { eventName: 'REQUEST', data: item },
+                            display: [30014001, 30014008].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM2010'
+                        },
+                        {
+                            text: 'common.button.card.approve' | translate,
+                            icon: 'pi pi-check-circle',
+                            callBackData: { eventName: 'APPROVE', data: item },
+                            display: [30014002].includes(item.coursepublicStatus),
+                            menuCode: 'SDB-CM2012'
+                        },
+                        {
+                            text: 'common.button.card.print' | translate,
+                            icon: 'pi pi-print',
+                            callBackData: { eventName: 'PRINT', data: item },
+                            display: true,
+                            menuCode: 'SDB-CM2014'
+                        },
+                        {
+                            text: 'menu.course.courseManagement.rejectCourseRound' | translate,
+                            icon: 'pi pi-times-circle',
+                            display: [30014003].includes(item.coursepublicStatus),
+                            callBackData: { eventName: 'CANCEL', data: item },
+                            menuCode: 'SDB-CM2015'
+                        },
+                        {
+                            text: 'menu.course.courseManagement.proceedApproveCancelCourse' | translate,
+                            icon: 'pi pi-check-circle',
+                            display: [30014004].includes(item.coursepublicStatus),
+                            callBackData: { eventName: 'PROCEED', data: item },
+                            menuCode: 'SDB-CM2016'
+                        },
+                        {
+                            text: ('common.button.card.copy' | translate),
+                            icon: 'pi pi-copy',
+                            callBackData: { eventName: 'COPY', data: item },
+                            display: true,
+                            menuCode: 'SDB-CM2020'
+                        }
+                    ]"
+                    [lang]="lang"
+                    (callBack)="callBack($event)"
+                >
+                </app-card-list-common>
+            </ng-template>
+        </p-dataView>
+
+        <div class="flex justify-content-center">
+            <p-dialog [(visible)]="visible" [style]="{ width: '30vw' }">
+                <p-header [ngStyle]="{ color: 'var(--font-color-header)' }">
+                    {{ 'สถานะคำขออนุมัติ' | translate }}
+                </p-header>
+                <p-timeline [value]="coursepublicLogList">
+                    <ng-template pTemplate="marker" let-event>
+                        <span
+                            class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+                            style="background-color: var(--primary-color)"
+                        >
+                            <i class="pi pi-circle" style="color: var(--primary-color)"> </i>
+                        </span>
+                    </ng-template>
+                    <ng-template pTemplate="content" let-event>
+                        <p class="m-0 font-bold">
+                            <small class="p-text-secondary">
+                                {{ lang === 'th' ? event.fullnameTh : event.fullnameEn }}
+                            </small>
+                        </p>
+                        <p>
+                            <small class="p-text-secondary">{{ event.createDate | formatdatetime : lang }}</small>
+                        </p>
+                    </ng-template>
+                    <ng-template pTemplate="opposite" let-event>
+                        {{ lang === 'th' ? event.statusNameTh : event.statusNameEn }}
+                    </ng-template>
+                </p-timeline>
+            </p-dialog>
+        </div>
+
+        <!-- copy coursepublicMain dialog -->
+        <p-dialog header="คัดลอกข้อมูลรอบคอร์ส" [modal]="true" [(visible)]="copyDialog" [style]="{ width: '25rem' }">
+            <div class="flex align-items-center gap-3 mb-3">
+                <label class="font-bold" for="num">จำนวน</label>
+                <p-inputNumber id="num" mode="decimal" [min]="1" [max]="15" [(ngModel)]="copyData.copyNumber" />
+                <p>รายการ</p>
+            </div>
+            <div>
+                <p style="color: red;">***กรอกได้ไม่เกิน 15 รายการ</p>
+            </div>
+            <div class="flex justify-content-end gap-2">
+                <p-button
+                    [disabled]="processing"
+                    [label]="'common.button.cancel' | translate"
+                    size="small"
+                    styleClass="p-button-secondary p-button-sm"
+                    (onClick)="copyDialog = false"
+                />
+                <p-button
+                    [label]="'common.button.ok' | translate"
+                    size="small"
+                    styleClass="p-button-sm"
+                    (onClick)="onCopyCoursepublicMain()"
+                />
+            </div>
+
+            <p-confirmDialog
+                [header]="'common.alert.confirmCopyRound' | translate"
+                key="confirmCopy"
+                icon="pi pi-exclamation-triangle"
+                [message]="'common.alert.confirmCopyRound' | translate"
+                [style]="{ width: '350px' }"
+                acceptButtonStyleClass="p-button-primary p-button-sm"
+                rejectButtonStyleClass="p-button-outlined p-button-sm"
+                [acceptLabel]="'common.button.ok' | translate"
+                [rejectLabel]="'common.button.cancel' | translate"
+            >
+            </p-confirmDialog>
+
+        </p-dialog>
+    </div>
+
+    <div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+        <app-course-round-main [mode]="mode" [lang]="lang" (goBack)="openPage($event)"></app-course-round-main>
+    </div>
+
+    <div *ngIf="mode === 'REQUEST' || mode === 'APPROVE'">
+        <app-round-approval [mode]="mode" [lang]="lang" (goBack)="openPage($event)"></app-round-approval>
+    </div>
+</p-panel>

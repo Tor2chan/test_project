@@ -1,0 +1,139 @@
+<div class="card mt-4" *ngIf="initForm && model">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">
+                {{ 'financeManagement.financeImport.import.check.check' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="m-2">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="col-12 align-items-center mb-4">
+                    <div class="grid align-items-center pb-4">
+                        <div class="font-bold flex">
+                            {{ 'financeManagement.financeImport.import.check.fileName' | translate }} :&nbsp;
+                        </div>
+                        <div class="flex col">{{ model.impFileName }}</div>
+                    </div>
+
+                    <div *ngIf="model.messageError" class="grid align-items-center pb-3">
+                        <div class="font-bold flex">Error message :&nbsp;</div>
+                        <div class="font-bold text-red-500 flex">
+                        {{ model.messageError }}
+                        </div>
+                    </div>
+
+                    <div class="grid align-items-center pb-3">
+                        <div class="font-bold flex">{{ 'ทั้งหมด' | translate }} :&nbsp;</div>
+                        <div class="font-bold text-blue-500 cursor-pointer flex" (click)="showByFlag(null)">
+                        {{ model.impFileRow }}
+                        </div>
+                    </div>
+
+                    <div class="grid align-items-center pb-3">
+                        <div class="font-bold flex">{{ 'Pass Row' | translate }} :&nbsp;</div>
+                        <div class="font-bold text-green-500 cursor-pointer flex" (click)="showByFlag(true)">
+                        {{ model.passRow }}
+                        </div>
+                    </div>
+
+                    <div class="grid align-items-center pb-3">
+                        <div class="font-bold flex">{{ 'Fail Row' | translate }} :&nbsp;</div>
+                        <div class="font-bold text-red-500 cursor-pointer flex" (click)="showByFlag(false)">
+                        {{ model.failRow }}
+                        </div>
+                    </div>
+
+                </div>
+                <p-table
+                    [value]="items"
+                    [totalRecords]="totalRecords"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [lazy]="true"
+                    [rows]="5"
+                    [rowsPerPageOptions]="[5, 10, 20]"
+                    [paginator]="true"
+                    (onPage)="fetchData($event)"
+                    styleClass="p-datatable-striped"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [showCurrentPageReport]="true"
+                    [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th scope="col" class="text-center" style="width: 5%">
+                                {{ 'common.table.column.no' | translate }}
+                            </th>
+                            <th scope="col" style="width: 15%">
+                                {{ 'financeManagement.financeList.table.column.paymentDate' | translate }}
+                            </th>
+                            <th scope="col" style="width: 15%">
+                                {{ 'financeManagement.financeImport.import.check.regisNo' | translate }}
+                            </th>
+                            <th scope="col" class="text-center" style="width: 20%">
+                                {{ 'financeManagement.financeImport.import.check.studentName' | translate }}
+                            </th>
+                            <th scope="col" class="text-center" style="width: 15%">ชื่อนิติบุคคล</th>
+                            <th scope="col" class="text-center" style="width: 10%">
+                                {{ 'financeManagement.financeList.table.column.amount' | translate }}
+                            </th>
+                            <!-- <th scope="col" style="width: 15%">
+                                {{ 'financeManagement.financeList.table.column.ref1' | translate }}
+                            </th>
+                            <th scope="col" style="width: 15%">
+                                {{ 'financeManagement.financeList.table.column.ref2' | translate }}
+                            </th> -->
+                            <th scope="col" style="width: 20%" >Error Message</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td class="text-center">{{ item.rowNum }}</td>
+                            <td>{{ item.payDatetime | formatdatetime: lang }}</td>
+                            <td>{{ item.memberIdCard }}</td>
+                            <td>{{ lang === 'th' ? (item.firstnameTh + ' ' + item.lastnameTh) : (item.firstnameEn + ' ' + item.lastnameEn ) }}</td>
+                            <td>{{ item.orgName }}</td>
+                            <td>{{ item.payAmount | number: ".2" }}</td>
+                            <!-- <td>{{ item.ref1 }}</td>
+                            <td>{{ item.ref2 }}</td> -->
+                            <td>{{ item.errorMessage }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="col m-4">
+        <div class="flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.back' | translate"
+                    icon="pi pi-angle-left"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.next' | translate"
+                    icon="pi pi-chevron-right"
+                    iconPos="right"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="model.failRow > 0"
+                    (onClick)="onNext()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

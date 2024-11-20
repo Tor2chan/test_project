@@ -1,0 +1,252 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0 "
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                { label: 'common.module.report' | translate, routerLink: '/report/skill-mapping-report' },
+                { label: 'report.course.skillMappingReport.name' | translate, routerLink: '/report/skill-mapping-report' }
+            ]"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4 mr-4 ml-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'report.course.skillMappingReport.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4 mr-4 ml-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.skillMappingReport.aspect' | translate }}</label>
+                                <p-dropdown
+                                    [options]="aspectList"
+                                    [(ngModel)]="criteria.aspectSelected"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    (onChange)="onSearch()"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.skillMappingReport.table.Job' | translate }}</label>
+                                <p-dropdown
+                                    [disabled]="!criteria.aspectSelected "
+                                    [filter]="true"
+                                    [options]="occupationList"
+                                    [(ngModel)]="criteria.jobSelected"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    (onFilter)="lazyLoadOccupation($event)"
+                                    [virtualScroll]="true"
+                                    [itemSize]="30"
+                                ></p-dropdown>
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.skillMappingReport.table.Skill' | translate }}</label>
+                                <input
+                                    [disabled]="!criteria.aspectSelected"
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.skillSelected"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.skillMappingReport.table.Course' | translate }}</label>
+                                <input
+                                    [disabled]="!criteria.aspectSelected || criteria.aspectSelected==2"
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.courseSelected"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'report.course.offeredCourseReport.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                [label]="'common.button.export' | translate"
+                icon="pi pi-download"
+                styleClass="p-button-success p-button-sm p-button-outlined"
+                size="small"
+                (click)="onExport()"
+            ></p-button>
+        </div>
+        <hr />
+
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+            *ngIf="criteria.aspectSelected==1"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 15%">{{ 'report.course.skillMappingReport.table.Job' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 30%">{{ 'report.course.skillMappingReport.table.Skill' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 50%">{{ 'report.course.skillMappingReport.table.Course' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.occupationNameTh : item.occupationNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.generalSkillNameTh : item.generalSkillNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.courseNameTh : item.courseNameEn }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-table
+            [(rows)]="rows"
+            [value]="itemsSkill"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+            *ngIf="criteria.aspectSelected==2"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 1% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.course.skillMappingReport.table.Skill' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.course.skillMappingReport.table.Level' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.course.skillMappingReport.table.Job' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.generalSkillNameTh : item.generalSkillNameEn }}</td>
+                    <td class="text-center">{{ item.occSkillLevel }}</td>
+                    <td>{{ lang === 'th' ? item.occupationNameTh : item.ccupationNameEn }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-table
+            [(rows)]="rows"
+            [value]="itemCourse"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+            *ngIf="criteria.aspectSelected==3"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 20%">{{ 'report.course.skillMappingReport.table.Course' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 20%">{{ 'report.course.skillMappingReport.table.Skill' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 20%">{{ 'report.course.skillMappingReport.table.Job' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.courseNameTh : item.courseNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.generalSkillNameTh : item.generalSkillNameTh }}</td>
+                    <td>{{ lang === 'th' ? item.occupationNameTh : item.ccupationNameEn }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>

@@ -1,0 +1,204 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card mt-4 p-2" *ngIf="mode === 'VIEW'" >
+    <div class="p-fluid mt-4 mr-4 ml-4">
+        <header class="d-flex justify-content-between m-2">
+            <h3 style="color: var(--font-color-header)">
+                {{ 'report.financial.departmentIncomeReport.detail.name' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4 mr-5 ml-5">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.financial.departmentIncomeReport.detail.registerDate' | translate }}</label>
+                                <div class="flex gap-0">
+                                    <div class="col-6" style="padding-left: 0px;">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="registerDate"
+                                            [(ngModel)]="criteria.registerDateStart"
+                                            [placeholder]="'common.between.begin' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearStart"
+                                            (onYearChange)="clickYearStart = true"
+                                            (onSelect)="clickYearStart = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [maxDate]="criteria.registerDateEnd"
+                                            ></p-calendar>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="registerDate"
+                                            [(ngModel)]="criteria.registerDateEnd"
+                                            [placeholder]="'common.between.end' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearEnd"
+                                            (onYearChange)="clickYearEnd = true"
+                                            (onSelect)="clickYearEnd = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [minDate]="criteria.registerDateStart"
+                                            ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.financial.departmentIncomeReport.detail.projectCoordinator' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.coordinatorTh"
+                                    (keyup.enter)="fetchData()"
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="fetchData()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+
+
+    <div class="flex-wrap m-4 mr-5 ml-5 ">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ lang === 'th' ? item.depNameTh : item.depNameEn }}</h5>
+            </div>
+            <p-button
+                [label]="'common.button.export' | translate"
+                icon="pi pi-download"
+                styleClass="p-button-success p-button-sm p-button-outlined"
+                size="small"
+                (click)="onExport()"
+            ></p-button>
+        </div>
+        <hr />
+
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="fetchData($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 4% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <!-- <th scope="col" style="width: 10%">{{ 'report.financial.departmentIncomeReport.table.summaryDate' | translate }}</th> -->
+                    <th scope="col" style="width: 10%">{{ 'report.financial.departmentIncomeReport.detail.roundCourse' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 6%">{{ 'report.financial.departmentIncomeReport.table.maxEnroll' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 6%">{{ 'report.financial.departmentIncomeReport.table.registerCount' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.table.registrationFee' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.detail.universitySupportFunds' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.financial.departmentIncomeReport.detail.share' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.detail.centerSupportFunds' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.financial.departmentIncomeReport.detail.share' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.detail.facultySupportFunds' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.financial.departmentIncomeReport.detail.share' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.detail.operatingExpenses' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'report.financial.departmentIncomeReport.detail.share' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 9%">{{ 'report.financial.departmentIncomeReport.detail.projectCoordinator' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <!-- <td>{{ item.resultDate | formatdate : lang }}</td> -->
+                    <td>{{item.courseCode}} - {{ lang === 'th' ? item.publicNameTh : item.publicNameEn }}</td>
+                    <td class="text-center">{{ item.maxEnroll | number: ".0" }}</td>
+                    <td class="text-center">{{ item.tranCount | number: ".0" }}</td>
+                    <td class="text-center">{{ item.remainAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ item.costShareGlobalAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ !!!item.costShareGlobalPercent ? 0.00 : item.costShareGlobalPercent | number: ".2" }}%</td>
+                    <td class="text-center">{{ item.costShareCenterAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ !!!item.costShareCenterPercent ? 0.00 : item.costShareCenterPercent| number: ".2" }}%</td>
+                    <td class="text-center">{{ item.costShareDepAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ !!!item.costShareDepPercent ? 0.00 : item.costShareDepPercent | number: ".2" }}%</td>
+                    <td class="text-center">{{ item.costShareManageAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ !!!item.costShareManagePercent ? 0.00 : item.costShareManagePercent | number: ".2" }}% </td>
+                    <td class="text-center">{{ lang === 'th' ? item.coordinatorTh : item.coordinatorEn }}  </td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+    <div class="col m-4">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.back' | translate"
+                    icon="pi pi-angle-left"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,83 @@
+<div class="card">
+    <div *ngIf="courseMain">
+        <div class="p-fluid m-0 mb-4">
+            <h5>
+                {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{
+                    lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn
+                }}
+            </h5>
+        </div>
+
+        <div class="p-fluid m-0 mb-4">
+            <header class="flex justify-content-between">
+                <div class="flex align-items-end">
+                    <h5 class="mb-0" style="color: var(--font-color-header)">
+                        {{ 'courseManagement.tabAttachedDocument.tabApprovalDocument.table.name' | translate }}
+                    </h5>
+                </div>
+            </header>
+            <p-divider type="solid"></p-divider>
+
+            <div>
+                <p-table
+                    [value]="items"
+                    [totalRecords]="totalRecords"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [lazy]="true"
+                    [rows]="5"
+                    [rowsPerPageOptions]="[5, 10, 20]"
+                    [paginator]="true"
+                    (onPage)="fetchData($event)"
+                    styleClass="p-datatable-striped"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [showCurrentPageReport]="true"
+                    [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th scope="col" class="text-center">{{ 'common.table.column.no' | translate }}</th>
+                            <th scope="col">
+                                {{
+                                    'courseManagement.tabAttachedDocument.tabApprovalDocument.table.column.fileNameTh'
+                                        | translate
+                                }}
+                            </th>
+                            <th scope="col">
+                                {{
+                                    'courseManagement.tabAttachedDocument.tabApprovalDocument.table.column.fileNameEn'
+                                        | translate
+                                }}
+                            </th>
+                            <th scope="col">
+                                {{
+                                    'courseManagement.tabAttachedDocument.tabApprovalDocument.table.column.link'
+                                        | translate
+                                }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td class="text-center">{{ item.rowNum }}</td>
+                            <td>{{ item.fileNameTh }}</td>
+                            <td>{{ item.fileNameEn }}</td>
+                            <td>
+                                <span
+                                    *ngIf="item.filename"
+                                    class="pi pi-file-pdf text-primary cursor-pointer"
+                                    (click)="previewPdf(item)"
+                                ></span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="4" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate },
+                { label: 'menu.master.news.campaign' | translate }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.campaign.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.campaign.criteria.campaignId' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.generalSkillCode"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.campaign.criteria.campaignNane' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.generalSkillNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="line-height: 2.5" htmlFor="age1">{{
+                                    'master.campaign.criteria.startDateDisplay' | translate
+                                }}</label>
+                                <p-calendar
+                                    inputId="approveDate"
+                                    [showIcon]="true"
+                                    appThaiCalendar
+                                    [lang]="translate.currentLang"
+                                ></p-calendar>
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="line-height: 2.5" htmlFor="age1">{{
+                                    'master.campaign.criteria.endDateDisplayed' | translate
+                                }}</label>
+                                <p-calendar
+                                    inputId="approveDate"
+                                    [showIcon]="true"
+                                    appThaiCalendar
+                                    [lang]="translate.currentLang"
+                                ></p-calendar>
+                            </div>
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.campaign.criteria.createBy' | translate }}</label>
+                                    <p-dropdown
+                                        [options]="activeFlagList"
+                                        optionLabel="nameTh"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        placeholder="กรุณาเลือก"
+                                        [(ngModel)]="criteria.activeFlag"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.campaign.criteria.usageStatus' | translate }}</label>
+                                    <p-dropdown
+                                        [options]="activeFlagList"
+                                        optionLabel="nameTh"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        placeholder="กรุณาเลือก"
+                                        [(ngModel)]="criteria.activeFlag"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between align-items-center">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.campaign.table.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <p-button
+                    [label]="'common.button.add' | translate"
+                    icon="pi pi-plus-circle"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="openPage('CREATE')"
+                >
+                </p-button>
+            </div>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.campaignId' | translate }}
+                    </th>
+                    <th scope="col" style="width: 20%">
+                        {{ 'master.campaign.table.column.campaignNane' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.nomCoupon' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.startDateDisplay' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.endDateDisplayed' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.createBy' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.campaign.table.column.usageStatus' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'common.mode.edit' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 5%">{{ 'common.button.cancel' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.generalSkillCode }}</td>
+                    <td>{{ item.generalSkillNameTh }}</td>
+                    <td>{{ item.generalSkillNameEn }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center">
+                        <span
+                            (click)="openPage('EDIT', item.generalSkillId)"
+                            class="pi pi-pencil cursor-pointer"
+                        ></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="10">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-campaign-manage [mode]="mode" (backToListPage)="openPage($event)" [item]="editData"></app-campaign-manage>
+</div>

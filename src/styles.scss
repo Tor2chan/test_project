@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 0.5rem; //for primeflex grid system
+
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss";
+
+.p-chip {
+    background-color: #e3ecfa;
+    color: #6e70ea;
+    border-radius: 16px;
+    padding: 0 0.75rem;
+}

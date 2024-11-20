@@ -1,0 +1,109 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="coursepublicMain && initForm">
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="p-fluid">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.timeAndPlace' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+    <div class="formgrid grid ml-1">
+        <div class="col-12 md:col-12 p-1">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.teachingConcept' | translate }}</label
+            >
+            <p-dropdown
+                [options]="courseFormatList"
+                [(ngModel)]="coursepublicMain.courseFormat"
+                optionLabel="nameTh"
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                [placeholder]="'common.pleaseSelect' | translate"
+                [class]="showError == true && !!!coursepublicMain.courseFormat ? 'ng-invalid ng-dirty' : ''"
+            ></p-dropdown>
+            <small *ngIf="showError && !!!coursepublicMain.courseFormat" class="p-error" id="text-error">
+                <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+            </small>
+        </div>
+        <div class="col-12 md:col-12 p-1">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.detailOfStudyTh' | translate }}</label
+            >
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="coursepublicMain.courseFormatDescTh"
+                [class]="showError == true && !!!coursepublicMain.courseFormatDescTh ? 'ng-invalid ng-dirty' : ''"
+            />
+            <small *ngIf="showError && !!!coursepublicMain.courseFormatDescTh" class="p-error" id="text-error">
+                <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12 p-1">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.detailOfStudyEn' | translate }}</label
+            >
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="coursepublicMain.courseFormatDescEn"
+                [class]="showError == true && !!!coursepublicMain.courseFormatDescEn ? 'ng-invalid ng-dirty' : ''"
+                />
+                <small *ngIf="showError && !!!coursepublicMain.courseFormatDescEn" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                </small>
+        </div>
+        <div class="col-12 md:col-12 p-1">
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.courseTimeTh' | translate }}</label>
+            <input pInputText type="text" [(ngModel)]="coursepublicMain.courseTimeTh"
+                   placeholder="{{ lang === 'th' ?  'ตัวอย่าง 10:30 น. ถึง 12:00 น.' : 'Example: 10:30 น. to 12:00 น.' }} "
+            />
+        </div>
+
+        <div class="col-12 md:col-12 p-1" >
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.courseTimeEn' | translate }}</label>
+            <input pInputText type="text" [(ngModel)]="coursepublicMain.courseTimeEn"
+                   placeholder="{{ lang === 'th' ?  'ตัวอย่าง 10:30 a.m. ถึง 12:00 p.m.' : 'Example: 10:30 a.m. to 12:00 p.m.' }} "
+            />
+        </div>
+    </div>
+    <br />
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

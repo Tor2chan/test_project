@@ -1,0 +1,252 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ information, skillinform,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.generalSkill.form.name' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                    ('master.generalSkill.form.name' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.generalSkill.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="mx-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+
+                        <label>
+                            <a style="color: red">*</a>{{ 'master.generalSkill.form.skillFormat' | translate }}
+                        </label>
+
+                        <p-dropdown
+                            [options]="categorySkillList"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                            [(ngModel)]="item.skillFormat"
+                            [class]="showError == true && !!!item.skillFormat ? 'ng-invalid ng-dirty' : ''"
+                        ></p-dropdown>
+                        <small *ngIf="showError && !!!item.skillFormat" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label>{{ 'master.generalSkill.form.generalSkillCode' | translate }}</label>
+                        <input
+                            pInputText
+                            id="course_no"
+                            [(ngModel)]="item.generalSkillCode"
+                            [placeholder]="'common.autoGen' | translate"
+                            type="text"
+                            [disabled]="true"
+                        />
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.generalSkill.form.generalSkillNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="course_no"
+                            [(ngModel)]="item.generalSkillNameTh"
+                            type="text"
+                            [class]="showError == true && !!!item.generalSkillNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.generalSkillNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.generalSkill.form.generalSkillNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="course_no"
+                            [(ngModel)]="item.generalSkillNameEn"
+                            type="text"
+                            [class]="showError == true && !!!item.generalSkillNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.generalSkillNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <div class="flex flex-wrap column-gap-4">
+                            <label class=" pr-2 flex align-items-end">{{
+                                'master.generalSkill.form.uploadCategorySkill' | translate
+                            }}</label>
+
+                            <p-button
+                            *ngIf=" item.filename && !showUpload "
+                            [label]="'common.button.edit' | translate"
+                            icon="pi pi-pencil"
+                            styleClass="p-button-primary p-button-sm"
+                            size="small"
+                            (click)="showUpload = !showUpload"
+                        ></p-button>
+
+                        </div>
+
+                        <div class=" mb-2">
+                            <a style="font-size: smaller; color: darkgrey">{{
+                                'master.generalSkill.form.scaleDetail' | translate
+                            }}</a>
+                        </div>
+                        <div class="">
+                            <img
+                                *ngIf="item.filename &&!showUpload"
+                                [src]="imgSrc"
+                                alt="categoryBanner"
+                                style="height: 12.5rem; width: 12.5; max-height: 12.5rem; max-width: 12.5rem"
+                            />
+
+                            <div >
+                                <p-fileUpload
+                                    *ngIf="showUpload"
+                                    #fileUpload
+                                    (uploadHandler)="onAdvancedUpload($event)"
+                                    (onRemove)="onRemoveUpload($event, fileUpload)"
+                                    [chooseLabel]=" 'newsManagement.uploadPic' | translate"
+                                    name="file"
+                                    accept="image/*"
+                                    [auto]="true"
+                                    [maxFileSize]="5000000"
+                                    [multiple]="false"
+                                    [customUpload]="true"
+                                    [fileLimit]="1"
+                                    [invalidFileSizeMessageDetail]="lang == 'th' ? 'โปรดลองอีกครั้ง':'Please try again' "
+                                    [invalidFileSizeMessageSummary]="lang == 'th'? 'ไฟล์ที่อัปโหลดมีขนาดเกิน 5 MB':'The uploaded file exceeds the size 5 MB'"
+                                    (load)="onCheckImageSize($event)"
+                                    [class]="
+                                        showError == true && this.showUpload && !!!item.filename
+                                            ? 'ng-invalid ng-dirty'
+                                            : ''
+                                    "
+                                >
+                                </p-fileUpload>
+                            </div>
+                            <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                                {{
+                                    lang === 'th'
+                                        ? 'กรุณาใส่ภาพขนาดไม่เกิน 200x200 px'
+                                        : 'Please upload an image no larger than 200x200 px.'
+                                }}
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <app-tabLevelComponent
+
+    >
+    </app-tabLevelComponent> -->
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>Level</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="p-fluid p-formgrid grid">
+            <div class="col-12 md:col-12">
+                <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
+                    <p-tabPanel *ngFor="let tab of item.skillLevelList; index as i" [header]="tab.tabName">
+                        <div class="col-12 md:col-12">
+                            <div class="lg:col-6 md:col-12 sm:col-12">
+                                <label>{{ 'master.generalSkill.form.descriptionTh' | translate }}</label>
+                                <input pInputText [(ngModel)]="tab.descTh" id="desc_th" type="text" />
+                            </div>
+                            <div class="lg:col-6 md:col-12 sm:col-12">
+                                <label>{{ 'master.generalSkill.form.descriptionEn' | translate }}</label>
+                                <input pInputText [(ngModel)]="tab.descEn" id="desc_en" type="text" />
+                            </div>
+                            <div class="lg:col-6 md:col-12 sm:col-12">
+                                <label>{{ 'master.generalSkill.form.method' | translate }}</label>
+                                <textarea
+                                    rows="2"
+                                    cols="30"
+                                    pInputTextarea
+                                    [(ngModel)]="tab.evaluationEvident"
+                                    style="resize: vertical; min-height: 80px; max-height: 150px"
+                                ></textarea>
+                            </div>
+                            <div class="lg:col-6 md:col-12 sm:col-12">
+                                <label>{{ 'master.generalSkill.form.criteria' | translate }}</label>
+                                <textarea
+                                    rows="2"
+                                    cols="30"
+                                    pInputTextarea
+                                    [(ngModel)]="tab.evaluationCriteria"
+                                    style="resize: vertical; min-height: 80px; max-height: 150px"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ 'common.status.name' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    permission
+                    [menuCode]="mode === 'CREATE' ? 'SDB-MS4002' : 'SDB-MS4003'"
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>

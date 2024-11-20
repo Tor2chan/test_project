@@ -1,0 +1,153 @@
+<div class="card" *ngIf="initForm && coursepublicMain">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <div class="flex justify-content-between">
+                <div class="">
+                    <h3 style="color: var(--font-color-header)">
+                        {{ 'courseManagement.roundCancellation.header' | translate }}
+                    </h3>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+    <div class="p-fluid mt-4">
+        <h3 style="color: gray">{{coursepublicMain.courseCode +
+            '-' +
+            (lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn)}}</h3>
+    </div>
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <div class="flex justify-content-between">
+                <div class="">
+                    <h3 style="color: black">
+                        {{ 'courseManagement.roundCancellation.registratorList' | translate }}
+                    </h3>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid black" />
+        </header>
+    </div>
+    <div class="p-fluid mt-4">
+        <div class="m-3">
+            <p-table
+                [value]="courseRegistrationListItems"
+                [totalRecords]="courseRegistrationListTotalRecord"
+                [paginator]="true"
+                [rowHover]="true"
+                [lazy]="true"
+                [rows]="5"
+                [rowsPerPageOptions]="[5, 10, 20]"
+                [paginator]="false"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                (onPage)="fetchCourseRegistrationListData($event)"
+                [showCurrentPageReport]="true"
+                [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th scope="col" class="text-center" style="width: 5%">
+                            {{ 'common.table.column.no' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundCancellation.table.paymentDate' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundCancellation.table.memberCode' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundCancellation.table.name' | translate }}
+                        </th>
+                        <th scope="col" class="text-center" style="width: 15%">
+                            {{ 'courseManagement.roundCancellation.table.amount' | translate }}
+                        </th>
+                        <th scope="col" class="text-center" style="width: 15%">
+                            Ref 1
+                        </th>
+                        <th scope="col" class="text-center" style="width: 15%">
+                            Ref 2
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="text-center">{{ item.rowNum }}</td>
+                        <td>
+                            {{ item.receiptDate | formatdate : lang }}
+                        </td>
+                        <td>{{ item.memberId}}</td>
+                        <td>
+                            <span *ngIf="lang=='th'" class="text-red-700">{{item.memberFirstnameTh}} {{item.memberLastnameTh}}</span>
+                            <span *ngIf="lang!='th'" class="text-green-700">{{item.memberFirstnameEn}} {{item.memberLastnameEn}}</span>
+                        </td>
+                        <td class="text-center">
+                            {{item.paymentAmount|currency:'THB'}}
+                        </td>
+                        <td class="text-center">{{item.ref1}}</td>
+                        <td class="text-center">{{item.ref2}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="4" class="text-right">{{ 'courseManagement.roundCancellation.table.totals' | translate }}</td>
+                        <td class="text-center">{{paymentAmountTotal | currency:'THB'}}</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="12" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <div class="flex justify-content-between">
+                <div class="">
+                    <h3 style="color: black">
+                        {{ 'courseManagement.roundCancellation.requestCancellation' | translate }}
+                    </h3>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid black" />
+        </header>
+    </div>
+    <div class="p-fluid mt-4">
+        <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+            <label style="height: 25px"><span style="color:red">*</span>{{ 'courseManagement.roundCancellation.reason' | translate }}</label>
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="criteria.cancelReason"
+                required
+            />
+        </div>
+    </div>
+    <div class="flex justify-content-center gap-2 mt-4">
+        <div class="">
+            <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="{{ 'courseManagement.roundCancellation.confirm' | translate }}"
+            [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+            <p-button
+                [label]="'courseManagement.roundCancellation.button.sendApproval' | translate"
+                icon="pi pi-send"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="onSendApproval($event,criteria)"
+            >
+            </p-button>
+        </div>
+        <div class="">
+            <p-button
+                [label]="'common.button.back' | translate"
+                icon="pi pi-chevron-left"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (click)="onBack()"
+            >
+            </p-button>
+        </div>
+    </div>
+</div>

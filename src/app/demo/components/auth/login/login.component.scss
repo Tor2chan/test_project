@@ -1,0 +1,33 @@
+:host ::ng-deep .pi-eye,
+:host ::ng-deep .pi-eye-slash {
+    transform:scale(1.6);
+    margin-right: 1rem;
+    color: var(--primary-color) !important;
+}
+.wrapper-backgroud {
+    background: url('../../../../../assets/layout/images/background.png');
+    height: 50%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.introduction {
+    background-image: url('../../../../../assets/layout/images/background-blur.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: calc(100vh - 200rem);
+    margin: -2rem -2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.introduction-content {
+    padding: 4rem 4rem;
+    border-radius: 16px;
+    background-color: #ffffff80;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    text-align: center;
+}

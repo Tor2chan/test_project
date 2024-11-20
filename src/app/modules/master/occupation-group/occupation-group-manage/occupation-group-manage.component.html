@@ -1,0 +1,122 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel>
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ information, groupinform,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.occupantionGroup.name' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.occupantionGroup.name' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.occupantion.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantionGroup.criteria.occupantionGroupCode' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.occupationGroupCode"
+                            type="text"
+                            [class]="showError == true && !!!item.occupationGroupCode ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.occupationGroupCode" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantionGroup.table.column.occupantionGroupNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.occupationGroupNameTh"
+                            type="text"
+                            [class]="showError == true && !!!item.occupationGroupNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.occupationGroupNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.occupantionGroup.table.column.occupantionGroupNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.occupationGroupNameEn"
+                            type="text"
+                            [class]="showError == true && !!!item.occupationGroupNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.occupationGroupNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ lang === 'th' ? 'สถานะ' : 'Access' }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    permission
+                    [menuCode]="mode === 'CREATE' ? 'SDB-MS6003' : 'SDB-MS6004'"
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<!-- <p>bank-occupaion-group works!</p> -->

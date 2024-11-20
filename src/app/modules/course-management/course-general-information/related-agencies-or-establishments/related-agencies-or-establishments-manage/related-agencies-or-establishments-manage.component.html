@@ -1,0 +1,96 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <!-- <p>related-agencies-or-establishments-manage works!</p> -->
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{ 'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.name' | translate }}</h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.detail' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"><a style="color: red">*</a>{{  'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.organixationsBusinessName'  | translate }}</label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.companyName"
+                            [class]="showError == true && !!!item.companyName ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.companyName" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.address' | translate }}</label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.companyAddress"
+                            [class]="showError == true && !!!item.companyAddress ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.companyAddress" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.nameOfBusinessOwner' | translate }}</label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.companyOwnerName"
+                            [class]="showError == true && !!!item.companyOwnerName ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.companyOwnerName" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabOrganizationsInstitutions.form.phoneNumber' | translate }}</label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.companyTel"
+                            [class]="showError == true && !!!item.companyTel ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.companyTel" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

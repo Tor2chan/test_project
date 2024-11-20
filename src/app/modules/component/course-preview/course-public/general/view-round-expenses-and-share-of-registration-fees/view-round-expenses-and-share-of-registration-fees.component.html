@@ -1,0 +1,109 @@
+ <div class="card" *ngIf="coursepublicMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ coursepublicMain.courseCode }}&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h2>
+    </div>
+
+    <header class=" ">
+        <h5 class="text-primary">{{ 'courseManagement.roundApproval.registrationFee.name' | translate }}</h5>
+        <p-divider type="solid"></p-divider>
+    </header>
+    <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+        <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+            {{ 'courseManagement.roundApproval.registrationFee.feeStatus' | translate }}
+        </div>
+        <div
+            *ngIf="
+                !!!this.lookupRegistrationCostList[0]?.nameTh &&
+                !!!this.lookupRegistrationCostList[0]?.nameEn
+            "
+            class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" style="color: red"
+        >
+            {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+        </div>
+        <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" *ngFor="let item of lookupRegistrationCostList">
+            {{ lang === 'th' ? item.nameTh : item.nameEn }}
+        </div>
+    </div>
+     <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+        <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+            {{ 'courseManagement.roundApproval.registrationFee.feeAmount' | translate }}
+        </div>
+        <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+            <div *ngIf="!!!coursepublicMain.feeAmount" >&#45;</div>
+            {{ coursepublicMain.feeAmount | number:".2" }}
+        </div>
+    </div>
+     <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+        <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+            {{ 'courseManagement.roundApproval.registrationFee.promotionAmount' | translate }}
+        </div>
+        <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+            <div *ngIf="!!!coursepublicMain.promotionAmount" >&#45;</div>
+            {{ coursepublicMain.promotionAmount | number:".2" }}
+        </div>
+    </div>
+     <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+        <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+            {{ 'courseManagement.roundApproval.registrationFee.promotionStart' | translate }}
+        </div>
+        <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+            <div *ngIf="!!!coursepublicMain.promotionStart" >&#45;</div>
+            {{ coursepublicMain.promotionStart | formatdate : lang }}
+        </div>
+    </div>
+     <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+        <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+            {{ 'courseManagement.roundApproval.registrationFee.promotionEnd' | translate }}
+        </div>
+        <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+            <div *ngIf="!!!coursepublicMain.promotionEnd" >&#45;</div>
+            {{ coursepublicMain.promotionEnd | formatdate : lang }}
+        </div>
+    </div>
+
+
+<!-- hide -->
+
+    <!-- <header class="mt-5">
+        <h5 class="text-primary">{{ 'courseManagement.roundApproval.shareRegistrationFee.name' | translate }}</h5>
+        <p-divider type="solid"></p-divider>
+    </header>
+    <div class="col-12 flex pb-0 pt-0">
+        <div class="col-3 font-bold">
+            {{ 'courseManagement.roundApproval.shareRegistrationFee.faculty' | translate }}
+        </div>
+        <div class="col-9" *ngFor="let item of lookupDepartmentLevel1List">
+            {{ lang === 'th' ? item.nameTh : item.nameEn }}
+        </div>
+    </div>
+    <div class="col-12 flex pb-0 pt-0">
+        <div class="col-3 font-bold">
+            {{ 'courseManagement.roundApproval.shareRegistrationFee.department' | translate }}
+        </div>
+        <div class="col-9" *ngFor="let item of lookupDepartmentLevel2List">
+            {{ lang === 'th' ? item.nameTh : item.nameEn }}
+        </div>
+    </div>
+    <div class="col-12 flex pb-0 pt-0">
+        <div class="col-3 font-bold">
+            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareDep' | translate }}
+        </div>
+        <div class="col-9">{{ coursepublicMain.costShareDepPercent }}%</div>
+    </div>
+    <div class="col-12 flex pb-0 pt-0">
+        <div class="col-3 font-bold">
+            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareGlobal' | translate }}
+        </div>
+        <div class="col-9">{{ coursepublicMain.costShareGlobalPercent }}%</div>
+    </div>
+    <div class="col-12 flex pb-0 pt-0">
+        <div class="col-3 font-bold">
+            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareCenter' | translate }}
+        </div>
+        <div class="col-9">{{ coursepublicMain.costShareCenterPercent }}%</div>
+    </div> -->
+</div>

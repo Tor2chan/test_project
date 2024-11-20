@@ -1,0 +1,1153 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="initForm && coursepublicMain && masSharePercentData" permission menuCode="SDB-CM2010,SDB-CM2012">
+    <div class="m-3">
+        <header class="align-items-center justify-content-between flex">
+            <h3 class="text-primary mb-0">{{ 'courseManagement.roundApproval.header' | translate }}</h3>
+            <div class="flex align-items-center gap-2">
+                <div>
+                    <p-button
+                        [label]="'teacherPortal.viewcoursed' | translate"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        (click)="openCourse()"
+                    ></p-button>
+                </div>
+            </div>
+        </header>
+    </div>
+    <p-divider type="solid"></p-divider>
+
+    <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]">
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.roundOpen.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.publicNameTh' | translate }}
+                    </div>
+                    <div class="col-8">{{ coursepublicMain.courseCode }} - {{ coursepublicMain.publicNameTh }}</div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.publicNameEn' | translate }}
+                    </div>
+                    <div class="col-8">{{ coursepublicMain.courseCode }} - {{ coursepublicMain.publicNameEn }}</div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.publicFormat' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{
+                            lang === 'th'
+                                ? this.lookupEnrollmentFormatList[0]?.nameTh
+                                : this.lookupEnrollmentFormatList[0]?.nameEn
+                        }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.courseGeneration' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{ lang === 'th' ? 'รุ่นที่' : 'Generation' }} {{ coursepublicMain.courseGeneration }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.maxEnroll' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.maxEnroll" class="col-8" style="color: red">
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{ coursepublicMain.maxEnroll | number : '.0' }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.publicStatus' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.publicStatus" class="col-8">
+                        {{ lang === 'th' ? 'เผยแพร่' : 'Publish' }}
+                    </div>
+                    <div *ngIf="!coursepublicMain.publicStatus" class="col-8">
+                        {{ lang === 'th' ? 'ไม่เผยแพร่' : 'Unpublish' }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.coursePublic' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.coursePublicStart" class="col-8" style="color: red">
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.coursePublicStart" class="col-8">
+                        <span>
+                            {{ coursepublicMain.coursePublicStart | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007002">
+                            - {{ coursepublicMain.coursePublicEnd | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007001">
+                            {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.onwards' | translate }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.courseRegis' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseRegisStart" class="col-8" style="color: red">
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.courseRegisStart" class="col-8">
+                        <span>
+                            {{ coursepublicMain.courseRegisStart | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007002">
+                            - {{ coursepublicMain.courseRegisEnd | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007001">
+                            {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.onwards' | translate }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.roundOpen.courseClass' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseClassStart" class="col-8" style="color: red">
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.courseClassStart" class="col-8">
+                        <span>
+                            {{ coursepublicMain.courseClassStart | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007002">
+                            - {{ coursepublicMain.courseClassEnd | formatdate : lang }}
+                        </span>
+                        <span *ngIf="coursepublicMain.publicFormat === 30007001">
+                            {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.onwards' | translate }}
+                        </span>
+                    </div>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.courseOpen.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.courseOpen.buasriStatus' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.buasriStatus" class="col-8">
+                        {{ lang === 'th' ? 'ใช่' : 'Yes' }}
+                    </div>
+                    <div *ngIf="!coursepublicMain.buasriStatus" class="col-8">
+                        {{ lang === 'th' ? 'ไม่ใช่' : 'No' }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.courseOpen.popularStatus' | translate }}
+                    </div>
+                    <div *ngIf="coursepublicMain.popularStatus" class="col-8">
+                        {{ lang === 'th' ? 'ใช่' : 'Yes' }}
+                    </div>
+                    <div *ngIf="!coursepublicMain.popularStatus" class="col-8">
+                        {{ lang === 'th' ? 'ไม่ใช่' : 'No' }}
+                    </div>
+                </div>
+                <!-- <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.courseOpen.certificateFormat' | translate }}
+                    </div>
+                    <div
+                        *ngIf="certificateNameTh.length == 0 && certificateNameEn.length == 0"
+                        class="col-8"
+                        style="color: red"
+                    >
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{
+                            lang === 'th' ? (certificateNameTh || []).join(', ') : (certificateNameEn || []).join(', ')
+                        }}
+                    </div>
+                </div> -->
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.timeAndPlace.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.timeAndPlace.courseFormat' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseFormat" class="col-8" style="color: red">
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{
+                            lang === 'th'
+                                ? this.lookupTeachingConceptList[0]?.nameTh
+                                : this.lookupTeachingConceptList[0]?.nameEn
+                        }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.timeAndPlace.courseFormatDescTh' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseFormatDescTh" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.courseFormatDescTh }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.timeAndPlace.courseFormatDescEn' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseFormatDescEn" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.courseFormatDescEn }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.timeAndPlace.courseTime' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.courseTimeTh && !!!coursepublicMain.courseTimeEn" class="col-8">
+                        &#45;
+                    </div>
+                    <div class="col-8">
+                        {{ lang === 'th' ? coursepublicMain.courseTimeTh : coursepublicMain.courseTimeEn }}
+                    </div>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.instructor.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicInstructorItems"
+                        [totalRecords]="coursepublicInstructorTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicInstructorData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 20%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.instructorName' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.email' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.instructorType' | translate }}
+                                </th>
+                                <th scope="col" class="text-center" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.instructorMain' | translate }}
+                                </th>
+                                <th scope="col" class="text-center" style="width: 10%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.recordAcademic' | translate }}
+                                </th>
+                                <th scope="col" class="text-center" style="width: 10%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.recordMoodle' | translate }}
+                                </th>
+                                <th scope="col" class="text-center" style="width: 10%">
+                                    {{ 'courseManagement.roundApproval.instructor.table.receiveEmail' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>
+                                    {{
+                                        item.instructorType
+                                            ? lang === 'th'
+                                                ? item.externalNameTh
+                                                : item.externalNameEn
+                                            : lang === 'th'
+                                            ? item.fullnameTh
+                                            : item.fullnameEn
+                                    }}
+                                </td>
+                                <td>{{ item.instructorType ? item.externalEmail : item.email }}</td>
+                                <td>
+                                    <span *ngIf="item.instructorType" class="text-red-700">{{
+                                        'courseManagement.roundApproval.instructor.table.externalInstructor' | translate
+                                    }}</span>
+                                    <span *ngIf="!item.instructorType" class="text-green-700">{{
+                                        'courseManagement.roundApproval.instructor.table.internalInstructor' | translate
+                                    }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="item.instructorMain" class="text-green-700 pi pi-check"></span>
+                                    <span *ngIf="!item.instructorMain" class="text-red-700 pi pi-times"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="item.saveGradeFlag" class="text-green-700 pi pi-check"></span>
+                                    <span *ngIf="!item.saveGradeFlag" class="text-red-700 pi pi-times"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="item.saveMoodleFlag" class="text-green-700 pi pi-check"></span>
+                                    <span *ngIf="!item.saveMoodleFlag" class="text-red-700 pi pi-times"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="item.receiveEmailFlag" class="text-green-700 pi pi-check"></span>
+                                    <span *ngIf="!item.receiveEmailFlag" class="text-red-700 pi pi-times"></span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="12" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.tabGeneral.tabWorkerGroup.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicWorkerItems"
+                        [totalRecords]="coursepublicWorkerTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicWorkerData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 25%">
+                                    {{ 'courseManagement.tabGeneral.tabWorkerGroup.column.name' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.tabGeneral.tabWorkerGroup.column.email' | translate }}
+                                </th>
+                                <th scope="col" style="width: 25%">
+                                    {{ 'courseManagement.tabGeneral.tabWorkerGroup.column.organization' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.tabGeneral.tabWorkerGroup.column.workerType' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.tabGeneral.tabWorkerGroup.column.position' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>
+                                    {{
+                                        item.workerType
+                                            ? lang === 'th'
+                                                ? item.externalNameTh
+                                                : item.externalNameEn
+                                            : lang === 'th'
+                                            ? item.fullnameTh
+                                            : item.fullnameEn
+                                    }}
+                                </td>
+                                <td>{{ item.workerType ? item.externalEmail : item.email }}</td>
+                                <td>
+                                    <span *ngIf="item.workerType">
+                                       สังกัด : {{ item.externalDepName }}
+                                    </span>
+                                    <span *ngIf="!item.workerType">
+                                        <p class="m-0">{{lang === 'th' ? 'ส่วนงาน : ' : 'Faculty : ' }} {{ lang === 'th' ? item.depNameThLevel1 : item.depNameEnLevel1 }}</p>
+                                        <p class="m-0">{{lang === 'th' ? 'หน่วยงาน : ' : 'Department : ' }} {{ lang === 'th' ? item.depNameThLevel2 : item.depNameEnLevel2 }}</p>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="item.workerType; else internal">{{
+                                        'courseManagement.tabGeneral.tabWorkerGroup.column.external' | translate
+                                    }}</span>
+                                    <ng-template #internal>
+                                        <span>
+                                            {{
+                                                'courseManagement.tabGeneral.tabWorkerGroup.column.internal' | translate
+                                            }}
+                                        </span>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    {{ lang === 'th' ? item.positionTypeTh : item.positionTypeEn }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{
+                    'courseManagement.roundApproval.teachingDocument.name' | translate
+                }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicAttachItems"
+                        [totalRecords]="coursepublicAttachTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicAttachData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 35">
+                                    {{ 'courseManagement.roundApproval.teachingDocument.table.fileNameTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 35%">
+                                    {{ 'courseManagement.roundApproval.teachingDocument.table.fileNameEn' | translate }}
+                                </th>
+                                <th scope="col" style="width: 25%">
+                                    {{ 'courseManagement.roundApproval.teachingDocument.table.link' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>{{ item.fileNameTh }}</td>
+                                <td>{{ item.fileNameEn }}</td>
+                                <td>
+                                    <span
+                                        *ngIf="item.filename"
+                                        class="pi pi-file-pdf text-primary cursor-pointer"
+                                        (click)="previewPdf(item)"
+                                    ></span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{
+                    'courseManagement.roundApproval.registrationFee.tabFee' | translate
+                }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <header class=" ">
+                    <h5 class="text-primary">
+                        {{ 'courseManagement.roundApproval.registrationFee.name' | translate }}
+                    </h5>
+                    <p-divider type="solid"></p-divider>
+                </header>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.registrationFee.feeStatus' | translate }}
+                    </div>
+                    <div
+                        *ngIf="
+                            !!!this.lookupRegistrationCostList[0]?.nameTh &&
+                            !!!this.lookupRegistrationCostList[0]?.nameEn
+                        "
+                        class="col-8"
+                        style="color: red"
+                    >
+                        {{ 'courseManagement.roundApproval.pleaseEnter' | translate }}
+                    </div>
+                    <div class="col-8">
+                        {{
+                            lang === 'th'
+                                ? this.lookupRegistrationCostList[0]?.nameTh
+                                : this.lookupRegistrationCostList[0]?.nameEn
+                        }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.registrationFee.feeAmount' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.feeAmount" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.feeAmount | number : '.2' }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.registrationFee.promotionAmount' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.promotionAmount" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.promotionAmount | number : '.2' }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.registrationFee.promotionStart' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.promotionStart" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.promotionStart | formatdate : lang }}
+                    </div>
+                </div>
+                <div class="col-12 flex pb-0 pt-0">
+                    <div class="col-4 font-bold">
+                        {{ 'courseManagement.roundApproval.registrationFee.promotionEnd' | translate }}
+                    </div>
+                    <div *ngIf="!!!coursepublicMain.promotionEnd" class="col-8">&#45;</div>
+                    <div class="col-8">
+                        {{ coursepublicMain.promotionEnd | formatdate : lang }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div  *ngIf="mode === 'APPROVE'">
+
+                <div class="mb-5 m-3">
+                    <header class=" ">
+                        <h5 class="text-primary">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.name' | translate }}
+                        </h5>
+                        <p-divider type="solid"></p-divider>
+                    </header>
+                    <div class="col-12 flex pb-0 pt-0">
+                        <div class="col-4 font-bold">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.faculty' | translate }}
+                        </div>
+                        <div class="col-8">
+                            {{
+                                lang === 'th'
+                                    ? this.lookupDepartmentLevel1List[0]?.nameTh
+                                    : this.lookupDepartmentLevel1List[0]?.nameEn
+                            }}
+                        </div>
+                    </div>
+                    <div class="col-12 flex pb-0 pt-0">
+                        <div class="col-4 font-bold">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.department' | translate }}
+                        </div>
+                        <div class="col-8">
+                            {{
+                                lang === 'th'
+                                    ? this.lookupDepartmentLevel2List[0]?.nameTh
+                                    : this.lookupDepartmentLevel2List[0]?.nameEn
+                            }}
+                        </div>
+                    </div>
+                    <div class="col-12 flex pb-0 pt-0">
+                        <div class="col-4 font-bold">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareDep' | translate }}
+                        </div>
+                        <div class="col-8">{{ coursepublicMain.costShareDepPercent }}%</div>
+                    </div>
+                    <div class="col-12 flex pb-0 pt-0">
+                        <div class="col-4 font-bold">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareGlobal' | translate }}
+                        </div>
+                        <div class="col-8">{{ coursepublicMain.costShareGlobalPercent }}%</div>
+                    </div>
+                    <div class="col-12 flex pb-0 pt-0">
+                        <div class="col-4 font-bold">
+                            {{ 'courseManagement.roundApproval.shareRegistrationFee.shareCenter' | translate }}
+                        </div>
+                        <div class="col-8">{{ coursepublicMain.costShareCenterPercent }}%</div>
+                    </div>
+                </div>
+            </div> -->
+        </p-accordionTab>
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.video.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicMediaVideoItems"
+                        [totalRecords]="coursepublicMediaVideoTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicMediaVideoData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30">
+                                    {{ 'courseManagement.roundApproval.video.table.videoNameTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30%">
+                                    {{ 'courseManagement.roundApproval.video.table.videoNameEn' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.video.table.video' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>{{ item.mediaNameTh }}</td>
+                                <td>{{ item.mediaNameEn }}</td>
+                                <td>
+                                    <span *ngIf="item.fullpath">
+                                        <vg-player>
+                                            <video
+                                                [vgMedia]="$any(media)"
+                                                #media
+                                                id="singleVideo"
+                                                preload="metadata"
+                                                controls
+                                            >
+                                                <source [src]="item.fullpath" [type]="item.videoType" />
+                                            </video>
+                                        </vg-player>
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.thumbnail.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicMediaThumbnailItems"
+                        [totalRecords]="coursepublicMediaThumbnailTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicMediaThumbnailData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30">
+                                    {{ 'courseManagement.roundApproval.thumbnail.table.thumbnailNameTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30%">
+                                    {{ 'courseManagement.roundApproval.thumbnail.table.thumbnailNameEn' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.thumbnail.table.thumbnail' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>{{ item.mediaNameTh }}</td>
+                                <td>{{ item.mediaNameEn }}</td>
+                                <td>
+                                    <span *ngIf="item.fullpath">
+                                        <img alt="50x50" width="50" height="50" [src]="item.fullpath" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div></p-accordionTab
+        >
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.illustration.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicMediaIllustrationItems"
+                        [totalRecords]="coursepublicMediaIllustrationTotalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        [rows]="5"
+                        [rowsPerPageOptions]="[5, 10, 20]"
+                        [paginator]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCoursepublicMediaIllustrationData($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30">
+                                    {{ 'courseManagement.roundApproval.illustration.table.imgNameTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 30%">
+                                    {{ 'courseManagement.roundApproval.illustration.table.imgNameEn' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.illustration.table.illustration' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>{{ item.mediaNameTh }}</td>
+                                <td>{{ item.mediaNameEn }}</td>
+                                <td>
+                                    <span *ngIf="item.fullpath">
+                                        <img alt="50x50" width="50" height="50" [src]="item.fullpath" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.certificate.name' | translate }}</span>
+            </ng-template>
+            <div class="m-3 mt-0 flex justify-content-end">
+                <div class="mr-3">
+
+                <p-button
+                    [label]="'Preview Certificate'"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (onClick)="previewCertificate()"
+                    >
+                </p-button>
+                </div>
+            </div>
+            <p-dialog header="Preview" [(visible)]="visible" [style]="{width: '75vw'}">
+                <div *ngIf="base64String">
+                    <iframe [src]="base64String | safe" width="100%" height="800px"></iframe>
+                  </div>
+            </p-dialog>
+
+            <div class="mb-5 m-3">
+                <div class="m-3">
+                    <p-table
+                        [value]="coursepublicMainCertificateItems"
+                        [totalRecords]="coursepublicMainCertificateTotalRecords"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCertificate($event)"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" style="width: 25">
+                                    {{ 'courseManagement.roundApproval.certificate.logoTh' | translate }}
+                                </th>
+                                <th class="text-center" scope="col" style="width: 25%">
+                                    {{ 'courseManagement.roundApproval.certificate.imgTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 25%">
+                                    {{ 'courseManagement.roundApproval.certificate.logoEn' | translate }}
+                                </th>
+                                <th class="text-center" scope="col" style="width: 25%">
+                                    {{ 'courseManagement.roundApproval.certificate.imgEn' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td>Preview_Logo.png</td>
+                                <td class="text-center">
+                                    <span *ngIf="item.fullpathCertificateFilenameTh">
+                                        <img alt="420x40" width="420" height="40" [src]="item.fullpathCertificateFilenameTh" />
+                                    </span>
+                                </td>
+                                <td>Preview_Logo.png</td>
+                                <td class="text-center">
+                                    <span *ngIf="item.fullpathCertificateFilenameEn">
+                                        <img alt="420x40" width="420" height="40" [src]="item.fullpathCertificateFilenameEn" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+
+            <div class="mb-5 m-3 card">
+                <div class="">
+                    <div class="flex mb-2">
+                        <div class="col-1">
+                            <span class="font-bold"> {{ 'courseManagement.roundApproval.certificate.numOfSign' | translate }}</span>
+                        </div>
+                        <div class="col-2">
+                            <span>{{ coursepublicMain.certificateSignAmount }}</span>
+                            <span> {{ 'courseManagement.roundApproval.certificate.sign' | translate }} </span>
+                        </div>
+                    </div>
+                    <p-table
+                        [value]="certificateSignItems"
+                        [totalRecords]="certificateSignTotalRecords"
+                        [rowHover]="true"
+                        [lazy]="true"
+                        styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        (onPage)="fetchCertificateSign($event)"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center" scope="col" style="width: 1 0">
+                                    {{ 'courseManagement.roundApproval.certificate.table.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.nameTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.positionTh' | translate }}
+                                </th>
+                                <th class="text-center" scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.signTh' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.nameEn' | translate }}
+                                </th>
+                                <th scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.positionEn' | translate }}
+                                </th>
+                                <th class="text-center" scope="col" style="width: 15%">
+                                    {{ 'courseManagement.roundApproval.certificate.table.signEn' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{item.rowNum}}</td>
+                                <td>{{item.certificateSignNameTh}}</td>
+                                <td>{{item.certificateSignPositionTh}}</td>
+                                <td class="text-center">
+                                    <span *ngIf="item.fullpathTh">
+                                        <img alt="50x50" width="50" height="50" [src]="item.fullpathTh" />
+                                    </span>
+                                </td>
+                                <td>{{item.certificateSignNameEn}}</td>
+                                <td>{{item.certificateSignPositionEn}}</td>
+                                <td class="text-center">
+                                    <span *ngIf="item.fullpathEn">
+                                        <img alt="50x50" width="50" height="50" [src]="item.fullpathEn" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab *ngIf="mode === 'APPROVE'">
+            <!-- && coursepublicMain.feeStatus === 30008002 -->
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{
+                    'courseManagement.roundApproval.shareRegistrationFee.name' | translate
+                }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="formgrid grid ml-1">
+                    <h5>{{lang === 'th' ?this.masSharePercentData.depNameTh: this.masSharePercentData.depNameEn}}</h5
+                            >
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                            <label for="costShareGlobalPercent" style="height: 25px"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.roundApproval.shareRegistrationFee.shareGlobal' | translate
+                                }}</label
+                            >
+                            <p-inputNumber
+                                inputId="costShareGlobalPercent"
+                                type="text"
+                                [(ngModel)]="coursepublicMain.costShareGlobalPercent"
+                                [class]="
+                                    showError == true && !!!coursepublicMain.costShareGlobalPercent
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [min]="0"
+                                [max]="100"
+                                suffix=" %"
+                                mode="decimal"
+                                [minFractionDigits]="2"
+                                [maxFractionDigits]="2"
+                            />
+                        </div>
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                            <label for="costShareCenterPercent" style="height: 25px"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.roundApproval.shareRegistrationFee.shareCenter' | translate
+                                }}</label
+                            >
+                            <p-inputNumber
+                                inputId="costShareCenterPercent"
+                                type="text"
+                                [(ngModel)]="coursepublicMain.costShareCenterPercent"
+                                [class]="
+                                    showError == true && !!!coursepublicMain.costShareCenterPercent
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [min]="0"
+                                [max]="100"
+                                suffix=" %"
+                                mode="decimal"
+                                [minFractionDigits]="2"
+                                [maxFractionDigits]="2"
+                            />
+                        </div>
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                            <label for="costShareDepPercent" style="height: 25px"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.roundApproval.shareRegistrationFee.shareDep' | translate }}</label
+                            >
+
+                            <p-inputNumber
+                                inputId="costShareDepPercent"
+                                type="text"
+                                [(ngModel)]="coursepublicMain.costShareDepPercent"
+                                [class]="
+                                    showError == true && !!!coursepublicMain.costShareDepPercent
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [min]="0"
+                                [max]="100"
+                                suffix=" %"
+                                mode="decimal"
+                                [minFractionDigits]="2"
+                                [maxFractionDigits]="2"
+                            />
+                        </div>
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                            <label for="costShareManagePercent" style="height: 25px"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.roundApproval.shareRegistrationFee.expenses' | translate }}</label
+                            >
+                            <p-inputNumber
+                                inputId="costShareManagePercent"
+                                type="text"
+                                [(ngModel)]="coursepublicMain.costShareManagePercent"
+                                [class]="
+                                    showError == true && !!!coursepublicMain.costShareManagePercent
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [min]="0"
+                                [max]="100"
+                                suffix=" %"
+                                mode="decimal"
+                                [minFractionDigits]="2"
+                                [maxFractionDigits]="2"
+                            />
+                        </div>
+                    </div>
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3 mb-0" style="color: red">
+                            *ผลรวมส่วนแบ่งค่าลงทะเบียนต้องมีค่าเท่ากับ 100%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab *ngIf="mode === 'APPROVE'">
+            <ng-template pTemplate="header">
+                <span class="text-primary">{{ 'courseManagement.roundApproval.approve.name' | translate }}</span>
+            </ng-template>
+            <div class="mb-5 m-3">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12">
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                            <label for="approvalDate" style="height: 25px"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.roundApproval.approve.approveDate' | translate }}</label
+                            >
+                            <p-calendar
+                                [showIcon]="true"
+                                inputId="approvalDate"
+                                [placeholder]="'common.pleaseSelect' | translate"
+                                [hideOnDateTimeSelect]="true"
+                                appThaiCalendar
+                                [lang]="lang"
+                                [clickYear]="clickYear"
+                                (onYearChange)="clickYear = true"
+                                (onSelect)="clickYear = false"
+                                [(ngModel)]="coursepublicMain.approvalDate"
+                                [class]="
+                                    showError == true && !!!coursepublicMain.approvalDate ? 'ng-invalid ng-dirty' : ''
+                                "
+                            ></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+
+        <div class="gap-2 justify-content-center flex mt-5">
+            <div class="justify-content-center" *ngIf="mode === 'REQUEST'">
+                <p-button
+                    (click)="onSave('REQUEST')"
+                    [label]="'common.button.card.sendApp' | translate"
+                    icon="pi pi-send"
+                    styleClass="p-button-send p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                >
+                </p-button>
+            </div>
+            <div class="justify-content-center" *ngIf="mode === 'APPROVE'">
+                <p-button
+                    (click)="onSave('APPROVE')"
+                    [label]="'common.button.card.sendAppSuc' | translate"
+                    icon="pi pi-check"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                >
+                </p-button>
+            </div>
+            <div class="justify-content-center" *ngIf="mode === 'APPROVE'">
+                <p-button
+                    (click)="onSave('SENDBACK')"
+                    [label]="'common.button.card.sendCheck' | translate"
+                    icon="pi pi-times"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                >
+                </p-button>
+            </div>
+            <div class="justify-content-center">
+                <p-button
+                    [label]="'common.button.back' | translate"
+                    icon="pi pi-angle-left"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </p-accordion>
+</div>

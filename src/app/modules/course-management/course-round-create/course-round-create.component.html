@@ -1,0 +1,106 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast></p-toast>
+<p-panel>
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                { label: 'menu.course.name' | translate, routerLink: '/' },
+                { label: 'menu.course.courseManagement.courseRound' | translate, routerLink: '/' }
+            ]"
+        >
+        </p-breadcrumb>
+    </ng-template>
+    <div class="card p-fluid col-12 p-5">
+        <div *ngIf="mode === 'LIST'">
+            <div class="p-fluid mt-4">
+                <header class="d-flex justify-content-md-between">
+                    <div class="flex justify-content-between">
+                        <div class="">
+                            <h3 style="color: var(--font-color-header)">{{ 'เพิ่มรอบหลักสูตร' | translate }}</h3>
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 1px solid var(--font-color-header)" />
+                </header>
+            </div>
+        </div>
+        <div class="d-flex justify-content-md-between">
+            <header class="d-flex justify-content-md-between">
+                <div class="flex justify-content-between">
+                    <div class="">
+                        <h5>{{ 'รายละเอียดหลักสูตรอบรมระยะสั้น' | translate }}</h5>
+                    </div>
+                </div>
+                <hr />
+            </header>
+        </div>
+        <div class="col-12 md:col-12">
+            <label>หลักสูตร</label>
+
+            <p-dropdown
+                [options]="courseMainList"
+                [(ngModel)]="coursepublicMain.courseId"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                [placeholder]="'common.pleaseSelect' | translate"
+                (onFilter)="lazyLoadCourseMain($event)"
+            ></p-dropdown>
+        </div>
+        <br />
+        <div>
+            <h5 class="my-2">{{ 'courseManagement.tabRoundGeneral.tabThumbnail.name' | translate }}</h5>
+            <hr />
+            <div class="grid grid-flex col-12">
+                <div class="col-6">
+                    <label for="">{{
+                        'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailNameTh' | translate
+                    }}</label>
+                    <input pInputText type="text" [(ngModel)]="coursepublicMain.mediaNameTh" />
+                </div>
+                <div class="col-6">
+                    <label for="">{{
+                        'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailNameEn' | translate
+                    }}</label>
+                    <input pInputText type="text" [(ngModel)]="coursepublicMain.mediaNameEn" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="" class="col-12">{{
+                    'courseManagement.tabRoundGeneral.tabThumbnail.thumbnailFile' | translate
+                }}</label>
+                <div class="flex align-items-center">
+                    <input type="text" pInputText placeholder="กรุณาอัปโหลดไฟล์ .png/.jpg ขนาดไม่เกิน 400x400 px" />
+                    <div class="ml-4 text-xl pi pi-image"></div>
+                    <div class="ml-4 text-lg pi pi-times"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-12">
+            <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.save' | translate"
+                        icon="pi pi-save"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        (click)="onSave()"
+                    ></p-button>
+                </div>
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.cancel' | translate"
+                        icon="pi pi-times-circle"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                        (click)="onBack()"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-panel>

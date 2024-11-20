@@ -1,0 +1,2452 @@
+{
+  "primeng": {
+    "dateFormat": "dd/mm/yy",
+    "dayNames": [
+      "อาทิตย์",
+      "จันทร์",
+      "อังคาร",
+      "พุธ",
+      "พฤหัสบดี",
+      "ศุกร์",
+      "เสาร์"
+    ],
+    "dayNamesShort": [
+      "อา.",
+      "จ.",
+      "อ.",
+      "พ.",
+      "พฤ.",
+      "ศ.",
+      "ส."
+    ],
+    "dayNamesMin": [
+      "อา",
+      "จ",
+      "อ",
+      "พ",
+      "พฤ",
+      "ศ",
+      "ส"
+    ],
+    "monthNames": [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม"
+    ],
+    "monthNamesShort": [
+      "ม.ค.",
+      "กพ.",
+      "มี.ค.",
+      "เม.ย.",
+      "พ.ค.",
+      "มิ.ย.",
+      "ก.ค.",
+      "ส.ค.",
+      "ก.ย.",
+      "ต.ค.",
+      "พ.ย.",
+      "ธ.ค."
+    ],
+    "today": "วันนี้",
+    "clear": "ล้าง",
+    "weekHeader": "Wk",
+    "fileSizeTypes": [
+      "Bytes",
+      "Kilobytes",
+      "Megabytes",
+      "Gigabytes",
+      "Terabytes",
+      "Petabytes",
+      "Exabytes",
+      "Zottabytes",
+      "Yottabytes"
+    ]
+  },
+  "common": {
+    "button": {
+      "save": "บันทึก",
+      "cancel": "ยกเลิก",
+      "search": "ค้นหา",
+      "add": "ข้อมูล",
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "next": "ถัดไป",
+      "back": "ย้อนกลับ",
+      "clear": "ล้าง",
+      "preview": "ดูตัวอย่าง",
+      "print": "พิมพ์",
+      "export": "ส่งออก",
+      "ok": "ตกลง",
+      "download": "ดาวน์โหลด",
+      "upload": "อัปโหลดเอกสาร",
+      "uploadImg": "อัปโหลดรูปภาพ",
+      "validateImg670x420": "กรุณาอัปโหลดรูปภาพที่มีขนาด 670x420",
+      "validateImg1680x600": "กรุณาอัปโหลดรูปภาพที่มีขนาด 1680x600 | 5 MB",
+      "confirmation": "ยืนยันการทำรายการ",
+      "uploadFile": "อัปโหลดไฟล์",
+      "card": {
+        "receiptDate": "วันที่สภาอนุมัติ/รับทราบ",
+        "mapping": "เทียบเคียงหลักสูตร",
+        "detail": "รายละเอียด",
+        "edit": "แก้ไขข้อมูล",
+        "adjust": "ปรับปรุงข้อมูล",
+        "copy": "คัดลอกข้อมูล",
+        "request": "เอกสารการขออนุมัติ",
+        "print": "พิมพ์เอกสาร",
+        "printCancle": "พิมพ์เอกสารการขอยกเลิก",
+        "delete": "ลบข้อมูล",
+        "requestCourseApp": "เพิ่มคอร์ส",
+        "importCourse": "นำเข้าหลักสูตร",
+        "send": "ส่งอนุมัติ",
+        "sendApp": "ส่งคำขออนุมัติ",
+        "sendAppSuc": "อนุมัติ",
+        "sendApprove": "อนุมัติ/รับทราบ",
+        "sendCheck": "ส่งกลับแก้ไข",
+        "approve": "ดำเนินการอนุมัติ"
+      }
+    },
+    "alert": {
+      "success": "สำเร็จ",
+      "fail": "เกิดข้อผิดพลาด",
+      "fileUploadSize": "ไฟล์เกินขนาด 20MB",
+      "fileUploadSizeNotification": "ไฟล์เกินขนาด 5MB",
+      "textSuccess": "บันทึกข้อมูลสำเร็จ",
+      "saveTextFail": "บันทึกข้อมูลเกิดข้อผิดพลาด",
+      "deleteTextFail": "ลบข้อมูลเกิดข้อผิดพลาด",
+      "loadTextFail": "โหลดข้อมูลเกิดข้อผิดพลาด",
+      "confirmCopyCourse": "ยืนยันการคัดลอกหลักสูตร ?",
+      "dupplicate": "ข้อมูลซ้ำ",
+      "reject": "ยกเลิก",
+      "detailReject": "ยกเลิกการลบข้อมูล",
+      "deleteSuccess": "ลบข้อมูลสำเร็จ",
+      "sharepercentError": "ส่วนแบ่งต้องเท่ากับ 100%",
+      "overImg": "กรุณาใส่รูปภาพขนาดไม่เกิน 338x226 px",
+      "overImgWebsiteBanner": "กรุณาใส่รูปภาพที่มีขนาด 1680x600 px",
+      "dupeConsent": "ปุ่มคำยินยอมนี้ได้ถูกกดยอมรับไปแล้ว",
+      "cancelReceipt": "ยกเลิกใบเสร็จเสร็จสิ้น",
+      "confirmCopyRound": "ยืนยีนการคัดลอกรอบคอร์ส ?",
+      "overImgNewsBanner": "กรุณาใส่รูปภาพที่มีขนาด 670x420 px"
+    },
+    "dataNotFound": "ไม่พบข้อมูล",
+    "listOfcourse": "รายการคอร์ส",
+    "searchData": "ค้นหาข้อมูล",
+    "manage": "จัดการ",
+    "status": {
+      "name": "สถานะ",
+      "active": "ใช้งาน",
+      "inActive": "ไม่ใช้งาน",
+      "all": "ทั้งหมด"
+    },
+    "syncLastest": "Sync ล่าสุด ",
+    "autoGen": "AUTO GENERATE",
+    "pleaseSelect": "กรุณาเลือก",
+    "pleaseEnter": "กรุณากรอกข้อมูลให้ครบถ้วน",
+    "table": {
+      "column": {
+        "no": "ลำดับ",
+        "status": "สถานะ",
+        "manage": "จัดการ"
+      },
+      "pageMessage": "แสดง {first} ถึง {last} จาก {totalRecords} รายการ"
+    },
+    "module": {
+      "course": "บริหารหลักสูตร",
+      "teacherPortal": "บริการผู้สอน",
+      "news": "ข่าวประชาสัมพันธ์",
+      "financial": "การเงิน",
+      "report": "รายงาน",
+      "user": "ผู้ใช้งานและสิทธิ์",
+      "master": "ข้อมูลพื้นฐาน"
+    },
+    "mode": {
+      "add": "เพิ่ม",
+      "edit": "แก้ไข"
+    },
+    "role": {
+      "create": "สร้าง",
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "view": "ดู",
+      "print": "พิมพ์",
+      "usrlist": "เพิ่มสิทธิ์ทีละหลายคน"
+    },
+    "dragAndDrop": "ลากและวางไฟล์มาที่นี่เพื่ออัปโหลด",
+    "welcome": "ยินดีต้อนรับ",
+    "between": {
+      "min": "ตั้งแต่",
+      "max": "ถึง",
+      "begin": "เริ่มต้น",
+      "end": "สิ้นสุด"
+    }
+  },
+  "HOME": {
+    "TITLE": "สวัสดี Angular with ngx-translate!",
+    "SELECT": "เปลี่ยนภาษา"
+  },
+  "menu": {
+    "course": {
+      "name": "บริหารคอร์ส",
+      "courseManagement": {
+        "name": "จัดการบริหารคอร์ส",
+        "courseDraft": "คอร์ส",
+        "addCourseRound": "เพิ่มรอบหลักสูตร",
+        "editCourseRound": "แก้ไขรอบหลักสูตร",
+        "rejectCourseRound": "ยกเลิกรอบหลักสูตร",
+        "courseCancellationRequest": "ยกเลิกคำขออนุมัติ",
+        "proceedApproveCancelCourse": "ดำเนินการอนุมัติ",
+        "courseRound": "รอบคอร์ส"
+      }
+    },
+    "teacherPortal": {
+      "name": "บริการผู้สอน",
+      "teaherManagement": {
+        "name": "จัดการบริการผู้สอน",
+        "course": "คอร์ส"
+      }
+    },
+    "news": {
+      "name": "ข่าวประชาสัมพันธ์",
+      "newsManagement": {
+        "name": "จัดการข่าวประชาสัมพันธ์",
+        "news": "ข่าวประชาสัมพันธ์"
+      }
+    },
+    "financial": {
+      "name": "การเงิน",
+      "financialManagement": {
+        "name": "จัดการการเงิน",
+        "paymentInformation": "ข้อมูลการชำระเงิน",
+        "importPaymentInformation": "นำเข้าข้อมูลการชำระเงิน"
+      }
+    },
+    "report": {
+      "name": "รายงาน",
+      "course": {
+        "name": "คอร์ส",
+        "reportOnCoursesOfferedForProjectApproval": "รายงานคอร์สที่เปิดสอนเพื่อขออนุมัติโครงการ",
+        "reportOnCourseCancellationInformation": "รายงานข้อมูลการยกเลิกคอร์ส",
+        "reportSummarizingTheListOfRegisteredStudents": "รายงานสรุปรายชื่อผู้ลงทะเบียนเรียน",
+        "reportSummarizingTheNumberOfStudentsRegistered": "รายงานสรุปจำนวนผู้ลงทะเบียนเรียน",
+        "reportTransferableCourse": "รายงานหลักสูตรที่มีคอร์สเทียบโอน",
+        "reportSkillMapping": "รายงาน Skill mapping"
+      },
+      "financial": {
+        "name": "การเงิน",
+        "reportTheAmountOfRegistrationFeesForEachCourse": "รายงานจำนวนเงินค่าลงทะเบียนในแต่ละคอร์ส",
+        "theReportExaminesTheNumberOfStudentsAndTheAmountOfMoneyReceived": "รายงานตรวจสอบจำนวนผู้เรียนและจำนวนเงินที่ได้รับ",
+        "reportSummarizingTheAmountTransferredAndAllocatedBackToTheFaculty": "รายงานสรุปยอดโอนจัดสรรคืนคณะ"
+      }
+    },
+    "user": {
+      "name": "ผู้ใช้งานและสิทธิ์",
+      "userManagement": {
+        "name": "จัดการผู้ใช้งาน",
+        "user": "ผู้ใช้งาน"
+      },
+      "roleManagement": {
+        "name": "จัดการสิทธิ์",
+        "role": "กลุ่มสิทธิ์การใช้งาน"
+      },
+      "memberManagement": {
+        "name": "จัดการสมาชิก",
+        "registrant": "ผู้ลงทะเบียน"
+      }
+    },
+    "master": {
+      "name": "ข้อมูลพื้นฐาน",
+      "general": {
+        "name": "ข้อมูลทั่วไป",
+        "consentManagement": "Consent Management"
+      },
+      "course": {
+        "name": "ข้อมูลหลักสูตร",
+        "personal": "รายชื่อบุคลากร",
+        "facualty": "ส่วนงาน",
+        "specialSkill": "หมวดหมู่ทักษะ",
+        "generalSkill": "ทักษะทั่วไป",
+        "occupation": "อาชีพ",
+        "occupationGroup": "กลุ่มอาชีพ",
+        "courseType": "ประเภทหลักสูตร",
+        "curriculum": "ข้อมูลหลักสูตร",
+        "subject": "ข้อมูลรายวิชา"
+      },
+      "financial": {
+        "name": "ข้อมูลการเงิน",
+        "bank": "ธนาคาร",
+        "bankBranch": "สาขาธนาคาร",
+        "bankAccount": "บัญชีธนาคาร",
+        "fee": "ค่าธรรมเนียมการชำระเงิน",
+        "shareOfRegistrationFee": "ส่วนแบ่งค่าลงทะเบียน",
+        "settingReceipt": "ตั้งค่าใบเสร็จรับเงิน"
+      },
+      "news": {
+        "name": "ข้อมูลข่าวสารและประชาสัมพันธ์",
+        "notification": "การประกาศ/แจ้งเตือน",
+        "campaign": "แคมเปญ",
+        "websiteBanner": "แบนเนอร์"
+      },
+      "consent": {
+        "name": "แบบฟอร์มการจัดการความยินยอมในการขอใช้ข้อมูล",
+        "personalConsent": "คำยินยอมเปิดเผยข้อมูลส่วนบุคคล",
+        "personalConsentTh": "คำยินยอมเปิดเผยข้อมูลภาษาไทย",
+        "personalConsentEn": "คำยินยอมเปิดเผยข้อมูลภาษาอังกฤษ",
+        "preview": "ผู้ให้ความยินยอม"
+      },
+      "systemSetting": "ตั้งค่าระบบ"
+    }
+  },
+  "name": "มหาวิทยาลัยศรีนครินทร์วิโรฒ",
+  "login": {
+    "header": "ระบบบริการอาจารย์และเจ้าหน้าที่",
+    "placeholder": {
+      "username": "ชื่อผู้ใช้",
+      "password": "รหัสผ่าน"
+    },
+    "rememberPassword": "จดจำรหัสผ่าน",
+    "forgetPassword": "ลืมรหัสผ่าน",
+    "btnLogin": "เข้าสู่ระบบ"
+  },
+  "manageAccount": {
+    "name": "จัดการบัญชี",
+    "logout": "ออกจากระบบ"
+  },
+  "teacherPortal": {
+    "openingCourse": "จำนวนหลักสูตรที่เปิด",
+    "searchCourse": "ค้นหาหลักสูตร",
+    "searchTeacher": "ค้นหาอาจารย์",
+    "pleaseinputgraderange": "กรุณาระบุช่วงคะแนน",
+    "detail": "รายละเอียด",
+    "student": "ผู้เรียน",
+    "creategrade": "กำหนดเกรด",
+    "savestudyresult": "บันทึกผลการเรียน",
+    "exportstudyresult": "ส่งออกผลการเรียน",
+    "teachingDate": "วันที่สอน",
+    "viewcoursedetail": "ดูรายละเอียดรอบหลักสูตร",
+    "viewcoursed": "ดูรายละเอียดหลักสูตร",
+    "pointrange": "ช่วงคะแนน",
+    "createpasspoint": "ระบุเกณฑ์ผ่าน",
+    "gradeCalculateMethod": "วิธีประมวลผลการเรียน",
+    "addgradeandpoint": "เพิ่มเกรดและช่วงคะแนน",
+    "grade": "เกรด",
+    "pass": "สอบผ่าน",
+    "manage": "การจัดการ",
+    "editgradeandpoint": "แก้ไขเกรดและช่วงคะแนน",
+    "pleaseselect": "กรุณาเลือก",
+    "frompoint": "จากคะแนน",
+    "topoint": "ถึงคะแนน",
+    "studentlist": "รายชื่อผู้เรียน",
+    "memberId": "เลขประจำตัว",
+    "nameSurname": "ชื่อ-สกุล",
+    "paymenttype": "การชำระเงิน",
+    "coursestatus": "สถานะการเรียน",
+    "export": "ส่งออก",
+    "registerDate": "วันที่ลงทะเบียน",
+    "courseinfo": "ข้อมูลหลักสูตร",
+    "coursedetail": "รายละเอียดรอบหลักสูตร",
+    "studentInfo": "ข้อมูลผู้เรียน",
+    "studentId": "เลขประจำตัวผู้เรียน",
+    "studentDetail": "รายละเอียดผู้เรียน",
+    "coursestudydetail": "รายละเอียดหัวข้อการเรียน",
+    "point": "คะแนน",
+    "status": "สถานะ",
+    "result": "ผลการเรียน",
+    "resultStatus": "สถานะการส่งผลการเรียน",
+    "comfirmDelete": "ยืนยันการลบรายการผลการเรียน?",
+    "confirmCourseSuccess": "ยืนยันบันทึกการสอนเสร็จสิ้น?",
+    "confirmProcessGrade": "คุณต้องการประมวลผลคะแนน Moodle?",
+    "confirmCancel": "คุณยังไม่ได้บันทึกผลการเรียน ต้องการยกเลิกการบันทึกผลการเรียนหรือไม่?",
+    "validatetext": "คำแนะนำการกำหนดช่วง",
+    "passstatusnotset": "ระบุเกณฑ์การผ่าน",
+    "pointrangelost": "เพิ่มเกรดและช่วงคะแนน",
+    "savecoursecomplete": "บันทึกการสอนเสร็จสิ้น/ปิดคอร์ส",
+    "saveconfirmresult": "ยืนยันและส่งผลการเรียน",
+    "passgradenotdefined": "ยังไม่ได้ระบุเกณฑ์ผ่าน",
+    "loginMoodle": "เข้าสู่ระบบ Moodle",
+    "processGradeFromMoodle": "ประมวลผลคะแนน Moodle",
+    "scoreMoreThan100": "คะแนนมากกว่า 100",
+    "remark": "หมายเหตุ",
+    "certificate": "Certificate",
+    "pleaseInputPassStatus": "ยังไม่ได้กำหนดเกรดและเกณฑ์การผ่าน โปรดกำหนดเกรดและเกณฑ์การผ่านให้สมบูรณ์",
+    "total": "รวม",
+    "Fail": "ไม่ผ่าน"
+  },
+  "newsManagement": {
+    "newsInformation": "ข่าวประชาสัมพันธ์!!",
+    "newsHeadlines": "หัวข้อข่าว",
+    "newsFormat": "รูปแบบข่าว",
+    "publicRelationStartDate": "วันที่เริ่มประชาสัมพันธ์",
+    "publicRelationEndDate": "วันที่สิ้นสุดประชาสัมพันธ์",
+    "creator": "ผู้บันทึก",
+    "status": "สถานะการใช้งาน",
+    "newsInformationList": "รายการข่าวประชาสัมพันธ์",
+    "addNewsInformation": "เพิ่มข่าวประชาสัมพันธ์",
+    "dateStart": "วันที่เริ่มต้น",
+    "dateEnd": "วันที่สิ้นสุด",
+    "detail": "รายละเอียด",
+    "editInfo": "แก้ไขข้อมูล!!!",
+    "deleteInfo": "ลบข้อมูล",
+    "fileName": "ชื่อไฟล์",
+    "addGeneralNewsInformation": "เพิ่มข่าวประชาสัมพันธ์ทั่วไป!",
+    "newsType": "หมวดหมู่ข่าว",
+    "refNewsType": "อ้างอิงหมวดหมู่ข่าว",
+    "newsHilight": "ไฮไลต์ข่าว",
+    "newsDetail": "รายละเอียดข่าว",
+    "cover": "ภาพปก",
+    "sizePNGJPG": ".png/.jpg/.jpeg ขนาด 338x226px",
+    "pleaseUploadPNGJPG": "กรุณาอัปโหลดไฟล์ .png/.jpg/.jpeg",
+    "pleaseUpload": "กรุณาอัปโหลดไฟล์",
+    "newsRange": "ช่วงเวลาประชาสัมพันธ์",
+    "newNews": "New ข่าวใหม่",
+    "newNewsStartDate": "วันที่เริ่ม New ข่าวใหม่",
+    "newNewsEndDate": "วันที่สิ้นสุด New ข่าวใหม่",
+    "active": "ใช้งาน",
+    "document": "เอกสารประกอบ",
+    "manage": "การจัดการ",
+    "uploadFile": "อัปโหลดไฟล์",
+    "uploadPic": "อัปโหลดรูปภาพ",
+    "comfirmDelete": "ยืนยันการลบรายการ?",
+    "comfirmDeleteHeader": "ลบข้อมูลที่เลือก",
+    "acceptLabel": "ยืนยัน",
+    "rejectLabel": "ยกเลิก",
+    "toastAccept": "สำเร็จ",
+    "toastReject": "ยกเลิก",
+    "toastAcceptMessage": "ข้อมูลถูกลบเรียบร้อย.",
+    "toastRejectMessage": "ยกเลิกการลบข้อมูล",
+    "newsDocument": "เอกสารแนบข่าวประชาสัมพันธ์",
+    "newsDocumentFile": "ไฟล์เอกสารแนบข่าวประชาสัมพันธ์"
+  },
+  "notificationManagement": {
+    "list": {
+      "name": "ข้อมูลการประกาศ/แจ้งเตือน",
+      "criteria": {
+        "notifier": "ผู้รับแจ้งเตือน",
+        "topic": "หัวข้อประกาศ/แจ้งเตือน"
+      },
+      "table": {
+        "name": "รายการประกาศ/แจ้งเตือน",
+        "receiver": "ผู้รับประกาศ/แจ้งเตือน",
+        "topic": "หัวข้อประกาศ/แจ้งเตือน",
+        "status": "สถานะการใช้งาน",
+        "editTemplate": "แก้ไข template"
+      }
+    },
+    "edit": {
+      "name": "แก้ไขประกาศ/แจ้งเตือน",
+      "detail": "รายละเอียด",
+      "status": "สถานะการใช้งาน",
+      "criteria": {
+        "type": "ประเภท",
+        "topic": "หัวข้อการประกาศ/แจ้งเตือน",
+        "receiver": "ผู้รับประกาศ/แจ้งเตือน",
+        "detail": "รายละเอียดประกาศ/แจ้งเตือน",
+        "active": "ใช้งาน",
+        "inActive": "ไม่ใช้งาน",
+        "notificationFormat": "รูปแบบกำหนดการแจ้งเตือน",
+        "notificationStartDate": "วันที่เริ่มประกาศ/แจ้งเตือน"
+      },
+      "button": {
+        "confirmsave": "คุณต้องการยืนยันการบันทึกข้อมูล?",
+        "uploadFile": "อัพโหลดไฟล์",
+        "cancelFile": "ยกเลิกไฟล์",
+        "downloadFile": "ดาวน์โหลดไฟล์"
+      }
+    }
+  },
+  "courseManagement": {
+    "menuTab": {
+      "general": {
+        "course": "คอร์ส",
+        "name": "ข้อมูลทั่วไป",
+        "tabCourseInformation": {
+          "name": "รายละเอียดหลักสูตรอบรมระยะสั้น"
+        },
+        "tabTeachingInformation": {
+          "name": "รูปแบบการเรียนการสอน"
+        },
+        "tabIndustryGroup": {
+          "name": "กลุ่มอุตสาหกรรม/กลุ่มเป้าหมาย"
+        },
+        "tabTeachingProfessor": {
+          "name": "อาจารย์/ผู้รับผิดชอบ"
+        },
+        "tabOrganizationsInstitutions": {
+          "name": "หน่วยงาน/สถานประกอบการที่ร่วมจัดการเรียนการสอน (ถ้ามี)"
+        },
+        "tabCourseMatching": {
+          "name": "เทียบเคียงหลักสูตร"
+        },
+        "tabDocumentsOthers": {
+          "name": "เอกสารประกอบการเรียน"
+        }
+      },
+      "learningOutcomes": {
+        "name": "ผลลัพธ์การเรียนรู้และทักษะ",
+        "learningOutcome": {
+          "name": "ทักษะ/ความรู้ที่ได้รับ"
+        },
+        "expectedLearningOutcomes": {
+          "name": "ผลลัพธ์การเรียนรู้ที่คาดหวัง"
+        },
+        "learningProcess": {
+          "name": "กระบวนการจัดการเรียนรู้"
+        }
+      },
+      "attachedDocuments": {
+        "name": "เอกสารแนบ",
+        "courseApprovalDocuments": "เอกสารการขออนุมัติหลักสูตร",
+        "saveApprovalDocuments": "บันทึกการขออนุมัติหลักสูตร"
+      },
+      "openCourseRound": {
+        "name": "ข้อมูลทั่วไป",
+        "tabOpenCourseRound": {
+          "name": "เปิดรอบหลักสูตร"
+        },
+        "tabLocationAndStudy": {
+          "name": "เวลาและสถานที่เรียน"
+        },
+        "tabInstructor": {
+          "name": "อาจารย์ผู้สอน"
+        },
+        "tabWorkerGroup": {
+          "name": "คณะทำงาน"
+        },
+        "tabTeachingDocument": {
+          "name": "เอกสารประกอบการเรียน"
+        },
+        "tabExpensesAndShare": {
+          "name": "ค่าใช้จ่ายและส่วนแบ่งค่าลงทะเบียน",
+          "cutname": "ค่าใช้จ่าย"
+        },
+        "tabAccompanyingVideo": {
+          "name": "วิดีโอแนะนำคอร์ส"
+        },
+        "tabThumbnail": {
+          "name": "Thumbnail"
+        },
+        "tabOtherIllustrations": {
+          "name": "ภาพประกอบอื่น ๆ"
+        },
+        "tabMoreDetail": {
+          "name": "รายละเอียดอื่น ๆ"
+        },
+        "tabRoundCertificate": {
+          "name": "รูปแบบลายเซ็นใบประกาศนียบัตร"
+        }
+      }
+    },
+    "courseList": {
+      "name": "คอร์ส",
+      "faculty": "ส่วนงาน",
+      "department": "หน่วยงาน",
+      "course": "คอร์ส",
+      "status": "สถานะคำขอเปิดคอร์ส",
+      "classType": "รูปแบบการสอน",
+      "similarCourse": "เทียบเคียงหลักสูตร",
+      "courseType": "ประเภทหลักสูตร",
+      "teacher": "อาจารย์ผู้รับผิดชอบ"
+    },
+    "roundList": {
+      "name": "รอบคอร์ส",
+      "faculty": "ส่วนงาน",
+      "department": "หน่วยงาน",
+      "course": "คอร์ส",
+      "status": "สถานะคำขอเปิดรอบคอร์ส",
+      "list": "รายการรอบคอร์ส"
+    },
+    "tabGeneral": {
+      "header": "บันทึกรายละเอียดคอร์ส",
+      "detailCourse": "ร่างหลักสูตร",
+      "tabCourseInformation": {
+        "name": "รายละเอียดหลักสูตรอบรมระยะสั้น",
+        "criteria": {
+          "statusShortTermTrainingCourses": {
+            "name": "สถานภาพของหลักสูตรอบรมระยะสั้น",
+            "newCourse": "ขอเปิดหลักสูตรใหม่",
+            "compareCourse": "หลักสูตรเดิมที่เคยผ่านการอนุมัติจากสภาวิชาการแล้ว"
+          },
+          "typeShortTermTrainingCourses": "ประเภทหลักสูตรอบรมระยะสั้น",
+          "faculty": "ส่วนงาน",
+          "department": "หน่วยงาน",
+          "courseCode": "รหัสหลักสูตร",
+          "couresNameTh": "ชื่อหลักสูตร (ภาษาไทย)",
+          "couresNameEn": "ชื่อหลักสูตร (ภาษาอังกฤษ)",
+          "courseDescriptionTh": "คำอธิบายรายวิชาของหลักสูตร (ภาษาไทย)",
+          "courseDescriptionEn": "คำอธิบายรายวิชาของหลักสูตร (ภาษาอังกฤษ)",
+          "keyWord": "Keyword"
+        },
+        "status": "สถานะการใช้งาน",
+        "creatorInformation": {
+          "name": "ผู้บันทึก",
+          "creator": "ชื่อผู้บันทึก",
+          "createDate": "วันที่สภาอนุมัติ/รับทราบ"
+        }
+      },
+      "tabTeachingInformation": {
+        "name": "การเรียนการสอน",
+        "criteria": {
+          "teachingMetodology": "รูปแบบการเรียนการสอน",
+          "teachingDescriptionTh": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย)",
+          "teachingDescriptionEn": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ)",
+          "theoreticalHours": "จำนวนชั่วโมงการเรียนทฤษฏี",
+          "practiceHours": "จำนวนชั่วโมงการเรียนปฏิบัติ",
+          "totalClassHours": "รวมจำนวนชั่วโมงเรียน",
+          "totalHours": {
+            "hours": "ชม.",
+            "theory": "ทฤษฎี",
+            "practice": "ปฏิบัติ"
+          },
+          "coursePeriod": "ระยะเวลาเรียนตลอดหลักสูตรอบรมระยะสั้น",
+          "periodUnits": "หน่วยเวลา",
+          "grade": {
+            "name": "การวัดผล/ผลการเรียน",
+            "skillAssessment":{
+              "name": "การวัดและประเมินผลทักษะ",
+              "evaluation": "มีการวัดผล/ให้คะแนน/ประเมิน",
+              "nonEvaluation": "ไม่มีการวัดผล เน้นการเข้าร่วมเท่านั้น"
+            },
+            "gradeFormat": {
+              "name": "รูปแบบผลการเรียน",
+              "symbol": "สัญลักษณ์ (S, U)",
+              "gradeSystem": "ระบบระดับขั้น (A, B+, B, ..)"
+            },
+            "numOfCredits": "จำนวนหน่วยกิต"
+          }
+        }
+      },
+      "tabIndustryGroup": {
+        "name": "กลุ่มอุตสาหกรรม",
+        "criteria": {
+          "industryPeopleDevelopmentGroup": "กลุ่มอุตสาหกรรม/กลุ่มพัฒนาคน",
+          "targetGroup": {
+            "name": "กลุ่มเป้าหมาย",
+            "targetAudience": "กลุ่มเป้าหมายที่เข้ารับการศึกษา",
+            "graduateUpper": "ผู้เรียนที่สำเร็จการศึกษาระดับมัยมศึกษาตอนปลายหรือเทียบเท่า หรือระดับปวช",
+            "currentlyStudying": "นิสิต/นักศึกษา ที่กำลังศึกษาในระดับ ปวส. หรืออุดมศึกษา",
+            "knowledgeSeekerGeneral": "ผู้ที่ต้องการเพิ่มพูนความรู้/สมรรถนะ ที่สนใจทั่วไป",
+            "knowledgeSeekerCertificate": "ผู้ที่ต้องการเพิ่มพูนความรู้/สมรรถนะ และใบรับรองสมรรถนะปริญญาบัตร",
+            "seniorCitizens": "ผู้สูงอายุหรือผู้ที่เกษียนแล้ว",
+            "etc": "อื่นๆ"
+          },
+          "relatedOccupation": {
+            "name": "อาชีพที่เกี่ยวข้อง",
+            "occupation": "อาชีพที่หลักสูตรอบรมระยะสั้นรองรับ"
+          },
+          "basicKnowledge": {
+            "name": "ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม (ถ้ามี)",
+            "basicKnowledgeTh": "ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม(ภาษาไทย) (ถ้ามี)",
+            "basicKnowledgeEn": "ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม(ภาษาอังกฤษ) (ถ้ามี)"
+          }
+        }
+      },
+      "tabTeachingProfessor": {
+        "name": "อาจารย์/ผู้รับผิดชอบ",
+        "criteria": {
+          "instructorResponsible": "ชื่ออาจารย์/ผู้รับผิดชอบ",
+          "email": "อีเมล",
+          "instructorCoordinator": "อาจารย์/ผู้รับผิดชอบหลัก",
+          "instructorType": "ประเภทอาจารย์",
+          "externalInstructor": "อาจารย์ภายนอก",
+          "internalInstructor": "อาจารย์ภายใน"
+        },
+        "form": {
+          "name": "อาจารย์/ผู้รับผิดชอบ",
+          "detailSection": "รายละเอียด",
+          "instructorMain": "อาจารย์/ผู้รับผิดชอบหลัก",
+          "instructorName": "ชื่ออาจารย์/ผู้รับผิดชอบ",
+          "externalPerson": "อาจารย์ภายนอก",
+          "externalNameTh": "ชื่อ-นามสกุลอาจารย์ภายนอก (ภาษาไทย)",
+          "externalNameEn": "ชื่อ-นามสกุลอาจารย์ภายนอก (ภาษาอังกฤษ)",
+          "email": "อีเมล",
+          "radio": {
+            "internal": "อาจารย์ภายใน",
+            "external": "อาจารย์ภายนอก"
+          },
+          "switch": {
+            "instructorMain": "อาจารย์หลัก/วิทยากรหลัก"
+          }
+        }
+      },
+      "tabWorkerGroup": {
+        "name": "คณะทำงาน",
+        "column": {
+          "name": "ชื่อบุคลากร",
+          "email": "อีเมล",
+          "workerType": "ประเภทบุคลากร",
+          "position": "ตำแหน่ง",
+          "internal": "บุคลากรภายใน",
+          "external": "บุคลากรภายนอก",
+          "organization": "หน่วยงาน"
+        },
+        "form": {
+          "name": "บุคลากร",
+          "workerType": "บุคลากรภายนอก",
+          "internalName": "ชื่อบุคลากร",
+          "position": "ตำแหน่ง",
+          "email": "อีเมล",
+          "externalNameTh": "ชื่อ-นามสกุลบุคลากรภายนอก (ภาษาไทย)",
+          "externalNameEn": "ชื่อ-นามสกุลบุคลากรภายนอก (ภาษาอังกฤษ)",
+          "organization": "ชื่อหน่วยงาน"
+        }
+      },
+      "tabOrganizationsInstitutions": {
+        "name": "หน่วยงาน/สถานประกอบการที่ร่วมจัดการเรียนการสอน (ถ้ามี)",
+        "criteria": {
+          "organixationsBusinessName": "ชื่อหน่วยงาน/สถานประกอบการ",
+          "address": "ที่ตั้ง",
+          "nameOfBusinessOwner": "ชื่อผู้ประกอบการ",
+          "phoneNumber": "เบอร์โทรศัพท์"
+        },
+        "form": {
+          "name": "หน่วยงาน/สถานประกอบการ",
+          "detail": "รายละเอียด",
+          "organixationsBusinessName": "ชื่อหน่วยงาน/สถานประกอบการ",
+          "address": "ที่ตั้ง",
+          "nameOfBusinessOwner": "ชื่อผู้ประกอบการ",
+          "phoneNumber": "เบอร์โทรศัพท์"
+        }
+      },
+      "tabCourseMatching": {
+        "name": "รายวิชาที่สามารถเทียบเคียงได้",
+        "criteria": {
+          "courseCode": "รหัสวิชา",
+          "subjectsName": "ชื่อรายวิชา",
+          "curriculumCode": "รหัสหลักสูตร",
+          "courseName": "ชื่อหลักสูตร",
+          "creditUnitsEarn": "หน่วยกิต",
+          "detail": "รายละเอียด",
+          "manage": "จัดการ",
+          "ownerCurriculum": "หน่วยงานเจ้าของหลักสูตร"
+        },
+        "form": {
+          "name": "ระบุรายวิชาที่เทียบเคียง",
+          "search": {
+            "courseCode": "รหัสหลักสูตร",
+            "courseName": "ชื่อหลักสูตร",
+            "subjectCode": "รหัสวิชา",
+            "subjectName": "ชื่อรายวิชา",
+            "ownerCurriculum": "หน่วยงานเจ้าของหลักสูตร"
+          },
+          "table": {
+            "courseCode": "รหัสหลักสูตร",
+            "courseName": "ชื่อหลักสูตร",
+            "subjectCode": "รหัสวิชา",
+            "subjectName": "ชื่อรายวิชา",
+            "credit": "หน่วยกิต",
+            "detail": "รายละเอียด",
+            "ownerCurriculum": "หน่วยงานเจ้าของหลักสูตร"
+          },
+          "showDetail": {
+            "subjectDetail": "ข้อมูลรายวิชา",
+            "courseCode": "รหัสหลักสูตร",
+            "courseNameTh": "ชื่อหลักสูตร (ภาษาไทย)",
+            "courseNameEn": "ชื่อหลักสูตร (ภาษาอังกฤษ)",
+            "subjectCode": "รหัสวิชา",
+            "subjectNameTh": "ชื่อรายวิชา (ภาษาไทย)",
+            "subjectNameEn": "ชื่อรายวิชา (ภาษาอังกฤษ)",
+            "credit": "หน่วยกิต",
+            "ownerCurriculum": "หน่วยงานเจ้าของหลักสูตร"
+          }
+        }
+      },
+      "tabDocumentsOthers": {
+        "name": "เอกสารประกอบการเรียน",
+        "criteria": {
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+          "link": "Link"
+        },
+        "form": {
+          "name": "เอกสารประกอบการเรียน",
+          "detailSection": "รายละเอียด",
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+          "file": "ไฟล์เอกสารประกอบ"
+        }
+      }
+    },
+    "tabLearningOutcomeAndSkill": {
+      "tabLearningOutcomes": {
+        "name": "หมวดหมู่ทักษะ",
+        "criteria": {},
+        "table": {
+          "name": "หมวดหมู่ทักษะ",
+          "column": {
+            "skillName": "ชื่อหมวดหมู่ทักษะ",
+            "otherSkillNameTh": "อื่นๆ (ภาษาไทย)",
+            "otherSkillNameEn": "อื่นๆ (ภาษาอังกฤษ)",
+            "level": "ระดับ",
+            "weight": "น้ำหนัก",
+            "total": "รวม"
+          }
+        },
+        "form": {
+          "name": "รหัสหมวดหมู่ทักษะ",
+          "detailSection": "รายละเอียด",
+          "skillName": "หมวดหมู่ทักษะ",
+          "other": "อื่นๆ",
+          "otherSkillNameTh": "อื่นๆ (ภาษาไทย)",
+          "otherSkillNameEn": "อื่นๆ (ภาษาอังกฤษ)",
+          "level": "ระดับความยาก",
+          "weight": "น้ำหนัก"
+        }
+      },
+      "tabExpectedLearningOutcomes": {
+        "name": "ผลการเรียนรู้ที่คาดหวัง",
+        "criteria": {},
+        "table": {
+          "name": "ผลการเรียนรู้ที่คาดหวัง",
+          "column": {
+            "scloCode": "รหัส",
+            "learningOutcomes": "ผลลัพธ์การเรียนรู้ของหลักสูตรอบรมระยะสั้น"
+          }
+        },
+        "form": {
+          "name": "ผลการเรียนรู้ที่คาดหวัง",
+          "detailSection": "รายละเอียด",
+          "scloCode": "รหัส",
+          "learningOutcomes": "ผลลัพธ์การเรียนรู้ของหลักสูตรอบรมระยะสั้น"
+        }
+      },
+      "tabLearningManagementProcess": {
+        "name": "กระบวนการจัดการเรียนรู้",
+        "criteria": {},
+        "table": {
+          "name": "กระบวนการจัดการเรียนรู้",
+          "column": {
+            "topicProcessDetail": "เนื้อหา/กระบวนการ",
+            "teachingMethod": "วิธีการสอน",
+            "period": "ระยะเวลา (นาที)",
+            "assessment": "การวัดและประเมินผล"
+          }
+        },
+        "form": {
+          "name": "กระบวนการจัดการเรียนรู้",
+          "detailSection": "รายละเอียด",
+          "topicProcessDetailTh": "เนื้อหา/กระบวนการ (ภาษาไทย)",
+          "topicProcessDetailEn": "เนื้อหา/กระบวนการ (ภาษาอังกฤษ)",
+          "teachingMethod": "วิธีการสอน",
+          "moreDetailOfActivity": "รายละเอียดกิจกรรมการเรียนการสอนเพิ่มเติม",
+          "period": "ระยะเวลา (นาที)",
+          "assessmentTh": "การวัดและประเมินผล (ภาษาไทย)",
+          "assessmentEn": "การวัดและประเมินผล (ภาษาอังกฤษ)"
+        }
+      }
+    },
+    "tabAttachedDocument": {
+      "tabApprovalDocument": {
+        "name": "เอกสารการขออนุมัติหลักสูตร",
+        "criteria": {},
+        "table": {
+          "name": "เอกสารการขออนุมัติหลักสูตร",
+          "column": {
+            "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+            "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+            "link": "Link"
+          }
+        },
+        "form": {
+          "name": "เอกสารการขออนุมัติหลักสูตร",
+          "detailSection": "รายละเอียด",
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+          "file": "ไฟล์เอกสารประกอบหลักสูตร"
+        }
+      }
+    },
+    "tabRoundGeneral": {
+      "list": {
+        "name": "รอบหลักสูตร",
+        "criteria": {
+          "faculty": "ส่วนงาน",
+          "department": "หน่วยงาน",
+          "publicName": "หลักสูตร"
+        }
+      },
+      "tabOpenCourseRound": {
+        "openCourse": "การเปิดหลักสูตร",
+        "providedBuasri": "ให้บริการบัวศรีไอดี",
+        "popular": "Popular",
+        "certificate": "รูปแบบการให้ประกาศนียบัตร",
+        "openCourseRound": "รอบการเปิดหลักสูตร",
+        "nameCourseTh": "ชื่อรอบหลักสูตร (ภาษาไทย)",
+        "nameCourseEn": "ชื่อรอบหลักสูตร (ภาษาอังกฤษ)",
+        "format": "รูปแบบการเปิดหลักสูตร",
+        "generation": "รุ่น",
+        "maximumApplicant": "จำนวนที่เปิดรับ",
+        "publishStatus": "เผยแพร่บนเว็บไซต์",
+        "publishDateStart": "วันที่เริ่มแสดงบนเว็บ",
+        "registrationDateStart": "วันที่เริ่มเปิดรับสมัคร",
+        "classDateStart": "วันที่เริ่มเรียน",
+        "publishDateEnd": "วันที่สิ้นสุดแสดงบนเว็บ",
+        "registrationDateEnd": "วันที่สิ้นสุดเปิดรับสมัคร",
+        "classDateEnd": "วันที่สิ้นสุดเรียน",
+        "status": "สถานะการใช้งาน",
+        "onwards": "เป็นต้นไป"
+      },
+      "tabLocationAndStudy": {
+        "timeAndPlace": "เวลาและสถานที่เรียน",
+        "teachingConcept": "รูปแบบการเรียนการสอน",
+        "detailOfStudyTh": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย)",
+        "detailOfStudyEn": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ)",
+        "courseTimeTh": "เวลาเรียน (ภาษาไทย)",
+        "courseTimeEn": "เวลาเรียน (ภาษาอังกฤษ)"
+      },
+      "tabInstructor": {
+        "table": {
+          "name": "อาจารย์ผู้สอน",
+          "instructorName": "ชื่ออาจารย์",
+          "email": "อีเมล",
+          "instructorType": "ประเภทอาจารย์",
+          "instructorMain": "อาจารย์หลัก",
+          "externalInstructor": "อาจารย์ภายนอก",
+          "internalInstructor": "อาจารย์ภายใน",
+          "recordAcademic": "บันทึกผลการเรียน",
+          "recordMoodle": "บันทึกข้อมูล Moodle",
+          "receiveEmail": "รับอีเมล"
+        },
+        "form": {
+          "name": "อาจารย์ผู้สอน",
+          "detailSection": "รายละเอียด",
+          "instructorName": "ชื่ออาจารย์",
+          "instructorMain": "อาจารย์หลัก",
+          "externalPerson": "อาจารย์ภายนอก",
+          "externalNameTh": "ชื่อ-นามสกุลอาจารย์ภายนอก (ภาษาไทย)",
+          "externalNameEn": "ชื่อ-นามสกุลอาจารย์ภายนอก (ภาษาอังกฤษ)",
+          "email": "อีเมล",
+          "manageCourse": "การจัดการคอร์ส",
+          "saveGradeFlag": "บันทึกผลการเรียน",
+          "saveMoodleFlag": "บันทึกข้อมูล Moodle",
+          "receiveEmailFlag": "เป็นผู้รับอีเมลเมื่อผู้เรียนลงทะเบียนเรียน",
+          "radio": {
+            "internal": "อาจารย์ภายใน",
+            "external": "อาจารย์ภายนอก"
+          },
+          "switch": {
+            "instructorMain": "อาจารย์หลัก/วิทยากรหลัก"
+          }
+        }
+      },
+      "tabTeachingDocument": {
+        "table": {
+          "name": "เอกสารประกอบการเรียน",
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+          "link": "Link"
+        },
+        "form": {
+          "name": "เอกสารประกอบการเรียน",
+          "file": "ไฟล์เอกสารประกอบการเรียน",
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)"
+        }
+      },
+      "tabExpensesAndShare": {
+        "registrationFee": "ค่าลงทะเบียน",
+        "normalPrice": "ราคาปกติ",
+        "promotionPrice": "ราคาโปรโมชั่น",
+        "promotionStartDate": "วันที่เริ่มจัดโปรโมชั่นส่วนลด",
+        "promotionEndDate": "วันสุดท้ายที่จัดโปรโมชั่นส่วนลด",
+        "registrationFeeShare": "ส่วนแบ่งค่าลงทะเบียน",
+        "faculty": "ส่วนงาน",
+        "department": "หน่วยงาน",
+        "facultyShare": "ส่วนแบ่งคณะ",
+        "universityShare": "ส่วนแบ่งมหาวิทยาลัย",
+        "academicServiceShare": "ส่วนแบ่งศูนย์บริการวิชาการ"
+      },
+      "tabAccompanyingVideo": {
+        "name": "วิดีโอแนะนำคอร์ส",
+        "videoNameTh": "ชื่อวิดีโอ (ภาษาไทย)",
+        "videoNameEn": "ชื่อวิดีโอ (ภาษาอังกฤษ)",
+        "fileVideo": "ไฟล์วิดีโอแนะนำคอร์ส",
+        "videoOption": "การแสดงวิดีโอแนะนำ",
+        "linkYoutube": "ลิงค์ Youtube"
+      },
+      "tabThumbnail": {
+        "name": "Thumbnail",
+        "thumbnailNameTh": "ชื่อ Thumbnail (ภาษาไทย)",
+        "thumbnailNameEn": "ชื่อ Thumbnail (ภาษาอังกฤษ)",
+        "thumbnailFile": "ไฟล์ Thumbnail (ภาพปกคอร์ส)"
+      },
+      "tabOtherIllustrations": {
+        "table": {
+          "name": "ภาพประกอบ",
+          "imgNameTh": "ชื่อภาพ (ภาษาไทย)",
+          "imgNameEn": "ชื่อภาพ (ภาษาอังกฤษ)",
+          "link": "Link",
+          "illustration": "ภาพประกอบ"
+        },
+        "form": {
+          "name": "ภาพประกอบ",
+          "detailSection": "รายละเอียด",
+          "imgNameTh": "ชื่อภาพ (ภาษาไทย)",
+          "imgNameEn": "ชื่อภาพ (ภาษาอังกฤษ)",
+          "imgFile": "ไฟล์ภาพประกอบ"
+        }
+      },
+      "tabRoundCertificate": {
+        "departmentLogo": "โลโก้หน่วยงาน",
+        "imgLogoTh": "ภาพโลโก้หน่วยงาน : กึ่งกลางหน้าจอ (ภาษาไทย)",
+        "imgLogoEn": "ภาพโลโก้หน่วยงาน : กึ่งกลางหน้าจอ (ภาษาอังกฤษ)",
+        "certificateSignFormat": "รูปแบบลายเซ็นใบประกาศนียบัตร",
+        "numOfSign": "จำนวนลายเซ็น",
+        "positionSign": "ตำแหน่งการแสดงผล",
+        "sign": "ลายเซ็น",
+        "signTh": "ลายเซ็น (ภาษาไทย)",
+        "signEn": "ลายเซ็น (ภาษาอังกฤษ)",
+        "nameTh": "ชื่อ-สกุล (ภาษาไทย)",
+        "nameEn": "ชื่อ-สกุล (ภาษาอังกฤษ)",
+        "positionTh": "ตำแหน่ง (ภาษาไทย)",
+        "positionEn": "ตำแหน่ง (ภาษาอังกฤษ)"
+      }
+    },
+    "tabLearningOutcomes": {
+      "tabSectionLearningOutcome": "ผลลัพธ์การเรียนรู้ (LO)",
+      "sectionCategorySkill": "ประเภททักษะ",
+      "skillsKnowledgeId": "หมวดหมู่ความรู้",
+      "skillsSubKnowledgeId": "หมวดหมู่ย่อย",
+      "skillId": "ทักษะ",
+      "courseSkillsLevel": "ระดับความยาก",
+      "courseSkillsWeight": "น้ำหนัก",
+      "sectionGeneralSkill": "ทักษะทั่วไป",
+      "generalSkillsId": "ทักษะทั่วไป",
+      "generalSkillsWeight": "น้ำหนัก",
+      "sectionExpectedLearning": "ผลการเรียนรู้ที่คาดหวัง (Shot course learning outcome)",
+      "courseScloDesc": "ผลการเรียนรู้ที่คาดหวัง",
+      "courseScloWeight": "น้ำหนัก",
+      "sectionLearningManagement": "กระบวนการจัดการเรียนรู้",
+      "learningOutcomesDesc": "ผลลัพธ์การเรียนรู้",
+      "learningOutcomesTopic": "หัวข้อ/สาระการเรียนรู้",
+      "learningOutcomesMethod": "วิธีการสอน/กิจกรรมการเรียนรู้",
+      "learningOutcomesTools": "วิธีการ/เครื่องมือวัดประเมิน"
+    },
+    "tabCompare": {
+      "tabSectionComparativeCurriculum": "เทียบเคียงหลักสูตร",
+      "sectionComparativeStudy": "เทียบเคียงหลักสูตรการศึกษา",
+      "courseConcept": "แนวคิด เหตุผล วัตถุประสงค์ของหลักสูตร และผลการเรียนรู้ที่คิดหวัง",
+      "sectionComparisonCourseOpen": "รายวิชาที่สามารถเทียบเคียงได้",
+      "matchingSubjectId": "อ้างอิง subject_id จาก supreme",
+      "matchingSubjectCode": "รหัสวิชา",
+      "matchingSubjectNameTh": "ชื่อรายวิชา (ภาษาไทย)",
+      "matchingSubjectNameEn": "ชื่อรายวิชา (ภาษาอังกฤษ)",
+      "matchingCourseNameTh": "ชื่อหลักสูตร (ภาษาไทย)",
+      "matchingCourseNameEn": "ชื่อหลักสูตร (ภาษาอังกฤษ)",
+      "matchingLo": "ผลลัพธ์การเรียนรู้",
+      "matchingCourseDesc": "คําอธิบายรายวิชา/ชุดวิชา",
+      "matchingCourseH": "จํานวนชั่วโมง",
+      "matchingCredit": "หน่วยกิต",
+      "matchingGradeFormat": "รูปแบบผลการเรียน"
+    },
+    "courseApproval": {
+      "header": "คำขออนุมัติหลักสูตร",
+      "pleaseEnter": "กรุณากรอกข้อมูลให้ครบ",
+      "general": {
+        "name": "ข้อมูลทั่วไป",
+        "courseNewStatus": "สถานภาพของหลักสูตรอบรมระยะสั้น",
+        "courseTypeName": "ประเภทหลักสูตร",
+        "courseMapptingStatus": "เทียบเคียงหลักสูตร",
+        "depName": "ส่วนงาน",
+        "faculty": "ส่วนงาน",
+        "department": "หน่วยงาน",
+        "courseCode": "รหัสหลักสูตร",
+        "courseNameTh": "ชื่อหลักสูตร (ภาษาไทย)",
+        "courseNameEn": "ชื่อหลักสูตร (ภาษาอังกฤษ)",
+        "courseDescTh": "คำอธิบายรายวิชาของหลักสูตร (ภาษาไทย)",
+        "courseDescEn": "คำอธิบายรายวิชาของหลักสูตร (ภาษาอังกฤษ)",
+        "courseHashtag": "Keyword",
+        "courseFormat": "รูปแบบการเรียนการสอน",
+        "courseFormatDescTh": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย)",
+        "courseFormatDescEn": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ)",
+        "courseTotalH": "รวมจำนวนชั่วโมงเรียน",
+        "hr": "ชม.",
+        "hrs": "ชม.",
+        "theory": "ทฤษฎี",
+        "action": "ปฏิบัติ",
+        "courseDurationTime": "ระยะเวลาเรียนตลอดหลักสูตรอบรมระยะสั้น",
+        "gradeFormat": "รูปแบบผลการเรียน",
+        "skillAssessment": "การวัดและประเมินผลทักษะ",
+        "evaluation": "มีการวัดผล/ให้คะแนน/ประเมิน",
+        "nonEvaluation": "ไม่มีการวัดผล เน้นการเข้าร่วมเท่านั้น",
+        "creditAmount": "จำนวนหน่วยกิต",
+        "industry": "กลุ่มอุตสาหกรรม/กลุ่มเป้าหมาย",
+        "industryGroup": "กลุ่มอุตสาหกรรม/กลุ่มพัฒนาคน",
+        "targetGroup": "กลุ่มเป้าหมายที่เข้ารับการศึกษา",
+        "occupationName": "อาชีพที่หลักสูตรอบรมระยะสั้นรองรับ ",
+        "specificRequirementTh": "ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม(ภาษาไทย) (ถ้ามี)",
+        "specificRequirementEn": "ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม(ภาษาอังกฤษ) (ถ้ามี)"
+      },
+      "instructor": {
+        "name": "อาจารย์/ผู้รับผิดชอบ",
+        "instructorName": "ชื่ออาจารย์/ผู้รับผิดชอบ",
+        "email": "อีเมล",
+        "instructorType": "ประเภทอาจารย์",
+        "instructorMain": "อาจารย์/ผู้รับผิดชอบหลัก",
+        "assProf": "ผู้ช่วยศาสตราจารย์",
+        "internalInstructor": "อาจารย์ภายใน",
+        "externalInstructor": "อาจารย์ภายนอก"
+      },
+      "company": {
+        "name": "หน่วยงาน/สถานประกอบการที่ร่วมจัดการเรียนการสอน (ถ้ามี)",
+        "companyName": "ชื่อหน่วยงาน/สถานประกอบการ",
+        "address": "ที่ตั้ง",
+        "ownerName": "ชื่อผู้ประกอบการ",
+        "tel": "เบอร์โทรศัพท์"
+      },
+      "matching": {
+        "name": "รายวิชาที่สามารถเทียบเคียงได้",
+        "subjectCode": "รหัสวิชา",
+        "subjectsName": "ชื่อรายวิชา",
+        "courseName": "ชื่อหลักสูตร",
+        "credits": "หน่วยกิต",
+        "detail": "รายละเอียด",
+        "curriculumCode": "รหัสหลักสูตร",
+        "ownerCurriculum": "หน่วยงานเจ้าของหลักสูตร"
+      },
+      "skill": {
+        "name": "หมวดหมู่ทักษะ",
+        "skillsCategorie": "ชื่อหมวดหมู่ทักษะ",
+        "otherSkillNameTh": "ชื่อทักษะอื่น (ภาษาไทย)",
+        "otherSkillNameEn": "ชื่อทักษะอื่น (ภาษาอังกฤษ)",
+        "level": "ระดับ",
+        "weight": "น้ำหนัก"
+      },
+      "sclo": {
+        "name": "ผลลัพธ์การเรียนรู้ที่คาดหวัง",
+        "scloCode": "รหัส",
+        "learningOutcome": "ผลลัพธ์การเรียนรู้ของหลักสูตรอบรมระยะสั้น"
+      },
+      "activity": {
+        "name": "กระบวนการจัดการเรียนรู้",
+        "topic": "เนื้อหา/กระบวนการ",
+        "teachingMethod": "วิธีการสอน",
+        "period": "ระยะเวลา (นาที)",
+        "assessment": "การวัดและประเมินผล"
+      },
+      "attach": {
+        "name": "เอกสารประกอบการเรียน",
+        "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+        "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+        "link": "Link"
+      },
+      "attachRequest": {
+        "name": "เอกสารการขออนุมัติหลักสูตร",
+        "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+        "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+        "link": "Link"
+      },
+      "creator": {
+        "name": "ผู้บันทึก",
+        "creatorName": "ชื่อผู้บันทึก",
+        "date": "วันที่สภาอนุมัติ/รับทราบ"
+      }
+    },
+    "roundApproval": {
+      "header": "รายละเอียดรอบหลักสูตร",
+      "pleaseEnter": "กรุณากรอกข้อมูลให้ครบ",
+      "courseOpen": {
+        "name": "การเปิดหลักสูตร",
+        "buasriStatus": "ให้บริการผ่านบัวศรีไอดี",
+        "popularStatus": "Popular",
+        "certificateFormat": "รูปแบบการให้ประกาศนียบัตร"
+      },
+      "roundOpen": {
+        "name": "รอบการเปิดหลักสูตร",
+        "publicNameTh": "ชื่อรอบหลักสูตร (ภาษาไทย)",
+        "publicNameEn": "ชื่อรอบหลักสูตร (ภาษาอังกฤษ)",
+        "publicFormat": "รูปแบบการเปิดหลักสูตร",
+        "courseGeneration": "รุ่น",
+        "maxEnroll": "จำนวนที่เปิดรับ",
+        "publicStatus": "เผยแพร่บนเว็บไซต์",
+        "coursePublic": "วันที่แสดงบนเว็บ",
+        "courseRegis": "วันที่เปิดรับสมัคร",
+        "courseClass": "วันที่เรียน"
+      },
+      "timeAndPlace": {
+        "name": "เวลาและสถานที่เรียน",
+        "courseFormat": "รูปแบบการเรียนการสอน",
+        "courseFormatDescTh": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย)",
+        "courseFormatDescEn": "รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ)",
+        "courseTime": "เวลาเรียน"
+      },
+      "instructor": {
+        "name": "อาจารย์ผู้สอน",
+        "table": {
+          "instructorName": "ชื่ออาจารย์",
+          "email": "อีเมล",
+          "instructorType": "ประเภทอาจารย์",
+          "instructorMain": "อาจารย์หลัก",
+          "externalInstructor": "อาจารย์ภายนอก",
+          "internalInstructor": "อาจารย์ภายใน",
+          "recordAcademic": "บันทึกผลการเรียน",
+          "recordMoodle": "บันทึกข้อมูล Moodle",
+          "receiveEmail": "รับอีเมล"
+        }
+      },
+      "teachingDocument": {
+        "name": "เอกสารประกอบการเรียน",
+        "table": {
+          "fileNameTh": "ชื่อไฟล์ (ภาษาไทย)",
+          "fileNameEn": "ชื่อไฟล์ (ภาษาอังกฤษ)",
+          "link": "Link"
+        }
+      },
+      "registrationFee": {
+        "name": "ค่าลงทะเบียน",
+        "tabFee": "ค่าใช้จ่าย",
+        "feeStatus": "ค่าลงทะเบียน",
+        "feeAmount": "ราคาปกติ",
+        "promotionAmount": "ราคาโปรโมชั่น",
+        "promotionStart": "วันที่เริ่มจัดโปรโมชั่นส่วนลด",
+        "promotionEnd": "วันสุดท้ายที่จัดโปรโมชั่นส่วนลด"
+      },
+      "shareRegistrationFee": {
+        "name": "ส่วนแบ่งค่าลงทะเบียน",
+        "depId": "ส่วนงาน",
+        "faculty": "ส่วนงาน",
+        "department": "หน่วยงาน",
+        "shareDep": "เงินสนับสนุนคณะ",
+        "shareGlobal": "เงินสนับสนุนมหาวิทยาลัย",
+        "shareCenter": "เงินสนับสนุนศูนย์บริการวิชาการ",
+        "expenses": "ค่าใช้จ่ายในการดำเนินงาน"
+      },
+      "video": {
+        "name": "วิดีโอแนะนำคอร์ส",
+        "table": {
+          "videoNameTh": "ชื่อวิดีโอ (ภาษาไทย)",
+          "videoNameEn": "ชื่อวิดีโอ (ภาษาอังกฤษ)",
+          "link": "Link",
+          "video": "วิดีโอ"
+        }
+      },
+      "thumbnail": {
+        "name": "Thumbnail",
+        "table": {
+          "thumbnailNameTh": "ชื่อ Thumbnail (ภาษาไทย)",
+          "thumbnailNameEn": "ชื่อ Thumbnail (ภาษาอังกฤษ)",
+          "link": "Link",
+          "thumbnail": "ภาพ Thumbnail"
+        }
+      },
+      "illustration": {
+        "name": "ภาพประกอบ",
+        "table": {
+          "imgNameTh": "ชื่อภาพ (ภาษาไทย)",
+          "imgNameEn": "ชื่อภาพ (ภาษาอังกฤษ)",
+          "link": "Link",
+          "illustration": "ภาพประกอบ"
+        }
+      },
+      "certificate": {
+        "name": "รูปแบบลายเซ็นใบประกาศนียบัตร",
+        "logoTh": "ชื่อภาพโลโก้หน่วยงาน (ภาษาไทย)",
+        "logoEn": "ชื่อภาพโลโก้หน่วยงาน (ภาษาอังกฤษ)",
+        "imgTh": "ภาพ (ภาษาไทย)",
+        "imgEn": "ภาพ (ภาษาอังกฤษ)",
+        "numOfSign": "จำนวนลายเซ็น",
+        "sign": "ลายเซ็น",
+        "table": {
+          "no": "ลำดับลายเซ็น",
+          "nameTh": "ชื่อ-สกุล (ภาษาไทย)",
+          "positionTh": "ตำแหน่ง (ภาษาไทย)",
+          "signTh": "ลายเซ็น (ภาษาไทย)",
+          "nameEn": "ชื่อ-สกุล (ภาษาอังกฤษ)",
+          "positionEn": "ตำแหน่ง (ภาษาอังกฤษ)",
+          "signEn": "ลายเซ็น (ภาษาอังกฤษ)"
+        }
+      },
+      "approve": {
+        "name": "การอนุมัติ",
+        "approveDate": "วันที่ศูนย์บริการวิชาการอนุมัติ"
+      }
+    },
+    "roundCancellation": {
+      "header": "ขออนุมัติยกเลิกรอบคอร์ส",
+      "registratorList": "รายชื่อผู้ลงทะเบียน",
+      "requestCancellation": "คำขอยกเลิกหลักสูตร",
+      "reason": "เหตุผลการยกเลิกหลักสูตร",
+      "approver": "ผู้อนุมัติ",
+      "table": {
+        "paymentDate": "วันที่ชำระเงิน",
+        "memberCode": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+        "name": "ชื่อผู้เรียน",
+        "amount": "จำนวนเงิน",
+        "receiptStatus": "การชำระเงิน",
+        "totals": "รวม"
+      },
+      "button": {
+        "sendApproval": "ส่งคำขออนุมัติ",
+        "approve": "อนุมัติ",
+        "reject": "ไม่อนุมัติ"
+      },
+      "confirm": "ยืนยันการส่งอนุมัติยกเลิกรอบหลักสูตร?",
+      "confirmApprove": "ยืนยันการยกเลิกรอบคอร์ส?",
+      "confirmReject": "ยืนยันบันทึกข้อมูล?"
+    }
+  },
+  "master": {
+    "generalSkill": {
+      "name": "ข้อมูลหมวดหมู่ทักษะ",
+      "criteria": {
+        "generalSkillCode": "รหัสหมวดหมู่ทักษะ",
+        "generalSkillName": "ชื่อหมวดหมู่ทักษะ"
+      },
+      "table": {
+        "name": "รายการหมวดหมู่ทักษะ",
+        "column": {
+          "skillFormat": "รูปแบบหมวดหมู่ทักษะ",
+          "uploadCategorySkill": "รูป",
+          "generalSkillCode": "รหัสหมวดหมู่ทักษะ",
+          "generalSkillNameTh": "ชื่อหมวดหมู่ทักษะ (ภาษาไทย)",
+          "generalSkillNameEn": "ชื่อหมวดหมู่ทักษะ (ภาษาอังกฤษ)"
+        }
+      },
+      "form": {
+        "name": "หมวดหมู่ทักษะ",
+        "skillFormat": "รูปแบบหมวดหมู่ทักษะ",
+        "uploadCategorySkill": "อัปโหลดภาพหมวดหมู่ทักษะ",
+        "scaleDetail": "อัปโหลดไฟล์ขนาดไม่เกิน 5Mb และ[ขนาด200x200]",
+        "detailSection": "รายละเอียด",
+        "generalSkillCode": "รหัสหมวดหมู่ทักษะ",
+        "generalSkillNameTh": "ชื่อหมวดหมู่ทักษะ (ภาษาไทย)",
+        "generalSkillNameEn": "ชื่อหมวดหมู่ทักษะ (ภาษาอังกฤษ)",
+        "descriptionTh": "คำอธิบาย (ภาษาไทย)",
+        "descriptionEn": "คำอธิบาย (ภาษาอังกฤษ)",
+        "method": "วิธีการประเมินเชิงประจักษ์",
+        "criteria": "เกณฑ์ที่ใช้ในการประเมิน"
+      }
+    },
+    "occupantion": {
+      "name": "ข้อมูลอาชีพ",
+      "criteria": {
+        "occupantionCode": "รหัสอาชีพ",
+        "occupantionName": "ชื่ออาชีพ",
+        "occupantionGroup": "กลุ่มอาชีพ"
+      },
+      "table": {
+        "name": "รายการอาชีพ",
+        "column": {
+          "occupantionCode": "รหัสอาชีพ",
+          "occupantionNameTh": "ชื่ออาชีพ (ภาษาไทย)",
+          "occupantionNameEn": "ชื่ออาชีพ (ภาษาอังกฤษ)",
+          "occupantionGroup": "กลุ่มอาชีพ"
+        }
+      },
+      "form": {
+        "name": "อาชีพ",
+        "detailSection": "รายละเอียด",
+        "occupantionCode": "รหัสอาชีพ",
+        "occupantionNameTh": "ชื่ออาชีพ (ภาษาไทย)",
+        "occupantionNameEn": "ชื่ออาชีพ (ภาษาอังกฤษ)",
+        "occupantionGroup": "กลุ่มอาชีพ",
+        "table": {
+          "name": "ประเภททักษะ",
+          "column": {
+            "skillName": "ชื่อหมวดหมู่ทักษะ",
+            "skillFormat": "รูปแบบหมวดหมู่ทักษะ",
+            "level": "ระดับ"
+          }
+        },
+        "subForm": {
+          "name": "หมวดหมู่ทักษะ",
+          "sectionDetail": "รายละเอียด",
+          "generalSkillId": "หมวดหมู่ทักษะ",
+          "occSkillLevel": "ระดับทักษะ"
+        }
+      }
+    },
+    "occupantionGroup": {
+      "name": "ข้อมูลกลุ่มอาชีพ",
+      "criteria": {
+        "occupantionGroupCode": "รหัสกลุ่มอาชีพ",
+        "occupantionGroupName": "ชื่อกลุ่มอาชีพ"
+      },
+      "table": {
+        "name": "รายการกลุ่มอาชีพ",
+        "column": {
+          "occupantionGroupCode": "รหัสกลุ่มอาชีพ",
+          "occupantionGroupNameTh": "ชื่อกลุ่มอาชีพ (ภาษาไทย)",
+          "occupantionGroupNameEn": "ชื่อกลุ่มอาชีพ (ภาษาอังกฤษ)"
+        }
+      },
+      "form": {}
+    },
+    "bank": {
+      "name": "ข้อมูลธนาคาร",
+      "criteria": {
+        "bankCode": "รหัสธนาคาร",
+        "bankNameTh": "ชื่อธนาคาร (ภาษาไทย)",
+        "bankNameEn": "ชื่อธนาคาร (ภาษาอังกฤษ)"
+      },
+      "table": {
+        "name": "รายการบัญชีธนาคาร",
+        "column": {
+          "bankCode": "รหัสธนาคาร",
+          "bankNameTh": "ชื่อธนาคาร (ภาษาไทย)",
+          "bankNameEn": "ชื่อธนาคาร (ภาษาอังกฤษ)"
+        }
+      },
+      "form": {
+        "name": "เพิ่มธนาคาร",
+        "detailSection": "รายละเอียด",
+        "bankCode": "รหัสธนาคาร",
+        "bankNameTh": "ชื่อธนาคาร (ภาษาไทย)",
+        "bankNameEn": "ชื่อธนาคาร (ภาษาอังกฤษ)"
+      }
+    },
+    "bankAccount": {
+      "name": "ข้อมูลบัญชีธนาคาร",
+      "criteria": {
+        "bank": "ธนาคาร",
+        "branch": "สาขา",
+        "accountNo": "เลขที่บัญชี",
+        "accountNameTh": "ชื่อบัญชี (ภาษาไทย)",
+        "accountNameEn": "ชื่อบัญชี (ภาษาอังกฤษ)"
+      },
+      "table": {
+        "name": "รายการบัญชีธนาคาร",
+        "column": {
+          "bank": "ธนาคาร",
+          "branch": "สาขา",
+          "accountNo": "เลขที่บัญชี",
+          "accountNameTh": "ชื่อบัญชี (ภาษาไทย)",
+          "accountNameEn": "ชื่อบัญชี (ภาษาอังกฤษ)",
+          "bankAccountNote": "หมายเหตุ"
+        }
+      },
+      "form": {
+        "name": "ข้อมูลบัญชีธนาคาร",
+        "detailSection": "รายละเอียด",
+        "bank": "ธนาคาร",
+        "branch": "สาขา",
+        "accountNo": "เลขที่บัญชี",
+        "accountNameTh": "ชื่อบัญชี (ภาษาไทย)",
+        "accountNameEn": "ชื่อบัญชี (ภาษาอังกฤษ)",
+        "bankAccountNote": "หมายเหตุ",
+        "bankId": "Bank ID",
+        "companyId": "Company ID"
+      }
+    },
+    "bankBranch": {
+      "name": "ข้อมูลสาขาธนาคาร",
+      "criteria": {
+        "bank": "ธนาคาร",
+        "branchCode": "รหัสสาขา",
+        "branchNameTh": "ชื่อสาขา (ภาษาไทย)",
+        "branchNameEn": "ชื่อสาขา (ภาษาอังกฤษ)"
+      },
+      "table": {
+        "name": "รายการบัญชีธนาคาร",
+        "column": {
+          "bank": "ธนาคาร",
+          "branchCode": "รหัสสาขา",
+          "branchNameTh": "ชื่อสาขา (ภาษาไทย)",
+          "branchNameEn": "ชื่อสาขา (ภาษาอังกฤษ)"
+        }
+      },
+      "form": {
+        "name": "ข้อมูลสาขาธนาคาร",
+        "detailSection": "รายละเอียด",
+        "bank": "ธนาคาร",
+        "branchCode": "รหัสสาขา",
+        "branchNameTh": "ชื่อสาขา (ภาษาไทย)",
+        "branchNameEn": "ชื่อสาขา (ภาษาอังกฤษ)"
+      }
+    },
+    "registrationFeeSharing": {
+      "name": "ส่วนแบ่งค่าลงทะเบียนเรียน",
+      "criteria": {
+        "forFaculty": "สำหรับคณะ"
+      },
+      "table": {
+        "name": "รายการส่วนแบ่งค่าลงทะเบียน",
+        "column": {
+          "forFaculty": "สำหรับคณะ",
+          "facultyRate": "เงินสนับสนุนคณะ",
+          "universityRate": "เงินสนับสนุนมหาวิทยาลัย",
+          "managementRate": "ค่าใช้จ่ายในการดำเนินงาน",
+          "centerofacademicserviceShareRate": "เงินสนับสนุนศูนย์บริการวิชาการ",
+          "lastUpdate": "วันที่อัปเดตล่าสุด"
+        }
+      },
+      "form": {
+        "name": "เพิ่มกำหนดส่วนแบ่งค่าลงทะเบียน",
+        "detailSection": "รายละเอียด",
+        "facultyRate": "เงินสนับสนุนคณะ",
+        "universityRate": "เงินสนับสนุนมหาวิทยาลัย",
+        "managementRate": "ค่าใช้จ่ายในการดำเนินงาน",
+        "centerofacademicserviceShareRate": "เงินสนับสนุนศูนย์บริการวิชาการ",
+        "docsTable": {
+          "name": "เอกสารแนบ",
+          "column": {
+            "fileName": "ชื่อไฟล์",
+            "link": "link"
+          }
+        },
+        "updateHistoryTable": {
+          "name": "ประวัติการกำหนดส่วนแบ่งค่าลงทะเบียน",
+          "column": {
+            "createDate": "วันที่บันทึก",
+            "facultyRate": "เงินสนับสนุนคณะ",
+            "universityRate": "เงินสนับสนุนมหาวิทยาลัย",
+            "managementRate": "ค่าใช้จ่ายในการดำเนินงาน",
+            "centerofacademicserviceShareRate": "เงินสนับสนุนศูนย์บริการวิชาการ",
+            "createBy": "ผู้บันทึก"
+          }
+        }
+      }
+    },
+    "facultyInf": {
+      "name": "ข้อมูลส่วนงาน",
+      "criteria": {
+        "facultyDepartmentCode": "รหัสส่วนงาน",
+        "facultyDepartmentName": "ชื่อส่วนงาน",
+        "facultyDepartmentNameTh": "ชื่อส่วนงาน (ภาษาไทย)",
+        "facultyDepartmentNameEn": "ชื่อส่วนงาน (ภาษาอังกฤษ)",
+        "educationUsed": "สถานะจัดการเรียนการสอน"
+      },
+      "updateButtom": "อัปเดตส่วนงาน",
+      "table": {
+        "name": "รายชื่อส่วนงาน",
+        "column": {
+          "facultyDepartmentCode": "รหัสส่วนงาน",
+          "facultyDepartmentNameTh": "ชื่อส่วนงาน (ภาษาไทย)",
+          "facultyDepartmentNameEn": "ชื่อส่วนงาน (ภาษาอังกฤษ)",
+          "facultyDepartmentShortNameTh": "ชื่อย่อส่วนงาน (ภาษาไทย)",
+          "facultyDepartmentShortNameEn": "ชื่อย่อส่วนงาน (ภาษาอังกฤษ)",
+          "facultyDepartmentAbbrNameTh": "ตัวย่อส่วนงาน (ภาษาไทย)",
+          "facultyDepartmentAbbrNameEn": "ตัวย่อส่วนงาน (ภาษาอังกฤษ)",
+          "educationUsed": "สถานะจัดการเรียนการสอน",
+          "lastUpdate": "วันที่อัปเดตล่าสุด"
+        }
+      }
+    },
+    "personalLists": {
+      "name": "รายชื่อบุคลากร",
+      "criteria": {
+        "buasriID": "Buasri ID",
+        "personalName": "ชื่อ-สกุล",
+        "position": "ตำแหน่ง",
+        "department": "ส่วนงาน",
+        "email": "อีเมล",
+        "personalType": "ประเภทบุคลากร",
+        "personalStatus": "สถานภาพ"
+      },
+      "table": {
+        "name": "รายขื่ออาจารย์",
+        "common": {
+          "updateBtn": "อัปเดตรายชื่อ",
+          "exportBtn": "ส่งออก"
+        },
+        "column": {
+          "buasriID": "Buasri ID",
+          "personalName": "ชื่อ-สกุล",
+          "personalMiddleName": "ชื่อกลาง",
+          "personalLastName": "นามสกุล",
+          "position": "ตำแหน่ง",
+          "faculty": "ส่วนงาน",
+          "department": "หน่วยงาน",
+          "email": "อีเมล",
+          "personalType": "ประเภทบุคลากร",
+          "personalStatus": "สถานภาพ",
+          "status": "สถานะ"
+        }
+      },
+      "dialog": {
+        "name": "รายละเอียด",
+        "details": {
+          "buasriID": "Buasri ID",
+          "prefixName": "คำนำหน้า",
+          "personalName": "ชื่อ-สกุล",
+          "department": "หน่วยงาน",
+          "position": "ตำแหน่ง",
+          "email": "อีเมล",
+          "phone": "เบอร์โทรศัพท์"
+        }
+      }
+    },
+    "fee": {
+      "name": "ข้อมูลค่าธรรมเนียมการชำระเงิน",
+      "criteria": {
+        "paymentType": "ประเภทรูปแบบการชำระงิน",
+        "cardType": "ประเภทรายการ/บัตร",
+        "fromYear": "ปีที่เริ่มใช้งาน",
+        "createDate": "วันที่บันทึกเอกสาร",
+        "createBy": "ผู้บันทึก"
+      },
+      "table": {
+        "name": "รายการค่าธรรมเนียม",
+        "column": {
+          "paymentType": "ประเภทรูปแบบการชำระงิน",
+          "cardType": "ประเภทรายการ/บัตร",
+          "chargesRate": "อัตราค่าธรรมเนียม",
+          "universityCharge": "เรียกเก็บมหาวิทยาลัย",
+          "studentCharge": "เรียกเก็บผู้เรียน",
+          "fromYear": "ปีที่เริ่มใช้งาน",
+          "createDate": "วันที่บันทึกเอกสาร",
+          "createBy": "ผู้บันทึก"
+        }
+      },
+      "form": {
+        "name": "กำหนดค่าธรรมเนียม",
+        "detailSection": "รายละเอียด",
+        "paymentType": "ประเภทรูปแบบการชำระงิน",
+        "cardType": "ประเภทรายการ/บัตร",
+        "detailFee": "ค่าธรรมเนียม",
+        "chargesRate": "อัตราค่าธรรมเนียม",
+        "universityCharge": "เรียกเก็บมหาวิทยาลัย",
+        "studentCharge": "เรียกเก็บผู้เรียน",
+        "fromYear": "ปีที่เริ่มใช้งาน",
+        "docsTable": {
+          "name": "เอกสาร",
+          "column": {
+            "fileName": "ชื่อไฟล์",
+            "link": "Link"
+          }
+        },
+        "subForm": {
+          "name": "เอกสาร",
+          "detail": "รายละเอียด",
+          "attach": "ไฟล์เอกสารประกอบ",
+          "fileName": "ชื่อไฟล์"
+        }
+      }
+    },
+    "courseType": {
+      "name": "ข้อมูลประเภทหลักสูตร",
+      "criteria": {
+        "courseTypeCode": "รหัสประเภทหลักสูตร",
+        "courseTypeNameTh": "ชื่อประเภทหลักสูตร (ภาษาไทย)",
+        "courseTypeNameEn": "ชื่อประเภทหลักสูตร (ภาษาอังกฤษ)",
+        "curriculumMappingStatus": "การเทียบเคียงหลักสูตร",
+        "compareMapping": "เทียบเคียงหลักสูตร",
+        "uncompareMapping": "ไม่เทียบเคียงหลักสูตร"
+      },
+      "table": {
+        "name": "รายการประเภทหลักสูตร",
+        "column": {
+          "courseTypeCode": "รหัสประเภทหลักสูตร",
+          "courseTypeNameTh": "ชื่อประเภทหลักสูตร (ภาษาไทย)",
+          "courseTypeNameEn": "ชื่อประเภทหลักสูตร (ภาษาอังกฤษ)",
+          "curriculumMappingStatus": "การเทียบเคียงหลักสูตร"
+        }
+      },
+      "form": {
+        "name": "ประเภทหลักสูตร",
+        "detailSection": "รายละเอียด",
+        "courseTypeCode": "รหัสประเภทหลักสูตร",
+        "courseTypeNameTh": "ชื่อประเภทหลักสูตร (ภาษาไทย)",
+        "courseTypeNameEn": "ชื่อประเภทหลักสูตร (ภาษาอังกฤษ)",
+        "curriculumMappingStatus": "การเทียบเคียงหลักสูตรอบรมระยะสั้นกับหลักสูตรการศึกษา"
+      }
+    },
+    "curriculum": {
+      "name": "ข้อมูลหลักสูตร",
+      "criteria": {
+        "curriculumSwuId": "หลักสูตร",
+        "creditStudy": "จำนวนหน่วยกิตไม่เกิน",
+        "degreeCode": "ปริญญา",
+        "majorCode": "สาขาวิชา",
+        "eduLevelCode": "ระดับการศึกษา",
+        "studyYear": "ระยะเวลาเรียน (ปี)",
+        "depId": "หน่วยงาน",
+        "faculty": "ส่วนงาน"
+      },
+      "table": {
+        "name": "รายชื่อหลักสูตร",
+        "button": "อัพเดตหลักสูตร",
+        "column": {
+          "curriculumSwuId": "รหัสหลักสูตร มศว.",
+          "curriculumMhesiId": "รหัสหลักสูตร สป.อว.",
+          "curriculumNameTh": "ชื่อหลักสูตร (ไทย)",
+          "curriculumNameEn": "ชื่อหลักสูตร (อังกฤษ)",
+          "creditStudy": "จำนวนหน่วยกิตรวม",
+          "degreeCode": "รหัสวุฒิการศึกษา",
+          "degreeNameTh": "ชื่อปริญญา (ไทย)",
+          "degreeNameEn": "ชื่อปริญญา (อังกฤษ)",
+          "majorCode": "รหัสสาขาวิชา",
+          "majorNameTh": "ชื่อสาขาวิชา (ไทย)",
+          "majorNameEn": "ชื่อสาขาวิชา (อังกฤษ)",
+          "eduLevelNameTh": "ระดับการศึกษา (ไทย)",
+          "eduLevelNameEn": "ระดับการศึกษา (อังกฤษ)",
+          "studyYear": "จำนวนปีการศึกษา (ปี)",
+          "ownerFacultyNameTh": "หน่วยงานเจ้าของหลักสูตร (ไทย)",
+          "ownerFacultyNameEn": "หน่วยงานเจ้าของหลักสูตร (อังกฤษ)",
+          "ownerDepNameTh": "ส่วนงานเจ้าของหลักสูตร (ไทย)",
+          "ownerDepNameEn": "ส่วนงานเจ้าของหลักสูตร (อังกฤษ)"
+        },
+        "dropdown": {
+          "masterDegree": "ปริญญาโท",
+          "graduateCertificate": "ประกาศนียบัตรบัณฑิต",
+          "bachelorDegree": "ปริญญาตรี",
+          "doctoralDegree": "ปริญญาเอก"
+        }
+      }
+    },
+    "subject": {
+      "name": "ข้อมูลรายชื่อวิชา",
+      "criteria": {
+        "curriculum": "หลักสูตร มศว.",
+        "curriculumMhesi": "หลักสูตร สป.อว.",
+        "groupName": "ชื่อกลุ่ม",
+        "minorType": "แผนการศึกษา",
+        "subjectCode": "รหัสวิชา",
+        "subjectName": "ชื่อวิชา",
+        "subjectCredit": "จำนวนหน่วยกิต",
+        "subjectType": "ประเภทวิชา"
+      },
+      "table": {
+        "name": "รายชื่อวิชา",
+        "button": "อัพเดตรายชื่อวิชา",
+        "column": {
+          "curriculumId": "รหัสหลักสูตร มศว.",
+          "curriculumMhesiId": "รหัสหลักสูตร สป.อว.",
+          "groupId": "รหัสกลุ่ม",
+          "groupNameTh": "ชื่อกลุ่ม (ไทย)",
+          "groupNameEn": "ชื่อกลุ่ม (อังกฤษ)",
+          "groupDetail": "รายละเอียดกลุ่ม",
+          "minorTypeId": "รหัสแผนการศึกษา",
+          "minorTypeTh": "แผนการศึกษา (ไทย)",
+          "subjectSwuId": "รหัสวิชา",
+          "subjectSet": "ชุดวิชา",
+          "subjectCodeTh": "รหัสวิชา (ไทย)",
+          "subjectCodeEn": "รหัสวิชา (อังกฤษ)",
+          "subjectNameTh": "ชื่อวิชา (ไทย)",
+          "subjectNameEn": "ชื่อวิชา (อังกฤษ)",
+          "subjectCredit": "จำนวนหน่วยกิต",
+          "subjectTypeTh": "ประเภทวิชา"
+        }
+      }
+    },
+    "skillsCategories": {
+      "name": "ข้อมูลหมวดหมู่ทักษะ",
+      "criteria": {
+        "skillsCode": "รหัสหมวดหมู่ทักษะ",
+        "skillsName": "ชื่อหมวดหมู่ทักษะ",
+        "skillsNameTh": "ชื่อทักษะ (ภาษาไทย)",
+        "skillsNameEn": "ชื่อทักษะ (ภาษาอังกฤษ)"
+      },
+      "table": {
+        "name": "รายการหมวดหมู่ทักษะ",
+        "common": {
+          "addSkillsCategories": "เพิ่มหมวดหมู่ทักษะ"
+        },
+        "column": {
+          "skillsCode": "รหัสหมวดหมู่ทักษะ",
+          "skillsName": "ชื่อทักษะ",
+          "skillsNameTh": "ชื่อทักษะ (ภาษาไทย)",
+          "skillsNameEn": "ชื่อทักษะ (ภาษาอังกฤษ)",
+          "skillCategoriesFormat": "รูปแบบหมวดหมู่ทักษะ",
+          "skillBannerPicture": "รูปแบนเนอร์"
+        }
+      },
+      "form": {
+        "name": "เพิ่มทักษะ",
+        "detailSection": "รายละเอียด",
+        "skillsCode": "รหัสหมวดหมู่ทักษะ",
+        "skillsName": "ชื่อทักษะ",
+        "skillsNameTh": "ชื่อทักษะ (ภาษาไทย)",
+        "skillsNameEn": "ชื่อทักษะ (ภาษาอังกฤษ)",
+        "skillCategoriesFormat": "รูปแบบหมวดหมู่ทักษะ",
+        "skillBannerPicture": "รูปแบนเนอร์"
+      }
+    },
+    "notification": {
+      "name": "ข้อมูลการประกาศ/แจ้งเตือน",
+      "criteria": {
+        "createDate": "วันที่สร้าง",
+        "recipient": "ผู้รับประกาศ/แจ้งเตือน",
+        "headerAnnouncement": "หัวข้อประกาศ/แจ้งเตือน",
+        "announcementDate": "วันที่ประกาศ",
+        "createBy": "ผู้บันทึก"
+      },
+      "table": {
+        "name": "รายการค่าธรรมเนียม",
+        "common": {
+          "addNotification": "เพิ่มประกาศ/แจ้งเตือน"
+        },
+        "column": {
+          "createDate": "วันที่สร้าง",
+          "recipient": "ผู้รับประกาศ/แจ้งเตือน",
+          "headerAnnouncement": "หัวข้อประกาศ/แจ้งเตือน",
+          "announcementDate": "วันที่ประกาศ",
+          "createBy": "ผู้บันทึก",
+          "history": "ประวัติ"
+        }
+      },
+      "form": {
+        "name": "เพิ่มประกาศ/แจ้งเตือน",
+        "detailSection": "รายละเอียด",
+        "recipient": "ผู้รับประกาศ/แจ้งเตือน",
+        "headerAnnouncement": "หัวข้อประกาศ/แจ้งเตือน",
+        "course": "หลักสูตร",
+        "detailAnnouncement": "รายละเอียดประกาศ/แจ้งเตือน",
+        "postDate": {
+          "name": "วันที่ประกาศ",
+          "switchAnnouncement": "ประกาศแจ้งเตือนทันที",
+          "announcementDate": "วันที่ประกาศ"
+        }
+      }
+    },
+    "consentManagement": {
+      "name": "การจัดการความยินยอมในการขอใช้ข้อมูล",
+      "criteria": {
+        "formNameTh": "ชื่อแบบฟอร์มภาษาไทย",
+        "formNameEn": "ชื่อแบบฟอร์มภาษาอังกฤษ",
+        "versionNo": "เวอร์ชัน",
+        "updateDate": "วันที่อัปเดต",
+        "createBy": "ผู้บันทึก"
+      },
+      "table": {
+        "name": "ประวัติการแก้ไขแบบฟอร์ม",
+        "common": {
+          "addForm": "แบบฟอร์ม"
+        },
+        "column": {
+          "formType": "ประเภทแบบฟอร์ม",
+          "formName": "ชื่อแบบฟอร์ม",
+          "version": "เวอร์ชัน",
+          "lastUpdate": "วันที่อัปเดตล่าสุด",
+          "createBy": "ผู้บันทึก",
+          "status": "สถานะ",
+          "consentBy": "ผู้ให้ความยินยอม",
+          "history": "ประวัติ"
+        }
+      },
+      "form": {
+        "name": "เพิ่มแบบฟอร์ม",
+        "detailSection": "รายละเอียด",
+        "formType": {
+          "name": "ประเภทแบบฟอร์ม",
+          "listType": {
+            "register": "สมัครสมาชิก",
+            "consentCert": "ออกใบรับรอง",
+            "applycourse": "สมัครเรียน",
+            "etc": "อื่นๆ"
+          },
+          "formName": "ชื่อแบบฟอร์ม",
+          "formDetailTh": "รายละเอียดแบบฟอร์มภาษาไทย",
+          "formDetailEn": "รายละเอียดแบบฟอร์มภาษอังกฤษ",
+          "note": "หมายเหตุ",
+          "tableConsent": {
+            "name": "คำยินยอมเปิดเผยข้อมูลส่วนบุคคล",
+            "common": {
+              "addConsent": "เพิ่มคำยินยอม"
+            },
+            "column": {
+              "consentPersonal": "คำยินยอมเปิดเผยข้อมูลส่วนบุคคล"
+            }
+          },
+          "subform": {
+            "name": "เพิ่มคำยินยอม",
+            "detailSection": "รายละเอียด",
+            "pdpa": "นโยบายการคุ้มครองข้อมูลส่วนบุคคล",
+            "readBeforeAccept": "กรุณาทำการอ่านนโยบายการคุ้มครองข้อมูลส่วนบุคคลและทำเครื่องหมายยอมรับเงื่อนไขในการสมัคร",
+            "consentPersonal": "คำยินยอมเปิดเผยข้อมูลส่วนบุคคล"
+          },
+          "tableAgree": {
+            "name": "ปุ่มยอมรับ",
+            "nameBtn": "ชื่อปุ่มยอมรับ",
+            "confirmRegis": "ยืนยันการสมัคร"
+          }
+        }
+      }
+    },
+    "websiteBanner": {
+      "name": "แบนเนอร์",
+      "criteria": {
+        "bannerName": "ชื่อแบนเนอร์",
+        "startDateDisplay": "วันที่เริ่มแสดง",
+        "endDateDisplayed": "วันที่สิ้นสุดแสดง",
+        "updateDate": "วันที่อัปเดต",
+        "createBy": "ผู้บันทึก"
+      },
+      "table": {
+        "name": "รายการแบนเนอร์",
+        "common": {
+          "addBanner": "เพิ่มแบนเนอร์"
+        },
+        "column": {
+          "bannerName": "ชื่อแบนเนอร์",
+          "link": "Link",
+          "startDateDisplay": "วันที่เริ่มแสดง",
+          "endDateDisplayed": "วันที่สิ้นสุดแสดง",
+          "lastUpdate": "วันที่อัปเดตล่าสุด",
+          "createBy": "ผู้บันทึก",
+          "bannerImg": "รูปแบบเนอร์",
+          "orderBanner": "ลำดับแบนเนอร์"
+        }
+      },
+      "form": {
+        "name": "เพิ่มแบนเนอร์",
+        "detailSection": "รายละเอียด",
+        "bannerName": "ชื่อแบนเนอร์",
+        "link": "Link",
+        "startDateDisplay": "วันที่เริ่มแสดง",
+        "banner": {
+          "name": "แบนเนอร์",
+          "coverImgTh": "ภาพปก (ภาษาไทย)",
+          "coverImgEng": "ภาพปก (ภาษาอังกฤษ)",
+          "orderBanner": "ลำดับแบนเนอร์"
+        }
+      }
+    },
+    "campaign": {
+      "name": "แคมเปญ",
+      "criteria": {
+        "campaignId": "รหัสแคมเปญ",
+        "campaignNane": "ชื่อแคมเปญ",
+        "startDateDisplay": "วันที่เริ่มต้น",
+        "endDateDisplayed": "วันที่สิ้นสุด",
+        "usageStatus": "สถานะการใช้งาน",
+        "createBy": "ผู้บันทึก"
+      },
+      "table": {
+        "name": "รายการแคมเปญ",
+        "common": {
+          "addCampaign": "เพิ่มแคมเปญ"
+        },
+        "column": {
+          "campaignId": "รหัสแคมเปญ",
+          "campaignNane": "ชื่อแคมเปญ",
+          "nomCoupon": "จำนวนคูปอง",
+          "startDateDisplay": "วันที่เริ่มต้น",
+          "endDateDisplayed": "วันที่สิ้นสุด",
+          "usageStatus": "สถานะการใช้งาน",
+          "createBy": "ผู้บันทึก"
+        }
+      },
+      "form": {
+        "name": "เพิ่มแคมเปญ",
+        "detailSection": "รายละเอียด",
+        "campaignId": "รหัสแคมเปญ",
+        "campaignNane": "ชื่อแคมเปญ",
+        "nomCoupon": "จำนวนคูปอง",
+        "startDateDisplay": "วันที่เริ่มต้น",
+        "endDateDisplayed": "วันที่สิ้นสุด",
+        "discount": {
+          "name": "ส่วนลด",
+          "maxDiscount": "จำนวนเงินลดสูงสุด"
+        },
+        "usageStatus": {
+          "name": "สถานะการใช้งาน"
+        },
+        "courseEnteringCampaign": {
+          "name": "หลักสูตรที่เข้าร่วมแคมเปญ",
+          "common": {
+            "addCourse": "เพิ่มหลักสูตร"
+          },
+          "courseAllOpen": "หลักสูตรที่เปิดสอนทั้งหมด",
+          "column": {
+            "coures": "หลักสูตร"
+          },
+          "subForm": {
+            "name": "เพิ่มหลักสูตร",
+            "sectionDetail": "รายชื่อหลักสูตร",
+            "allCourse": "หลักสูตรทั้งหมด",
+            "courseEnteringCampaign": "หลักสูตรที่เข้าร่วมแคมเปญ"
+          }
+        },
+        "documentCampaign": {
+          "name": "เอกสารแคมเปญ",
+          "common": {
+            "uploadDocs": "เอกสารแคมเปญ"
+          },
+          "column": {
+            "fileName": "ชื่อไฟล์"
+          },
+          "subForm": {
+            "name": "เพิ่มเอกสารแคมเปญ",
+            "sectionDetail": "รายละเอียด",
+            "fileDocument": "ไฟล์เอกสารประกอบ",
+            "fileName": "ชื่อไฟล์"
+          }
+        }
+      }
+    },
+    "settingReceipt": {
+      "name": "ตั้งค่าใบเสร็จรับเงิน",
+      "header": "ส่วนหัวใบเสร็จ",
+      "logo": "Logo",
+      "taxId": "เลขประจำตัวผู้เสียภาษี",
+      "depNameTh": "ชื่อหน่วยงาน (ภาษาไทย)",
+      "depNameEn": "ชื่อหน่วยงาน (ภาษาอังกฤษ)",
+      "depAddressTh": "ที่อยู่หน่วยงาน (ภาษาไทย)",
+      "depAddressEn": "ที่อยู่หน่วยงาน (ภาษาอังกฤษ)",
+      "receiptPrefix": "Prefix เลขใบเเสร็จรับเงิน",
+      "footer": "ส่วนท้ายใบเสร็จ",
+      "noteTh": "ข้อความท้ายใบเสร็จ (ภาษาไทย)",
+      "noteEn": "ข้อความท้ายใบเสร็จ (ภาษาอังกฤษ)",
+      "remark": "หมายเหตุใบเสร็จ",
+      "signature": "ลายเซ็นผู้รับเงิน",
+      "staffName": "ชื่อผู้รับเงิน",
+      "staffPosition": "ตำแหน่งผู้รับเงิน"
+    },
+    "systemSetting": {
+      "name": "ตั้งค่าระบบ",
+      "websiteInfo": {
+        "name": "ข้อมูลเว็บไซต์",
+        "webTitle": "Web Title",
+        "webMetaDescription": "Web Meta Description",
+        "headerLogo": "ภาพ Logo ด้านบน",
+        "footerLogo": "ภาพ Logo ด้านล่าง",
+        "facebookUrl": "ลิงค์ไปยัง Facebook",
+        "lineUrl": "ลิงค์ไปยัง Line",
+        "xUrl": "ลิงค์ไปยัง X",
+        "igUrl": "ลิงค์ไปยัง IG",
+        "youtubeUrl": "ลิงค์ไปยัง Youtube",
+        "contactAddress": "ที่อยู่สำหรับติดต่อ",
+        "contactEmail": "อีเมลสำหรับติดต่อ",
+        "contactTel": "หมายเลขโทรศัพท์สำหรับติดต่อ",
+        "websiteNameTh": "ชื่อมหาวิทยาลัย (ไทย)",
+        "websiteNameEn": "ชื่อมหาวิทยาลัย (อังกฤษ)",
+        "websiteUrl": "URL ของเว็บไซต์",
+        "taxNumber": "เลขประจำตัวผู้เสียภาษีของมหาวิทยาลัย"
+      },
+      "apiSetting": {
+        "name": "ข้อมูลตั้งค่า API",
+        "moodleToken": "Token ระบบ Moodle",
+        "apiToken": "API Token ข้อมูลอว.",
+        "tokenLife": "อายุ Token ในการสมัครสมาชิก (นาที)",
+        "otpStatus": "เปิดใช้งาน OTP ในการสมัครสมาชิก"
+      },
+      "popularCourseDisplay":{
+        "name": "การแสดงผล Popular Course",
+        "popularCondition": "เงื่อนไข Popular Course",
+        "displayLimit": "จำนวนในการแสดงผล Popular course"
+      }
+    }
+  },
+  "userManagement": {
+    "user": {
+      "name": "ผู้ใช้งาน",
+      "criteria": {
+        "username": "ชื่อผู้ใช้งาน",
+        "email": "อีเมล",
+        "name": "ชื่อ - สกุล",
+        "tel": "โทรศัพท์",
+        "role": "Role"
+      },
+      "table": {
+        "name": "รายการผู้ใช้งาน",
+        "internalPersonnel": "อาจารย์ภายใน",
+        "member": "สมาชิก",
+        "column": {
+          "username": "ชื่อผู้ใช้งาน",
+          "name": "ชื่อ - สกุล",
+          "email": "อีเมล",
+          "role": "Role",
+          "personalType": "ประเภทบุคลากร",
+          "personal": "บุคลากรภายใน",
+          "member": "สมาชิก"
+        }
+      },
+      "form": {
+        "name": "ผู้ใช้งาน",
+        "account": "บัญชี",
+        "username": "Buasri Id",
+        "firstnameTh": "ชื่อ (ภาษาไทย)",
+        "lastnameTh": "นามสกุล (ภาษาไทย)",
+        "firstnameEn": "ชื่อ (ภาษาอังกฤษ)",
+        "lastnameEn": "นามสกุล (ภาษาอังกฤษ)",
+        "email": "อีเมล",
+        "tel": "โทรศัพท์",
+        "signature": "ลายเซ็นต์",
+        "password": "รหัสผ่าน",
+        "text1": "ลิงค์รีเซ็ตจะถูกสร้างขึ้นและส่งไปยังผู้ใช้งาน",
+        "text2": "ผู้ใช้งานจะถูกบังคับให้ตั้งรหัสผ่านในการลงชื่อเข้าใช้ครั้งแรก",
+        "activeDate": "กำหนดวันที่ให้ดำเนินการ",
+        "activeDateStart": "วันที่เริ่มต้น",
+        "activeDateEnd": "วันที่สิ้นสุด",
+        "accessLevel": "ระดับการเข้าถึง",
+        "status": "สถานะการใช้งาน"
+      }
+    },
+    "userRole": {
+      "name": {
+        "list": "รายชื่อผู้ใช้งานตามสิทธิ์การใช้งาน : Instructor",
+        "add": "เพิ่มผู้ใข้งาน : Instructor"
+      },
+      "criteria": {
+        "username": "ชื่อผู้ใช้งาน",
+        "fullname": "ชื่อ - สกุล",
+        "email": "อีเมล",
+        "department": "ส่วนงาน"
+      },
+      "table": {
+        "name": "รายการผู้ใช้งาน",
+        "column": {
+          "username": "ชื่อผู้ใช้งาน",
+          "fullname": "ชื่อ - สกุล",
+          "email": "อีเมล",
+          "department": "ส่วนงาน"
+        }
+      }
+    },
+    "role": {
+      "name": "กลุ่มสิทธิ์การใช้งาน",
+      "criteria": {
+        "role": "กลุ่มสิทธิ์การใช้งาน",
+        "status": "สถานะการใช้งาน"
+      },
+      "table": {
+        "name": "รายการ กลุ่มสิทธิ์การใช้งาน",
+        "role": "กลุ่มสิทธิ์การใช้งาน"
+      },
+      "form": {
+        "permission": "จัดการสิทธิ์",
+        "detail": "รายละเอียด",
+        "role": "กลุ่มสิทธิ์การใช้งาน",
+        "menu": "Menu"
+      },
+      "tooltip": "เพิ่มสิทธิ์ทีละหลายคน"
+    },
+    "member": {
+      "name": "ผู้ลงทะเบียน",
+      "header": "ข้อมูลผู้ลงทะเบียนเรียน",
+      "criteria": {
+        "memberCode": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+        "name": "ชื่อ - สกุล",
+        "email": "อีเมล",
+        "tel": "เบอร์โทรศัพท์"
+      },
+      "table": {
+        "name": "รายการผู้ลงทะเบียนเรียน",
+        "column": {
+          "memberCode": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+          "name": "ชื่อ - สกุล",
+          "email": "อีเมล",
+          "tel": "เบอร์โทรศัพท์",
+          "idCard": "เลขบัตรประชาชน",
+          "accountFormat": "รูปแบบ",
+          "lastLogin": "วันที่เข้าสู่ระบบล่าสุด",
+          "information": "ข้อมูลผู้ลงทะเบียน"
+        }
+      },
+      "form": {
+        "name": "ผู้ลงทะเบียน",
+        "information": "ข้อมูลส่วนตัว",
+        "email": "อีเมล",
+        "news": "รับข่าวสารผ่านทางอีเมล",
+        "accountFormat": "รูปแบบบัญชีที่ใช้สมัคร",
+        "country": "สัญชาติ",
+        "idCard": "เลขบัตรประชาชน/หมายเลขพาสปอร์ต",
+        "memberCode": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+        "prefixName": "คำนำหน้า",
+        "firstnameTh": "ชื่อ (ภาษาไทย)",
+        "lastnameTh": "นามสกุล (ภาษาไทย)",
+        "firstnameEn": "ชื่อ (ภาษาอังกฤษ)",
+        "lastnameEn": "นามสกุล (ภาษาอังกฤษ)",
+        "gender": "เพศ",
+        "birthdate": "วัน/เดือน/ปีเกิด",
+        "tel": "โทรศัพท์",
+        "address": "ที่อยู่",
+        "province": "จังหวัด",
+        "district": "เขต/อำเภอ",
+        "subDistrict": "แขวง/ตำบล",
+        "zipcode": "รหัสไปรษณีย์",
+        "status": "สถานะการศึกษา",
+        "highest": "วุฒิการศึกษาสูงสุด (ที่ได้รับ)",
+        "jobStatus": "สถานะการศึกษา/การทำงานปัจจุบัน",
+        "usernameUp": "ชื่อผู้ใช้งาน",
+        "confirm": "ยืนยันการทำรายการ",
+        "confirmDetail": "คุณมีการแก้ไข Username โปรดตรวจสอบความถูกต้องของข้อมูลที่ทำการเปลี่ยนแปลง"
+      }
+    }
+  },
+  "financeManagement": {
+    "financeList": {
+      "name": "ข้อมูลการชำระเงิน",
+      "criteria": {
+        "paymentDate": "วันที่ชำระเงิน",
+        "paymentType": "ประเภทการชำระเงิน",
+        "course": "หลักสูตร",
+        "student": "ผู้เรียน",
+        "amount": "จำนวนเงินระหว่าง"
+      },
+      "table": {
+        "name": "รายการชำระเงิน",
+        "column": {
+          "createDate": "วันที่ทำรายการ",
+          "paymentDate": "วันที่ชำระเงิน",
+          "paymentType": "ประเภทการชำระเงิน",
+          "course": "หลักสูตร",
+          "student": "ผู้เรียน",
+          "amount": "จำนวนเงิน",
+          "ref1": "Ref1",
+          "ref2": "Ref2",
+          "printReceipt": "พิมพ์ใบเสร็จ",
+          "cancelReceipt": "ยกเลิกใบเสร็จ",
+          "paymentStatus": "สถานะการชำระเงิน",
+          "refresh": "ตรวจสอบข้อมูล"
+        }
+      },
+      "alert": {
+        "confirmCancelReceipt": "คุณต้องการยืนยันการทำรายการยกเลิกใบเสร็จ กรุณาเลือกประเภทการยกเลิก",
+        "cancelReceipt": "ยกเลิกใบเสร็จ",
+        "cancelReceiptAndRegistration": "ยกเลิกใบเสร็จและการลงทะเบียน",
+        "cancelReceiptAndRegistrationRefund": "ยกเลิกใบเสร็จและการลงทะเบียน (คืนเงิน)"
+      }
+    },
+    "financeImport": {
+      "name": "นำเข้าข้อมูลการชำระเงิน",
+      "criteria": {
+        "importDate": "วันที่นำเข้าข้อมูล",
+        "fileName": "ชื่อไฟล์",
+        "course": "หลักสูตร",
+        "refImport": "Ref นำเข้า"
+      },
+      "table": {
+        "name": "รายการชำระเงิน",
+        "column": {
+          "importDate": "วันที่นำเข้าข้อมูล",
+          "fileName": "ชื่อไฟล์",
+          "course": "หลักสูตร",
+          "refImport": "Ref นำเข้า",
+          "amount": "จำนวนรายการ",
+          "priceTotal": "ยอดเงินรวม",
+          "detail": "รายละเอียด"
+        },
+        "showDetail": {
+          "name": "รายละเอียดการนำเข้า",
+          "fileName": "ชื่อไฟล์",
+          "course": "หลักสูตร",
+          "priceTotal": "ยอดเงินรวม",
+          "importDate": "วันที่นำเข้า",
+          "table": {
+            "paymentDate": "วันที่ชำระเงิน",
+            "regisNo": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+            "studentName": "ชื่อผู้เรียน",
+            "amount": "จำนวนเงิน",
+            "ref1": "Ref1",
+            "ref2": "Ref2"
+          }
+        }
+      },
+      "import": {
+        "name": "นำเข้าข้อมูล",
+        "select": {
+          "selectImportFile": "เลือกไฟล์นำเข้า",
+          "course": "หลักสูตร",
+          "selectFile": "เลือกไฟล์"
+        },
+        "check": {
+          "check": "ตรวจสอบข้อมูล",
+          "fileName": "ชื่อไฟล์",
+          "paymentDate": "วันที่ชำระเงิน",
+          "regisNo": "เลขประจำตัวผู้ลงทะเบียนเรียน",
+          "studentName": "ชื่อผู้เรียน",
+          "amount": "จำนวนเงิน",
+          "ref1": "Ref1",
+          "ref2": "Ref2"
+        },
+        "confirm": {
+          "confirm": "ยืนยันการนำเข้าข้อมูล",
+          "fileName": "ชื่อไฟล์",
+          "course": "หลักสูตร",
+          "amount": "จำนวนรายการ",
+          "priceTotal": "ยอดเงินรวม"
+        }
+      },
+      "step": {
+        "selectCourse": "เลือกหลักสูตร",
+        "selectFile": "เลือกไฟล์",
+        "check": "ตรวจสอบ",
+        "save": "ยืนยัน"
+      }
+    }
+  },
+  "report": {
+    "course": {
+      "offeredCourseReport": {
+        "name": "รายงานคอร์สที่เปิดสอนเพื่อขออนุมัติโครงการ",
+        "criteria": {
+          "faculty": "ส่วนงาน",
+          "course": "คอร์ส",
+          "status": "สถานะ",
+          "sendDate": "วันที่ส่งข้อมูล",
+          "courseComparison": "การเทียบเคียงหลักสูตร",
+          "paymentDate": "วันที่ชำระเงิน",
+          "createDate": "วันที่สร้าง"
+        },
+        "table": {
+          "name": "รายชื่อคอร์ส",
+          "faculty": "ส่วนงาน",
+          "course": "คอร์ส",
+          "numberOfRound": "จำนวนรอบการเปิด",
+          "timestamp": "วันที่ส่งข้อมูล",
+          "creator": "ผู้ขออนุมัติโครงการ",
+          "courseComparison": "การเทียบเคียงหลักสูตร",
+          "compareMapping": "เทียบเคียงหลักสูตร",
+          "uncompareMapping": "ไม่เทียบเคียงหลักสูตร",
+          "paymentDate": "วันที่ชำระเงิน",
+          "createDate": "วันที่สร้าง"
+        }
+      },
+      "canceledCourseReport": {
+        "name": "รายงานข้อมูลการยกเลิกคอร์ส",
+        "criteria": {
+          "cancelDate": "วันที่ยกเลิกรอบคอร์ส",
+          "roundCourse": "รอบคอร์ส"
+        },
+        "table": {
+          "name": "รอบคอร์สที่ต้องคืนเงิน",
+          "cancelDate": "วันที่ยกเลิกรอบคอร์ส",
+          "course": "รอบคอร์ส",
+          "generation": "รุ่น",
+          "numberOfRefund": "จำนวนผู้เรียนที่ต้องคืนเงิน",
+          "remainAmount": "จำนวนเงินที่ต้องคืน",
+          "detail": "รายละเอียด"
+        }
+      },
+      "enrollmentListReport": {
+        "name": "รายงานสรุปรายชื่อผู้ลงทะเบียนเรียน",
+        "criteria": {
+          "course": "คอร์ส",
+          "student": "ผู้เรียน",
+          "receiptNumber": "เลขที่ใบเสร็จ",
+          "receiptDate": "วันที่ออกใบเสร็จ",
+          "paymentType": "ประเภทการชำระเงิน",
+          "paymentDate": "วันที่ชำระเงิน",
+          "status": "สถานะ"
+        },
+        "table": {
+          "name": "รายชื่อผู้เข้าอบรม",
+          "course": "คอร์ส",
+          "student": "ผู้เรียน",
+          "receiptNumber": "เลขที่ใบเสร็จ",
+          "receiptDate": "วันที่ออกใบเสร็จ",
+          "paymentType": "ประเภทการชำระเงิน",
+          "registrationFee": "ค่าลงทะเบียน",
+          "fee": "ค่าธรรมเนียม",
+          "balance": "คงเหลือ",
+          "paymentDate": "วันที่ชำระเงิน",
+          "resultGrade": "ผลการเรียน"
+        }
+      },
+      "courseEnrollmentReport": {
+        "name": "รายงานสรุปจำนวนผู้ลงทะเบียนเรียน",
+        "criteria": {
+          "course": "คอร์ส",
+          "status": "สถานะ",
+          "registerDate": "วันที่ลงทะเบียน"
+        },
+        "table": {
+          "name": "รายชื่อคอร์ส",
+          "course": "คอร์ส",
+          "maximumApplicants": "จำนวนที่เปิดรับ",
+          "registerCount": "จำนวนลงทะเบียน",
+          "canceledCount": "จำนวนยกเลิก",
+          "studentCount": "จำนวนผู้เรียน"
+        }
+      },
+      "transferCourseReport": {
+        "name": "รายงานหลักสูตรที่มีคอร์สเทียบโอน",
+        "curriculum": "หลักสูตร",
+        "transferList": "รายการเทียบโอน",
+        "table": {
+          "rowNo": "ลำดับ",
+          "curriculum": "หลักสูตร",
+          "course": "คอร์ส",
+          "credit": "หน่วยกิต",
+          "compare": "เทียบเคียง"
+        }
+      },
+      "skillMappingReport": {
+        "name": "รายงาน Skill Mapping",
+        "aspect": "มุมมอง",
+        "Job": "อาชีพ",
+        "Skill": "ทักษะ",
+        "Course": "คอร์ส",
+        "table": {
+          "Job": "อาชีพ",
+          "Skill": "ทักษะ",
+          "Course": "คอร์ส",
+          "Level": "Level"
+        }
+      }
+    },
+    "financial": {
+      "coursePaymentReport": {
+        "name": "รายงานจำนวนเงินค่าลงทะเบียนในแต่ละคอร์ส",
+        "criteria": {
+          "course": "คอร์ส",
+          "registerDate": "วันที่ลงทะเบียน"
+        },
+        "table": {
+          "name": "รายชื่อคอร์ส",
+          "course": "คอร์ส",
+          "studentCount": "จำนวนผู้เรียน",
+          "registrationFee": "ค่าลงทะเบียน",
+          "paymented": "ชำระเงินแล้ว",
+          "refund": "คืนเงิน",
+          "balance": "ค่าลงทะเบียนคงเหลือ"
+        }
+      },
+      "enrollmentAndPaymentReport": {
+        "name": "รายงานตรวจสอบจำนวนผู้เรียนและจำนวนเงินที่ได้รับ",
+        "criteria": {
+          "faculty": "ส่วนงาน",
+          "course": "คอร์ส",
+          "registerDate": "วันที่ลงทะเบียน"
+        },
+        "table": {
+          "name": "รายชื่อคอร์ส",
+          "faculty": "ส่วนงาน",
+          "course": "คอร์ส",
+          "studentCount": "จำนวนผู้เรียน",
+          "registrationFee": "ค่าลงทะเบียน"
+        }
+      },
+      "departmentIncomeReport": {
+        "name": "รายงานสรุปยอดโอนจัดสรรคืนคณะ",
+        "criteria": {
+          "summaryDate": "วันที่สรุปยอด",
+          "faculty": "ส่วนงาน",
+          "registerDate": "วันที่ลงทะเบียน",
+          "fiscalYear": "ปีงบประมาณ",
+          "courseRound": "รอบคอร์ส",
+          "projectCoordinator": "ผู้ประสานงานโครงการ"
+        },
+        "table": {
+          "name": "รายชื่อคณะ",
+          "summaryDate": "วันที่สรุปยอด",
+          "faculty": "ส่วนงาน",
+          "registrationFee": "ค่าลงทะเบียน",
+          "facultyShare": "ส่วนแบ่งคณะ",
+          "universityShare": "ส่วนแบ่งมหาวิทยาลัย",
+          "centerShare": "ส่วนแบ่งศูนย์บริการ",
+          "amount": "จำนวนเงิน",
+          "universitySupportFunds": "เงินสนับสนุนมหาวิทยาลัย",
+          "centerSupportFunds": "เงินสนับสนุนศูนย์บริการวิชาการ",
+          "facultySupportFunds": "เงินสนับสนุนคณะ",
+          "operatingExpenses": "ค่าใช้จ่ายในการดำเนินงาน",
+          "detail": "รายละเอียด",
+          "maxEnroll": "จำนวนที่เปิดรับ",
+          "registerCount": "จำนวนลงทะเบียน"
+        },
+        "detail": {
+          "name": "รายละเอียดยอดโอนจัดสรรคืนคณะ",
+          "registerDate": "วันที่ลงทะเบียน",
+          "projectCoordinator": "ผู้ประสานงานโครงการ",
+          "roundCourse": "รอบคอร์ส",
+          "registrationFee": "ค่าลงทะเบียน",
+          "universitySupportFunds": "เงินสนับสนุนมหาวิทยาลัย",
+          "centerSupportFunds": "เงินสนับสนุนศูนย์บริการวิชาการ",
+          "facultySupportFunds": "เงินสนับสนุนคณะ",
+          "operatingExpenses": "ค่าใช้จ่ายในการดำเนินงาน",
+          "share": "ส่วนแบ่ง",
+          "maxEnroll": "จำนวนที่เปิดรับ",
+          "registerCount": "จำนวนลงทะเบียน"
+        }
+      }
+    }
+  }
+}

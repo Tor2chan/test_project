@@ -1,0 +1,205 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[{ label: 'common.module.master' | translate , routerLink: '/master/occupation'}, { label: 'master.occupantion.name' | translate , routerLink: '/master/occupation'}]"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.occupantion.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.occupantion.criteria.occupantionCode' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.occupationCode"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.occupantion.criteria.occupantionName' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.occupationNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.occupantion.criteria.occupantionGroup' | translate }}</label>
+                                <p-dropdown
+                                    [options]="occupationGroupList"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    (onFilter)="lazyLoadOccupationGroup($event)"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.occupationGroupId"
+                                ></p-dropdown>
+                            </div> -->
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'common.status.name' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.activeFlag"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                aria-label="Search"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.occupantion.table.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <p-button
+                    permission
+                    menuCode="SDB-MS5002"
+                    [label]="'common.button.add' | translate"
+                    icon="pi pi-plus-circle"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="openPage('CREATE')"
+                >
+                </p-button>
+                <!-- <p-button
+                    permission
+                    menuCode="SDB-MS5005"
+                    [label]="'common.button.export' | translate"
+                    icon="pi pi-download"
+                    styleClass="p-button-sm p-button-success p-button-outlined"
+                    [outlined]="true"
+                    severity="success"
+                ></p-button> -->
+            </div>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 10%">
+                        {{ 'master.occupantion.table.column.occupantionCode' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.occupantion.table.column.occupantionNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.occupantion.table.column.occupantionNameEn' | translate }}
+                    </th>
+                    <!-- <th scope="col" class="text-center" style="width: 15%">
+                        {{ 'master.occupantion.table.column.occupantionGroup' | translate }}
+                    </th> -->
+                    <th scope="col" class="text-center" style="width: 10%">{{ 'common.status.name' | translate }}</th>
+                    <th  permission menuCode="SDB-MS5003" scope="col" class="text-center" style="width: 10%">{{ 'common.manage' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.occupationCode }}</td>
+                    <td>{{ item.occupationNameTh }}</td>
+                    <td>{{ item.occupationNameEn }}</td>
+                    <!-- <td class="text-center">
+                        {{ lang === 'th' ? item.occupationGroupNameTh : item.occupationGroupNameEn }}
+                    </td> -->
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center" permission menuCode="SDB-MS5003">
+                        <div class="flex gap-2 justify-content-center">
+                            <span
+                                (click)="openPage('EDIT', item.occupationId)"
+                                class="pi pi-pencil cursor-pointer"
+                            ></span>
+                            <!-- <span
+                                    (click)="messageService.add({
+                                        severity: 'error',
+                                        summary: this.translate.instant('common.alert.success'),
+                                        detail: 'delete success',
+                                        life: 2000
+                                    });"
+                                    class="pi pi-trash cursor-pointer"
+                                ></span> -->
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="7">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-occupation-manage [mode]="mode" (backToListPage)="openPage($event)" [item]="editData"></app-occupation-manage>
+</div>

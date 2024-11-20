@@ -1,0 +1,356 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="courseMain">
+    <div class="p-fluid m-0 mb-4">
+        <h5>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{
+                lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn
+            }}
+        </h5>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabTeachingInformation.name' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 md:col-12 flex">
+            <div class="p-fluid p-formgrid grid">
+                <div class="col col-12">
+                    <div class="grid p-fluid">
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingMetodology'
+                                        | translate
+                                }}</label
+                            >
+                            <p-dropdown
+                                [options]="courseFormatList"
+                                [(ngModel)]="courseMain.courseFormat"
+                                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                optionValue="value"
+                                [showClear]="true"
+                                [placeholder]="'common.pleaseSelect' | translate"
+                                [class]="showError == true && !!!courseMain.courseFormat ? 'ng-invalid ng-dirty' : ''"
+                            ></p-dropdown>
+                            <small *ngIf="showError && !!!courseMain.courseFormat" class="p-error" id="text-error">
+                                {{ 'common.pleaseSelect' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingDescriptionTh'
+                                        | translate
+                                }}</label
+                            >
+                            <textarea
+                                rows="2"
+                                cols="30"
+                                pInputTextarea
+                                [(ngModel)]="courseMain.courseFormatDescTh"
+                                style="resize: vertical; min-height: 80px; max-height: 200px"
+                                [class]="
+                                    showError == true && !!!courseMain.courseFormatDescTh ? 'ng-invalid ng-dirty' : ''
+                                "
+                            ></textarea>
+                            <small
+                                *ngIf="showError && !!!courseMain.courseFormatDescTh"
+                                class="p-error"
+                                id="text-error"
+                            >
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingDescriptionEn'
+                                        | translate
+                                }}</label
+                            >
+                            <textarea
+                                rows="2"
+                                cols="30"
+                                pInputTextarea
+                                [(ngModel)]="courseMain.courseFormatDescEn"
+                                style="resize: vertical; min-height: 80px; max-height: 200px"
+                                [class]="
+                                    showError == true && !!!courseMain.courseFormatDescEn ? 'ng-invalid ng-dirty' : ''
+                                "
+                            ></textarea>
+                            <small
+                                *ngIf="showError && !!!courseMain.courseFormatDescEn"
+                                class="p-error"
+                                id="text-error"
+                            >
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="col-12 md:col-12 flex">
+                            <div class="col-6 p-0 pr-2">
+                                <label class="font-bold"
+                                    ><a style="color: red">*</a
+                                    >{{
+                                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.theoreticalHours'
+                                            | translate
+                                    }}</label
+                                >
+                                <p-inputNumber
+                                    (onBlur)="calCourseTotal()"
+                                    [(ngModel)]="courseMain.courseTheoryH"
+                                    inputId="courseTheoryH"
+                                    [min]="0"
+                                    [max]="1000000"
+                                    mode="decimal"
+                                    [minFractionDigits]="2"
+                                    [maxFractionDigits]="2"
+                                    [class]="
+                                        showError == true && !!!courseMain.courseTheoryH && courseMain.courseTheoryH !== 0 ? 'ng-invalid ng-dirty' : ''
+                                    "
+                                >
+                                </p-inputNumber>
+                                <small style="color: red">{{
+                                    lang === 'th'
+                                        ? '*ทฤษฎี 15 ชม. = 1 หน่วยกิต กรณีไม่มีชั่วโมงเรียนให้ใส่ 0'
+                                        : '*Theoretical section 15 hours = 1 credit In the case of no class hours, enter 0.'
+                                }}</small>
+                                <small *ngIf="showError && !!!courseMain.courseTheoryH && courseMain.courseTheoryH !== 0 " class="p-error" id="text-error">
+                                    <p>{{ 'common.pleaseEnter' | translate }}</p>
+                                </small>
+                            </div>
+
+                            <div class="col-6 p-0 pl-2">
+                                <label class="font-bold"
+                                    ><a style="color: red">*</a
+                                    >{{
+                                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.practiceHours'
+                                            | translate
+                                    }}</label
+                                >
+                                <p-inputNumber
+                                    (onBlur)="calCourseTotal()"
+                                    [(ngModel)]="courseMain.courseActionH"
+                                    inputId="courseActionH"
+                                    mode="decimal"
+                                    [min]="0"
+                                    [max]="1000000"
+                                    [minFractionDigits]="2"
+                                    [maxFractionDigits]="2"
+                                    [class]="
+                                        showError == true && !!!courseMain.courseActionH && courseMain.courseActionH !== 0  ? 'ng-invalid ng-dirty' : ''
+                                    "
+                                >
+                                </p-inputNumber>
+                                <small style="color: red">{{
+                                    lang === 'th'
+                                        ? '*ปฏิบัติ 45 ชม. = 1 หน่วยกิต กรณีไม่มีชั่วโมงเรียนให้ใส่ 0'
+                                        : '*Practical section 45 hours = 1 credit In the case of no class hours, enter 0'
+                                }}</small>
+                                <small *ngIf="showError && !!!courseMain.courseActionH && courseMain.courseActionH !== 0" class="p-error" id="text-error">
+                                    <p>{{ 'common.pleaseEnter' | translate }}</p>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="flex sm:grid col-12 md:col-12 gap-3 align-items-center">
+                            <label class="font-bold"
+                                >{{
+                                    'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalClassHours'
+                                        | translate
+                                }}
+                                :
+                            </label>
+                            <!-- courseTotalH -->
+                            <div>{{ courseMain.courseTotalH }}</div>
+                            <div>{{ lang === 'th' ? 'ชั่วโมง' : 'hours' }}</div>
+                        </div>
+
+                        <div class="col-12 md:col-12 flex grid p-formgrid">
+                            <div class="lg:col-9 md:col-8 sm:col-12 field p-0 px-2">
+                                <label class="font-bold"
+                                    ><a style="color: red">*</a
+                                    >{{
+                                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.coursePeriod'
+                                            | translate
+                                    }}</label
+                                >
+                                <p-inputNumber
+                                    inputId="courseDurationTime"
+                                    [(ngModel)]="courseMain.courseDurationTime"
+                                    [min]="0"
+                                    [max]="1000000"
+                                    [class]="
+                                        showError == true && !!!courseMain.courseDurationTime
+                                            ? 'ng-invalid ng-dirty'
+                                            : ''
+                                    "
+                                >
+                                </p-inputNumber>
+                                <small
+                                    *ngIf="showError && !!!courseMain.courseDurationTime"
+                                    class="p-error"
+                                    id="text-error"
+                                >
+                                    {{ 'common.pleaseEnter' | translate }}
+                                </small>
+                            </div>
+
+                            <div class="lg:col-3 md:col-4 sm:col-4 field p-0 pl-2">
+                                <label class="font-bold"
+                                    ><a style="color: red">*</a
+                                    >{{
+                                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.periodUnits'
+                                            | translate
+                                    }}</label
+                                >
+                                <!-- (onChange)="onChangeTimeUnit($event)" -->
+                                <p-dropdown
+                                    [options]="unitsOfTimeList"
+                                    [(ngModel)]="courseMain.durationTimeUnit"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [class]="
+                                        showError == true && !!!courseMain.durationTimeUnit ? 'ng-invalid ng-dirty' : ''
+                                    "
+                                ></p-dropdown>
+                                <small
+                                    *ngIf="showError && !!!courseMain.durationTimeUnit"
+                                    class="p-error"
+                                    id="text-error"
+                                >
+                                    {{ 'common.pleaseSelect' | translate }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.name' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 md:col-12 ">
+            <div class="mr-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{
+                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.skillAssessment.name' | translate
+                    }}
+                    :
+                </label>
+            </div>
+            <div class=" col-12 md:col-12 flex grid">
+                <div *ngFor="let item of categories" class="flex align-items-center mr-3">
+                    <p-radioButton
+                        name="evaluateFlag"
+                        [value]="item.value"
+                        [(ngModel)]="courseMain.evaluateFlag"
+                    ></p-radioButton>
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}
+                    </label>
+                </div>
+            </div>
+            <small *ngIf="showError && !!!courseMain.gradeFormat" class="p-error" id="text-error">
+                <p>{{ 'common.pleaseSelect' | translate }}</p>
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12 ">
+            <div class="mr-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{
+                        'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.gradeFormat.name' | translate
+                    }}
+                    :
+                </label>
+            </div>
+            <div class=" col-12 md:col-12 flex grid">
+                <div *ngFor="let item of gradeFormatList" class="flex align-items-center mr-3">
+                    <p-radioButton
+                        name="gradeFormat"
+                        [value]="item.value"
+                        [(ngModel)]="courseMain.gradeFormat"
+                        inputId="ingredient1"
+                        [class]="showError == true && !!!courseMain.gradeFormat ? 'ng-invalid ng-dirty' : ''"
+                    ></p-radioButton>
+
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}</label
+                    >
+                </div>
+            </div>
+            <small *ngIf="showError && !!!courseMain.gradeFormat" class="p-error" id="text-error">
+                <p>{{ 'common.pleaseSelect' | translate }}</p>
+            </small>
+        </div>
+
+        <div class="flex grid col-12 md:col-12 pl-3" >
+            <div class="flex mr-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.numOfCredits' | translate }}
+                    :
+                </label>
+            </div>
+            <div class="flex align-items-center gap-1">
+                <p-inputNumber
+                    mode="decimal"
+                    [showButtons]="true"
+                    [min]="0"
+                    [max]="100"
+                    [(ngModel)]="courseMain.creditAmount"
+                    [class]="showError == true && !!!courseMain.creditAmount ? 'ng-invalid ng-dirty' : ''"
+                >
+                </p-inputNumber>
+            </div>
+        </div>
+        <small
+            *ngIf="showError && courseMain.gradeFormat === 30005002 && !!!courseMain.creditAmount"
+            class="p-error"
+            id="text-error"
+        >
+            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+        </small>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

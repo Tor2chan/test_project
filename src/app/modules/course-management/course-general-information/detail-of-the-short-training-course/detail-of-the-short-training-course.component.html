@@ -1,0 +1,308 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="courseMain">
+    <div class="p-fluid m-0 mb-4" *ngIf="courseMain.courseCode">
+        <h5>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{
+                lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn
+            }}
+        </h5>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabCourseInformation.name' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+
+        <div class="col-12 md:col-12 gap-3">
+            <div class=" ">
+                <label class="font-bold"
+                    >{{
+                        'courseManagement.tabGeneral.tabCourseInformation.criteria.statusShortTermTrainingCourses.name'
+                            | translate
+                    }}
+                    :
+                </label>
+            </div>
+            <div class="flex grid gap-3 ml-1">
+                <div *ngFor="let item of courseStatusList" class="flex align-items-center sm:grid">
+                    <p-radioButton
+                        name="courseNewStatus"
+                        [value]="item.value"
+                        [(ngModel)]="courseMain.courseNewStatus"
+                        inputId="ingredient1"
+                    ></p-radioButton>
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}</label
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.typeShortTermTrainingCourses'
+                        | translate
+                }}</label
+            >
+            <p-dropdown
+                [disabled]="!!courseMain.courseId"
+                [options]="courseTypeList"
+                [(ngModel)]="courseMain.courseTypeId"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                (onClick)="lazyLoadCourseType()"
+                (onFilter)="lazyLoadCourseType($event)"
+                [placeholder]="'common.pleaseSelect' | translate"
+                [class]="showError == true && !!!courseMain.courseTypeId ? 'ng-invalid ng-dirty' : ''"
+            ></p-dropdown>
+            <small *ngIf="showError && !!!courseMain.courseTypeId" class="p-error" id="text-error">
+                {{ 'common.pleaseSelect' | translate }}
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12 grid-flex grid pr-0 ">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{
+                        'courseManagement.tabGeneral.tabCourseInformation.criteria.faculty' | translate
+                    }}</label
+                >
+                <p-dropdown
+                    [disabled]="[30025004, 30025003, 30025002].includes(accessLevel) || !!courseMain.courseId"
+                    [options]="departmentLevel1List"
+                    [(ngModel)]="courseMain.depIdLevel1"
+                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                    optionValue="value"
+                    [showClear]="true"
+                    [filter]="true"
+                    (onClick)="lazyLoadDepartmentLevel1()"
+                    (onFilter)="lazyLoadDepartmentLevel1($event)"
+                    (onChange)="lazyLoadDepartmentLevel2()"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [class]="showError == true && !!!courseMain.depIdLevel1 ? 'ng-invalid ng-dirty' : ''"
+                ></p-dropdown>
+                <small *ngIf="showError && !!!courseMain.depIdLevel1" class="p-error" id="text-error">
+                    {{ 'common.pleaseSelect' | translate }}
+                </small>
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+
+              <!-- <div class="col-6 p-0 pr-2"> -->
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{
+                        'courseManagement.tabGeneral.tabCourseInformation.criteria.department'
+                            | translate
+                    }}</label
+                >
+                <p-dropdown
+                    [disabled]="!courseMain.depIdLevel1 || [30025004, 30025003].includes(accessLevel) || !!courseMain.courseId && courseMain.courseMainStatus!=30010005 "
+                    [options]="departmentLevel2List"
+                    [(ngModel)]="courseMain.depIdLevel2"
+                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                    optionValue="value"
+                    [showClear]="true"
+                    [filter]="true"
+                    (onClick)="lazyLoadDepartmentLevel2()"
+                    (onFilter)="lazyLoadDepartmentLevel2($event)"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [class]="showError == true && !!!courseMain.depIdLevel2 ? 'ng-invalid ng-dirty' : ''"
+                ></p-dropdown>
+                <small *ngIf="showError && !!!courseMain.depIdLevel2" class="p-error" id="text-error">
+                    {{ 'common.pleaseSelect' | translate }}
+                </small>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-12">
+                <label class="font-bold">{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.courseCode' | translate
+                }}</label>
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="courseMain.courseCode"
+                    disabled
+                    placeholder="AUTO GENERATE"
+                />
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.couresNameTh' | translate
+                }}</label
+            >
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="courseMain.courseNameTh"
+                [class]="showError == true && !!!courseMain.courseNameTh ? 'ng-invalid ng-dirty' : ''"
+            />
+            <small *ngIf="showError && !!!courseMain.courseNameTh" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.couresNameEn' | translate
+                }}</label
+            >
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="courseMain.courseNameEn"
+                [class]="showError == true && !!!courseMain.courseNameEn ? 'ng-invalid ng-dirty' : ''"
+            />
+            <small *ngIf="showError && !!!courseMain.courseNameEn" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.courseDescriptionTh'
+                        | translate
+                }}</label
+            >
+            <textarea
+                rows="5"
+                cols="30"
+                pInputTextarea
+                [(ngModel)]="courseMain.courseDescTh"
+                style="resize: vertical; min-height: 80px; max-height: 200px"
+                [class]="showError == true && !!!courseMain.courseDescTh ? 'ng-invalid ng-dirty' : ''"
+            ></textarea>
+            <small *ngIf="showError && !!!courseMain.courseDescTh" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold"
+                ><a style="color: red">*</a
+                >{{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.courseDescriptionEn'
+                        | translate
+                }}</label
+            >
+            <textarea
+                rows="5"
+                cols="30"
+                pInputTextarea
+                [(ngModel)]="courseMain.courseDescEn"
+                style="resize: vertical; min-height: 80px; max-height: 200px"
+                [class]="showError == true && !!!courseMain.courseDescEn ? 'ng-invalid ng-dirty' : ''"
+            ></textarea>
+            <small *ngIf="showError && !!!courseMain.courseDescEn" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small>
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold">{{
+                'courseManagement.tabGeneral.tabCourseInformation.criteria.keyWord' | translate
+            }}</label>
+            <p style="color: var(--surface-500);">{{ lang === 'th' ? 'กรอก Keyword ในช่องด้านล่างนี้ แล้วกด Enter เพื่อบันทึกข้อมูล' : 'Please enter a keyword in the box below and press Enter to save the information.'  }}</p>
+            <p-chips [(ngModel)]="courseMain.courseHashtag"></p-chips>
+        </div>
+
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabCourseInformation.status' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="courseMain.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                courseMain.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.name' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+
+        <div class="col-12 md:col-12 grid-flex grid pr-0 ">
+
+        <!-- <div class="col-12 md:col-12 flex"> -->
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+
+            <!-- <div class="col-6 p-0 pr-2"> -->
+                <label class="font-bold">{{
+                    'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.creator' | translate
+                }}</label>
+                <p-dropdown
+                    [disabled]="true"
+                    [options]="userList"
+                    [(ngModel)]="courseMain.createById"
+                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                    optionValue="value"
+                    [showClear]="true"
+                ></p-dropdown>
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+
+            <!-- <div class="col-6 p-0 pl-2"> -->
+                <label class="font-bold">{{
+                    'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.createDate' | translate
+                }}</label>
+                <p-calendar
+                    [showIcon]="true"
+                    inputId="requestDate"
+                    [(ngModel)]="courseMain.requestDate"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickYear"
+                    (onYearChange)="clickYear = true"
+                    (onSelect)="clickYear = false"
+                ></p-calendar>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

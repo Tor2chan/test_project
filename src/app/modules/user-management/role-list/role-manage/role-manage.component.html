@@ -1,0 +1,131 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ user, groupuser,
+                {  label: ((mode === 'CREATE' ? 
+                'common.mode.add' : 'common.mode.edit') | translate) 
+                + ('userManagement.role.name' | translate) },
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mx-4">
+        <header class="d-flex justify-content-md-between">
+                <h3 style="color: red">
+                {{ ((mode === 'CREATE' ? 
+                    'common.mode.add' : 'common.mode.edit') | translate) 
+                    + ('userManagement.role.name' | translate) }}
+                </h3>
+            <hr style="border-top: 1px solid red" />
+        </header>
+    </div>
+
+    <div class="mx-4 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ 'userManagement.role.form.role' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="field col-12" style="margin-bottom: 5px; padding-bottom: 0px; padding-top: 0px">
+                        <label style="height: 25px"
+                            ><a style="color: red">*</a>{{ 'userManagement.role.form.role' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="name"
+                            type="text"
+                            [(ngModel)]="item.name"
+                            [class]="showError == true && !!!item.name ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.name" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid mx-4 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ lang === 'th' ? 'สถานะ' : 'Access' }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex align-items-center gap-2 pt-0 ">
+            <p-inputSwitch [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2 text-center">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+
+    <div class="p-fluid mx-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ 'userManagement.role.form.permission' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12">
+            <div class="card">
+                <!-- <h5>{{ 'userManagement.role.form.menu' | translate }}</h5> -->
+                <p-treeTable
+                    [value]="menu"
+                    [columns]="cols"
+                    selectionMode="checkbox"
+                    compareSelectionBy="deepEquals"
+                    [scrollable]="true"
+                    >
+                    <!-- [(selection)]="menuTemp" -->
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th scope="col" *ngFor="let col of columns">
+                                {{ 'userManagement.role.form.menu' | translate }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            <td scope="col">
+                                <p-treeTableToggler [rowNode]="rowNode" pStyleClass="ml-12"></p-treeTableToggler>
+                                <p-checkbox
+                                    [binary]="true"
+                                    [(ngModel)]="rowData.activeFlag"
+                                    (click)="checkTree(rowData, rowNode)"
+                                    styleClass="mr-2"
+                                ></p-checkbox>
+                                {{ !!!rowData['showNameKey'] ? rowData['name'] :  ( rowData['showNameKey'] | translate ) }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>

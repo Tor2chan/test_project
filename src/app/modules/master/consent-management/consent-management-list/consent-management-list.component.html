@@ -1,0 +1,245 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+            { label: 'common.module.master' | translate, routerLink: '/master/consent-management' },
+            { label: 'master.consentManagement.name' | translate, routerLink: '/master/consent-management' }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.consentManagement.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.consentManagement.table.column.formName' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.formNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="line-height: 2.5" htmlFor="age1">{{
+                                    'master.consentManagement.criteria.updateDate' | translate
+                                }}</label>
+                                <div class="flex gap-0">
+                                    <div class="col px-0">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="requestDateStart"
+                                            [(ngModel)]="criteria.requestDateStart"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearStart"
+                                            (onYearChange)="clickYearStart = true"
+                                            [showTime]="false"
+                                            [hourFormat]="'24'"
+                                            [maxDate]="criteria.requestDateEnd"
+                                        ></p-calendar>
+                                    </div>
+                                    <!-- <div class="col-6">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="requestDateEnd"
+                                            [(ngModel)]="criteria.requestDateEnd"
+                                            [placeholder]="'common.between.end' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearEnd"
+                                            (onYearChange)="clickYearEnd = true"
+                                            (onSelect)="clickYearEnd = false"
+                                            [showTime]="false"
+                                            [hourFormat]="'24'"
+                                            [minDate]="criteria.requestDateStart"
+                                        ></p-calendar>
+                                    </div> -->
+                                </div>
+                                <!-- <p-calendar
+                                    [(ngModel)]="approveDate"
+                                    inputId="approveDate"
+                                    [showIcon]="true"
+                                    appThaiCalendar
+                                    [lang]="lang"
+                                    [clickYear]="clickYear"
+                                    (onYearChange)="clickYear = true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-calendar> -->
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.consentManagement.criteria.createBy' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.fullNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.consentManagement.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                permission
+                menuCode="SDB-MS1002"
+                [label]="'master.consentManagement.table.common.addForm' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 10%">
+                        {{ 'master.consentManagement.table.column.formType' | translate }}
+                    </th>
+                    <th scope="col" style="width: 30%">
+                        {{ 'master.consentManagement.table.column.formName' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.consentManagement.table.column.version' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.consentManagement.table.column.lastUpdate' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.consentManagement.table.column.createBy' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'master.consentManagement.table.column.status' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.consentManagement.table.column.consentBy' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>
+                        <span *ngIf="item.formType == 30018001">
+                            {{
+                                'master.consentManagement.form.formType.listType.register' | translate
+                            }}
+                        </span>
+                        <span *ngIf="item.formType == 30018002">
+                            {{
+                                'master.consentManagement.form.formType.listType.consentCert' | translate
+                            }}
+                        </span>
+                        <span *ngIf="item.formType == 30018004">
+                            {{
+                                'master.consentManagement.form.formType.listType.applycourse' | translate
+                            }}
+                        </span>
+                        <span *ngIf="item.formType == 30018003">
+                            {{ 'master.consentManagement.form.formType.listType.etc' | translate }}
+                        </span>
+                    </td>
+                    <td>{{ item.formNameTh }}</td>
+                    <td class="text-center">{{ item.versionNo }}</td>
+                    <td class="text-center">{{ item.updateDate ? (item.updateDate | formatdate: lang) : (item.createDate | formatdate: lang) }}</td>
+                    <td class="text-center">{{ item.fullNameTh }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.consentStatus" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="item.consentStatus == false" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center">
+                        <span (click)="openPage('VIEW', item.consentId)" class=" pi pi-user cursor-pointer pr-2"></span>
+                        <span (click)="openPage('EDIT', item.consentId)" class="pi pi-pencil cursor-pointer"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="8">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-consent-management-manage
+        [mode]="mode"
+        (backToListPage)="openPage($event)"
+        [item]="editData"
+    ></app-consent-management-manage>
+</div>
+<div *ngIf="mode === 'VIEW'">
+    <app-member-consent-list
+        [mode]="mode"
+        [item]="editData"
+        (goBack)="openPage($event)"
+    ></app-member-consent-list>
+</div>
+

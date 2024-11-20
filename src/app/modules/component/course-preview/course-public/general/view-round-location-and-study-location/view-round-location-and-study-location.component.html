@@ -1,0 +1,53 @@
+<div class="card" *ngIf="initForm && coursepublicMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ coursepublicMain.courseCode }}&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h2>
+    </div>
+    <div class="p-fluid m-0 mb-4">
+        <header class=" ">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.timeAndPlace' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- รูปแบบการเรียนการสอน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabRoundGeneral.tabLocationAndStudy.teachingConcept' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" *ngFor="let item of lookupTeachingConceptList">
+                {{ lang === 'th' ? item.nameTh : item.nameEn }}
+            </div>
+        </div>
+        <!-- รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.roundApproval.timeAndPlace.courseFormatDescTh' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ coursepublicMain.courseFormatDescTh }}
+            </div>
+        </div>
+        <!-- รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.roundApproval.timeAndPlace.courseFormatDescEn' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ coursepublicMain.courseFormatDescEn }}
+            </div>
+        </div>
+        <!-- เวลาเรียน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.roundApproval.timeAndPlace.courseTime' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? coursepublicMain.courseTimeTh : coursepublicMain.courseTimeEn }}
+            </div>
+        </div>
+    </div>
+</div>

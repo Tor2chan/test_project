@@ -1,0 +1,247 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{ 'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.name' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>
+                {{ 'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.detailSection' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.skillName'
+                                    | translate
+                            }}</label
+                        >
+                        <p-dropdown
+                            [options]="skillList"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onFilter)="lazyLoadSkillsCategories($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                            [(ngModel)]="item.generalSkillId"
+                            [class]="
+                                item.courseSkillOtherStatus
+                                    ? ''
+                                    : showError == true && !!!item.generalSkillId
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [disabled]="item.courseSkillOtherStatus"
+                        ></p-dropdown>
+                        <small
+                            *ngIf="item.courseSkillOtherStatus ? '' : showError && !!!item.generalSkillId"
+                            class="p-error"
+                            id="text-error"
+                        >
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <!-- <div class="col-12 md:col-12">
+                        <div class="flex align-items-center gap-2">
+                            <p-checkbox
+                                [(ngModel)]="item.courseSkillOtherStatus"
+                                [binary]="true"
+                                inputId="courseSkillOtherStatus"
+                                (onChange)="onChangeSkillOther()"
+                            ></p-checkbox>
+                            <label>{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.other' | translate
+                            }}</label>
+                        </div>
+                    </div> -->
+
+                    <!-- <div *ngIf="item.courseSkillOtherStatus" class="col-12 md:col-12">
+                        <div class="col-12 md:col-12">
+                            <label
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.otherSkillNameTh'
+                                        | translate
+                                }}</label
+                            >
+                            <textarea
+                                rows="2"
+                                cols="30"
+                                pInputTextarea
+                                [(ngModel)]="item.courseSkillOtherNameTh"
+                                style="resize: vertical; min-height: 80px; max-height: 200px"
+                                [class]="
+                                    showError == true &&
+                                    !!!item.courseSkillOtherNameTh &&
+                                    item.courseSkillOtherStatus === true
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                            ></textarea>
+                            <small
+                                *ngIf="
+                                    showError && !!!item.courseSkillOtherNameTh && item.courseSkillOtherStatus === true
+                                "
+                                class="p-error"
+                                id="text-error"
+                                >{{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="col-12 md:col-12">
+                            <label
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.otherSkillNameEn'
+                                        | translate
+                                }}</label
+                            >
+                            <textarea
+                                rows="2"
+                                cols="30"
+                                pInputTextarea
+                                [(ngModel)]="item.courseSkillOtherNameEn"
+                                style="resize: vertical; min-height: 80px; max-height: 200px"
+                                [class]="
+                                    showError && !!!item.courseSkillOtherNameEn && item.courseSkillOtherStatus === true
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                            ></textarea>
+                            <small
+                                *ngIf="
+                                    showError && !!!item.courseSkillOtherNameEn && item.courseSkillOtherStatus === true
+                                "
+                                class="p-error"
+                                id="text-error"
+                                >{{ 'common.pleaseEnter' | translate }}
+                            </small>
+                        </div>
+                    </div> -->
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.level' | translate
+                            }}</label
+                        >
+                        <p-dropdown
+                            [options]="levelList"
+                            [(ngModel)]="item.skillLevel"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            (onChange)="getMasGeneralSkillLevel(item)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                            [class]="showError && !!!item.skillLevel ? 'ng-invalid ng-dirty' : ''"
+                        ></p-dropdown>
+                        <small *ngIf="showError && !!!item.skillLevel" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div
+                        class="col-12 md:col-12"
+                        style="background-color: lightgray; width: 100%; height: 50%; border-radius: 25px"
+                    >
+                        <div class="card">
+                            <div class="col-12 grid grid-flex">
+                                <div class="col-md-6 font-bold">
+                                    <label>คำอธิบาย (ภาษาไทย) : </label>
+                                </div>
+                                <div class="col-md-6 font-bold" style="padding-left: 10px">
+                                    <label>{{ skillLevelData.descTh ? skillLevelData.descTh : '' }}</label>
+                                </div>
+                            </div>
+                            <div class="col-12 grid grid-flex">
+                                <div class="col-md-5 font-bold">
+                                    <label>คำอธิบาย (ภาษาอังกฤษ) : </label>
+                                </div>
+                                <div class="col-md-5 font-bold" style="padding-left: 10px">
+                                    <label>{{ skillLevelData.descEn ? skillLevelData.descEn : '' }}</label>
+                                </div>
+                            </div>
+                            <div class="col-12 grid grid-flex">
+                                <div class="col-md-6 font-bold">
+                                    <label>วิธีการประเมินเชิงประจักษ์ : </label>
+                                </div>
+                                <div class="col-md-6 font-bold" style="padding-left: 10px">
+                                    <label>{{
+                                        skillLevelData.evaluationEvident ?  skillLevelData.evaluationEvident  : ''
+                                    }}</label>
+                                </div>
+                            </div>
+                            <div class="col-12 grid grid-flex">
+                                <div class="col-md-6 font-bold">
+                                    <label>เกณฑ์ที่ใช้ในการประเมิน : </label>
+                                </div>
+                                <div class="col-md-6 font-bold" style="padding-left: 10px">
+                                    <label>{{
+                                        skillLevelData.evaluationCriteria ? skillLevelData.evaluationCriteria : ''
+                                    }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningOutcomes.form.weight'
+                                    | translate
+                            }}</label
+                        >
+                        <p-inputNumber
+                            [(ngModel)]="item.skillWeight"
+                            inputId="skillWeight"
+                            [min]="0"
+                            mode="decimal"
+                            [minFractionDigits]="2"
+                            [maxFractionDigits]="2"
+                            [class]="showError == true && !!!item.skillWeight ? 'ng-invalid ng-dirty' : ''"
+                        >
+                        </p-inputNumber>
+                        <small *ngIf="showError && !!!item.skillWeight" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

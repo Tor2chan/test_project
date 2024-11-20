@@ -1,0 +1,218 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0 "
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                { label: 'common.module.report' | translate, routerLink: '/report/offered-course-report' },
+                { label: 'report.course.offeredCourseReport.name' | translate, routerLink: '/report/offered-course-report' }
+            ]"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4 mr-4 ml-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'report.course.offeredCourseReport.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4 mr-4 ml-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.offeredCourseReport.criteria.faculty' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.depNameShortTh"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.offeredCourseReport.criteria.course' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.fullCourseTh"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.offeredCourseReport.criteria.courseComparison' | translate }}</label>
+                                <p-dropdown
+                                    [options]="courseMappingStatusList"
+                                    [(ngModel)]="criteria.courseMappingStatus"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.offeredCourseReport.criteria.status' | translate }}</label>
+                                <p-dropdown
+                                    [options]="statusList"
+                                    [(ngModel)]="criteria.courseStatus"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                                <label style="height: 25px">{{
+                                    'report.course.offeredCourseReport.criteria.createDate' | translate
+                                }}</label>
+                                <div class="flex gap-0">
+                                    <div class="col-6" style="padding-left: 0px;">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="sendDateStart"
+                                            [(ngModel)]="criteria.sendDateStart"
+                                            [placeholder]="'common.between.begin' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearStart"
+                                            (onYearChange)="clickYearStart = true"
+                                            (onSelect)="clickYearStart = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [maxDate]="criteria.sendDateEnd"
+                                            ></p-calendar>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="sendDateStart"
+                                            [(ngModel)]="criteria.sendDateEnd"
+                                            [placeholder]="'common.between.end' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearEnd"
+                                            (onYearChange)="clickYearEnd = true"
+                                            (onSelect)="clickYearEnd = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [minDate]="criteria.sendDateStart"
+                                            ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'report.course.offeredCourseReport.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                [label]="'common.button.export' | translate"
+                icon="pi pi-download"
+                styleClass="p-button-success p-button-sm p-button-outlined"
+                size="small"
+                (click)="onExport()"
+            ></p-button>
+        </div>
+        <hr />
+
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">{{ 'report.course.offeredCourseReport.table.faculty' | translate }}</th>
+                    <th scope="col" style="width: 30%">{{ 'report.course.offeredCourseReport.table.course' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">{{ 'report.course.offeredCourseReport.table.numberOfRound' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">{{ 'report.course.offeredCourseReport.table.courseComparison' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">{{ 'report.course.offeredCourseReport.table.createDate' | translate }}</th>
+                    <th scope="col" style="width: 10%">{{ 'report.course.offeredCourseReport.table.creator' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'common.status.name' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.depNameShortTh : item.depNameShortEn }}</td>
+                    <td>{{ lang === 'th' ? item.fullCourseTh : item.fullCourseEn }}</td>
+                    <td class="text-center">{{ item.countRound }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.courseMappingStatus" class="text-green-700 ">{{ 'report.course.offeredCourseReport.table.compareMapping' | translate }}</span>
+                        <span *ngIf="!item.courseMappingStatus" class="text-red-700 ">{{ 'report.course.offeredCourseReport.table.uncompareMapping' | translate }}</span>
+                    </td>
+                    <td class="text-center">{{ item.createDate | formatdatetime : lang }}</td>
+                    <td>{{ lang === 'th' ? item.senderNameTh : item.senderNameEn }}</td>
+                    <td class="text-center">{{ lang === 'th' ? item.statusTh : item.statusEn }}</td>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="10" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>

@@ -1,0 +1,154 @@
+<div class="card" *ngIf="initForm && courseMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{
+                lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn
+            }}
+        </h2>
+    </div>
+    <div class="p-fluid m-0 mb-4">
+        <header class=" ">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabCourseInformation.name' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- สถานภาพของหลักสูตรอบรมระยะสั้น -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.statusShortTermTrainingCourses.name'
+                        | translate
+                }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.courseNewStatusTh : courseMain.courseNewStatusEn }}
+            </div>
+        </div>
+        <!-- ประเภทหลักสูตรอบรมระยะสั้น -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{
+                    'courseManagement.tabGeneral.tabCourseInformation.criteria.typeShortTermTrainingCourses' | translate
+                }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.courseTypeNameTh : courseMain.courseTypeNameEn }}
+            </div>
+        </div>
+        <!-- คณะ/หน่วยงาน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.faculty' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.depNameThLevel1 : courseMain.depNameEnLevel1 }}
+            </div>
+        </div>
+        <!-- ภาควิชา -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.department' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.depNameThLevel2 : courseMain.depNameEnLevel2 }}
+            </div>
+        </div>
+        <!--*รหัสหลักสูตร -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.courseCode' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseCode }}
+            </div>
+        </div>
+        <!--*ชื่อหลักสูตร (ภาษาไทย) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.couresNameTh' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseNameTh }}
+            </div>
+        </div>
+        <!--*ชื่อหลักสูตร (ภาษาอังกฤษ) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.couresNameEn' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseNameEn }}
+            </div>
+        </div>
+        <!--*คำอธิบายรายวิชาของหลักสูตร (ภาษาไทย) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.courseDescriptionTh' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseDescTh }}
+            </div>
+        </div>
+        <!--*คำอธิบายรายวิชาของหลักสูตร (ภาษาอังกฤษ) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.courseDescriptionEn' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseDescEn }}
+            </div>
+        </div>
+        <!--Keyword -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.criteria.keyWord' | translate }}
+            </div>
+            <div *ngIf="courseMain.courseHashtag.length == 0" class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">&#45;</div>
+            <div *ngIf="courseMain.courseHashtag.length != 0" class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseHashtag }}
+            </div>
+        </div>
+
+        <header class="mt-5">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabCourseInformation.status' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- สถานะการใช้งาน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.status' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{
+                    courseMain.activeFlag
+                        ? ('common.status.active' | translate)
+                        : ('common.status.inActive' | translate)
+                }}
+            </div>
+        </div>
+
+        <header class="mt-5">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.creator' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- ผู้บันทึก -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.creator' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.saveByFullNameTh : courseMain.saveByFullNameEn }}
+            </div>
+        </div>
+        <!-- วันที่ขออนุมัติ -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabCourseInformation.creatorInformation.createDate' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.requestDate | formatdate : lang }}
+            </div>
+        </div>
+    </div>
+</div>

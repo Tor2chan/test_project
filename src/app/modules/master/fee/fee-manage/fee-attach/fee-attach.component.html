@@ -1,0 +1,101 @@
+<p-toast id="lv2" (onClose)="onCloseLevel2($event)"></p-toast>
+<div class="card">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((modeChilde === 'CREATE_CHILDE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.fee.form.subForm.name' | translate)
+                }}
+            </h3>
+
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.fee.form.subForm.detail' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div>
+                            <label><a style="color: red">*</a>{{ 'master.fee.form.subForm.attach' | translate }}</label>
+                        </div>
+
+                            <div class="">
+                                <p-fileUpload
+                                    styleClass="w-full"
+                                    name="file"
+                                    [multiple]="false"
+                                    [customUpload]="true"
+                                    [fileLimit]="1"
+                                    [showUploadButton]="false"
+                                    [showCancelButton]="false"
+                                    [auto]="true"
+                                    [chooseLabel]=" 'common.pleaseSelect' | translate "
+                                    accept=".pdf"
+                                    [maxFileSize]="20000000"
+                                    #fileUpload
+                                    (uploadHandler)="onAdvancedUpload($event)"
+                                    (onRemove)="onRemoveUpload($event, fileUpload)"
+                                    [class]="showError == true && !!!item.fileName ? 'ng-invalid ng-dirty' : ''"
+                                >
+                                <ng-template pTemplate="content" let-files >
+                                    <div *ngIf="!!!item.fileName">{{ 'common.dragAndDrop' | translate}}</div>
+                                </ng-template>
+                                </p-fileUpload>
+                                <small *ngIf="showError && !!!item.fileName" class="p-error" id="text-error">
+                                    {{ 'common.pleaseEnter' | translate }}
+                                </small>
+                            </div>
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label><a style="color: red">*</a>{{ 'master.fee.form.subForm.fileName' | translate }}</label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.fileName"
+                            [class]="showError == true && !!!item.fileName ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.fileName" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    severity="secondary"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

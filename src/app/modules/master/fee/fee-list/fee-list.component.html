@@ -1,0 +1,213 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[{ label: 'common.module.master' | translate, routerLink: '/master/fee' }, { label: 'master.fee.name' | translate, routerLink: '/master/fee' }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.fee.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.fee.criteria.paymentType' | translate }}</label>
+                                <p-dropdown
+                                    [options]="paymentTypeList"
+                                    [(ngModel)]="criteria.paymentType"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.fee.criteria.cardType' | translate }}</label>
+                                <p-dropdown
+                                    [options]="cardTypeList"
+                                    [(ngModel)]="criteria.cardType"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div> -->
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.fee.criteria.fromYear' | translate }}</label>
+
+                                <p-calendar
+                                    [(ngModel)]="startYearSingleTemp"
+                                    view="year"
+                                    [showIcon]="true"
+                                    inputId="startYearList"
+                                    dateFormat="yy"
+                                    [hideOnDateTimeSelect]="true"
+                                    appThaiCalendar
+                                    [yearNavigator]="false"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [lang]="lang"
+                                    [clickYear]="false"
+                                    (onSelect)="selectStartYearSingle($event)"
+                                    (onYearChange)="clickStartYearSingleTemp= true"
+                                    >
+                                </p-calendar>
+                            </div>
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.fee.criteria.createDate' | translate }}</label>
+                                <p-calendar
+                                    [(ngModel)]="criteria.createDateList"
+                                    [showIcon]="true"
+                                    inputId="createDateList"
+                                    selectionMode="range"
+                                    [hideOnDateTimeSelect]="true"
+                                    appThaiCalendarRange
+                                    [lang]="translate.currentLang"
+                                    [placeholder]="lang === 'th' ? 'วว/ดด/ปปปป - วว/ดด/ปปปป' : 'DD/MM/YYYY - DD/MM/YYYY'"
+                                ></p-calendar>
+                            </div> -->
+                        </div>
+
+                        <!-- <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.fee.criteria.createBy' | translate }}</label>
+                                <p-dropdown
+                                    [options]=""
+                                    [(ngModel)]="criteria.createBy"
+                                    optionLabel="name"
+                                    [showClear]="true"
+                                ></p-dropdown>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            ></p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                (click)="onClear()"
+                            ></p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+
+        <div class="flex-wrap m-4">
+            <div class="flex justify-content-between">
+                <div class="align-items-center">
+                    <h5 class="mt-2 mb-0">{{ 'master.fee.table.name' | translate }}</h5>
+                </div>
+                <div class="flex">
+                    <div class="pr-1">
+                        <p-button
+                            permission
+                            menuCode="SDB-MS11002"
+                            [label]="'common.button.add' | translate"
+                            icon="pi pi-plus-circle"
+                            styleClass="p-button-primary p-button-sm"
+                            size="small"
+                            (click)="openPage('CREATE')"
+                        ></p-button>
+                    </div>
+
+                    <!-- <div class="pl-1">
+                        <p-button
+                            permission
+                            menuCode="SDB-MS11005"
+                            [label]="'common.button.export' | translate"
+                            icon="pi pi-download"
+                            styleClass="p-button-success p-button-sm p-button-outlined"
+                            size="small"
+                        ></p-button>
+                    </div> -->
+                </div>
+            </div>
+            <hr />
+
+            <p-table
+                [(rows)]="rows"
+                [value]="items"
+                [totalRecords]="totalRecords"
+                [paginator]="true"
+                [rowHover]="true"
+                [lazy]="true"
+                [rows]="5"
+                [rowsPerPageOptions]="[5, 10, 20]"
+                [paginator]="true"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                (onPage)="onSearch($event)"
+                [showCurrentPageReport]="true"
+                [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+            >
+                <ng-template pTemplate="header">
+                    <tr >
+                        <th scope="col" class="text-center">{{ 'common.table.column.no' | translate }}</th>
+                        <th scope="col" class="text-center">{{ 'master.fee.table.column.paymentType' | translate }}</th>
+                        <!-- <th scope="col" class="text-center">{{ 'master.fee.table.column.cardType' | translate }}</th> -->
+                        <th scope="col" class="text-center">{{ 'master.fee.table.column.chargesRate' | translate }}</th>
+                        <th scope="col" class="text-center">{{ 'master.fee.table.column.universityCharge' | translate }}</th>
+                        <th scope="col" class="text-center">{{ 'master.fee.table.column.studentCharge' | translate }}</th>
+                        <th scope="col" class="text-center">{{ 'master.fee.table.column.fromYear' | translate }}</th>
+                        <!-- <th scope="col" class="text-center">{{ 'master.fee.table.column.createDate' | translate }}</th> -->
+                        <!-- <th scope="col" >{{ 'master.fee.table.column.createBy' | translate }}</th> -->
+                        <th scope="col" class="text-center">{{ 'common.table.column.status' | translate }}</th>
+                        <th permission menuCode="SDB-MS11003" scope="col" class="text-center" >{{ 'common.table.column.manage' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="text-center">{{ item.rowNum }}</td>
+                        <td class="text-center">{{ lang === 'th' ? item.paymentTypeNameTh : item.paymentTypeNameEn }}</td>
+                        <!-- <td class="text-center">{{ lang === 'th' ? item.cardTypeNameTh : item.cardTypeNameEn }}</td> -->
+                        <td class="text-center">{{ item.chargeRate }}</td>
+                        <td class="text-center">{{ item.universityChargePercent }}</td>
+                        <td class="text-center">{{ item.studentChargePercent }}</td>
+                        <td class="text-center">{{ lang === 'th' ? item.startYear  : item.startYear - 543 }}</td>
+                        <!-- <td class="text-center">{{ item.createDate | formatdate : lang }}</td> -->
+                        <td class="text-center">
+                            <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                            <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                        </td>
+                        <td permission menuCode="SDB-MS11003" class="text-center">
+                            <span (click)="openPage('EDIT', item.chargeId)" class="pi pi-pencil cursor-pointer"></span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="12" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</p-panel>
+
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-fee-manage [mode]="mode" (backToListPage)="openPage($event)" [item]="editData" [lang]="lang"></app-fee-manage>
+</div>

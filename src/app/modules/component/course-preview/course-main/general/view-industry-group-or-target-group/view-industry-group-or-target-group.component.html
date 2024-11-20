@@ -1,0 +1,80 @@
+<div class="card" *ngIf="initForm && courseMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{ lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn }}
+        </h2>
+    </div>
+    <div class="p-fluid m-0 mb-4" >
+        <header class=" ">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.name' | translate  }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- กลุ่มอุตสาหกรรม/กลุ่มพัฒนาคน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.industryPeopleDevelopmentGroup' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.industryGroupTh : courseMain.industryGroupEn }}
+            </div>
+        </div>
+
+        <header class=" mt-5">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.targetGroup.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- กลุ่มเป้าหมายที่เข้ารับการศึกษา -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.targetGroup.targetAudience' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" >
+                <span *ngFor="let target of (lang === 'th' ? courseMain.targetTh : courseMain.targetEn); let i = index">
+                    <p>{{i+1}} &nbsp; {{target}}</p>
+                </span>
+                    <p *ngIf="courseMain.targetGroupOtherStatus">{{(courseMain.targetTh)?.length +1}} &nbsp; {{ courseMain.targetGroupOtherName }}</p>
+
+            </div>
+        </div>
+
+        <header class=" mt-5">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.relatedOccupation.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- อาชีพที่หลักสูตรอบรมระยะสั้นรองรับ -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.relatedOccupation.occupation' | translate}}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.occupationTh : courseMain.occupationEn }}
+            </div>
+        </div>
+
+        <header class=" mt-5">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม (ภาษาไทย) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.basicKnowledgeTh'  | translate }}
+            </div>
+            <div *ngIf="!!!courseMain.courseSpecificRequirementTh" class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">&#45;</div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{courseMain.courseSpecificRequirementTh}}
+            </div>
+        </div>
+        <!-- ความรู้พื้นฐาน/คุณสมบัติของผู้เข้าอบรม (ภาษาอังกฤษ) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.basicKnowledgeEn' | translate }}
+            </div>
+            <div *ngIf="!!!courseMain.courseSpecificRequirementEn" class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">&#45;</div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{courseMain.courseSpecificRequirementEn}}
+            </div>
+        </div>
+
+    </div>
+</div>

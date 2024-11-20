@@ -1,0 +1,94 @@
+<p-card>
+    <div class="grid">
+        <div
+            class="col-12 lg:col-3 xl:col-3 md:block sm:block align-items-center justify-content-center"
+            *ngIf="imgFlag"
+        >
+            <div class="flex align-items-center justify-content-center ">
+                <p-image
+                    [src]="imgUrl"
+                    alt="img-course"
+                    [preview]="true"
+                    [imageStyle]="{ 'width': '100%','max-height': '225px', 'border-radius': '5%', 'object-fit': 'contain', 'object-position': 'center' }"
+
+                    />
+            </div>
+            <div class="xl:hidden lg:hidden" style="margin-bottom: 2rem;" ></div>
+        </div>
+
+        <div
+            [class.xl:col-9.lg:col-9]="imgFlag"
+            [class.xl:col-12.lg:col-12]="!imgFlag"
+            class="col-12"
+        >
+            <div class="">
+                <div class="flex px-2 justify-content-between">
+                    <div class="col">
+                        <h3 [style]="">{{ title }}</h3>
+                    </div>
+                    <div class="col col-3 flex justify-content-end">
+                        <h3
+                            (click)="clickCallBack(titleStatus.callBackData)"
+                            class="cursor-pointer"
+                            [style]="{ color: titleStatusColor }"
+                        >
+                            {{ titleStatus.text }}
+                        </h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid var(--font-color-header)" />
+            </div>
+            <div class="grid pl-4">
+                <div class="col-12">
+                    <label>{{ detail }}</label>
+                </div>
+                <div *ngFor="let chipObj of chipList" class="mr-2">
+                    <p-chip pStyleClass="my-chip" [label]="chipObj.text" [icon]="chipObj.icon"></p-chip>
+                </div>
+            </div>
+            <!-- add card -->
+            <div class="grid pl-4" >
+                <div class="col-12">
+                </div>
+                <div *ngFor="let person of person" class="mr-2">
+                    <p-chip  pStyleClass="card-user"  [label]="person.text" [icon]="person.icon"></p-chip>
+                </div>
+            </div>
+            <!-- add card -->
+            <div class="grid col-12 pl-4 mt-4" *ngIf="masPersonalData && courseInfo.saveMoodleFlag">
+                <button
+                    pButton
+                    permission
+                    menuCode="SDB-TC100401"
+                    [label]="'teacherPortal.loginMoodle' | translate"
+                    styleClass="p-button p-button-warning p-button-sm"
+                    size="small"
+                    (click)="clickCallBack({
+                        eventName: 'MOODLE',
+                        data: masPersonalData
+                    })"
+                ></button>
+            </div>
+            <div class="grid col-12 mt-8 ml-2">
+                <div
+                    *ngFor="let menuObj of filterDisplay(menuList)"
+                    permission
+                    [menuCode]="menuObj.menuCode"
+                >
+                   <button pButton  *ngIf="menuObj.display"
+                    (click)="clickCallBack(menuObj.callBackData)"
+                    class="menulist mr-2">
+                    <i [class]="menuObj.icon" style="color: red;"></i>
+                    <span style="margin-left: 1rem;">{{menuObj.text}}</span>
+                    </button>
+                    <!-- <a *ngIf="menuObj.display" (click)="clickCallBack(menuObj.callBackData)"
+                        ><i [class]="menuObj.icon"
+                            ><label class="ml-2 cursor-pointer" style="margin-right: 1rem;">{{ menuObj.text }}</label></i
+                        ></a
+                    >
+                    <span *ngIf="menuObj.display" class="vl" ></span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</p-card>

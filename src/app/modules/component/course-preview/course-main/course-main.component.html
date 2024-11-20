@@ -1,0 +1,86 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast></p-toast>
+<div class="card" *ngIf="intitForm">
+    <div class="p-fluid">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'courseManagement.menuTab.general.course' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="grid p-fluid ml-1">
+            <aside class="col-12 md:col-3 lg:col-3" style="min-height: 100vh">
+                <!-- {{ tabindex }} -->
+                <p-menu
+                    [model]="menuItems"
+                    [showTransitionOptions]="'.12s cubic-bezier(0, 0, 0.9, 1)'"
+                    class="w-full"
+                    [style]="{ width: '100%', height: '100vh' }"
+                    (click)="activeMenu($event)"
+                ></p-menu>
+            </aside>
+            <div class="field col-12 md:col-9 lg:col-9">
+                <!-- Course General Information -->
+                <app-view-detail-of-the-short-training-course
+                    *ngIf="page == pageType.DETAIL_OF_THE_SHORT_TRAINING_COURSE"
+                    [lang]="lang"
+                    [courseMain]="courseMain"
+                ></app-view-detail-of-the-short-training-course>
+                <app-view-teaching-format
+                    *ngIf="page == pageType.TEACHING_FORMAT"
+                    [lang]="lang"
+                    [courseMain]="courseMain"
+                ></app-view-teaching-format>
+                <app-view-industry-group-or-target-group
+                    *ngIf="page == pageType.INDUSTRY_GROUP_OR_TARGET_GROUP"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-industry-group-or-target-group>
+                <app-view-responsible-person
+                    *ngIf="page == pageType.RESPONSIBLE_PERSON"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-responsible-person>
+                <app-view-related-agencies-or-establishments
+                    *ngIf="page == pageType.RELATED_AGENCIES_OR_ESTABLISHMENTS"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-related-agencies-or-establishments>
+                <app-view-course-comparison
+                    *ngIf="page == pageType.COURSE_COMPARISON"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-course-comparison>
+                <app-view-documents-and-more
+                    *ngIf="page == pageType.DOCUMENTS_AND_MORE"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-documents-and-more>
+                <!-- Course Leraning Outcome And Skills -->
+                <app-view-learning-outcomes
+                    *ngIf="page == pageType.LEARNING_OUTCOMES"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-learning-outcomes>
+                <app-view-expected-learning-outcomes
+                    *ngIf="page == pageType.EXPECTED_LEARNING_OUTCOMES"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-expected-learning-outcomes>
+                <app-view-learning-management-process
+                    *ngIf="page == pageType.LEARNING_MANAGEMENT_PROCESS"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-learning-management-process>
+                <!-- Course Attached Documents -->
+                <app-view-documents-attach
+                    *ngIf="page == pageType.COURSE_APPROVAL_DOCUMENTS"
+                    [courseMain]="courseMain"
+                    [lang]="lang"
+                ></app-view-documents-attach>
+            </div>
+        </div>
+    </div>
+    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+</div>

@@ -1,0 +1,310 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast></p-toast>
+<p-panel>
+    <ng-template pTemplate="header">
+        <p-breadcrumb class="col-12 p-0" [home]="{ icon: 'pi pi-home', routerLink: '/' }" [model]="breadcrumItems">
+        </p-breadcrumb>
+    </ng-template>
+
+    <div *ngIf="mode === 'LIST'">
+        <div class="p-fluid mt-4">
+            <div class="p-fluid formgrid grid col-12">
+                <div class="field formgrid col-12 sm:col-12 md:col-6 lg:col-8">
+                    <p-card>
+                        <div class="field formgrid grid col-12 sm:col-12 md:col-12 lg:col-12 flex justify-content-center ">
+                            <div class="sm:col-6 md:col-12 lg:col-4 flex justify-content-center " >
+                                <!-- <div class="col-6" style="text-align: center;" *ngIf="imgSrc!=undefined">
+                                    <img
+                                        alt="img-course"
+                                        [src]="imgSrc"
+                                        style="width: 150px; height: 150px; border-radius: 5%; object-fit: cover"
+                                    />
+                                </div> -->
+                                <div class="lg:col-6 md:col-12 sm:col-12 alphabetColor flex" style="text-align: center;" >
+                                        <label style="font-size: 55px;width:100%;color:black">{{this.firstAlphabet}}</label>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-6 md:col-12 lg:col-8 flex justify-content-center " *ngIf="accessLevel != 30025001">
+                                <h3 style="color: var(--font-color-header)">
+                                    {{
+                                        teacherData == undefined
+                                            ? ''
+                                            : lang == 'th'
+                                            ? teacherData.prefixShortTh +
+                                              ' ' +
+                                              this.teacherData.firstnameTh +
+                                              ' ' +
+                                              this.teacherData.lastnameTh
+                                            : (this.teacherData.prefixShortEn +
+                                                  ' ' +
+                                                  this.teacherData.firstnameEn +
+                                                  ' ' +
+                                                  this.teacherData.lastnameEn | translate)
+                                    }}
+                                </h3>
+                                <hr style="border-top: 1px solid var(--font-color-header)" />
+                                <h3 style="color: var(--font-color-header)">
+                                    {{
+                                        !!!departmentData
+                                            ? ''
+                                            : lang == 'th'
+                                            ? departmentData.depNameTh
+                                            : (departmentData.depNameEn | translate)
+                                    }}
+                                </h3>
+                            </div>
+                            <div class="lg:col-6 md:col-12 sm:col-12" *ngIf="accessLevel == 30025001">
+                                <!-- <p-dropdown
+                                [options]="teacherDataList"
+                                [(ngModel)]="criteria.teacherName"
+                                [optionLabel]="'firstnameTh'"
+                                optionValue="firstnameTh"
+                                [showClear]="true"
+                                [filter]="true"
+                                [placeholder]=""
+                            ></p-dropdown> -->
+                                <p-dropdown
+                                    [options]="teacherDataList"
+                                    [(ngModel)]="criteria.personalId"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    (onFilter)="lazyLoadTeacher($event)"
+                                    (onBlur)="getPersonalDataById(criteria.personalId)"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                                <!-- {{
+                                        teacherData == undefined
+                                            ? ''
+                                            : lang == 'th'
+                                            ? teacherData.prefixShortTh +
+                                              ' ' +
+                                              this.teacherData.firstnameTh +
+                                              ' ' +
+                                              this.teacherData.lastnameTh
+                                            : (this.teacherData.prefixShortEn +
+                                                  ' ' +
+                                                  this.teacherData.firstnameEn +
+                                                  ' ' +
+                                                  this.teacherData.lastnameEn | translate)
+                                    }} -->
+
+                                <hr style="border-top: 1px solid var(--font-color-header)" />
+                                <h3 style="color: var(--font-color-header)">
+                                    {{
+                                        !!!departmentData
+                                            ? ''
+                                            : lang == 'th'
+                                            ? departmentData.depNameTh
+                                            : (departmentData.depNameEn | translate)
+                                    }}
+                                </h3>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                    <p-card>
+                        <header class="d-flex justify-content-md-between" *ngIf="imgSrc == undefined">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <h3 style="color: var(--font-color-header)">
+                                        {{ 'teacherPortal.openingCourse' | translate }}
+                                    </h3>
+                                    <h3 style="color: var(--font-color-header)">{{ activeCourse }}</h3>
+                                </div>
+                                <hr style="border-top: 1px solid var(--font-color-header)" />
+                            </div>
+                        </header>
+                        <header class="d-flex justify-content-md-between" *ngIf="imgSrc != undefined">
+                            <div
+                                class="formgrid grid col-12"
+                                style="height: 172px; border-radius: 5%; object-fit: cover"
+                            >
+                                <div class="col-8">
+                                    <h3 style="color: var(--font-color-header)">
+                                        {{ 'teacherPortal.openingCourse' | translate }}
+                                    </h3>
+                                </div>
+                                <div class="col-4 flex justify-content-center">
+                                    <h3 style="color: var(--font-color-header)">{{ activeCourse }}</h3>
+                                </div>
+
+                                <hr style="border-top: 1px solid var(--font-color-header)" />
+                            </div>
+                        </header>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-8">
+                        <h3 style="color: var(--font-color-header)">
+                            {{ 'master.campaign.form.courseEnteringCampaign.subForm.sectionDetail' | translate }}
+                        </h3>
+                    </div>
+                </div>
+            </header>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </div>
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="p-fluid formgrid grid col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                        <p-dropdown
+                            [options]="courseOpeningStatus"
+                            [(ngModel)]="criteria.coursepublicStatus"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="false"
+                            [placeholder]="'teacherPortal.openingCourse' | translate"
+                            (onChange)="onSearch()"
+                        ></p-dropdown>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4"></div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                        <span class="p-input-icon-right">
+                            <i class="pi pi-search"></i>
+                            <input
+                                *ngIf="lang == 'th'"
+                                pInputText
+                                type="text"
+                                [placeholder]="'teacherPortal.searchCourse' | translate"
+                                [(ngModel)]="criteria.publicNameTh"
+                                icon
+                                (keyup.enter)="onSearch()"
+                            />
+                            <input
+                                *ngIf="lang == 'en'"
+                                pInputText
+                                type="text"
+                                [placeholder]="'teacherPortal.searchCourse' | translate"
+                                [(ngModel)]="criteria.publicNameEn"
+                                (keyup.enter)="onSearch()"
+                            />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- table -->
+        <p-dataView
+            #dv
+            [value]="courseInfoData"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            [totalRecords]="totalRecords"
+            [lazy]="true"
+            (onPage)="onSearch($event)"
+        >
+            <ng-template let-item pTemplate="listItem">
+                <app-card-list-common
+                    class="w-full shadow-4 rounded mt-4"
+                    [title]="'[' + item.courseCode + '] - ' + (lang === 'th' ? item.publicNameTh : item.publicNameEn)"
+                    [titleStatus]="{
+                        text:
+                            item.coursepublicStatus == 30014003
+                                ? lang === 'th'
+                                    ? 'เปิดรอบหลักสูตร'
+                                    : 'Course published'
+                                : lang === 'th'
+                                ? 'การสอนเสร็จสิ้น'
+                                : 'Completed',
+                        callBackData: { eventName: 'VIEW', data: item }
+                    }"
+                    [detail]="lang === 'th' ? item.courseDescTh : item.courseDescEn"
+                    [masPersonalData]="teacherData"
+                    [courseInfo]="item"
+                    [chipList]="[
+                        {
+                            text:
+                                ('teacherPortal.teachingDate' | translate) +
+                                (item.courseClassStart | formatdate : lang) +
+                                (item.courseClassEnd == undefined
+                                    ? ''
+                                    : '-' + (item.courseClassEnd | formatdate : lang)),
+                            icon: 'pi pi-calendar'
+                        },
+                        { text: item.memberCount == 0 ? '0' : item.memberCount, icon: 'pi pi-users' },
+                        { text: lang === 'th' ? item.nameLo : item.nameEn, icon: 'pi pi-map-marker' }
+                    ]"
+                    [menuList]="[
+                        {
+                            text: 'teacherPortal.detail' | translate,
+                            icon: 'pi pi-search',
+                            callBackData: { eventName: 'VIEW', data: item },
+                            display: true,
+                            menuCode: 'SDB-TC1002'
+                        },
+                        {
+                            text: 'teacherPortal.student' | translate,
+                            icon: 'pi pi-users',
+                            callBackData: { eventName: 'EDIT', data: item },
+                            display: true,
+                            menuCode: 'SDB-TC1003'
+                        },
+                        {
+                            text: 'teacherPortal.creategrade' | translate,
+                            icon: 'pi pi-cog',
+                            callBackData: { eventName: 'CREATE', data: item },
+                            display: item.saveGradeFlag,
+                            menuCode: 'SDB-TC1004'
+                        },
+                        {
+                            text: 'teacherPortal.savestudyresult' | translate,
+                            icon: 'pi pi-pencil',
+                            callBackData: { eventName: 'APPROVE', data: item },
+                            display: item.saveGradeFlag,
+                            menuCode: 'SDB-TC1005'
+                        },
+                        {
+                            text: 'teacherPortal.exportstudyresult' | translate,
+                            icon: 'pi pi-download',
+                            callBackData: { eventName: 'PRINT', data: item },
+                            display: true,
+                            menuCode: 'SDB-TC1006'
+                        }
+                    ]"
+                    [lang]="lang"
+                    (callBack)="callBack($event)"
+                    [imgUrl]="item.imgSrc"
+                    [imgFlag]="true"
+                >
+                </app-card-list-common>
+            </ng-template>
+        </p-dataView>
+    </div>
+
+    <!-- <div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+        <app-course-management-main [lang]="lang" (goBack)="openPage($event)"
+            [forceStatus]="forceStatus"></app-course-management-main>
+    </div> -->
+
+    <div *ngIf="mode === 'CREATE'">
+        <app-teacher-portal-grade
+            [mainmode]="mode"
+            [lang]="lang"
+            (backToListPage)="openPage($event)"
+        ></app-teacher-portal-grade>
+    </div>
+    <div *ngIf="mode === 'EDIT'">
+        <app-teacher-portal-student
+            [mainmode]="mode"
+            [lang]="lang"
+            (backToListPage)="openPage($event)"
+        ></app-teacher-portal-student>
+    </div>
+    <div *ngIf="mode === 'APPROVE'">
+        <app-teacher-portal-save-student-grade
+            [mainmode]="mode"
+            [lang]="lang"
+            (backToListPage)="openPage($event)"
+        ></app-teacher-portal-save-student-grade>
+    </div>
+</p-panel>

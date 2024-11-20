@@ -1,0 +1,254 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel *ngIf="item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                information,
+                banner,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('menu.master.news.websiteBanner' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('menu.master.news.websiteBanner' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.occupantion.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a *ngIf="!!!item.bannerName" style="color: red">*</a
+                            >{{ 'master.websiteBanner.table.column.bannerName' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            placeholder="{{ 'master.websiteBanner.table.column.bannerName' | translate }}"
+                            id="course_no"
+                            [(ngModel)]="item.bannerName"
+                            type="text"
+                            [class]="showError == true && !!!item.bannerName ? 'ng-invalid ng-dirty' : ''"
+                        />
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a *ngIf="!!!item.bannerLink" style="color: red">*</a
+                            >{{ 'master.websiteBanner.form.link' | translate }}</label
+                        >
+                        <div class="p-input-icon-right">
+                            <i class="pi pi-link mr-1"></i>
+                            <input
+                                pInputText
+                                id="companyId"
+                                type="text"
+                                placeholder="{{ 'master.websiteBanner.form.link' | translate }}"
+                                [(ngModel)]="item.bannerLink"
+                                [class]="showError == true && !!!item.bannerLink ? 'ng-invalid ng-dirty' : ''"
+                            />
+                        </div>
+
+                        <small *ngIf="showError && !!!item.bannerLink" class="p-error" id="text-error"> </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 style="margin-bottom: 0px">
+                <a *ngIf="!!!item.filename || this.showUpload" style="color: red">*</a
+                >{{ 'master.websiteBanner.form.banner.name' | translate
+                }}<span
+                    *ngIf="item.filename && !showUpload "
+                    class="pi pi-trash cursor-pointer ml-2"
+                    (click)="showUpload = !showUpload"
+                ></span>
+            </h5>
+            <small>{{ 'common.button.validateImg1680x600' | translate }}</small>
+
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="col-12 md:col-12">
+                    <div class="col-12 lg:col-12 xl:col-12 md:block sm:block align-items-center justify-content-center">
+                        <div class="flex align-items-center justify-content-center" style="object-fit: contain;">
+                            <p-image
+                                *ngIf="item.filename && !showUpload"
+                                [src]="imgSrc"
+                                alt="user"
+                                [preview]="true"
+                                [imageStyle]="{
+                                    width: '100%',
+                                    height: 'auto',
+                                    'object-fit': 'contain',
+                                    'object-position': 'center',
+                                }"
+                            />
+                            <!-- <p-image
+                                *ngIf="showUpload"
+                                [src]="imgSrcRef"
+                                alt="user"
+                                [imageStyle]="{
+                                    width: '100%',
+                                    height: 'auto',
+                                    'object-fit': 'contain',
+                                    'object-position': 'center',
+
+                                }"
+                            /> -->
+                        </div>
+                    </div>
+                    <div >
+                        <p-fileUpload
+                            #fileUpload
+                            *ngIf="showUpload"
+                            (uploadHandler)="onAdvancedUpload($event)"
+                            (onRemove)="onRemoveUpload($event, fileUpload)"
+                            [chooseLabel]="'common.button.uploadImg' | translate"
+                            name="file"
+                            accept="image/*"
+                            [auto]="true"
+                            [maxFileSize]="5000000"
+                            [invalidFileSizeMessageDetail]="lang == 'th' ? 'โปรดลองอีกครั้ง':'Please try again' "
+                            [invalidFileSizeMessageSummary]="lang == 'th'? 'ไฟล์ที่อัปโหลดมีขนาดเกิน 5 MB':'The uploaded file exceeds the size 5 MB'"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && this.showUpload && !!!item.filename
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 2000, 'max-height.px': 226 }"
+                            (load)="onCheckImageSize($event)"
+                        >
+                        </p-fileUpload>
+                        <small *ngIf="showError && !!!this.showUpload" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg || showError" class="p-error" id="text-error">
+                            {{ 'common.alert.overImgWebsiteBanner' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a *ngIf="!!!item.bannerImageTh" style="color: red">*</a
+                            >{{ 'master.websiteBanner.form.banner.coverImgTh' | translate }}</label
+                        >
+                        <div class="col-12 md:col-12 flex p-0">
+                            <input
+                                pInputText
+                                id="coursetheory"
+                                type="text"
+                                [(ngModel)]="item.bannerImageTh"
+                                [placeholder]="item.filename"
+                                [class]="showError == true && !!!item.bannerImageTh ? 'ng-invalid ng-dirty' : ''"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a *ngIf="!!!item.bannerImageEn" style="color: red">*</a
+                            >{{ 'master.websiteBanner.form.banner.coverImgEng' | translate }}</label
+                        >
+                        <div class="col-12 md:col-12 flex p-0">
+                            <input
+                                pInputText
+                                id="coursetheory"
+                                type="text"
+                                [(ngModel)]="item.bannerImageEn"
+                                [placeholder]="item.filename"
+                                [class]="showError == true && !!!item.bannerImageEn ? 'ng-invalid ng-dirty' : ''"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-12 flex grid align-items-center gap-2">
+                        <label
+                            ><a *ngIf="!!!item.orderBy" style="color: red">*</a
+                            >{{ 'master.websiteBanner.table.column.orderBanner' | translate }} <a class="sm:hidden">:</a>
+                        </label>
+                        <div class="lg:col-2 md:col-4 sm:col-6">
+                            <p-inputNumber
+                                mode="decimal"
+                                [(ngModel)]="item.orderBy"
+                                [class]="showError == true && !!!item.orderBy ? 'ng-invalid ng-dirty' : ''"
+                                [showButtons]="true"
+                                [min]="0"
+                                [max]="100"
+                            >
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-4">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>{{ 'newsManagement.status' | translate }}</h5>
+                <p-divider type="solid"></p-divider>
+            </div>
+        </div>
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="flex flex-wrap col-12">
+                    <div class="flex align-items-center col-4 formgrid grid gap-2">
+                        <p-inputSwitch [(ngModel)]="item.activeFlag"></p-inputSwitch>
+                        <label>{{ 'newsManagement.active' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>

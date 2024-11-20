@@ -1,0 +1,221 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+            { label: 'common.module.master' | translate , routerLink: '/master/bank-account'}, 
+            { label: 'master.bankAccount.name' | translate, routerLink: '/master/bank-account' }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.bankAccount.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <!-- <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.bankAccount.criteria.bank' | translate }}</label>
+                                <p-dropdown
+                                    [options]="bankList"
+                                    [(ngModel)]="criteria.bankId"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    (onFilter)="lazyLoadBank($event)"
+                                    (onChange)="lazyLoadBankBranch(null)"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.bankAccount.criteria.branch' | translate }}</label>
+                                <p-dropdown
+                                    [disabled]="!!!criteria.bankId"
+                                    [options]="bankBranchList"
+                                    [(ngModel)]="criteria.bankBranchId"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [filter]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    (onFilter)="lazyLoadBankBranch($event)"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.bankAccount.criteria.accountNo' | translate }}</label>
+                                <input
+                                    pInputText
+                                    id="accountNo"
+                                    type="text"
+                                    [(ngModel)]="criteria.accountNo"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.bankAccount.criteria.accountNameTh' | translate }}</label>
+                                <input
+                                    pInputText
+                                    id="accountNameTh"
+                                    type="text"
+                                    [(ngModel)]="criteria.accountNameTh"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                        </div>
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.bankAccount.criteria.accountNameEn' | translate }}</label>
+                                <input
+                                    pInputText
+                                    id="accountNameEn"
+                                    type="text"
+                                    [(ngModel)]="criteria.accountNameEn"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'common.status.name' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [(ngModel)]="criteria.activeFlag"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div class="">
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div class="">
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion> -->
+
+        <div class="flex-wrap m-4">
+            <div class="flex justify-content-between">
+                <!-- <div class="align-items-center">
+                    <h5 class="mt-2 mb-0">{{ 'master.bankAccount.table.name' | translate }}</h5>
+                </div> -->
+                <!-- <p-button
+                    [label]="'common.button.add' | translate"
+                    icon="pi pi-plus-circle"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="openPage('CREATE')"
+                >
+                </p-button> -->
+            </div>
+            <hr />
+
+            <p-table
+                [value]="items"
+                [rowHover]="true"
+                [lazy]="true"
+                [rows]="5"
+                [rowsPerPageOptions]="[5, 10, 20]"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                (onPage)="onSearch($event)"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th scope="col" class="text-center" style="width: 4%">
+                            {{ 'common.table.column.no' | translate }}
+                        </th>
+                        <th scope="col" style="width: 13%">{{ 'master.bankAccount.table.column.bank' | translate }}</th>
+                        <th scope="col" style="width: 13%">
+                            {{ 'master.bankAccount.table.column.branch' | translate }}
+                        </th>
+                        <th scope="col" style="width: 13%">
+                            {{ 'master.bankAccount.table.column.accountNo' | translate }}
+                        </th>
+                        <th scope="col" style="width: 14%">
+                            {{ 'master.bankAccount.table.column.accountNameTh' | translate }}
+                        </th>
+                        <th scope="col" style="width: 14%">
+                            {{ 'master.bankAccount.table.column.accountNameEn' | translate }}
+                        </th>
+                        <th scope="col" style="width: 13%">
+                            {{ 'master.bankAccount.table.column.bankAccountNote' | translate }}
+                        </th>
+                        <th scope="col" class="text-center" style="width: 8%">
+                            {{ 'common.table.column.status' | translate }}
+                        </th>
+                        <th scope="col" class="text-center" style="width: 8%">
+                            {{ 'common.table.column.manage' | translate }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="text-center">{{ item.rowNum }}</td>
+                        <td>{{ lang === 'th' ? item.bankNameTh : item.bankNameEn }}</td>
+                        <td>{{ lang === 'th' ? item.bankBranchNameTh : item.bankBranchNameEn }}</td>
+                        <td>{{ item.accountNo }}</td>
+                        <td>{{ item.accountNameTh }}</td>
+                        <td>{{ item.accountNameEn }}</td>
+                        <td>{{ item.bankAccountNote }}</td>
+                        <td class="text-center">
+                            <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                            <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                        </td>
+                        <td class="text-center">
+                            <span
+                                (click)="openPage('EDIT', item.bankAccountId)"
+                                class="pi pi-pencil cursor-pointer"
+                            ></span>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="9" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</p-panel>
+
+<!-- <div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-bank-account-manage
+        [mode]="mode"
+        (backToListPage)="openPage($event)"
+        [item]="editData"
+    ></app-bank-account-manage>
+</div> -->

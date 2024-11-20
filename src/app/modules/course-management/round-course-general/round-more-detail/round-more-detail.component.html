@@ -1,0 +1,164 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card p-fluid col-12 p-5" *ngIf="coursepublicMain" permission menuCode="SDB-CM2019">
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+
+    <div class="my-2">
+        <h5 class="text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.registrationFee' | translate }}
+        </h5>
+        <hr />
+        <div class="grid grid-flex col-12">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                <label for="costShareGlobalPercent" style="height: 25px"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.roundApproval.shareRegistrationFee.shareGlobal' | translate }}</label
+                >
+                <p-inputNumber
+                    inputId="costShareGlobalPercent"
+                    type="text"
+                    [(ngModel)]="coursepublicMain.costShareGlobalPercent"
+                    [class]="
+                        showError && !!!coursepublicMain.costShareGlobalPercent ? 'ng-invalid ng-dirty' : ''
+                    "
+                    [min]="0"
+                    [max]="100"
+                    suffix=" %"
+                    mode="decimal"
+                    [minFractionDigits]="2"
+                    [maxFractionDigits]="2"
+                />
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                <label for="costShareCenterPercent" style="height: 25px"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.roundApproval.shareRegistrationFee.shareCenter' | translate }}</label
+                >
+                <p-inputNumber
+                    inputId="costShareCenterPercent"
+                    type="text"
+                    [(ngModel)]="coursepublicMain.costShareCenterPercent"
+                    [class]="
+                        showError && !!!coursepublicMain.costShareCenterPercent ? 'ng-invalid ng-dirty' : ''
+                    "
+                    [min]="0"
+                    [max]="100"
+                    suffix=" %"
+                    mode="decimal"
+                    [minFractionDigits]="2"
+                    [maxFractionDigits]="2"
+                />
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                <label for="costShareDepPercent" style="height: 25px"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.roundApproval.shareRegistrationFee.shareDep' | translate }}</label
+                >
+                <p-inputNumber
+                    inputId="costShareDepPercent"
+                    type="text"
+                    [(ngModel)]="coursepublicMain.costShareDepPercent"
+                    [class]="showError && !!!coursepublicMain.costShareDepPercent ? 'ng-invalid ng-dirty' : ''"
+                    [min]="0"
+                    [max]="100"
+                    suffix=" %"
+                    mode="decimal"
+                    [minFractionDigits]="2"
+                    [maxFractionDigits]="2"
+                />
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                <label for="costShareManagePercent" style="height: 25px"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.roundApproval.shareRegistrationFee.expenses' | translate }}</label
+                >
+                <p-inputNumber
+                    inputId="costShareManagePercent"
+                    type="text"
+                    [(ngModel)]="coursepublicMain.costShareManagePercent"
+                    [class]="
+                        showError && !!!coursepublicMain.costShareManagePercent ? 'ng-invalid ng-dirty' : ''
+                    "
+                    [min]="0"
+                    [max]="100"
+                    suffix=" %"
+                    mode="decimal"
+                    [minFractionDigits]="2"
+                    [maxFractionDigits]="2"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="p-fluid">
+            <h5 class="text-primary">
+                {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.openCourse' | translate }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+    <div class="flex p-2">
+        <p-inputSwitch [(ngModel)]="coursepublicMain.popularStatus"></p-inputSwitch>
+        <p class="ml-2">{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.popular' | translate }}</p>
+    </div>
+
+    <div class="my-2">
+        <h5 class="text-primary">
+            {{ 'courseManagement.roundApproval.approve.name' | translate }}
+        </h5>
+        <hr />
+
+        <div class="grid grid-flex col-12">
+            <div class="field col-12">
+                <label for="approvalDate" style="height: 25px"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.roundApproval.approve.approveDate' | translate }}</label
+                >
+                <p-calendar
+                    [showIcon]="true"
+                    inputId="approvalDate"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickYear"
+                    (onYearChange)="clickYear = true"
+                    (onSelect)="clickYear = false"
+                    [(ngModel)]="coursepublicMain.approvalDate"
+                    [class]="showError && !!!coursepublicMain.approvalDate ? 'ng-invalid ng-dirty' : ''"
+                ></p-calendar>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

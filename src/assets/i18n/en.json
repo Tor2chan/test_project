@@ -1,0 +1,2450 @@
+{
+  "primeng": {
+    "dateFormat": "dd/mm/yy",
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "today": "Today",
+    "clear": "Clear",
+    "weekHeader": "Wk",
+    "fileSizeTypes": [
+      "Bytes",
+      "Kilobytes",
+      "Megabytes",
+      "Gigabytes",
+      "Terabytes",
+      "Petabytes",
+      "Exabytes",
+      "Zottabytes",
+      "Yottabytes"
+    ]
+  },
+  "common": {
+    "button": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "search": "Search",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "next": "Next",
+      "back": "Back",
+      "clear": "Clear",
+      "preview": "Previe",
+      "print": "Print",
+      "export": "Export",
+      "ok": "OK",
+      "download": "Download",
+      "upload": "Upload File",
+      "uploadImg": "Upload Image",
+      "validateImg670x420": "Please upload an image that is sized 670x420.",
+      "validateImg1680x600": "Please upload an image that is sized 1680x600 | 5 MB",
+      "uploadFile": "Upload File",
+      "confirmation": "Confirmation",
+      "card": {
+        "receiptDate": "Receipt Date",
+        "mapping": "Curriculum Mapping",
+        "detail": "Course Details",
+        "edit": "Edit",
+        "adjust": "Adjust",
+        "copy": "Copy",
+        "request": "Request Attach",
+        "print": "Print",
+        "printCancle": "Print document to cancle",
+        "delete": "Delete",
+        "requestCourseApp": "Request Course Approval",
+        "importCourse": "Import Course",
+        "send": "Send",
+        "sendApp": "Send",
+        "sendAppSuc": "Approve",
+        "sendApprove": "Approve/Acknowledged",
+        "sendCheck": "Send to Check",
+        "approve": "Approve"
+      }
+    },
+    "alert": {
+      "success": "Success",
+      "fail": "Fail",
+      "fileUploadSize": "The file exceeds 20MB in size.",
+      "fileUploadSizeNotification": "The file exceeds 5MB in size.",
+      "textSuccess": "Save data success",
+      "saveTextFail": "Save data fail",
+      "deleteTextFail": "delete data fail",
+      "loadTextFail": "load data fail",
+      "confirmCopyCourse": "Confirm to copy course ?",
+      "dupplicate": "Data is dupplicate",
+      "reject": "Rejected",
+      "detailReject": "You have rejected",
+      "deleteSuccess": "Delete data success",
+      "sharepercentError": "Share percent must be 100%",
+      "overImg": "Can't put image over 338x226 px",
+      "overImgWebsiteBanner": "Can't put image over 1680x600 px",
+      "dupeConsent": "This consent button has already been pressed.",
+      "cancelReceipt": "Cancel receipt completed",
+      "confirmCopyRound": "Confirm copy course ?",
+      "overImgNewsBanner": "Please include an image that is 670x420 px"
+    },
+    "dataNotFound": "Data not found",
+    "listOfcourse": "List of course",
+    "searchData": "Search",
+    "manage": "Manage",
+    "status": {
+      "name": "Status",
+      "active": "Active",
+      "inActive": "Inactive",
+      "all": "All"
+    },
+    "syncLastest": "Sync Lastest ",
+    "autoGen": "AUTO GENERATE",
+    "pleaseSelect": "Please select",
+    "pleaseEnter": "Please Enter",
+    "table": {
+      "column": {
+        "no": "No",
+        "status": "Status",
+        "manage": "Manage"
+      },
+      "pageMessage": "Showing {first} to {last} of {totalRecords} entries"
+    },
+    "module": {
+      "course": "Course administration",
+      "teacherPortal": "Instructor service",
+      "news": "Press release",
+      "financial": "Finance",
+      "report": "Report",
+      "user": "Users and permissions",
+      "master": "Basic information"
+    },
+    "mode": {
+      "add": "Create ",
+      "edit": "Edit "
+    },
+    "role": {
+      "create": "Create",
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View",
+      "print": "Print",
+      "usrlist": "Add Many Users"
+    },
+    "dragAndDrop": "Drag and drop files to here to upload.",
+    "welcome": "Welcome",
+    "between": {
+      "min": "Min",
+      "max": "Max",
+      "begin": "Begin",
+      "end": "End"
+    }
+  },
+  "HOME": {
+    "TITLE": "Hello Angular with ngx-translate!",
+    "SELECT": "Change language"
+  },
+  "menu": {
+    "course": {
+      "name": "Curriculum Administration",
+      "courseManagement": {
+        "name": "Manage course administration",
+        "courseDraft": "Course Draft",
+        "addCourseRound": "Add Course Round",
+        "editCourseRound": "Edit Course Round",
+        "rejectCourseRound": "Reject Course Round",
+        "proceedApproveCancelCourse": "Proceed approve cancel course",
+        "courseCancellationRequest": "Course cancellation request",
+        "courseRound": "Course round"
+      }
+    },
+    "teacherPortal": {
+      "name": "Teacher Services",
+      "teaherManagement": {
+        "name": "Manage tutor services",
+        "course": "course"
+      }
+    },
+    "news": {
+      "name": "Press release",
+      "newsManagement": {
+        "name": "Manage press releases",
+        "news": "Press release"
+      }
+    },
+    "financial": {
+      "name": "Finance",
+      "financialManagement": {
+        "name": "Manage finances",
+        "paymentInformation": "Payment Information",
+        "importPaymentInformation": "Import Payment Information"
+      }
+    },
+    "report": {
+      "name": "Report",
+      "course": {
+        "name": "Course",
+        "reportOnCoursesOfferedForProjectApproval": "Report courses offered for project approval",
+        "reportOnCourseCancellationInformation": "ReportOnCourseCancellationInformation",
+        "reportSummarizingTheListOfRegisteredStudents": "Report summarizing the list of registered students",
+        "reportSummarizingTheNumberOfStudentsRegistered": "Report summarizing the number of students registered",
+        "reportTransferableCourse": "Report transferable course",
+        "reportSkillMapping": "Report Skill mapping"
+      },
+      "financial": {
+        "name": "Finance",
+        "reportTheAmountOfRegistrationFeesForEachCourse": "Report the amount of registration fees for each course",
+        "theReportExaminesTheNumberOfStudentsAndTheAmountOfMoneyReceived": "Report examining the number of students and the amount received",
+        "reportSummarizingTheAmountTransferredAndAllocatedBackToTheFaculty": "Report summarizing the amount of transfers allocated back to the faculty"
+      }
+    },
+    "user": {
+      "name": "User and permissions",
+      "userManagement": {
+        "name": "Manage users",
+        "user": "user"
+      },
+      "roleManagement": {
+        "name": "Manage rights",
+        "role": "Usage rights"
+      },
+      "memberManagement": {
+        "name": "Manage Members",
+        "registrant": "Registrant"
+      }
+    },
+    "master": {
+      "name": "Basic information",
+      "general": {
+        "name": "General information",
+        "consentManagement": "ConsentManagement"
+      },
+      "course": {
+        "name": "Course Information",
+        "personal": "Personal",
+        "facualty": "Faculty",
+        "specialSkill": "Category skills",
+        "generalSkill": "General skills",
+        "occupation": "Occupation",
+        "occupationGroup": "Occupation group",
+        "courseType": "Course Type",
+        "curriculum": "Curriculum",
+        "subject": "Subject"
+      },
+      "financial": {
+        "name": "Financial information",
+        "bank": "Bank",
+        "bankBranch": "Bank Branch",
+        "bankAccount": "Bank Account",
+        "fee": "Fee",
+        "shareOfRegistrationFee": "Share of Registration Fee",
+        "settingReceipt": "Setting Receipt"
+      },
+      "news": {
+        "name": "Information and public relations",
+        "notification": "Announcement/Notification",
+        "campaign": "Campaign",
+        "websiteBanner": "Banner"
+      },
+      "consent": {
+        "name": "Data usage consent management form",
+        "personalConsent": "Consent to disclose personal information",
+        "personalConsentTh": "Consent to disclose (TH)",
+        "personalConsentEn": "Consent to disclose (EN)",
+        "preview": "Accepted the consent"
+      },
+      "systemSetting": "System Config"
+    }
+  },
+  "name": "srinakharinwirot university",
+  "login": {
+    "header": "Teacher and staff service system",
+    "placeholder": {
+      "username": "Username",
+      "password": "Password"
+    },
+    "rememberPassword": "Remember Password",
+    "forgetPassword": "Forget Password",
+    "btnLogin": "Log in"
+  },
+  "manageAccount": {
+    "name": "Manage Account",
+    "logout": "Log out"
+  },
+  "teacherPortal": {
+    "openingCourse": "Course published",
+    "searchCourse": "Search course",
+    "searchTeacher": "Search teacher",
+    "pleaseinputgraderange": "Please input grade range",
+    "detail": "Detail",
+    "student": "Member in class",
+    "creategrade": "Grade Setting",
+    "gradeCalculateMethod": "Grade calculate method",
+    "savestudyresult": "Grade submission",
+    "exportstudyresult": "Export",
+    "teachingDate": "Class date start",
+    "viewcoursedetail": "Course Detail",
+    "viewcoursed": "View Course Detail",
+    "pointrange": "Score",
+    "createpasspoint": "Passing criteria",
+    "addgradeandpoint": "Add grade and scoring",
+    "grade": "Grade",
+    "pass": "grade pass",
+    "manage": "Manage",
+    "editgradeandpoint": "Edit grade and scoring",
+    "pleaseselect": "Please select",
+    "frompoint": "From score",
+    "topoint": "To score",
+    "studentlist": "Member in class list",
+    "memberId": "Member code",
+    "nameSurname": "First-Last name",
+    "paymenttype": "Payment type",
+    "coursestatus": "Study status",
+    "export": "Export",
+    "registerDate": "Registration date",
+    "courseinfo": "Course Information",
+    "coursedetail": "Course detail",
+    "studentInfo": "Member in class detail",
+    "studentId": "Member code",
+    "studentDetail": "Member detail",
+    "coursestudydetail": "Detail",
+    "point": "Score",
+    "status": "Status",
+    "result": "Result",
+    "resultStatus": "Result status",
+    "comfirmDelete": "Confirm to delete this grade?",
+    "confirmCourseSuccess": "Confirm to save success course?",
+    "confirmProcessGrade": "Confirm to process grade from Moodle?",
+    "confirmCancel": "Confirm to cancel?",
+    "validatetext": "Check this below",
+    "passstatusnotset": "please input passing criteria",
+    "pointrangelost": "please input scoring period",
+    "savecoursecomplete": "Completed course",
+    "saveconfirmresult": "save and confirm result",
+    "passgradenotdefined": "Pass grade not defined",
+    "loginMoodle": "Login to moodle",
+    "processGradeFromMoodle": "Process grade from Moodle",
+    "scoreMoreThan100": "Score is more than 100",
+    "remark": "Remark",
+    "certificate": "Certificate",
+    "pleaseInputPassStatus": "Please input pass status",
+    "total": "Total",
+    "Fail": "Fail"
+  },
+  "newsManagement": {
+    "newsInformation": "News",
+    "newsHeadlines": "News headlines",
+    "newsFormat": "News format",
+    "publicRelationStartDate": "Public relations start date",
+    "publicRelationEndDate": "Public relations end date",
+    "creator": "Creator",
+    "status": "Status",
+    "newsInformationList": "News Information list",
+    "dateStart": "Public relations start date",
+    "dateEnd": "Public relations end date",
+    "detail": "Information Details",
+    "editInfo": "Edit information",
+    "deleteInfo": "Delete information",
+    "fileName": "File name",
+    "addGeneralNewsInformation": "Add news information",
+    "newsType": "News type",
+    "refNewsType": "Reference news type",
+    "newsHilight": "News Hilight",
+    "newsDetail": "News Detail",
+    "cover": "Cover picture",
+    "sizePNGJPG": ".png/.jpg/.jpeg size 338x226px",
+    "pleaseUploadPNGJPG": "Please Upload .png/.jpg/.jpeg",
+    "pleaseUpload": "Please Upload",
+    "newsRange": "News range",
+    "newNews": "New news",
+    "newNewsStartDate": "New public relation start date",
+    "newNewsEndDate": "New public relation end date",
+    "active": "active",
+    "document": "Document",
+    "manage": "Manage",
+    "uploadFile": "Upload file",
+    "uploadPic": "Upload picture",
+    "comfirmDelete": "Confirm delete file?",
+    "comfirmDeleteHeader": "Confirmation",
+    "acceptLabel": "Delete",
+    "rejectLabel": "Cancel",
+    "toastAccept": "Success",
+    "toastReject": "Cancel",
+    "toastAcceptMessage": "Data has been deleted.",
+    "toastRejectMessage": "Cancel data deletion",
+    "newsDocument": "Public relation file",
+    "newsDocumentFile": "Upload public relation file"
+  },
+  "notificationManagement": {
+    "list": {
+      "name": "Announcement/Notification Information",
+      "status": "Status",
+      "criteria": {
+        "notifier": "Recipient",
+        "topic": "Topic"
+      },
+      "table": {
+        "name": "List of Announcement/Notification",
+        "receiver": "Recipient",
+        "topic": "Topic",
+        "status": "Status",
+        "editTemplate": "Edit template"
+      }
+    },
+    "edit": {
+      "name": "Announcement/Notification Edit",
+      "detail": "Announcement/Notification Detail",
+      "status": "Status",
+      "criteria": {
+        "type": "Type",
+        "topic": "Topic",
+        "receiver": "Recipient",
+        "detail": "Detail",
+        "active": "Active",
+        "inActive": "Inactive",
+        "notificationFormat": "Notification format",
+        "notificationStartDate": "Notification start date"
+      },
+      "button": {
+        "confirmsave": "Do you want to confirm data recording?",
+        "uploadFile": "Upload file",
+        "cancelFile": "Cancel file",
+        "downloadFile": "Download file"
+      }
+    }
+  },
+  "courseManagement": {
+    "menuTab": {
+      "general": {
+        "course": "Course",
+        "name": "General Information",
+        "tabCourseInformation": {
+          "name": "Short-term training courses"
+        },
+        "tabTeachingInformation": {
+          "name": "Teaching Information"
+        },
+        "tabIndustryGroup": {
+          "name": "Industry/Target Group"
+        },
+        "tabTeachingProfessor": {
+          "name": "Professor/Responsible"
+        },
+        "tabOrganizationsInstitutions": {
+          "name": "Organization/Business that co-organize teaching and learning (if any)"
+        },
+        "tabCourseMatching": {
+          "name": "Equivalent courses"
+        },
+        "tabDocumentsOthers": {
+          "name": "Documents And Others"
+        }
+      },
+      "learningOutcomes": {
+        "name": "Learning and skill outcomes",
+        "learningOutcome": {
+          "name": "skill/knowledge"
+        },
+        "expectedLearningOutcomes": {
+          "name": "Expected Learning Outcomes"
+        },
+        "learningProcess": {
+          "name": "Learning Management Process"
+        }
+      },
+      "attachedDocuments": {
+        "name": "Attachment",
+        "courseApprovalDocuments": "Documents for application for approval of the course",
+        "saveApprovalDocuments": "Course Approval Request Record"
+      },
+      "openCourseRound": {
+        "name": "General",
+        "tabOpenCourseRound": {
+          "name": "Open Course Round"
+        },
+        "tabLocationAndStudy": {
+          "name": "Time And Place Of Study"
+        },
+        "tabInstructor": {
+          "name": "Instructor"
+        },
+        "tabWorkerGroup": {
+          "name": "Worker Group"
+        },
+        "tabTeachingDocument": {
+          "name": "Teaching Document"
+        },
+        "tabExpensesAndShare": {
+          "name": "Expenses And Share Of Registration Fees",
+          "cutname": "Expenses"
+        },
+        "tabAccompanyingVideo": {
+          "name": "Accompanying Video"
+        },
+        "tabThumbnail": {
+          "name": "Thumbnail"
+        },
+        "tabOtherIllustrations": {
+          "name": "Other Illustrations"
+        },
+        "tabMoreDetail": {
+          "name": "More Detail"
+        },
+        "tabRoundCertificate": {
+          "name": "Certificate Sign Format"
+        }
+      }
+    },
+    "courseList": {
+      "name": "Course",
+      "faculty": "Faculty/Unit",
+      "department": "Department",
+      "course": "Course",
+      "status": "Status of request to open course",
+      "classType": "Class type",
+      "similarCourse": "Similar course",
+      "courseType": "Course type",
+      "teacher": "Teacher"
+    },
+    "roundList": {
+      "name": "Course Round",
+      "faculty": "Faculty/Unit",
+      "department": "Department",
+      "course": "Course",
+      "status": "Status of request to open course round",
+      "list": "List of Course Round"
+    },
+    "tabGeneral": {
+      "header": "Record course details",
+      "detailCourse": "Course details",
+      "tabCourseInformation": {
+        "name": "Short-term training courses",
+        "criteria": {
+          "statusShortTermTrainingCourses": {
+            "name": "Status of short-term training courses",
+            "newCourse": "Open a New Curriculum",
+            "compareCourse": "The original curriculum that had already been approved by the Academic Council"
+          },
+          "typeShortTermTrainingCourses": "Status of short-term training courses",
+          "faculty": "Faculty/Unit",
+          "department": "Department",
+          "courseCode": "Course code",
+          "couresNameTh": "Course name (Thai)",
+          "couresNameEn": "Course name (English)",
+          "courseDescriptionTh": "Course description (Thai)",
+          "courseDescriptionEn": "Course description (English)",
+          "keyWord": "Keyword"
+        },
+        "status": "Status",
+        "creatorInformation": {
+          "name": "Creator",
+          "creator": "Creator",
+          "createDate": "Created date"
+        }
+      },
+      "tabTeachingInformation": {
+        "name": "Teaching Information",
+        "criteria": {
+          "teachingMetodology": "Teaching methodology",
+          "teachingDescriptionTh": "Teaching description (Thai)",
+          "teachingDescriptionEn": "Teaching description (English)",
+          "theoreticalHours": "Theoretical hours",
+          "practiceHours": "Theoretical hours",
+          "totalClassHours": "Total class hours",
+          "totalHours": {
+            "hours": "hr.",
+            "theory": "Theory",
+            "practice": "Practice"
+          },
+          "coursePeriod": "Course period",
+          "periodUnits": "Period units",
+          "grade": {
+            "name": "Evaluation/Course credit",
+            "skillAssessment":{
+              "name": "Skill assessment and evaluation",
+              "evaluation": "Evaluation",
+              "nonEvaluation": "Non-Evaluation"
+            },
+            "gradeFormat": {
+              "name": "Grade format",
+              "symbol": "Symbol (S, U)",
+              "gradeSystem": "Grading system (A, B+, B, ..)"
+            },
+            "numOfCredits": "Credit"
+          }
+        }
+      },
+      "tabIndustryGroup": {
+        "name": "Industry Group",
+        "criteria": {
+          "industryPeopleDevelopmentGroup": "Industry Group/People Development Group",
+          "targetGroup": {
+            "name": "Target Group",
+            "targetAudience": "target group for education",
+            "graduateUpper": "Graduates of upper secondary school or equivalent, or vocational certificate level",
+            "currentlyStudying": "Students who are currently studying in the vocational certificate level or higher education",
+            "knowledgeSeekerGeneral": "People who want to increase their knowledge and skills, with general interests",
+            "knowledgeSeekerCertificate": "Individuals who seek to enhance their knowledge and competencies, alongside obtaining a degree certificate",
+            "seniorCitizens": "Senior citizens or retired individuals",
+            "etc": "etc"
+          },
+          "relatedOccupation": {
+            "name": "Related Occupation",
+            "occupation": "Occupations supported by short-term training courses"
+          },
+          "basicKnowledge": {
+            "name": "Basic knowledge/qualifications of trainees (If any)",
+            "basicKnowledgeTh": "Basic knowledge/qualifications of trainees(Thai) (If any)",
+            "basicKnowledgeEn": "Basic knowledge/qualifications of trainees(English) (If any)"
+          }
+        }
+      },
+      "tabTeachingProfessor": {
+        "name": "Professor/Responsible",
+        "criteria": {
+          "instructorResponsible": "Professor/Responsible",
+          "email": "Email",
+          "instructorCoordinator": "Professor/Responsible Main",
+          "instructorType": "Instructor Type",
+          "externalInstructor": "External instructor",
+          "internalInstructor": "Internal instructor"
+        },
+        "form": {
+          "name": "Professor/Responsible",
+          "detailSection": "Detail",
+          "instructorMain": "Professor/Responsible Main",
+          "instructorName": "Professor/Responsible name",
+          "externalPerson": "External person",
+          "externalNameTh": "External name (Thai)",
+          "externalNameEn": "External name (English)",
+          "email": "Email",
+          "radio": {
+            "internal": "Professor Internal/Speaker Internal",
+            "external": "Professor External/Speaker External"
+          },
+          "switch": {
+            "instructorMain": "Professor Main/Speaker Main"
+          }
+        }
+      },
+      "tabWorkerGroup": {
+        "name": "Worker Group",
+        "column": {
+          "name": "Worker Name",
+          "email": "Email",
+          "workerType": "Worker Type",
+          "position": "Position",
+          "internal": "Internal Worker",
+          "external": "External Worker",
+          "organization": "Organization"
+        },
+        "form": {
+          "name": "Personnel",
+          "workerType": "External Worker",
+          "internalName": "Worker Name",
+          "position": "Position",
+          "email": "Email",
+          "externalNameTh": "External Name (Thai)",
+          "externalNameEn": "External Name (English)",
+          "organization": "Organization Name"
+        }
+      },
+      "tabOrganizationsInstitutions": {
+        "name": "Organization/Business that co-organize teaching and learning (if any)",
+        "criteria": {
+          "organixationsBusinessName": "Organization/Business Name",
+          "address": "Address",
+          "nameOfBusinessOwner": "Name Of Business Owner",
+          "phoneNumber": "Phone Number"
+        },
+        "form": {
+          "name": "Organization/Business",
+          "detail": "Detail",
+          "organixationsBusinessName": "Organization/Business Name",
+          "address": "Address",
+          "nameOfBusinessOwner": "Name Of Business Owner",
+          "phoneNumber": "Phone Number"
+        }
+      },
+      "tabCourseMatching": {
+        "name": "Equivalent courses",
+        "criteria": {
+          "courseCode": "Course Code",
+          "subjectsName": "Subject Name",
+          "curriculumCode": "Curriculum Code",
+          "courseName": "Course Name",
+          "creditUnitsEarn": "Credit Unit Earn",
+          "detail": "Detail",
+          "manage": "Manage",
+          "ownerCurriculum": "Owner Curriculum"
+        },
+        "form": {
+          "name": "Specify comparable courses",
+          "search": {
+            "courseCode": "Course code",
+            "courseName": "Course name",
+            "subjectCode": "Subject code",
+            "subjectName": "Subject name",
+            "ownerCurriculum": "Owner Curriculum"
+          },
+          "table": {
+            "courseCode": "Course code",
+            "courseName": "Course name",
+            "subjectCode": "Subject code",
+            "subjectName": "Subject name",
+            "credit": "Credit unit earn",
+            "detail": "Detail",
+            "ownerCurriculum": "Owner Curriculum"
+          },
+          "showDetail": {
+            "subjectDetail": "Subject Detail",
+            "courseCode": "Course Code",
+            "courseNameTh": "Course name (Thai)",
+            "courseNameEn": "Course name (English)",
+            "subjectCode": "Subject code",
+            "subjectNameTh": "Subject name (Thai)",
+            "subjectNameEn": "Subject name (English)",
+            "credit": "Credits",
+            "ownerCurriculum": "Owner Curriculum"
+          }
+        }
+      },
+      "tabDocumentsOthers": {
+        "name": "Documents And Others",
+        "criteria": {
+          "fileNameTh": "File Name (Thai)",
+          "fileNameEn": "File Name (English)",
+          "link": "Link"
+        },
+        "form": {
+          "name": "Documents And Others",
+          "detailSection": "Detail",
+          "fileNameTh": "File name (Thai)",
+          "fileNameEn": "File name (English)",
+          "file": "Documentation file"
+        }
+      }
+    },
+    "tabLearningOutcomeAndSkill": {
+      "tabLearningOutcomes": {
+        "name": "Skills Categories",
+        "criteria": {},
+        "table": {
+          "name": "Skills Categories",
+          "column": {
+            "skillName": "Skills categories name",
+            "otherSkillNameTh": "Other (Thai)",
+            "otherSkillNameEn": "Other (English)",
+            "level": "Level",
+            "weight": "Weight",
+            "total": "total"
+          }
+        },
+        "form": {
+          "name": "Skills Categories",
+          "detailSection": "Detail",
+          "skillName": "Skills categories code",
+          "other": "Other",
+          "otherSkillNameTh": "Other (Thai)",
+          "otherSkillNameEn": "Other (English)",
+          "level": "Level",
+          "weight": "Weight"
+        }
+      },
+      "tabExpectedLearningOutcomes": {
+        "name": "Expected Learning Outcomes",
+        "criteria": {},
+        "table": {
+          "name": "Expected Learning Outcomes",
+          "column": {
+            "scloCode": "code",
+            "learningOutcomes": "Learning outcomes of the short training course"
+          }
+        },
+        "form": {
+          "name": "Expected Learning Outcomes",
+          "detailSection": "Detail",
+          "scloCode": "code",
+          "learningOutcomes": "Learning outcomes of the short training course"
+        }
+      },
+      "tabLearningManagementProcess": {
+        "name": "Learning Manangment Process",
+        "criteria": {},
+        "table": {
+          "name": "Learning Manangment Process",
+          "column": {
+            "topicProcessDetail": "Topics/Process detail",
+            "teachingMethod": "Teaching method",
+            "period": "Activity periods (minutes)",
+            "assessment": "Assessment"
+          }
+        },
+        "form": {
+          "name": "Learning Manangment Process",
+          "detailSection": "Detail",
+          "topicProcessDetailTh": "Topics/Process detail (Thai)",
+          "topicProcessDetailEn": "Topics/Process detail (English)",
+          "teachingMethod": "Teaching method",
+          "moreDetailOfActivity": "More detail of activity ",
+          "period": "Activity periods (minutes)",
+          "assessmentTh": "Assessment (Thai)",
+          "assessmentEn": "Assessment (English)"
+        }
+      }
+    },
+    "tabAttachedDocument": {
+      "tabApprovalDocument": {
+        "name": "Approval Document",
+        "criteria": {},
+        "table": {
+          "name": "Approval Document",
+          "column": {
+            "fileNameTh": "File name (Thai)",
+            "fileNameEn": "File name (English)",
+            "link": "Link"
+          }
+        },
+        "form": {
+          "name": "Approval Document",
+          "detailSection": "Detail",
+          "fileNameTh": "File name (Thai)",
+          "fileNameEn": "File name (English)",
+          "file": "Course documentation files"
+        }
+      }
+    },
+    "tabRoundGeneral": {
+      "list": {
+        "name": "Course Round",
+        "criteria": {
+          "faculty": "Faculty/Unit",
+          "department": "Department",
+          "publicName": "Course Name"
+        }
+      },
+      "tabOpenCourseRound": {
+        "openCourse": "Course Opening",
+        "providedBuasri": "Provided Buasri ID",
+        "popular": "Popular",
+        "certificate": "Certificate issuance format",
+        "openCourseRound": "Course opening round",
+        "nameCourseTh": "Course name (Thai)",
+        "nameCourseEn": "Course name (English)",
+        "format": "Public format",
+        "generation": "Course generation",
+        "maximumApplicant": "Maximum applicants",
+        "publishStatus": "Publish Status",
+        "publishDateStart": "Public date start",
+        "registrationDateStart": "Registration date start",
+        "classDateStart": "Class date start",
+        "publishDateEnd": "Public date end",
+        "registrationDateEnd": "Registration date end",
+        "classDateEnd": "Class date end",
+        "status": "Status",
+        "onwards": "Onwards"
+      },
+      "tabLocationAndStudy": {
+        "timeAndPlace": "Time And Place Of Study",
+        "teachingConcept": "Teaching Concept",
+        "detailOfStudyTh": "Detail/Place of Study (Thai)",
+        "detailOfStudyEn": "Detail/Place of Study  (English)",
+        "courseTimeTh": "Course time (Thai)",
+        "courseTimeEn": "Course time (English)"
+      },
+      "tabInstructor": {
+        "table": {
+          "name": "Instructor",
+          "instructorName": "Instructor name",
+          "email": "Email",
+          "instructorType": "Instructor type",
+          "instructorMain": "Instructor main",
+          "externalInstructor": "External instructor",
+          "internalInstructor": "Internal instructor",
+          "recordAcademic": "Record academic results",
+          "recordMoodle": "Record moodle data",
+          "receiveEmail": "Receive Email"
+        },
+        "form": {
+          "name": "Instructor",
+          "detailSection": "Detail",
+          "instructorName": "Instructor name",
+          "instructorMain": "Instructor main",
+          "externalPerson": "External Instructor",
+          "externalNameTh": "External Instructor name (Thai)",
+          "externalNameEn": "External Instructor name (English)",
+          "email": "Email",
+          "manageCourse": "Course Management",
+          "saveGradeFlag": "Save Grade",
+          "saveMoodleFlag": "Save Moodle",
+          "receiveEmailFlag": "Recipient of Emails When Register",
+          "radio": {
+            "internal": "Professor Internal/Speaker Internal",
+            "external": "Professor External/Speaker External"
+          },
+          "switch": {
+            "instructorMain": "Professor Main/Speaker Main"
+          }
+        }
+      },
+      "tabTeachingDocument": {
+        "table": {
+          "name": "Teaching Document",
+          "fileNameTh": "File name (Thai)",
+          "fileNameEn": "File name (English)",
+          "link": "Link"
+        },
+        "form": {
+          "name": "Teaching Document",
+          "file": "Teaching document file",
+          "fileNameTh": "File name (Thai)",
+          "fileNameEn": "File name (English)"
+        }
+      },
+      "tabExpensesAndShare": {
+        "registrationFee": "Registration Fee",
+        "normalPrice": "Normal price",
+        "promotionPrice": "Promotion price",
+        "promotionStartDate": "Promotion start date",
+        "promotionEndDate": "Promotion end date",
+        "registrationFeeShare": "Registration Fee Share",
+        "faculty": "Faculty/Unit",
+        "department": "Department",
+        "facultyShare": "Faculty share rate",
+        "universityShare": "University share rate",
+        "academicServiceShare": "Center of academic service share rate"
+      },
+      "tabAccompanyingVideo": {
+        "name": "Curriculum Publicity Video",
+        "videoNameTh": "Video name (Thai)",
+        "videoNameEn": "Video name (English)",
+        "fileVideo": "Video file",
+        "videoOption": "Video display option",
+        "linkYoutube": "Link Youtube"
+      },
+      "tabThumbnail": {
+        "name": "Thumbnail",
+        "thumbnailNameTh": " Thumbnail name (Thai)",
+        "thumbnailNameEn": " Thumbnail name (English)",
+        "thumbnailFile": "Thumbnail file (Cover image)"
+      },
+      "tabOtherIllustrations": {
+        "table": {
+          "name": "Illustrations",
+          "imgNameTh": "Image name (Thai)",
+          "imgNameEn": "Image name (English)",
+          "link": "Link",
+          "illustration": "Illustrations"
+        },
+        "form": {
+          "name": "Illustrations",
+          "detailSection": "Detail",
+          "imgNameTh": "Image name (Thai)",
+          "imgNameEn": "Image name (English)",
+          "imgFile": "Image file"
+        }
+      },
+      "tabRoundCertificate": {
+        "departmentLogo": "Department Logo",
+        "imgLogoTh": "Department logo image : Center display (Thai)",
+        "imgLogoEn": "Department logo image : Center display (English)",
+        "certificateSignFormat": "Certificate Signature Format",
+        "numOfSign": "Number of signature",
+        "positionSign": "Display position",
+        "sign": "Signature",
+        "signTh": "Signature (Thai)",
+        "signEn": "Signature (English)",
+        "nameTh": "Firstname-Lastname (Thai)",
+        "nameEn": "Firstname-Lastname (English)",
+        "positionTh": "Position (Thai)",
+        "positionEn": "Position (English)"
+      }
+    },
+    "tabLearningOutcomes": {
+      "tabSectionLearningOutcome": "Learning Outcomes (LO)",
+      "sectionCategorySkill": "Categories of Skills",
+      "skillsKnowledgeId": "Knowledge Category",
+      "skillsSubKnowledgeId": "Sub Category",
+      "skillId": "Skils",
+      "courseSkillsLevel": "Level",
+      "courseSkillsWeight": "Weight",
+      "sectionGeneralSkill": "General Skills",
+      "generalSkillsId": "General Skills",
+      "generalSkillsWeight": "Weight",
+      "sectionExpectedLearning": "Expected Learning Outcomes",
+      "courseScloDesc": "Shot course learning outcome",
+      "courseScloWeight": "Weight",
+      "sectionLearningManagement": "Learning Management Process",
+      "learningOutcomesDesc": "Learning Outcomes",
+      "learningOutcomesTopic": "Topics/Subject Matter",
+      "learningOutcomesMethod": "Teaching Method/ Learning Activities",
+      "learningOutcomesTools": "Assessment Methods/Measurement Tools"
+    },
+    "tabCompare": {
+      "tabSectionComparativeCurriculum": "Comparative Curriculum",
+      "sectionComparativeStudy": "Comparative Study of Education Curriculum",
+      "courseConcept": "Concept Reason, Objectives of the course and learning outcomes that are thought out for.",
+      "sectionComparisonCourseOpen": "Courses open for comparison",
+      "matchingSubjectId": "Reference Supreme Subject ID",
+      "matchingSubjectCode": "Course code",
+      "matchingSubjectNameTh": "Subjects Name (Thai)",
+      "matchingSubjectNameEn": "Subjects Name  (English)",
+      "matchingCourseNameTh": "Course Name (Thai)",
+      "matchingCourseNameEn": "Course Name (English)",
+      "matchingLo": "Learning Outcomes (SCLOs)",
+      "matchingCourseDesc": "Course description",
+      "matchingCourseH": "Number of Hours",
+      "matchingCredit": "Credit Units Earned",
+      "matchingGradeFormat": "Transcript of Academic Performance"
+    },
+    "courseApproval": {
+      "header": "Course Approval",
+      "pleaseEnter": "Please fill in complete information.",
+      "general": {
+        "name": "General Information",
+        "courseNewStatus": "Status of short-term training courses",
+        "courseTypeName": "Course Type Name",
+        "courseMapptingStatus": "Curriculum Mapping Status",
+        "depName": "Faculty/Department",
+        "faculty": "Faculty",
+        "department": "Department",
+        "courseCode": "Course Code",
+        "courseNameTh": "Course name (Thai)",
+        "courseNameEn": "Course name (English)",
+        "courseDescTh": "Course description (Thai",
+        "courseDescEn": "Course description (English)",
+        "courseHashtag": "Keyword",
+        "courseFormat": "Teaching methodology",
+        "courseFormatDescTh": "Teaching description (Thai)",
+        "courseFormatDescEn": "Teaching description (English)",
+        "courseTotalH": "Total class hours",
+        "hr": "hr.",
+        "hrs": "hrs.",
+        "theory": "Theory",
+        "action": "Practical",
+        "courseDurationTime": "Course period",
+        "skillAssessment": "Skill assessment and evaluation",
+        "evaluation": "Evaluation",
+        "nonEvaluation": "Non-Evaluation",
+        "gradeFormat": "Grade format",
+        "creditAmount": "Number of credits",
+        "industry": "Industry Group/Target Group",
+        "industryGroup": "Industry Group/People Development Group",
+        "targetGroup": "Target Group",
+        "occupationName": "Occupation",
+        "specificRequirementTh": "Basic knowledge(Thai) (If any)",
+        "specificRequirementEn": "Basic knowledge(English) (If any)"
+      },
+      "instructor": {
+        "name": "Professor/Responsible",
+        "instructorName": "Instructor/Responsible name",
+        "email": "Email",
+        "instructorType": "Instructor type",
+        "instructorMain": "Instructor/Responsible main",
+        "assProf": "Asst. Prof.",
+        "internalInstructor": "Internal instructor",
+        "externalInstructor": "External instructor"
+      },
+      "company": {
+        "name": "Organization/Business that co-organize teaching and learning (if any)",
+        "companyName": "Organization/Business name",
+        "address": "Address",
+        "ownerName": "Name of business owner",
+        "tel": "Phone number"
+      },
+      "matching": {
+        "name": "Equivalent courses",
+        "subjectCode": "Course Code",
+        "subjectsName": "Subject Name",
+        "courseName": "Course Name",
+        "credits": "Credit Unit Earn",
+        "detail": "Detail",
+        "curriculumCode": "Curriculum Code",
+        "ownerCurriculum": "Owner Curriculum"
+      },
+      "skill": {
+        "name": "Skills Categories",
+        "skillsCategorie": "Skills categories name",
+        "otherSkillNameTh": "Other skill name (Thai)",
+        "otherSkillNameEn": "Other skill name (English)",
+        "level": "Level",
+        "weight": "Weight"
+      },
+      "sclo": {
+        "name": "Expected Learning Outcomes",
+        "scloCode": "code",
+        "learningOutcome": "Learning outcomes of the short training course"
+      },
+      "activity": {
+        "name": "Learning Management Process",
+        "topic": "Topics/Process detail",
+        "teachingMethod": "Teaching method",
+        "period": "Activity periods (minutes)",
+        "assessment": "Assessment"
+      },
+      "attach": {
+        "name": "Teaching Document",
+        "fileNameTh": "File Name (Thai)",
+        "fileNameEn": "File Name (English)",
+        "link": "Link"
+      },
+      "attachRequest": {
+        "name": "Course Approval Documents",
+        "fileNameTh": "File Name (Thai)",
+        "fileNameEn": "File Name (English)",
+        "link": "Link"
+      },
+      "creator": {
+        "name": "Creator",
+        "creatorName": "Creator",
+        "date": "Created date"
+      }
+    },
+    "roundApproval": {
+      "header": "Course Round Details",
+      "pleaseEnter": "Please fill in complete information.",
+      "courseOpen": {
+        "name": "Course Opening",
+        "buasriStatus": "Provided buasri id",
+        "popularStatus": "Popular",
+        "certificateFormat": "Certificate issuance format"
+      },
+      "roundOpen": {
+        "name": "Course Round Opening",
+        "publicNameTh": "Course name (Thai)",
+        "publicNameEn": "Course name (English)",
+        "publicFormat": "Public format",
+        "courseGeneration": "Course generation",
+        "maxEnroll": "Maximum applicants",
+        "publicStatus": "Public status",
+        "coursePublic": "Public date",
+        "courseRegis": "Registration date",
+        "courseClass": "Class date"
+      },
+      "timeAndPlace": {
+        "name": "Time And Place Of Study",
+        "courseFormat": "Teaching Concept",
+        "courseFormatDescTh": "Detail/Place of Study (Thai)",
+        "courseFormatDescEn": "Detail/Place of Study (English)",
+        "courseTime": "Course time"
+      },
+      "instructor": {
+        "name": "Professor/Responsible",
+        "table": {
+          "instructorName": "Professor/Responsible name",
+          "email": "Email",
+          "instructorType": "Professor/Responsible Type",
+          "instructorMain": "Professor/Responsible Main",
+          "externalInstructor": "External instructor",
+          "internalInstructor": "Internal instructor",
+          "recordAcademic": "Record academic results",
+          "recordMoodle": "Record moodle data",
+          "receiveEmail": "Receive Email"
+        }
+      },
+      "teachingDocument": {
+        "name": "Teaching Document",
+        "table": {
+          "fileNameTh": "File name (Thai)",
+          "fileNameEn": "File name (English)",
+          "link": "Link"
+        }
+      },
+      "registrationFee": {
+        "name": "Registration Fee",
+        "tabFee": "Expenses",
+        "feeStatus": "Registration fee",
+        "feeAmount": "Normal price",
+        "promotionAmount": "Promotion price",
+        "promotionStart": "Promotion date start",
+        "promotionEnd": "Promotion date end"
+      },
+      "shareRegistrationFee": {
+        "name": "Share Of Registration Fee",
+        "depId": "Faculty/Unit",
+        "faculty": "Faculty/Unit",
+        "department": "Department",
+        "shareDep": "Faculty Share",
+        "shareGlobal": "University Share",
+        "shareCenter": "Center of Academic Service Share Rate",
+        "expenses": "Operating Expenses"
+      },
+      "video": {
+        "name": "Curriculum Publicity Video",
+        "table": {
+          "videoNameTh": "Video name (Thai)",
+          "videoNameEn": "Video name (English)",
+          "link": "Link",
+          "video": "Video"
+        }
+      },
+      "thumbnail": {
+        "name": "Thumbnail",
+        "table": {
+          "thumbnailNameTh": "Thumbnail name (Thai)",
+          "thumbnailNameEn": "Thumbnail name (English)",
+          "link": "Link",
+          "thumbnail": "Thumbnail image"
+        }
+      },
+      "illustration": {
+        "name": "Illustrations",
+        "table": {
+          "imgNameTh": "Illustrations name (Thai)",
+          "imgNameEn": "Illustrations name (English)",
+          "link": "Link",
+          "illustration": "Illustrations image"
+        }
+      },
+      "certificate": {
+        "name": "Certificate Sign Format",
+        "logoTh": "Name of department logo image (Thai)",
+        "logoEn": "Name of department logo image (English)",
+        "imgTh": "Image (Thai)",
+        "imgEn": "Image (English)",
+        "numOfSign": "Number of signature",
+        "sign": "Signature",
+        "table": {
+          "no": "Signature No.",
+          "nameTh": "Firstname-Lastname (Thai)",
+          "positionTh": "Position (Thai)",
+          "signTh": "Signature (Thai)",
+          "nameEn": "Firstname-Lastname (English)",
+          "positionEn": "Position (English)",
+          "signEn": "Signature (English)"
+        }
+      },
+      "approve": {
+        "name": "Approval",
+        "approveDate": "Date of academic center approval"
+      }
+    },
+    "roundCancellation": {
+      "header": "Round cancellation request",
+      "registratorList": "Registrator list",
+      "requestCancellation": "Request cancellation",
+      "reason": "Cancellation reason",
+      "approver": "Approver",
+      "table": {
+        "paymentDate": "Payment date",
+        "memberCode": "Member code",
+        "name": "Name",
+        "amount": "Amount",
+        "receiptStatus": "Receipt status",
+        "totals": "Totals"
+      },
+      "button": {
+        "sendApproval": "Send approval",
+        "approve": "Approve",
+        "reject": "Reject"
+      },
+      "confirm": "Confirm to send request cancel course to approval?",
+      "confirmApprove": "Confirm to cancel this course round?",
+      "confirmReject": "Confirm to cancel the request?"
+    }
+  },
+  "master": {
+    "generalSkill": {
+      "name": "Skill",
+      "criteria": {
+        "generalSkillCode": "Skill Code",
+        "generalSkillName": "Skill Name"
+      },
+      "table": {
+        "name": "Skill List",
+        "column": {
+          "skillFormat": "Skill category format",
+          "uploadCategorySkill": "Image",
+          "generalSkillCode": "Skill Code",
+          "generalSkillNameTh": "Skill Name (Thai)",
+          "generalSkillNameEn": "Skill Name (English)"
+        }
+      },
+      "form": {
+        "name": "Skill",
+        "skillFormat": "category format",
+        "uploadCategorySkill": "Upload skill category image",
+        "scaleDetail": "Upload file no larger than 5Mb and [size 200x200]",
+        "detailSection": "Detail",
+        "generalSkillCode": "Skill Code",
+        "generalSkillNameTh": "Skill Name (Thai)",
+        "generalSkillNameEn": "Skill Name (English)",
+        "descriptionTh": "Description (Thai)",
+        "descriptionEn": "Description (English)",
+        "method": "Empirical evaluation methods",
+        "criteria": "Criteria used for evaluation"
+      }
+    },
+    "occupantion": {
+      "name": "Occupation",
+      "criteria": {
+        "occupantionCode": "Occupation code",
+        "occupantionName": "Occupation name",
+        "occupantionGroup": "Occupation Group"
+      },
+      "table": {
+        "name": "Occupation List",
+        "column": {
+          "occupantionCode": "Occupation code",
+          "occupantionNameTh": "Occupation name (Thai language)",
+          "occupantionNameEn": "Occupation name (English)",
+          "occupantionGroup": "Occupation group"
+        }
+      },
+      "form": {
+        "name": "Occupation",
+        "detailSection": "Detail",
+        "occupantionCode": "Occupation code",
+        "occupantionNameTh": "Occupation name (Thai language)",
+        "occupantionNameEn": "Occupation name (English)",
+        "occupantionGroup": "Occupation group",
+        "table": {
+          "name": "Skill type",
+          "column": {
+            "skillName": "Skill Category Name",
+            "skillFormat": "Skill Category Format",
+            "level": "level"
+          }
+        },
+        "subForm": {
+          "name": "Skill Categorie",
+          "sectionDetail": "Detail",
+          "generalSkillId": "Skill Categorie",
+          "occSkillLevel": "Level"
+        }
+      }
+    },
+    "occupantionGroup": {
+      "name": "Occupation Group",
+      "criteria": {
+        "occupantionGroupCode": "Occupation Group Code",
+        "occupantionGroupName": "Occupation Group Name"
+      },
+      "table": {
+        "name": "Occupation Group List",
+        "column": {
+          "occupantionGroupCode": "Occupation Group code",
+          "occupantionGroupNameTh": "Occupation Group name (Thai language)",
+          "occupantionGroupNameEn": "Occupation Group name (English)"
+        }
+      },
+      "form": {}
+    },
+    "bank": {
+      "name": "Bank",
+      "criteria": {
+        "bankCode": "Bank Code",
+        "bankNameTh": "Bank Name (Thai)",
+        "bankNameEn": "Bank Name (English)"
+      },
+      "table": {
+        "name": "Bank List",
+        "column": {
+          "bankCode": "Bank Code",
+          "bankNameTh": "Bank Name (Thai)",
+          "bankNameEn": "Bank Name (English)"
+        }
+      },
+      "form": {
+        "name": "Add Bank",
+        "detailSection": "Detail",
+        "bankCode": "Bank Code",
+        "bankNameTh": "Bank Name (Thai)",
+        "bankNameEn": "Bank Name (English)"
+      }
+    },
+    "bankAccount": {
+      "name": "Bank account information",
+      "criteria": {
+        "bank": "Bank",
+        "branch": "Branch",
+        "accountNo": "Account No.",
+        "accountNameTh": "Account Name (Thai)",
+        "accountNameEn": "Account Name (English)"
+      },
+      "table": {
+        "name": "Bank Account List",
+        "column": {
+          "bank": "Bank",
+          "branch": "Branch",
+          "accountNo": "Account No.",
+          "accountNameTh": "Account Name (Thai)",
+          "accountNameEn": "Account Name (English)",
+          "bankAccountNote": "Remark"
+        }
+      },
+      "form": {
+        "name": "Bank account information",
+        "detailSection": "Detail",
+        "bank": "Bank",
+        "branch": "Branch",
+        "accountNo": "Account No.",
+        "accountNameTh": "Account Name (Thai)",
+        "accountNameEn": "Account Name (English)",
+        "bankAccountNote": "Remark",
+        "bankId": "Bank ID",
+        "companyId": "Company ID"
+      }
+    },
+    "bankBranch": {
+      "name": "Bank Branch",
+      "criteria": {
+        "bank": "Bank",
+        "branchCode": "Branch Code",
+        "branchNameTh": "Branch Name (Thai)",
+        "branchNameEn": "Branch Name (English)"
+      },
+      "table": {
+        "name": "Bank Branch List",
+        "column": {
+          "bank": "Bank",
+          "branchCode": "Branch Code",
+          "branchNameTh": "Branch Name (Thai)",
+          "branchNameEn": "Branch Name (English)"
+        }
+      },
+      "form": {
+        "name": "Bank Branch",
+        "detailSection": "Detail",
+        "bank": "Bank",
+        "branchCode": "Branch Code",
+        "branchNameTh": "Branch Name (Thai)",
+        "branchNameEn": "Branch Name (English)"
+      }
+    },
+    "registrationFeeSharing": {
+      "name": "Course Registration Fee Sharing",
+      "criteria": {
+        "forFaculty": "For Faculty"
+      },
+      "table": {
+        "name": "List Course Registration Fee Sharing",
+        "column": {
+          "forFaculty": "For Faculty",
+          "facultyRate": "Faculty Share Rate",
+          "universityRate": "University Share Rate",
+          "managementRate": "Manangement rate",
+          "centerofacademicserviceShareRate": "Center of Academic Service Share Rate",
+          "lastUpdate": "Last Update"
+        }
+      },
+      "form": {
+        "name": "Add/Manage Course Registration Fee Sharing",
+        "detailSection": "Detail",
+        "facultyRate": "Faculty Share Rate",
+        "universityRate": "University Share Rate",
+        "managementRate": "Manangement rate",
+        "centerofacademicserviceShareRate": "Center of Academic Service Share Rate",
+        "docsTable": {
+          "name": "Attached documents",
+          "column": {
+            "fileName": "File Name",
+            "link": "link"
+          }
+        },
+        "updateHistoryTable": {
+          "name": "Update History",
+          "column": {
+            "createDate": "Create Date",
+            "facultyRate": "Faculty Share Rate",
+            "universityRate": "University Share Rate",
+            "managementRate": "Manangement rate",
+            "centerofacademicserviceShareRate": "Center of Academic Service Share Rate",
+            "createBy": "Create By"
+          }
+        }
+      }
+    },
+    "facultyInf": {
+      "name": "Faculty information",
+      "criteria": {
+        "facultyDepartmentCode": "Faculty/Unit Code",
+        "facultyDepartmentName": "Faculty/Unit Name",
+        "facultyDepartmentNameTh": "Faculty/Unit Name (Thai)",
+        "facultyDepartmentNameEn": "Faculty/Unit Name (English)",
+        "educationUsed": "Education Used"
+      },
+      "updateButtom": "UpdateFaculty/Unit",
+      "table": {
+        "name": "List Faculty/Unit",
+        "column": {
+          "facultyDepartmentCode": "Faculty/Unit Code",
+          "facultyDepartmentNameTh": "Faculty/Unit Name (Thai)",
+          "facultyDepartmentNameEn": "Faculty/Unit Name (English)",
+          "facultyDepartmentShortNameTh": "Faculty/Unit Short Name (Thai)",
+          "facultyDepartmentShortNameEn": "Faculty/Unit Short Name (English)",
+          "facultyDepartmentAbbrNameTh": "Faculty/Unit Abbr. Name (Thai)",
+          "facultyDepartmentAbbrNameEn": "Faculty/Unit Abbr. Name (English)",
+          "educationUsed": "Education Used",
+          "lastUpdate": "Last Update"
+        }
+      }
+    },
+    "personalLists": {
+      "name": "Personal Information Lists",
+      "criteria": {
+        "buasriID": "Buasri ID",
+        "personalName": "Name",
+        "position": "Position",
+        "department": "Faculty/Department",
+        "email": "Email",
+        "personalType": "PersonaleType",
+        "personalStatus": "Status"
+      },
+      "table": {
+        "name": "Personal Lists",
+        "common": {
+          "updateBtn": "Update List",
+          "exportBtn": "Export"
+        },
+        "column": {
+          "buasriID": "Buasri ID",
+          "personalName": "Name",
+          "personalMiddleName": "Middle Name",
+          "personalLastName": "Last Name",
+          "position": "Position",
+          "faculty": "Faculty",
+          "department": "Department",
+          "email": "Email",
+          "personalType": "PersonaleType",
+          "personalStatus": "Status",
+          "status": "Active"
+        }
+      },
+      "dialog": {
+        "name": "Details",
+        "details": {
+          "buasriID": "Buasri ID",
+          "prefixName": "Prefix Name",
+          "personalName": "Name",
+          "department": "Department",
+          "position": "Position",
+          "email": "Email",
+          "phone": "Phone"
+        }
+      }
+    },
+    "fee": {
+      "name": "Bank Charges Fees",
+      "criteria": {
+        "paymentType": "Payment Type",
+        "cardType": "Card Type",
+        "fromYear": "From Year",
+        "createDate": "Create Date",
+        "createBy": "Create By"
+      },
+      "table": {
+        "name": "Fee List",
+        "column": {
+          "paymentType": "Payment Type",
+          "cardType": "Card Type",
+          "chargesRate": "Charges Rate",
+          "universityCharge": "University Charge",
+          "studentCharge": "Student Charge",
+          "fromYear": "From Year",
+          "createDate": "Create Date",
+          "createBy": "Create By"
+        }
+      },
+      "form": {
+        "name": "Fee Config",
+        "detailSection": "Detail",
+        "paymentType": "Payment Type",
+        "cardType": "Card Type",
+        "detailFee": "Fee",
+        "chargesRate": "Charges Rate",
+        "universityCharge": "University Charge",
+        "studentCharge": "Student Charge",
+        "fromYear": "From Year",
+        "docsTable": {
+          "name": "Documents",
+          "column": {
+            "fileName": "File Name",
+            "link": "Link"
+          }
+        },
+        "subForm": {
+          "name": "Attach",
+          "detail": "Detail",
+          "attach": "Attach file",
+          "fileName": "File name"
+        }
+      }
+    },
+    "courseType": {
+      "name": "Course Type",
+      "criteria": {
+        "courseTypeCode": "Course Type Code",
+        "courseTypeNameTh": "Course Type Name (Thai)",
+        "courseTypeNameEn": "Course Type Name (English)",
+        "curriculumMappingStatus": "Curriculum Mapping Status",
+        "compareMapping": "Course comparison",
+        "uncompareMapping": "Not comparable"
+      },
+      "table": {
+        "name": "Course Type List",
+        "column": {
+          "courseTypeCode": "Course Type Code",
+          "courseTypeNameTh": "Course Type Name (Thai)",
+          "courseTypeNameEn": "Course Type Name (English)",
+          "curriculumMappingStatus": "Curriculum Mapping Status"
+        }
+      },
+      "form": {
+        "name": "Add Course Type",
+        "detailSection": "Detail",
+        "courseTypeCode": "Course Type Code",
+        "courseTypeNameTh": "Course Type Name (Thai)",
+        "courseTypeNameEn": "Course Type Name (English)",
+        "curriculumMappingStatus": "Curriculum Mapping Status"
+      }
+    },
+    "curriculum": {
+      "name": "Curriculum",
+      "criteria": {
+        "curriculumSwuId": "Curriculum ID",
+        "creditStudy": "Max Credit",
+        "degreeCode": "Degree",
+        "majorCode": "Major",
+        "eduLevelCode": "Education Level",
+        "studyYear": "Study Year",
+        "depId": "Department",
+        "faculty": "Faculty"
+      },
+      "table": {
+        "name": "Curriculum List",
+        "button": "Update Curriculum",
+        "column": {
+          "curriculumSwuId": "Curriculum ID",
+          "curriculumMhesiId": "Curriculum MHESI",
+          "curriculumNameTh": "Curriculum Name (Thai)",
+          "curriculumNameEn": "Curriculum Name (English)",
+          "creditStudy": "Credit",
+          "degreeCode": "Degree Code",
+          "degreeNameTh": "Degree Name (Thai)",
+          "degreeNameEn": "Degree Name (English)",
+          "majorCode": "Major Code",
+          "majorNameTh": "Major Name (Thai)",
+          "majorNameEn": "Major Name (English)",
+          "eduLevelNameTh": "Education Level (Thai)",
+          "eduLevelNameEn": "Education Level (English)",
+          "studyYear": "Study Year",
+          "ownerFacultyNameTh": "Faculty (Thai)",
+          "ownerFacultyNameEn": "Faculty (English)",
+          "ownerDepNameTh": "Department (Thai)",
+          "ownerDepNameEn": "Department (English)"
+        },
+          "dropdown": {
+            "masterDegree": "Master's Degree",
+            "graduateCertificate": "Graduate Diploma",
+            "bachelorDegree": "Bachelor's Degree",
+            "doctoralDegree": "Doctorate"
+          }
+        }
+    },
+    "subject": {
+      "name": "Subject",
+      "criteria": {
+        "curriculum": "Curriculum",
+        "curriculumMhesi": "Curriculum MHESI",
+        "groupName": "Group Name",
+        "minorType": "Minor Type",
+        "subjectCode": "Subject Code",
+        "subjectName": "Subject Name",
+        "subjectCredit": "Subject Credit",
+        "subjectType": "Subject Type"
+      },
+      "table": {
+        "name": "Subject List",
+        "button": "Update Subject List",
+        "column": {
+          "curriculumId": "Curriculum ID",
+          "curriculumMhesiId": "Curriculum MHESI",
+          "groupId": "Group ID",
+          "groupNameTh": "Group Name",
+          "groupNameEn": "Group Name",
+          "groupDetail": "Group Detail",
+          "minorTypeId": "Minor Type ID",
+          "minorTypeTh": "Minor Type",
+          "subjectSwuId": "Subject ID",
+          "subjectSet": "Subject Set",
+          "subjectCodeTh": "Subject Code",
+          "subjectCodeEn": "Subject Code",
+          "subjectNameTh": "Subject Name",
+          "subjectNameEn": "Subject Name",
+          "subjectCredit": "Subject Credit",
+          "subjectTypeTh": "Subject Type"
+        }
+      }
+    },
+    "skillsCategories": {
+      "name": "Skills Categories",
+      "criteria": {
+        "skillsCode": "Skills Code",
+        "skillsName": "Skills Name",
+        "skillsNameTh": "Skills Name (Thai)",
+        "skillsNameEn": "Skills Name (English)"
+      },
+      "table": {
+        "name": "Skills List",
+        "common": {
+          "addSkillsCategories": "Add Skill"
+        },
+        "column": {
+          "skillsCode": "Skills Code",
+          "skillsName": "Skills Name",
+          "skillsNameTh": "Skills Name (Thai)",
+          "skillsNameEn": "Skills Name (English)",
+          "skillCategoriesFormat": "Skills Format",
+          "skillBannerPicture": "Banner"
+        }
+      },
+      "form": {
+        "name": "Add Skill",
+        "detailSection": "Detail",
+        "skillsCode": "Skills Code",
+        "skillsName": "Skills Name",
+        "sillsNameTh": "Skills Name (Thai)",
+        "skillsNameEn": "Skills Name (English)",
+        "skillCategoriesFormat": "Skills Format",
+        "skillBannerPicture": "Banner"
+      }
+    },
+    "notification": {
+      "name": "Announcement/notification information",
+      "criteria": {
+        "createDate": "Create Date",
+        "recipient": "Announcement/notification recipient",
+        "headerAnnouncement": "Announcement/notification header",
+        "announcementDate": "Announcement date and time",
+        "createBy": "Create By"
+      },
+      "table": {
+        "name": "Fee List",
+        "common": {
+          "addNotification": "Add Announcement/notification"
+        },
+        "column": {
+          "createDate": "Create Date",
+          "recipient": "Announcement/notification recipient",
+          "headerAnnouncement": "Announcement/notification header",
+          "announcementDate": "Announcement date and time",
+          "createBy": "Create By",
+          "history": "History"
+        }
+      },
+      "form": {
+        "name": "Add Announcement/notification",
+        "detailSection": "Detail",
+        "recipient": "Announcement/notification",
+        "headerAnnouncement": "Announcement/notification header",
+        "course": "Course",
+        "detailAnnouncement": "Announcement/notification detail",
+        "postDate": {
+          "name": "Post Announcement",
+          "switchAnnouncement": "Post Now",
+          "announcementDate": "Post Date"
+        }
+      }
+    },
+    "consentManagement": {
+      "name": "Consent Management",
+      "criteria": {
+        "formNameTh": "Form name (TH)",
+        "formNameEn": "Form name (EN)",
+        "versionNo": "Version",
+        "updateDate": "Update Date",
+        "createBy": "Create By"
+      },
+      "table": {
+        "name": "Form Edit History",
+        "common": {
+          "addForm": "Form"
+        },
+        "column": {
+          "formType": "Form type",
+          "formName": "Form name",
+          "version": "Version",
+          "lastUpdate": "Last Update",
+          "createBy": "Create By",
+          "status": "Status",
+          "consentBy": "Consent By",
+          "history": "History"
+        }
+      },
+      "form": {
+        "name": "Add Form",
+        "detailSection": "detail",
+        "formType": {
+          "name": "Form type",
+          "listType": {
+            "register": "Apply for membership",
+            "consentCert": "Issue a certificate",
+            "applycourse": "Apply for course",
+            "etc": "other"
+          },
+          "formName": "Form name",
+          "formDetailTh": "Form detail (TH)",
+          "formDetailEn": "Form detail (EN)",
+          "note": "Note",
+          "tableConsent": {
+            "name": "Consent to disclose personal information",
+            "common": {
+              "addConsent": "Add Consent"
+            },
+            "column": {
+              "consentPersonal": "Consent to disclose personal information"
+            }
+          },
+          "subform": {
+            "name": "Add Consent",
+            "detailSection": "detail",
+            "pdpa": "Personal data protection policy (PDPA)",
+            "readBeforeAccept": "Please read the Privacy Policy and Data Protection Notice and acknowledge acceptance of the terms and conditions for signing up.",
+            "consentPersonal": "Consent to disclose personal information"
+          },
+          "tableAgree": {
+            "name": "Accept button",
+            "nameBtn": "Accept button name",
+            "confirmRegis": "Confirm Register"
+          }
+        }
+      }
+    },
+    "websiteBanner": {
+      "name": "Banner",
+      "criteria": {
+        "bannerName": "Banner name",
+        "startDateDisplay": "Start date",
+        "endDateDisplayed": "End date displayed",
+        "updateDate": "Update Date",
+        "createBy": "Create By"
+      },
+      "table": {
+        "name": "Banner List",
+        "common": {
+          "addBanner": "Add Banner"
+        },
+        "column": {
+          "bannerName": "Banner name",
+          "link": "Link",
+          "startDateDisplay": "Start date",
+          "endDateDisplayed": "End date displayed",
+          "lastUpdate": "Last Update",
+          "createBy": "Create By",
+          "bannerImg": "Banner image",
+          "orderBanner": "Order Banner"
+        }
+      },
+      "form": {
+        "name": "Add Banner",
+        "detailSection": "detail",
+        "bannerName": "Banner name",
+        "link": "Link",
+        "startDateDisplay": "Start date",
+        "banner": {
+          "name": "Banner",
+          "coverImgTh": "Cover Image(Thai)",
+          "coverImgEng": "Cover Image(Eng)",
+          "orderBanner": "Order Banner"
+        }
+      }
+    },
+    "campaign": {
+      "name": "Campaign",
+      "criteria": {
+        "campaignId": "Campaign ID",
+        "campaignNane": "Campaign name",
+        "startDateDisplay": "Start date",
+        "endDateDisplayed": "End date",
+        "usageStatus": "Usage status",
+        "createBy": "Create By"
+      },
+      "table": {
+        "name": "Campaign List",
+        "common": {
+          "addCampaign": "Add Campaign"
+        },
+        "column": {
+          "campaignId": "Campaign ID",
+          "campaignNane": "Campaign name",
+          "nomCoupon": "Number of coupons",
+          "startDateDisplay": "Start date",
+          "endDateDisplayed": "End date",
+          "usageStatus": "Usage status",
+          "createBy": "Create By"
+        }
+      },
+      "form": {
+        "name": "Campaign List",
+        "detailSection": "detail",
+        "campaignId": "Campaign ID",
+        "campaignNane": "Campaign name",
+        "nomCoupon": "Number of coupons",
+        "startDateDisplay": "Start date",
+        "endDateDisplayed": "End date",
+        "discount": {
+          "name": "discount",
+          "maxDiscount": "Maximum discount amount"
+        },
+        "usageStatus": {
+          "name": "Usage status"
+        },
+        "courseEnteringCampaign": {
+          "name": "Courses participating in the campaign",
+          "common": {
+            "addCourse": "Add Course"
+          },
+          "courseAllOpen": "All courses offered",
+          "column": {
+            "coures": "Course ID"
+          },
+          "subForm": {
+            "name": "Add Course",
+            "sectionDetail": "detail",
+            "allCourse": "All Course",
+            "courseEnteringCampaign": "Courses participating in the campaign"
+          }
+        },
+        "documentCampaign": {
+          "name": "Campaign documents",
+          "common": {
+            "uploadDocs": "Campaign documents"
+          },
+          "column": {
+            "fileName": "File name"
+          },
+          "subForm": {
+            "name": "Add Campaign Documents",
+            "sectionDetail": "detail",
+            "fileDocument": "File Document",
+            "fileName": "File name"
+          }
+        }
+      }
+    },
+    "settingReceipt": {
+      "name": "Setting Receipt",
+      "header": "Receipt Header",
+      "logo": "Logo",
+      "taxId": "Tax ID",
+      "depNameTh": "Department name (Thai)",
+      "depNameEn": "Department name (English)",
+      "depAddressTh": "Department address (Thai)",
+      "depAddressEn": "Department address (English)",
+      "receiptPrefix": "Prefix receipt no.",
+      "footer": "Receipt Footer",
+      "noteTh": "Footer message (Thai)",
+      "noteEn": "Footer message (English)",
+      "remark": "Additional Remark",
+      "signature": "Receiver signature",
+      "staffName": "Receiver name",
+      "staffPosition": "Receiver position"
+    },
+    "systemSetting": {
+      "name": "System Config",
+      "websiteInfo": {
+        "name": "Website Info",
+        "webTitle": "Web Title",
+        "webMetaDescription": "Web Meta Description",
+        "headerLogo": "Header Logo",
+        "footerLogo": "Footer Logo",
+        "facebookUrl": "Facebook URL",
+        "lineUrl": "Line URL",
+        "xUrl": "X URL",
+        "igUrl": "IG URL",
+        "youtubeUrl": "Youtube URL",
+        "contactAddress": "Contact address",
+        "contactEmail": "Contact email",
+        "contactTel": "Contact tel",
+        "websiteNameTh": "Website name (TH)",
+        "websiteNameEn": "Website name (EN)",
+        "websiteUrl": "Website URL",
+        "taxNumber": "University tax number"
+      },
+      "apiSetting": {
+        "name": "API Setting",
+        "moodleToken": "Moodle token",
+        "apiToken": "KMITL API token",
+        "tokenLife": "Member registration token life (Min.)",
+        "otpStatus": "Student registration OTP status"
+      },
+      "popularCourseDisplay":{
+        "name": "Popular Course Setting",
+        "popularCondition": "Display condition(s)",
+        "displayLimit": "Popular course display limit"
+      }
+    }
+  },
+  "userManagement": {
+    "user": {
+      "name": "User",
+      "criteria": {
+        "username": "Username",
+        "email": "Email",
+        "name": "Firstname - Lastname",
+        "tel": "Tel.",
+        "role": "Role"
+      },
+      "table": {
+        "name": "User List",
+        "internalPersonnel": "Internal Personnel",
+        "member": "Member",
+        "column": {
+          "username": "Username",
+          "name": "Firstname - Lastname",
+          "email": "Email",
+          "role": "Role",
+          "personalType": "PersonaleType",
+          "personal": "Personal",
+          "member": "Member"
+        }
+      },
+      "form": {
+        "name": "User",
+        "account": "Account",
+        "username": "Buasri Id",
+        "firstnameTh": "Firstname(Thai)",
+        "lastnameTh": "Lastname(Thai)",
+        "firstnameEn": "Firstname(English)",
+        "lastnameEn": "Lastname(English)",
+        "email": "Email",
+        "tel": "Tel.",
+        "signature": "Signature",
+        "password": "Password",
+        "text1": "Reset link will be generated and send to the user.",
+        "text2": "User will be forced to set the password on first sign in.",
+        "activeDate": "Actived period status",
+        "activeDateStart": "Actived period start date",
+        "activeDateEnd": "Actived period end date",
+        "accessLevel": "Access Level",
+        "status": "Status"
+      }
+    },
+    "userRole": {
+      "name": {
+        "list": "List of users according to usage rights : Instructor",
+        "add": "Add User : Instructor"
+      },
+      "criteria": {
+        "username": "Username",
+        "fullname": "Firstname - Lastname",
+        "email": "Email",
+        "department": "Department"
+      },
+      "table": {
+        "name": "List of User",
+        "column": {
+          "username": "Username",
+          "fullname": "Firstname - Lastname",
+          "email": "Email",
+          "department": "Department"
+        }
+      }
+    },
+    "role": {
+      "name": "Permission",
+      "criteria": {
+        "role": "Role",
+        "status": "Status"
+      },
+      "table": {
+        "name": "Role List",
+        "role": "Role"
+      },
+      "form": {
+        "permission": "Permission",
+        "detail": "Detail",
+        "role": "Role",
+        "menu": "Menu"
+      },
+      "tooltip": "Add Many Users"
+    },
+    "member": {
+      "name": "Member",
+      "header": "Member Information",
+      "criteria": {
+        "memberCode": "Member code",
+        "name": "Firstname - Lastname",
+        "email": "Email",
+        "tel": "Tel."
+      },
+      "table": {
+        "name": "Member Information List",
+        "column": {
+          "memberCode": "Member code",
+          "name": "Firstname - Lastname",
+          "email": "Email",
+          "tel": "Tel.",
+          "idCard": "ID Card",
+          "accountFormat": "Account format",
+          "lastLogin": "Last login",
+          "information": "Member information"
+        }
+      },
+      "form": {
+        "name": "Member",
+        "information": "Member information",
+        "email": "Email",
+        "news": "Receive news via email",
+        "accountFormat": "Account format",
+        "country": "Country",
+        "idCard": "ID Card number / Passport number",
+        "memberCode": "Member code",
+        "prefixName": "Prefix name",
+        "firstnameTh": "Firstname(Thai)",
+        "lastnameTh": "Lastname(Thai)",
+        "firstnameEn": "Firstname(English)",
+        "lastnameEn": "Lastname(English)",
+        "gender": "Gender",
+        "birthdate": "Birthdate",
+        "tel": "Tel.",
+        "address": "Address",
+        "province": "Province",
+        "district": "District",
+        "subDistrict": "Sub district",
+        "zipcode": "Zipcode",
+        "status": "Education status",
+        "highest": "Highest educational qualification ",
+        "jobStatus": "Current job status",
+        "usernameUp": "Username",
+        "confirm": "Confirm form submission",
+        "confirmDetail": "You have changed your username. Please check the correctness of the changed information"
+      }
+    }
+  },
+  "financeManagement": {
+    "financeList": {
+      "name": "Payment List Data",
+      "criteria": {
+        "paymentDate": "Payment date",
+        "paymentType": "Payment type",
+        "course": "Course",
+        "student": "Student",
+        "amount": "Amount of money between"
+      },
+      "table": {
+        "name": "Payment List",
+        "column": {
+          "createDate": "Transaction date",
+          "paymentDate": "Payment date",
+          "paymentType": "Payment type",
+          "course": "Course",
+          "student": "Student",
+          "amount": "Amount of money",
+          "ref1": "Ref1",
+          "ref2": "Ref2",
+          "printReceipt": "Print receipt",
+          "cancelReceipt": "Cancel receipt",
+          "paymentStatus": "Payment status",
+          "refresh": "Refresh"
+        }
+      },
+      "alert": {
+        "confirmCancelReceipt": "You have to confirm cancel receipt.Please select cancel receipt type",
+        "cancelReceipt": "Cancel receipt",
+        "cancelReceiptAndRegistration": "Cancel receipt and registration",
+        "cancelReceiptAndRegistrationRefund": "Cancel receipt and registration (refund)"
+      }
+    },
+    "financeImport": {
+      "name": "Import Payment List Data",
+      "criteria": {
+        "importDate": "Imported date",
+        "fileName": "Imported file name",
+        "course": "Course",
+        "refImport": "Reference code"
+      },
+      "table": {
+        "name": "Payment list",
+        "column": {
+          "importDate": "Imported date",
+          "fileName": "Imported file name",
+          "course": "Course",
+          "refImport": "Reference code",
+          "amount": "Success rows",
+          "priceTotal": "Total amount",
+          "detail": "Detail"
+        },
+        "showDetail": {
+          "name": "Imported Detail",
+          "fileName": "File Name",
+          "course": "Course",
+          "priceTotal": "Payment Amount ",
+          "importDate": "Imported date",
+          "table": {
+            "paymentDate": "Payment date",
+            "regisNo": "Member code",
+            "studentName": "Member name",
+            "amount": "Payment amount",
+            "ref1": "Ref1",
+            "ref2": "Ref2"
+          }
+        }
+      },
+      "import": {
+        "name": "Import data",
+        "select": {
+          "selectImportFile": "Select file to import",
+          "course": "Course",
+          "selectFile": "Select file"
+        },
+        "check": {
+          "check": "Check data",
+          "fileName": "File Name",
+          "paymentDate": "Payment date",
+          "regisNo": "Student number registration",
+          "studentName": "Name of student",
+          "amount": "Price",
+          "ref1": "Ref1",
+          "ref2": "Ref2"
+        },
+        "confirm": {
+          "confirm": "Confirm to import data",
+          "fileName": "File name",
+          "course": "Course",
+          "amount": "Success rows",
+          "priceTotal": "Total amount"
+        }
+      },
+      "step": {
+        "selectCourse": "Select course",
+        "selectFile": "Select file",
+        "check": "Check data",
+        "save": "Confirm"
+      }
+    }
+  },
+  "report": {
+    "course": {
+      "offeredCourseReport": {
+        "name": "Report On Course Offered For Project Approval",
+        "criteria": {
+          "faculty": "Faculty/Department",
+          "course": "Course",
+          "status": "Status",
+          "sendDate": "Send date",
+          "courseComparison": "Course comparison",
+          "paymentDate": "Payment date",
+          "createDate": "Create Date"
+        },
+        "table": {
+          "name": "Course Lists",
+          "faculty": "Faculty/Department",
+          "course": "Course",
+          "numberOfRound": "Number of course opening rounds",
+          "timestamp": "Timestamp",
+          "creator": "Creator",
+          "courseComparison": "Course comparison",
+          "compareMapping": "Course comparison",
+          "uncompareMapping": "Not comparable",
+          "paymentDate": "Payment date",
+          "createDate": "Create Date"
+        }
+      },
+      "canceledCourseReport": {
+        "name": "Report On Course Cancellation Information",
+        "criteria": {
+          "cancelDate": "Course cancellation date",
+          "roundCourse": "Course round"
+        },
+        "table": {
+          "name": "Course Rounds That Require A Refund",
+          "cancelDate": "Course cancellation date",
+          "course": "Course",
+          "generation": "Generation",
+          "numberOfRefund": "Number of students who must be refunded",
+          "remainAmount": "Remain amount",
+          "detail": "Detail"
+        }
+      },
+      "enrollmentListReport": {
+        "name": "Report Summarizing The List Of Registered Students",
+        "criteria": {
+          "course": "Course",
+          "student": "Student",
+          "receiptNumber": "Receipt number",
+          "receiptDate": "Receipt date",
+          "paymentType": "Payment type",
+          "paymentDate": "Payment date",
+          "status": "Status"
+        },
+        "table": {
+          "name": "Registrator Lists",
+          "course": "Course",
+          "student": "Student",
+          "receiptNumber": "Receipt number",
+          "receiptDate": "Receipt date",
+          "paymentType": "Payment type",
+          "registrationFee": "Registration Fee",
+          "fee": "Fee",
+          "balance": "Balance",
+          "paymentDate": "Payment date",
+          "resultGrade": "Result grade"
+        }
+      },
+      "courseEnrollmentReport": {
+        "name": "Report Summarizing The Number Of Students Registered",
+        "criteria": {
+          "course": "Course",
+          "status": "Status",
+          "registerDate": "Register date"
+        },
+        "table": {
+          "name": "Course Lists",
+          "course": "Course",
+          "maximumApplicants": "Maximum applicants",
+          "registerCount": "Number of register",
+          "canceledCount": "Number of cancelled",
+          "studentCount": "Number of student"
+        }
+      },
+      "transferCourseReport": {
+        "name": "Transfer course report",
+        "curriculum": "Course",
+        "transferList": "transfer list",
+        "table": {
+          "rowNo": "No.",
+          "curriculum": "Curriculum",
+          "course": "Course",
+          "credit": "Credit",
+          "compare": "Compare"
+        }
+      },
+      "skillMappingReport": {
+        "name": "Skill Mapping Report",
+        "aspect": "Aspect",
+        "Job": "Job",
+        "Skill": "Skill",
+        "Course": "Course",
+        "table": {
+          "Job": "Job",
+          "Skill": "Skill",
+          "Course": "Course",
+          "Level": "Level"
+        }
+      }
+    },
+    "financial": {
+      "coursePaymentReport": {
+        "name": "Report The Amount Of Registration Fees For Each Course",
+        "criteria": {
+          "course": "Course",
+          "registerDate": "Register date"
+        },
+        "table": {
+          "name": "Course Lists",
+          "course": "Course",
+          "studentCount": "Number of student",
+          "registrationFee": "Registration fee",
+          "paymented": "Paymented",
+          "refund": "Refund",
+          "balance": "Remaining registration fee"
+        }
+      },
+      "enrollmentAndPaymentReport": {
+        "name": "Report Examines The Number Of Students And The Amount Of Money Received",
+        "criteria": {
+          "faculty": "Faculty/Department",
+          "course": "Course",
+          "registerDate": "Register date"
+        },
+        "table": {
+          "name": "Course Lists",
+          "faculty": "Faculty/Department",
+          "course": "Course",
+          "studentCount": "Number of student",
+          "registrationFee": "Registration fee"
+        }
+      },
+      "departmentIncomeReport": {
+        "name": "Report Summarizing The Amount Transferred And Allocated Back To The Faculty",
+        "criteria": {
+          "summaryDate": "Summary date",
+          "faculty": "Faculty/Department",
+          "registerDate": "Register date",
+          "fiscalYear": "Fiscal year",
+          "courseRound": "Course round",
+          "projectCoordinator": "Project coordinator"
+        },
+        "table": {
+          "name": "Course Lists",
+          "summaryDate": "Summary date",
+          "faculty": "Faculty/Department",
+          "registrationFee": "Course registration fee Sharing",
+          "facultyShare": "Faculty share rate",
+          "universityShare": "University share rate",
+          "centerShare": "Center of academic service share rate",
+          "amount": "Amount of money",
+          "universitySupportFunds": "University support funds",
+          "centerSupportFunds": "Academic service center support funds",
+          "facultySupportFunds": "Faculty support funds",
+          "operatingExpenses": "Operating expenses",
+          "detail": "Detail",
+          "maxEnroll": "Max enroll",
+          "registerCount": "Register count"
+        },
+        "detail": {
+          "name": "Detail Summarizing The Amount Transferred And Allocated Back To The Faculty",
+          "registerDate": "Register date",
+          "projectCoordinator": "Project coordinator",
+          "roundCourse": "Course round",
+          "registrationFee": "Registration fee",
+          "universitySupportFunds": "University support funds",
+          "centerSupportFunds": "Academic service center support funds",
+          "facultySupportFunds": "Faculty support funds",
+          "operatingExpenses": "Operating expenses",
+          "share": "Share"
+        }
+      }
+    }
+  }
+}

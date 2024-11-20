@@ -1,0 +1,272 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/subject' },
+                { label: 'master.courseType.name' | translate, routerLink: '/master/subject' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.subject.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.subject.criteria.curriculum' | translate }}</label>
+                               
+                                <p-dropdown
+                                    [options]="facultyList"
+                                    [optionLabel]="lang === 'th' ? 'curriculumNameTh' : 'curriculumNameEn'" 
+                                    optionValue="curriculumSwuId"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.curriculumSwuId"
+                                ></p-dropdown>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.subject.criteria.curriculumMhesi' | translate }}</label>
+                                
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.curriculumMhesiId "
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.subject.criteria.groupName' | translate }}</label>
+                                
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.groupName "
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.subject.criteria.minorType' | translate }}</label>
+                                  
+                                  <input
+                                  pInputText
+                                  [(ngModel)]="criteria.minorType"
+                                  type="text"
+                                  (keyup.enter)="onSearch()"
+                              />
+                            </div>
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.subject.criteria.subjectCode' | translate }}</label>
+                                      
+                                      <input
+                                      pInputText
+                                      [(ngModel)]="criteria.subjectCode"
+                                      type="text"
+                                      (keyup.enter)="onSearch()"
+                                  />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.subject.criteria.subjectName' | translate }}</label>
+                                      
+                                      <input
+                                      pInputText
+                                      [(ngModel)]="criteria.subjectName"
+                                      type="text"
+                                      (keyup.enter)="onSearch()"
+                                  />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.subject.criteria.subjectCredit' | translate }}</label>
+                                      
+                                      <input
+                                      pInputText
+                                      [(ngModel)]="criteria.subjectCredit"
+                                      type="text"
+                                      (keyup.enter)="onSearch()"
+                                  />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.subject.criteria.subjectType' | translate }}</label>
+                                      
+                                      <input
+                                      pInputText
+                                      [(ngModel)]="criteria.subjectType"
+                                      type="text"
+                                      (keyup.enter)="onSearch()"
+                                  />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.subject.table.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <span class="align-items-right pt-2">{{ 'common.syncLastest' | translate }} {{ syncDate | formatdatetime: lang }}</span>
+                <p-button
+                            permission
+                            menuCode="SDB-MS3002"
+                            [label]="
+                                progress < 100 ? progress + ' %' : ('master.subject.table.button' | translate)
+                            "
+                        
+                            icon="pi pi-sync"
+                            styleClass="p-button-primary p-button-sm"
+                            size="small"
+                            (click)="onRepull()"
+                            
+                        >
+                </p-button>
+                </div>
+
+        </div>
+        <hr />
+        <p-table
+    [(rows)]="rows"
+    [value]="items"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rowHover]="true"
+    [lazy]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [scrollable]="true"
+    scrollHeight="flex"
+    styleClass="p-datatable-striped"
+    (onPage)="onSearch($event)"
+    [showCurrentPageReport]="true"
+    [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.curriculumId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.curriculumMhesiId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.groupId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.groupNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.groupNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.groupDetail' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.minorTypeId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.minorTypeTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectSwuId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectSet' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectCodeTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectCodeEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectCredit' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.subject.table.column.subjectTypeTh' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td class="text-left">{{ item.curriculumSwuId }}</td>
+                    <td class="text-left">{{ item.curriculumMhesiId }}</td>
+                    <td class="text-left">{{ item.groupId }}</td>
+                    <td class="text-left">{{ item.groupTh }}</td>
+                    <td class="text-left">{{ item.groupEn }}</td>
+                    <td class="text-left">{{ item.groupDetail }}</td>
+                    <td class="text-left">{{ item.minorTypeId }}</td>
+                    <td class="text-left">{{ item.minorTypeTh }}</td>
+                    <td class="text-left">{{ item.subjectSwuId }}</td>
+                    <td class="text-left">{{ item.subjectSet }}</td>
+                    <td class="text-left">{{ item.subjectCodeTh }}</td>
+                    <td class="text-left">{{ item.subjectCodeEn }}</td>
+                    <td class="text-left">{{ item.subjectNameTh }}</td>
+                    <td class="text-left">{{ item.subjectNameEn }}</td>
+                    <td class="text-left">{{ item.subjectCredit }}</td>
+                    <td class="text-left">{{ item.subjectTypeTh }}</td>
+                    
+
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-left" colspan="9">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+            
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+

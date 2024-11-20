@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="p-fluid m-0 mb-4">
+        <h5>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{
+                lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn
+            }}
+        </h5>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="flex justify-content-between">
+            <div class="flex align-items-end">
+                <h5 class="mb-0" style="color: var(--font-color-header)">
+                    {{ 'courseManagement.tabGeneral.tabTeachingProfessor.name' | translate }}
+                </h5>
+            </div>
+        </header>
+        <p-divider type="solid"></p-divider>
+
+        <p-table
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            (onPage)="fetchData($event)"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-left" style="width: 5%">{{ 'common.table.column.no' | translate }}</th>
+                    <th scope="col" class="text-center" style="width: 10%">{{ lang === 'th' ? 'รูป' : 'Image' }}</th>
+                    <th scope="col" class="text-left" style="width: 30%">
+                        {{
+                            'courseManagement.tabGeneral.tabTeachingProfessor.criteria.instructorResponsible'
+                                | translate
+                        }}
+                    </th>
+                    <th scope="col" class="text-left" style="width: 25%">
+                        {{ 'courseManagement.tabGeneral.tabTeachingProfessor.criteria.email' | translate }}
+                    </th>
+                    <th scope="col" class="text-left" style="width: 10%">
+                        {{ 'courseManagement.tabGeneral.tabTeachingProfessor.criteria.instructorType' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{
+                            'courseManagement.tabGeneral.tabTeachingProfessor.criteria.instructorCoordinator'
+                                | translate
+                        }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td class="text-center">
+                        <div *ngIf="item.base64">
+                            <img alt="20x20" width="20" height="20" [src]="item.base64">
+                        </div>
+                        <div *ngIf="!!!item.base64">
+                            <img alt="20x20" width="20" height="20" [src]="userImg">
+                        </div>
+                    </td>
+                    <td>{{ item.instructorType ? (lang === 'th' ? item.externalNameTh : item.externalNameEn) : (lang === 'th' ? item.fullnameTh : item.fullnameEn ) }}</td>
+                    <td>{{ item.instructorType ? item.externalEmail : item.email }}</td>
+                    <td>
+                        <span *ngIf="item.instructorType === false" class="text-green-700">{{ 'courseManagement.tabGeneral.tabTeachingProfessor.criteria.internalInstructor' | translate }}</span>
+                        <span *ngIf="item.instructorType === true" class="text-red-700">{{ 'courseManagement.tabGeneral.tabTeachingProfessor.criteria.externalInstructor' | translate }}</span>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.instructorMain" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.instructorMain" class="text-red-700 pi pi-times"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

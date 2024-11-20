@@ -1,0 +1,192 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card p-fluid col-12 p-5" *ngIf="coursepublicMain">
+
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>[{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{ lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn }}</h4>
+    </div>
+
+    <div class="my-2">
+        <h5 class="text-primary">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.registrationFee' | translate }}</h5>
+        <hr />
+        <div class="ml-2 flex grid ">
+            <div>
+                <label class="font-bold"><a style="color: red">*</a>
+                {{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.registrationFee' | translate }}:
+                </label>
+            </div>
+            <div class="flex grid gap-3 ml-1 align-items-center pt-2" >
+                <div *ngFor="let item of feeList" class=" pl-2">
+                    <p-radioButton
+                        [label]="lang === 'th' ? item.nameTh : item.nameEn"
+                        name="certificateFormat"
+                        [value]="item.value"
+                        [(ngModel)]="coursepublicMain.feeStatus"
+                        (click)="changeFeeStatus()"
+                    ></p-radioButton>
+                </div>
+            </div>
+        </div>
+        <div class="grid flex col-12 p-0 pl-2" *ngIf="coursepublicMain.feeStatus === 30008002">
+            <div class=" lg:col-6 md:col-6 sm:col-12 ">
+                <label class="font-bold" href=""><a style="color: red">*</a>{{
+                    'courseManagement.tabRoundGeneral.tabExpensesAndShare.normalPrice' | translate
+                }}</label>
+                <span class="p-float-label">
+                    <p-inputNumber
+                        [(ngModel)]="coursepublicMain.feeAmount"
+                        [min]="0"
+                        [max]="1000000"
+                        inputId="feeAmount"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [maxFractionDigits]="2"
+                        [class]="
+                            showError == true && !!!coursepublicMain.feeAmount ? 'ng-invalid ng-dirty' : ''
+                        "
+                    >
+                    </p-inputNumber>
+                    <small *ngIf="showError && !!!coursepublicMain.feeAmount" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                    </small>
+                </span>
+            </div>
+            <div class=" lg:col-6 md:col-6 sm:col-12">
+                <label class="font-bold" href="">{{
+                    'courseManagement.tabRoundGeneral.tabExpensesAndShare.promotionPrice' | translate
+                }}</label>
+                <span class="p-float-label">
+                    <p-inputNumber
+                        [(ngModel)]="coursepublicMain.promotionAmount"
+                        [min]="0"
+                        [max]="coursepublicMain.feeAmount"
+                        inputId="promotionAmount"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [maxFractionDigits]="2"
+                    >
+                    </p-inputNumber>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid flex col-12" *ngIf="coursepublicMain.feeStatus === 30008002">
+        <div class="lg:col-6 md:col-6 sm:col-12">
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.promotionStartDate' | translate }}</label>
+            <span class="p-float-label">
+                <p-calendar
+                    [showIcon]="true"
+                    inputId="promotionStart"
+                    [(ngModel)]="coursepublicMain.promotionStart"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickpromotionStart"
+                    (onYearChange)="clickpromotionStart = true"
+                    (onSelect)="clickpromotionStart = false"
+                ></p-calendar>
+            </span>
+        </div>
+        <div class="lg:col-6 md:col-6 sm:col-12">
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.promotionEndDate' | translate }}</label>
+            <span class="p-float-label">
+                <p-calendar
+                    [showIcon]="true"
+                    inputId="promotionEnd"
+                    [(ngModel)]="coursepublicMain.promotionEnd"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickpromotionEnd"
+                    (onYearChange)="clickpromotionEnd = true"
+                    (onSelect)="clickpromotionEnd = false"
+                ></p-calendar>
+            </span>
+        </div>
+    </div>
+    &nbsp;
+    <!-- <div class="col-12">
+        <h5 class="my-2 text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.registrationFeeShare' | translate }}
+        </h5>
+        <hr />
+        <div class="p-1">
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.faculty' | translate }}</label>
+            <p-dropdown
+                [options]="facultyList"
+                [(ngModel)]="coursepublicMain.depIdLevel1"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                (onFilter)="lazyLoadDepartmentLevel1($event)"
+                [placeholder]="'common.pleaseSelect' | translate"
+                [disabled]="true"
+            ></p-dropdown>
+        </div>
+        <div class="p-1">
+            <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.department' | translate }}</label>
+            <p-dropdown
+                [options]="departmentList"
+                [(ngModel)]="coursepublicMain.depIdLevel2"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                optionValue="value"
+                [showClear]="true"
+                [filter]="true"
+                (onFilter)="lazyLoadDepartmentLevel2($event)"
+                [placeholder]="'common.pleaseSelect' | translate"
+                [disabled]="true"
+            ></p-dropdown>
+        </div>
+        <div class="grid grid-flex ">
+            <div class="col-4">
+                <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.facultyShare' | translate }}</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" [disabled]="true" [(ngModel)]="coursepublicMain.costShareDepPercent" />
+                </span>
+            </div>
+            <div class="col-4">
+                <label class="font-bold">{{ 'courseManagement.tabRoundGeneral.tabExpensesAndShare.universityShare' | translate }}</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" [disabled]="true" [(ngModel)]="coursepublicMain.costShareGlobalPercent" />
+                </span>
+            </div>
+            <div class="col-4">
+                <label class="font-bold">{{
+                    'courseManagement.tabRoundGeneral.tabExpensesAndShare.academicServiceShare' | translate
+                }}</label>
+                <span class="p-float-label">
+                    <input pInputText type="text" [disabled]="true" [(ngModel)]="coursepublicMain.costShareCenterPercent" />
+                </span>
+            </div>
+        </div>
+    </div> -->
+
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

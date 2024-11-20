@@ -1,0 +1,219 @@
+<p-toast></p-toast>
+<div *ngIf="mode === 'EDIT'">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <div class="grid">
+                <div class="col-9">
+                    <h3 style="color: var(--font-color-header)">
+                        {{ 'notificationManagement.edit.name' | translate }}
+                    </h3>
+                </div>
+            </div>
+        </header>
+        <hr style="border-top: 1px solid var(--font-color-header)" />
+    </div>
+    <div class="mt-4">
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="p-fluid formgrid grid col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                        <h3 style="color: black">{{ 'notificationManagement.edit.detail' | translate }}</h3>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid; color: black" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <label>{{ 'notificationManagement.edit.criteria.type' | translate }}</label>
+                <p-dropdown
+                    [options]="topicList"
+                    [(ngModel)]="notiInfo.notiTopic"
+                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                    optionValue="value"
+                    [showClear]="true"
+                    [filter]="false"
+                    [disabled]="true"
+                    [placeholder]="'teacherPortal.pleaseselect' | translate"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <a style="color: red">*</a><label>{{ 'notificationManagement.edit.criteria.topic' | translate }}</label>
+            </div>
+            <div class="p-fluid col-12">
+                <input pInputText type="text" [(ngModel)]="notiInfo.notiSubject" placeholder="" />
+            </div>
+        </div>
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <label>{{ 'notificationManagement.edit.criteria.receiver' | translate }}</label>
+                <p-dropdown
+                    [options]="receiverList"
+                    [(ngModel)]="notiInfo.notiRecipient"
+                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                    optionValue="value"
+                    [showClear]="true"
+                    [filter]="false"
+                    [disabled]="true"
+                    [placeholder]="'teacherPortal.pleaseselect' | translate"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <div class="col-4">
+                    <a style="color: red">*</a
+                    ><label>{{ 'notificationManagement.edit.criteria.detail' | translate }}:</label>
+                </div>
+            </div>
+        </div>
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid formgrid grid col-12 pl-3 pr-0 ">
+                <div *ngIf="notiInfo.templateFileName && !showUpload " class="card w-full">
+                    <div class="flex justify-content-between">
+                        <div>
+                            <span (click)="downloadFile()" class="pi pi-file text-primary cursor-pointer"> &nbsp; {{ notiInfo.templateFileName }}</span>
+                        </div>
+
+                        <span
+                    *ngIf="notiInfo.templateFileName || !showUpload "
+                    class="pi pi-times cursor-pointer ml-2"
+                    (click)="showUpload = !showUpload"></span>
+                    </div>
+
+
+                </div>
+
+                <div class="col-12 px-0">
+                    <p-fileUpload
+                    *ngIf="showUpload"
+                        #fileUpload
+                        (uploadHandler)="onAdvancedUpload($event)"
+                        [chooseLabel]="'common.button.uploadFile' | translate"
+                        name="file"
+                        accept=".html"
+                        [auto]="true"
+                        [multiple]="false"
+                        [customUpload]="true"
+                        [fileLimit]="1"
+                        [showUploadButton]="false"
+                        [showCancelButton]="false"
+                    >
+                    <ng-template pTemplate="content" let-files >
+                        <div *ngIf="showUpload">{{ 'common.dragAndDrop' | translate}}</div>
+                    </ng-template>
+
+                    </p-fileUpload>
+                </div>
+                <small *ngIf="showError " class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+                <!-- <div class="col-2">
+                    <p-button
+                    [label]="'notificationManagement.edit.button.downloadFile' | translate"
+                    *ngIf="notiInfo.templateFilePath!=undefined&&notiInfo.templateFilePath!=''"
+                    icon="pi pi-download"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (click)="downloadFile()"
+                    >
+                    </p-button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="formgrid grid ml-1">
+        <div class="p-fluid col-12">
+            <a style="color: red">*</a
+            ><label>{{ 'notificationManagement.edit.criteria.notificationFormat' | translate }}</label>
+            <p-dropdown
+                [options]="newsFormatList"
+                [(ngModel)]="notiInfo.notiRuntimeFormat"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                optionValue="value"
+                [showClear]="true"
+                [filter]="false"
+                [placeholder]="'teacherPortal.pleaseselect' | translate"
+            ></p-dropdown>
+        </div>
+    </div>
+    <div class="formgrid grid ml-1">
+        <div class="p-fluid col-12">
+            <a style="color: red">*</a
+            ><label style="height: 25px">{{
+                'notificationManagement.edit.criteria.notificationStartDate' | translate
+            }}</label>
+            <p-calendar
+                [showIcon]="true"
+                inputId="newsStart"
+                [(ngModel)]="notiInfo.notiStartTimestamp"
+                [placeholder]="'common.pleaseSelect' | translate"
+                [hideOnDateTimeSelect]="true"
+                appThaiCalendar
+                [lang]="lang"
+                [clickYear]="clickNewsStart"
+                (onYearChange)="clickNewsStart = true"
+                (onSelect)="clickNewsStart = false"
+            ></p-calendar>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="p-fluid formgrid grid col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                        <h3 style="color: black">{{ 'notificationManagement.edit.status' | translate }}</h3>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid; color: black" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <div class="col-4 formgrid grid">
+                    <p-inputSwitch [style]="{ 'margin-top': '4px' }" [(ngModel)]="notiInfo.activeFlag"></p-inputSwitch>
+                    <label style="margin-left: 8px">{{
+                        notiInfo.activeFlag
+                            ? ('notificationManagement.edit.criteria.active' | translate)
+                            : ('notificationManagement.edit.criteria.inActive' | translate)
+                    }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center gap-2 mt-4">
+        <div class="">
+            <p-confirmDialog
+                key="confirm1"
+                icon="pi pi-exclamation-triangle"
+                message="{{ 'notificationManagement.edit.button.confirmsave' | translate }}"
+                [style]="{ width: '350px' }"
+                acceptButtonStyleClass="p-button-text"
+                rejectButtonStyleClass="p-button-text"
+            ></p-confirmDialog>
+            <p-button
+                [label]="'common.button.save' | translate"
+                icon="pi pi-save"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="onSave($event, notiInfo)"
+            ></p-button>
+        </div>
+        <div class="">
+            <p-button
+                [label]="'common.button.cancel' | translate"
+                icon="pi pi-times-circle"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (click)="onBack()"
+            >
+            </p-button>
+        </div>
+    </div>
+</div>

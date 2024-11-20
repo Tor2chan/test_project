@@ -1,0 +1,909 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card p-fluid col-12 p-5" *ngIf="coursepublicMain" permission menuCode="SDB-CM2019">
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+    <div class="my-2">
+        <header class="flex justify-content-between">
+            <div class="flex align-coursepublicMains-end">
+                <h5 class="text-primary align-coursepublicMains-end m-0 mt-3">
+                    {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.departmentLogo' | translate }}
+                </h5>
+            </div>
+            <div class="flex">
+                <p-button
+                    [label]="'Preview Certificate'"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (onClick)="previewPdf()"
+                >
+                </p-button>
+            </div>
+        </header>
+
+        <p-dialog header="Preview" [(visible)]="visible" [style]="{width: '75vw'}">
+            <div *ngIf="base64String">
+                <iframe [src]="base64String | safe" width="100%" height="800px"></iframe>
+              </div>
+        </p-dialog>
+
+        <hr />
+
+        <div class="grid grid-flex col-12">
+            <div class="field col-12 sm:col-12 md:col-12 lg:col-12">
+                <div>
+                    <label for="certificateFilenameTh" style="height: 25px"
+                        >
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.imgLogoTh' | translate }}
+                    </label>
+                    <span
+                        *ngIf="coursepublicMain.certificateFilenameTh && !showUploadCertificateTh || imgSrcCertificateTh "
+                        class="pi pi-pencil cursor-pointer"
+                        (click)="onEditImageCertificateTh()"
+                    >
+                </span>
+                </div>
+                    <p-image
+                    *ngIf="!showUploadCertificateTh"
+                        class=" p-0 col-12"
+                        [src]="imgSrcCertificateTh"
+                        alt="thumbnailFile1"
+                        [imageStyle]="{
+                            width: '100%',
+                            height: '420px',
+                            'object-fit': 'contain',
+                            'object-position': 'center',
+                            'max-height.px': '200',
+                        }"
+                    />
+                <div>
+                    <p-fileUpload
+                        *ngIf="showUploadCertificateTh || !!!imgSrcCertificateTh"
+                        #fileUpload
+                        (uploadHandler)="onAdvancedUploadCertificateTh($event)"
+                        (onRemove)="onRemoveUploadCertificateTh($event, fileUpload)"
+                        [chooseLabel]="'common.pleaseSelect' | translate"
+                        name="file"
+                        accept=".png, .jpg, .jpeg"
+                        [auto]="true"
+                        [maxFileSize]="5000000000"
+                        [multiple]="false"
+                        [customUpload]="true"
+                        [fileLimit]="1"
+                        [class]="
+                            showError == true && !!!coursepublicMain.certificateFilenameTh ? 'ng-invalid ng-dirty' : '' "
+                        [ngStyle]="{ 'max-width.px': 842, 'max-height.px': 80 }"
+                        (load)="onCheckImageSize($event)"
+                    >
+                    </p-fileUpload>
+
+                    <div style="opacity: 60%">
+                        {{ lang === 'th' ? '.png/.jpg/.jpeg ขนาด 450x90 ซม.' : '.png/.jpg/.jpeg size 450x90 cm' }}
+                    </div>
+
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+
+                    <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                        {{
+                            lang === 'th'
+                                ? 'กรุณาใส่ภาพขนาดไม่เกิน 450x90 px'
+                                : 'Please upload an image no larger than 450x90 px.'
+                        }}
+                    </small>
+                </div>
+                <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-12 lg:col-12">
+                <div>
+                    <label for="certificateFilenameEn" style="height: 25px"
+                        >
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.imgLogoEn' | translate }}
+                    </label>
+                    <span
+                        *ngIf="coursepublicMain.certificateFilenameEn && !showUploadCertificateEn || imgSrcCertificateEn"
+                        class="pi pi-pencil cursor-pointer"
+                        (click)="onEditImageCertificateEn()"
+                    >
+                    </span>
+                </div>
+
+                    <p-image
+                        *ngIf="!showUploadCertificateEn"
+                        class=" p-0 col-12"
+                        [src]="imgSrcCertificateEn"
+                        alt="thumbnailFile2"
+                        [imageStyle]="{
+                            width: '100%',
+                            height: '420px',
+                            'object-fit': 'contain',
+                            'object-position': 'center',
+                            'max-height.px': '200',
+                        }"
+                    />
+                <div>
+                    <p-fileUpload
+                        *ngIf="showUploadCertificateEn || !!!imgSrcCertificateEn"
+                        #fileUpload
+                        (uploadHandler)="onAdvancedUploadCertificateEn($event)"
+                        (onRemove)="onRemoveUploadCertificateEn($event, fileUpload)"
+                        [chooseLabel]="'common.pleaseSelect' | translate"
+                        name="file"
+                        accept=".png, .jpg, .jpeg"
+                        [auto]="true"
+                        [maxFileSize]="5000000000"
+                        [multiple]="false"
+                        [customUpload]="true"
+                        [fileLimit]="1"
+                        [class]="
+                            showError == true && !!!coursepublicMain.certificateFilenameEn ? 'ng-invalid ng-dirty' : ''
+                        "
+                        [ngStyle]="{ 'max-width.px': 842, 'max-height.px': 80 }"
+                        (load)="onCheckImageSize($event)"
+                    >
+                    </p-fileUpload>
+
+                    <div style="opacity: 60%">
+                        {{ lang === 'th' ? '.png/.jpg/.jpeg ขนาด 450x90 ซม.' : '.png/.jpg/.jpeg size 450x90 cm' }}
+                    </div>
+
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+
+                    <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                        {{
+                            lang === 'th'
+                                ? 'กรุณาใส่ภาพขนาดไม่เกิน 842x80 px'
+                                : 'Please upload an image no larger than 842x80 px.'
+                        }}
+                    </small>
+                </div>
+                <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-2">
+        <h5 class="text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.certificateSignFormat' | translate }}
+        </h5>
+        <hr />
+        <div class="col-12 md:col-12 flex grid mr-3 mb-4 ">
+            <div>
+                <label class="">
+                    {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.numOfSign' | translate }} :
+                </label>
+            </div>
+            <div class="flex grid mr-3 ml-2">
+                <div *ngFor="let item of categories" class="flex align-items-center">
+                    <p-radioButton
+                        name="certificateSignAmount"
+                        [value]="item.value"
+                        [(ngModel)]="coursepublicMain.certificateSignAmount"
+                    ></p-radioButton>
+                    <label for="ingredient1" class="ml-2 mr-3 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-2">
+        <h5 class="text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.sign' | translate }}
+            <span *ngIf="coursepublicMain.certificateSignAmount == 2 || coursepublicMain.certificateSignAmount == 3">
+                1
+            </span>
+        </h5>
+        <hr />
+
+        <div>
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameTh1" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signTh' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameTh1 && !showUploadCertificateSignTh1"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignTh1()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!showUploadCertificateSignTh1" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+                            [src]="imgSrcCertificateSignTh1"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignTh1 || !!!imgSrcCertificateSignTh1"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignTh1($event)"
+                            (onRemove)="onRemoveUploadCertificateSignTh1($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameTh1
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameEn1" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signEn' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameEn1 && !showUploadCertificateSignEn1"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignEn1()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!showUploadCertificateSignEn1" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+
+                            [src]="imgSrcCertificateSignEn1"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignEn1 || !!!imgSrcCertificateSignEn1"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignEn1($event)"
+                            (onRemove)="onRemoveUploadCertificateSignEn1($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameEn1
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg ' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameTh1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameTh1"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameTh1 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameTh1" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameEn1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameEn1"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameEn1 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameEn1" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionTh1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionTh1"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionTh1 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionTh1" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionEn1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionEn1"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionEn1 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionEn1" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        *ngIf="coursepublicMain.certificateSignAmount == 2 || coursepublicMain.certificateSignAmount == 3"
+        class="my-2"
+    >
+        <h5 class="text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.sign' | translate }} <span> 2 </span>
+        </h5>
+        <hr />
+
+        <div>
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameTh2" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signTh' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameTh2 && !showUploadCertificateSignTh2"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignTh2()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!!!showUploadCertificateSignTh2" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+                            [src]="imgSrcCertificateSignTh2"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignTh2 || !!!imgSrcCertificateSignTh2"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignTh2($event)"
+                            (onRemove)="onRemoveUploadCertificateSignTh2($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameTh2
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg ' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameEn2" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signEn' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameEn2 && !showUploadCertificateSignEn2"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignEn2()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!!!showUploadCertificateSignEn2" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+                            [src]="imgSrcCertificateSignEn2"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignEn2 || !!!imgSrcCertificateSignEn2"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignEn2($event)"
+                            (onRemove)="onRemoveUploadCertificateSignEn2($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameEn2
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg ' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameTh1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameTh2"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameTh2 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameTh2" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameEn2" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameEn2"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameEn2 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameEn2" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionTh2" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionTh2"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionTh2 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionTh2" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionEn2" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionEn2"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionEn2 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionEn2" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="coursepublicMain.certificateSignAmount == 3" class="my-2">
+        <h5 class="text-primary">
+            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.sign' | translate }} <span> 3 </span>
+        </h5>
+        <hr />
+
+        <div>
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameTh3" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signTh' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameTh3 && !showUploadCertificateSignTh3"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignTh3()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!!!showUploadCertificateSignTh3" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+                            [src]="imgSrcCertificateSignTh3"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignTh3 || !!!imgSrcCertificateSignTh3"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignTh3($event)"
+                            (onRemove)="onRemoveUploadCertificateSignTh3($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameTh3
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg ' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <div>
+                        <label for="certificateSignFilenameEn3" style="height: 25px"
+                            >
+                            {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.signEn' | translate }}
+                        </label>
+                        <span
+                            *ngIf="coursepublicMain.certificateSignFilenameEn3 && !showUploadCertificateSignEn3"
+                            class="pi pi-pencil cursor-pointer"
+                            (click)="onEditImageCertificateSignEn3()"
+                        >
+                        </span>
+                    </div>
+
+                    <div *ngIf="!showUploadCertificateSignEn3" class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <p-image
+                            [src]="imgSrcCertificateSignEn3"
+                            alt="thumbnailFile"
+                            [imageStyle]="{
+                                width: '100%',
+                                height: '200px',
+                                'object-fit': 'contain',
+                                'object-position': 'auto',
+                                'max-height.px': '400',
+                            }"
+                        />
+                    </div>
+                    <div>
+                        <p-fileUpload
+                            *ngIf="showUploadCertificateSignEn3 || !!!imgSrcCertificateSignEn3"
+                            #fileUpload
+                            (uploadHandler)="onAdvancedUploadCertificateSignEn3($event)"
+                            (onRemove)="onRemoveUploadCertificateSignEn3($event, fileUpload)"
+                            [chooseLabel]="'common.pleaseSelect' | translate"
+                            name="file"
+                            accept=".png, .jpg, .jpeg"
+                            [auto]="true"
+                            [maxFileSize]="5000000000"
+                            [multiple]="false"
+                            [customUpload]="true"
+                            [fileLimit]="1"
+                            [class]="
+                                showError == true && !!!coursepublicMain.certificateSignFilenameEn3
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                            [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                            (load)="onCheckImageSignSize($event)"
+                        >
+                        </p-fileUpload>
+
+                        <div style="opacity: 60%">
+                            {{ lang === 'th' ? '.png/.jpg/.jpeg ' : '.png/.jpg/.jpeg ' }}
+                        </div>
+
+                        <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                            {{
+                                lang === 'th'
+                                    ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                    : 'Please upload an image no larger than 113x40 px.'
+                            }}
+                        </small>
+                    </div>
+                    <small *ngIf="showError && !!!coursepublicMain" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameTh1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameTh3"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameTh3 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameTh3" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label for="certificateSignNameEn3" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.nameEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignNameEn3"
+                        [class]="showError && !!!coursepublicMain.certificateSignNameEn3 ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignNameEn3" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+
+            <div class="grid grid-flex col-12">
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionTh1" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionTh' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionTh3"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionTh3 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionTh3" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                    <label for="certificateSignPositionEn3" style="height: 25px"
+                        ><a style="color: red">*</a>
+                        {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.positionEn' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="coursepublicMain.certificateSignPositionEn3"
+                        [class]="
+                            showError && !!!coursepublicMain.certificateSignPositionEn3 ? 'ng-invalid ng-dirty' : ''
+                        "
+                    />
+                    <small *ngIf="showError && !!!coursepublicMain.certificateSignPositionEn3" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

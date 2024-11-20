@@ -1,0 +1,171 @@
+<div class="layout-topbar" *ngIf="layoutService.state">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/SWU_Logo.png" alt="logo" />
+    </a>
+
+    <!-- <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button> -->
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar(); backDrop()"
+    >
+        <!-- <i class="pi pi-ellipsis-v"></i> -->
+        <i class="pi pi-pause"></i>
+        <!-- <i class="pi pi-bars"></i> -->
+    </button>
+
+    <!-- <div class="layout-menu-item">
+        <ul >
+            <li *ngFor="let item of mns | sort:'asc':'order' ">{{ item.name }}</li>
+        </ul>
+    </div> -->
+
+    <p-megaMenu styleClass="p-menu-col-2" [model]="items" (click)="backDrop()"> </p-megaMenu>
+
+    <div #topbarmenu class="layout-topbar-menu">
+        <span>
+            <p class="srinakharinwirot mt-2 mx-1 font-bold" style="color: var(--secondary-color)">{{ fullname }}</p>
+        </span>
+        <span>
+            <p class="mt-2 mx-2 font-bold cursor-pointer" (click)="logout()"><i class="pi pi-sign-out"></i></p>
+        </span>
+        <span
+            class="my-0 mx-4"
+            style="border-right: 2px solid var(--primary-color); height: 3rem; padding-right: 1px"
+        ></span>
+        <span (click)="switchLanguage()" class="flex cursor-pointer">
+            <p
+                class="srinakharinwirot mt-2"
+                [style]="
+                    lang === 'TH' ? 'color: var(--primary-color);transform: scale(1.1);' : 'transform: scale(1.2);'
+                "
+            >
+                TH
+            </p>
+            <p style="color: var(--primary-color)" class="srinakharinwirot mt-2 mx-2">/</p>
+            <p
+                class="srinakharinwirot mt-2"
+                [style]="
+                    lang === 'EN' ? 'color: var(--primary-color);transform: scale(1.1);' : 'transform: scale(1.1);'
+                "
+            >
+                ENG
+            </p>
+        </span>
+    </div>
+</div>
+<!-- <p-sidebar
+    class="w-full"
+    [(visible)]="layoutService.state.profileSidebarVisible"
+    [fullScreen]="true"
+    [baseZIndex]="1000"
+    transitionOptions="500ms cubic-bezier(0, 0, 0.2, 1)"
+    >
+    <div class="m-auto" style="z-index: 999">
+        <ul *ngFor="let level1 of items">
+            <li>
+                <h4 class="h-2rem">{{ level1.label }}</h4>
+                <span *ngIf="level1.items">
+                    <ul *ngFor="let level2 of level1.items" style="line-height: 200%">
+                        <li *ngIf="level2[0].items">
+                            <span class="text-xl">{{ level2[0].label }}</span>
+                            <span *ngIf="level2[0].items">
+                                <ul *ngFor="let level3 of level2[0].items" style="line-height: 280%">
+                                    <li>
+                                        <span>
+                                            <a class="cursor-pointer text-lg" [routerLink]="level3.routerLink">
+                                                {{ level3.label }}
+                                            </a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </span>
+            </li>
+        </ul>
+    </div>
+</p-sidebar> -->
+
+<p-sidebar
+    class="w-full"
+    [(visible)]="layoutService.state.profileSidebarVisible"
+    [fullScreen]="true"
+    [baseZIndex]="10000"
+    transitionOptions="500ms cubic-bezier(0, 0, 0.2, 1)"
+>
+    <div class="m-auto" style="z-index: 999" *ngIf="showMainMenu">
+        <div style="height: 90vh">
+            <ul *ngFor="let level1 of items">
+                <li style="list-style: none">
+                    <h2 class="h-2rem cursor-pointer" (click)="clickMainMenu(level1)">{{ level1.label }}</h2>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="m-auto" style="z-index: 999" *ngIf="!showMainMenu">
+        <div style="height: 90vh">
+            <ul *ngFor="let level2 of childMenu.items; let i = index">
+                <li style="list-style: none">
+                    <h2 class="h-2rem" *ngIf="i === 0">
+                        {{ level2[0].label }}
+                    </h2>
+                    <h4 *ngIf="i > 0" class="h-2rem cursor-pointer ml-4">{{ level2[0].label }}</h4>
+
+                    <span *ngIf="level2[0].items">
+                        <ul *ngFor="let level3 of level2[0].items">
+                            <li style="list-style: none">
+                                <span>
+                                    <a class="cursor-pointer text-lg" [routerLink]="level3.routerLink">
+                                        {{ level3.label }}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="height: 10vh; align-items: center;">
+        <div class="pb-12">
+            <hr>
+        </div>
+        <div>
+            <ul style="list-style: none;padding-left: 0;">
+                <li>
+                    <span
+                        style="height: 28px"
+                        (click)="switchLanguage()"
+                        class="flex cursor-pointer justify-content-center"
+                    >
+                        <p class="srinakharinwirot" [style]="lang === 'TH' ? 'color: var(--primary-color)' : ''">TH</p>
+                        <p style="color: var(--primary-color)" class="srinakharinwirot mx-2">/</p>
+                        <p class="srinakharinwirot" [style]="lang === 'EN' ? 'color: var(--primary-color);' : ''">ENG</p>
+                    </span>
+                </li>
+                <li>
+                    <span class="flex justify-content-center">
+                        <p class="srinakharinwirot mt-2 mx-1 font-bold" style="color: var(--secondary-color)">
+                            <i class="pi pi-user mr-2"></i>
+                            {{ fullname }}
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <span class="flex justify-content-center ">
+                        <a (click)="logout()" class="srinakharinwirot mt-2 mx-1 font-bold cursor-pointer" style="color: var(--secondary-color)">
+                            <i class="pi pi-sign-out mr-2"></i>
+                            {{ 'manageAccount.logout' | translate }}
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</p-sidebar>

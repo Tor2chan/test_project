@@ -1,0 +1,566 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/system-config/set-frontend' },
+                { label: 'master.systemSetting.name' | translate, routerLink: '/system-config/set-frontend' }
+            ]"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <h3 style="color: var(--font-color-header)">{{ 'master.systemSetting.name' | translate }}</h3>
+                <hr style="border-top: 1px solid var(--font-color-header)" />
+            </header>
+        </div>
+
+
+
+        <div class="m-2">
+            <div class="mt-4 mb-2">
+                <header class="d-flex justify-content-between">
+                    <h5>{{ 'master.systemSetting.websiteInfo.name' | translate }}</h5>
+                    <hr style="border-top: 1px solid" />
+                </header>
+            </div>
+
+            <div class="p-fluid p-formgrid grid mr-2 ml-2">
+
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 mb-0">
+                        <label class="font-bold"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.webTitle' | translate }}
+                    </label>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="item.title"
+                        [class]="showError == true && !!!item.title ? 'ng-invalid ng-dirty' : ''"
+                    />
+                    <small *ngIf="showError && !!!item.title" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+
+                </div>
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 mb-0">
+                        <label class="font-bold"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.webMetaDescription' | translate }}
+                        </label>
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            [(ngModel)]="item.metaDescription"
+                            style="resize: vertical; min-height: 80px; max-height: 200px"
+                            [class]="showError == true && !!!item.metaDescription ? 'ng-invalid ng-dirty' : ''"
+                        ></textarea>
+                        <small *ngIf="showError && !!!item.metaDescription" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+
+                 <!-- อัพโหลด -->
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12">
+                        <div>
+                            <label for="logoHeaderPath" style="height: 25px" class="font-bold"
+                                >
+                                {{ 'master.systemSetting.websiteInfo.headerLogo' | translate }}
+                            </label>
+                            <span
+                                *ngIf="item.logoHeaderPath && !showUploadLogoHeader"
+                                class="pi pi-pencil cursor-pointer"
+                                (click)="onEditImageLogoHeader()"
+                            >
+                            </span>
+                        </div>
+
+                        <!-- <div *ngIf="!showUploadLogoHeader" > -->
+                            <p-image
+                                *ngIf="!showUploadLogoHeader"
+                                class="p-0 col-12"
+                                [src]="imgSrcLogoHeader"
+                                alt="thumbnailFile"
+                                [imageStyle]="{
+                                    width: '100%',
+                                    height: '200px',
+                                    'object-fit': 'contain',
+                                    'object-position': 'center',
+                                    'max-height.px': '200',
+                                }"
+
+                            />
+                        <!-- </div> -->
+                        <div>
+                            <p-fileUpload
+                                *ngIf="showUploadLogoHeader || !!!imgSrcLogoHeader"
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUploadLogoHeader($event)"
+                                (onRemove)="onRemoveUploadLogoHeader($event, fileUpload)"
+                                [chooseLabel]="'common.pleaseSelect' | translate"
+                                name="file"
+                                accept=".png, .jpg, .jpeg, .svg"
+                                [auto]="true"
+                                [maxFileSize]="5000000000"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                                [class]="
+                                    showError == true && !!!item.logoHeaderPath
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                                (load)="onCheckImageSignSize($event)"
+                            >
+                            </p-fileUpload>
+
+                            <div style="opacity: 60%">
+                                {{ lang === 'th' ? '.png/.jpg/.jpeg/.svg ' : '.png/.jpg/.jpeg/.svg ' }}
+                            </div>
+
+                            <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+
+                            <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                                {{
+                                    lang === 'th'
+                                        ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                        : 'Please upload an image no larger than 113x40 px.'
+                                }}
+                            </small>
+                        </div>
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12">
+                        <div>
+                            <label for="certificateSignFilenameEn1" style="height: 25px" class="font-bold"
+                                >
+                                {{ 'master.systemSetting.websiteInfo.footerLogo' | translate }}
+                            </label>
+                            <span
+                                *ngIf="item.logoFooterPath && !showUploadLogoFooter"
+                                class="pi pi-pencil cursor-pointer"
+                                (click)="onEditImageLogoFooter()"
+                            >
+                            </span>
+                        </div>
+
+                        <!-- <div *ngIf="!showUploadLogoFooter"> -->
+                            <p-image
+                                *ngIf="!showUploadLogoFooter"
+                                class="p-0 col-12"
+                                [src]="imgSrcLogoFooter"
+                                alt="thumbnailFile"
+                                [imageStyle]="{
+                                    width: '100%',
+                                    height: '200px',
+                                    'object-fit': 'contain',
+                                    'object-position': 'center',
+                                    'max-height.px': '200',
+                                }"
+                            />
+                        <!-- </div> -->
+                        <div>
+                            <p-fileUpload
+                                *ngIf="showUploadLogoFooter || !!!imgSrcLogoFooter"
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUploadLogoFooter($event)"
+                                (onRemove)="onRemoveUploadLogoFooter($event, fileUpload)"
+                                [chooseLabel]="'common.pleaseSelect' | translate"
+                                name="file"
+                                accept=".png, .jpg, .jpeg, .svg"
+                                [auto]="true"
+                                [maxFileSize]="5000000000"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                                [class]="
+                                    showError == true && !!!item.logoFooterPath
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [ngStyle]="{ 'max-width.px': 113, 'max-height.px': 40 }"
+                                (load)="onCheckImageSignSize($event)"
+                            >
+                            </p-fileUpload>
+
+                            <div style="opacity: 60%">
+                                {{ lang === 'th' ? '.png/.jpg/.jpeg/.svg ' : '.png/.jpg/.jpeg/.svg ' }}
+                            </div>
+
+                            <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+
+                            <small *ngIf="showErrorOverImg && !!!showError" class="p-error" id="text-error">
+                                {{
+                                    lang === 'th'
+                                        ? 'กรุณาใส่ภาพขนาดไม่เกิน 113x40 px'
+                                        : 'Please upload an image no larger than 113x40 px.'
+                                }}
+                            </small>
+                        </div>
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="grid grid-flex col-12">
+                <!-- <div class="grid grid-flex col-12 pr-0 pb-0"> -->
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.facebookUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.facebookPath"
+                            [class]="showError && !!!item.facebookPath ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.facebookPath" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.lineUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.linePath"
+                            [class]="showError && !!!item.linePath ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.linePath" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+                <div class="grid grid-flex col-12">
+                <!-- <div class="grid grid-flex col-12 pr-0 pb-0"> -->
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.xUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.xPath"
+                            [class]="showError && !!!item.xPath ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.xPath" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.igUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.igPath"
+                            [class]="showError && !!!item.igPath ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.igPath" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.youtubeUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.youtubePath"
+                            [class]="showError && !!!item.youtubePath ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.youtubePath" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.contactAddress' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.contactAddress"
+                            [class]="showError && !!!item.contactAddress ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.contactAddress" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.contactEmail' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.contactEmail"
+                            [class]="showError && !!!item.contactEmail ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.contactEmail" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.contactTel' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.contactTel"
+                            [class]="showError && !!!item.contactTel ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.contactTel" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.websiteNameTh' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.universityNameTh"
+                            [class]="showError && !!!item.universityNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.universityNameTh" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.websiteNameEn' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.universityNameEn"
+                            [class]="showError && !!!item.universityNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.universityNameEn" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.websiteInfo.websiteUrl' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.website"
+                            [class]="showError && !!!item.website ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.website" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.websiteInfo.taxNumber' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.universityTaxNo"
+                            [class]="showError && !!!item.universityTaxNo ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.universityTaxNo" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="m-2">
+            <div class="mt-4 mb-2">
+                <header class="d-flex justify-content-between">
+                    <h5>{{ 'master.systemSetting.apiSetting.name' | translate }}</h5>
+                    <hr style="border-top: 1px solid" />
+                </header>
+            </div>
+            <div class="p-fluid p-formgrid grid mr-2 ml-2">
+
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.apiSetting.moodleToken' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.moodleToken"
+                            [class]="showError && !!!item.moodleToken ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.moodleToken" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.apiSetting.apiToken' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.kmitlToken"
+                            [class]="showError && !!!item.kmitlToken ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.kmitlToken" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="grid grid-flex col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.apiSetting.tokenLife' | translate }}
+                        </label>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.registerTokenExpireMinute"
+                            [class]="showError && !!!item.registerTokenExpireMinute ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.registerTokenExpireMinute" class="p-error" id="text-error">
+                            <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                        </small>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                        <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.apiSetting.otpStatus' | translate }}
+                        </label>
+                        <div class="col-12 flex gap-2 align-items-center">
+                            <p-inputSwitch class="align-items-center" [(ngModel)]="item.registerOtpFlag"> </p-inputSwitch>
+                            <label class="ml-2">{{
+                                item.registerOtpFlag
+                                    ? ('common.status.active' | translate)
+                                    : ('common.status.inActive' | translate)
+                            }}</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="m-2">
+            <div class="mt-4 mb-2">
+                <header class="d-flex justify-content-between">
+                    <h5>{{ 'master.systemSetting.popularCourseDisplay.name' | translate }}</h5>
+                    <hr style="border-top: 1px solid" />
+                </header>
+            </div>
+
+            <div class="p-fluid p-formgrid grid mr-2 ml-2">
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 ">
+                    <div>
+                        <label class="font-bold"><a style="color: red">*</a>
+                            {{ 'master.systemSetting.popularCourseDisplay.popularCondition' | translate }} :
+                        </label>
+                    </div>
+                    <div *ngFor="let popular of popularList" class="field-checkbox m-2">
+                        <p-radioButton
+                            name="popular"
+                            [value]="popular.value"
+                            [(ngModel)]="item.popularType"
+                            [inputId]="popular.value"
+                        />
+                        <label [for]="popular.value" class="ml-2">
+                            {{ lang === 'th' ? popular.nameTh : popular.nameEn }}
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0">
+                    <label class="font-bold mb-0"><a style="color: red">*</a>
+                        {{ 'master.systemSetting.popularCourseDisplay.displayLimit' | translate }} :
+                    </label>
+                    <p-inputNumber
+                            [min]="0"
+                            [max]="1000000"
+                            inputId="popularCourseDisplayLimit"
+                            mode="decimal"
+                            [minFractionDigits]="0"
+                            [maxFractionDigits]="0"
+                            [(ngModel)]="item.popularCourseDisplayLimit"
+                            [class]="showError && !!!item.popularCourseDisplayLimit ? 'ng-invalid ng-dirty' : ''"
+                        >
+                        </p-inputNumber>
+                    <small *ngIf="showError && !!!item.popularCourseDisplayLimit" class="p-error" id="text-error">
+                        <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                    </small>
+                </div>
+
+            </div>
+
+
+
+            </div>
+            <div class="col m-4">
+                <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+                    <div class="flex align-items-center justify-content-center">
+                        <p-button
+                            permission
+                            menuCode="SDB-MS14002"
+                            [label]="'common.button.save' | translate"
+                            icon="pi pi-save"
+                            styleClass="p-button-primary p-button-sm"
+                            size="small"
+                            (onClick)="onSave()"
+                            [disabled]="processing"
+                        ></p-button>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+</p-panel>

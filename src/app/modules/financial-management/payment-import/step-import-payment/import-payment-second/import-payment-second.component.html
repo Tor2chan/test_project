@@ -1,0 +1,51 @@
+<ngx-ui-loader></ngx-ui-loader>
+<div>
+    <div class="col col-12">
+        <div class="justify-content-center">
+            <p-fileUpload
+                styleClass="w-full"
+                name="file"
+                [multiple]="false"
+                [customUpload]="true"
+                [fileLimit]="1"
+                [showUploadButton]="false"
+                [showCancelButton]="false"
+                [auto]="true"
+                [chooseLabel]="'common.pleaseSelect' | translate"
+                accept=".csv"
+                [maxFileSize]="5000000000"
+                #fileUpload
+                (uploadHandler)="onAdvancedUpload($event)"
+                (onRemove)="onRemoveUpload($event, fileUpload)"
+            >
+                <ng-template pTemplate="content" let-files>
+                    <div>{{ 'common.dragAndDrop' | translate}}</div>
+                </ng-template>
+            </p-fileUpload>
+        </div>
+    </div>
+</div>
+
+<div class="col m-4">
+    <div class="flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="flex align-items-center justify-content-center">
+            <p-button
+                [label]="'common.button.back' | translate"
+                icon="pi pi-angle-left"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (onClick)="onBack()"
+            ></p-button>
+        </div>
+        <div class="flex align-items-center justify-content-center">
+            <p-button
+                [label]="'common.button.next' | translate"
+                icon="pi pi-chevron-right"
+                iconPos="right"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (onClick)="onNext()"
+            ></p-button>
+        </div>
+    </div>
+</div>

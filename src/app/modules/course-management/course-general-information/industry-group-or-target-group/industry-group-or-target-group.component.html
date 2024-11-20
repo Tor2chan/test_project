@@ -1,0 +1,175 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="courseMain">
+    <div class="p-fluid m-0 mb-4">
+        <h5 >{{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{ lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn }}</h5>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.name' | translate  }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 md:col-12  ">
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="col col-12">
+                    <div class="grid p-fluid">
+                        <div class="col-12 md:col-12  ">
+                            <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.industryPeopleDevelopmentGroup' | translate }}</label>
+                            <p-dropdown
+                                [options]="industryGroupList"
+                                [(ngModel)]="courseMain.industryGroupId"
+                                [optionLabel]=" lang === 'th' ? 'nameTh' : 'nameEn' "
+                                optionValue="value"
+                                [showClear]="true"
+                                [placeholder]="'common.pleaseSelect' |translate"
+                                [class]="showError == true && !!!courseMain.industryGroupId ? 'ng-invalid ng-dirty' : ''"
+                            ></p-dropdown>
+                            <small *ngIf="showError && !!!courseMain.industryGroupId" class="p-error" id="text-error">
+                                {{ 'common.pleaseSelect' | translate }}
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.targetGroup.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+
+
+        <div class="flex col-12 md:col-12 gap-3">
+            <div class="flex">
+                <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.targetGroup.targetAudience' | translate}} : </label>
+            </div>
+
+        </div>
+        <div class=" col-12 md:col-12 ">
+
+            <div *ngFor="let item of targetGroupList" class="field-checkbox pl-2">
+                <p-checkbox
+                    [label]=" lang === 'th' ? item.nameTh : item.nameEn "
+                    name="targetGroup"
+                    [value]="item.value"
+                    [(ngModel)]="courseTargetTemp"
+                    >
+                </p-checkbox>
+            </div>
+            <div class="flex align-items-center pl-2">
+                <p-checkbox
+                  [label]=" 'courseManagement.tabGeneral.tabIndustryGroup.criteria.targetGroup.etc' | translate "
+                  name="targetGroup"
+                  [binary]="true"
+                  [(ngModel)]="courseMain.targetGroupOtherStatus"
+                  (onChange)="onChangeTargetGroupOtherStatus($event)"
+                ></p-checkbox>
+                <div class="col lg:col-6 md:col-8 sm:col-12">
+                    <input
+                        [disabled]="!courseMain.targetGroupOtherStatus"
+                        pInputText
+                        type="text"
+                        [(ngModel)]="courseMain.targetGroupOtherName"
+                        [class]="courseMain.targetGroupOtherStatus == true ? !!!courseMain.targetGroupOtherName ? 'ng-invalid ng-dirty' : '' : '' "
+                     />
+                     <small *ngIf="showError && (courseMain.targetGroupOtherStatus == true ? !!!courseMain.targetGroupOtherName :'')  " class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+
+                </div>
+            </div>
+            <small *ngIf="showError && (courseTargetTemp.length == 0) && (courseMain.targetGroupOtherStatus == false)" class="p-error" id="text-error">
+                {{ 'common.pleaseSelect' | translate }}
+            </small>
+        </div>
+    </div>
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.relatedOccupation.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class=" col-12 md:col-12 ">
+            <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.relatedOccupation.occupation' | translate}}</label>
+            <p style="color: var(--surface-500);">{{ lang === 'th' ? 'สามารถเลือกอาชีพที่เกี่ยวข้อง ได้มากกว่า 1 อาชีพ' : 'You can choose more than one related career.'  }}</p>
+
+            <p-multiSelect
+                [options]="occupationList"
+                [(ngModel)]="courseOccupationTemp"
+                (onFilter)="lazyLoadOccupation($event)"
+                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                display="chip"
+                [showClear]="true"
+                [class]="showError == true && (courseOccupationTemp.length == 0) ? 'ng-invalid ng-dirty' : ''"
+            ></p-multiSelect>
+            <small *ngIf="showError && (courseOccupationTemp.length == 0)" class="p-error" id="text-error">
+                {{ 'common.pleaseSelect' | translate }}
+            </small>
+
+        </div>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <header class="d-flex justify-content-md-between">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+
+        <div class="col-12 md:col-12  ">
+            <label class="font-bold">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.basicKnowledgeTh'  | translate }}</label>
+            <textarea
+                rows="2"
+                cols="30"
+                pInputTextarea
+                [(ngModel)]="courseMain.courseSpecificRequirementTh"
+                style="resize: vertical; min-height: 80px; max-height: 200px"
+            ></textarea>
+
+        </div>
+
+        <div class="col-12 md:col-12  ">
+            <label class="font-bold">{{ 'courseManagement.tabGeneral.tabIndustryGroup.criteria.basicKnowledge.basicKnowledgeEn' | translate }}</label>
+            <textarea
+                rows="2"
+                cols="30"
+                pInputTextarea
+                [(ngModel)]="courseMain.courseSpecificRequirementEn"
+                style="resize: vertical; min-height: 80px; max-height: 200px"
+            ></textarea>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,196 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/course-type' },
+                { label: 'master.courseType.name' | translate, routerLink: '/master/course-type' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.courseType.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.courseType.criteria.courseTypeCode' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.courseTypeCode"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.courseType.criteria.courseTypeNameTh' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.courseTypeNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.courseType.criteria.courseTypeNameEn' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.courseTypeNameEn"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.courseType.criteria.curriculumMappingStatus' | translate }}</label>
+                                <p-dropdown
+                                    [options]="courseMappingStatusList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [(ngModel)]="criteria.courseMappingStatus"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.courseType.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                permission
+                menuCode="SDB-MS7002"
+                [label]="'common.button.add' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.courseType.table.column.courseTypeCode' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.courseType.table.column.courseTypeNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.courseType.table.column.courseTypeNameEn' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 15%">
+                        {{ 'master.courseType.table.column.curriculumMappingStatus' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.status' | translate }}
+                    </th>
+                    <th permission menuCode="SDB-MS7003" scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.manage' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.courseTypeCode }}</td>
+                    <td>{{ item.courseTypeNameTh }}</td>
+                    <td>{{ item.courseTypeNameEn }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.courseMappingStatus" class="text-green-700 ">{{ 'master.courseType.criteria.compareMapping' | translate }}</span>
+                        <span *ngIf="!item.courseMappingStatus" class="text-red-700 ">{{ 'master.courseType.criteria.uncompareMapping' | translate }}</span>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td class="text-center" permission menuCode="SDB-MS7003">
+                        <div class="flex gap-2 justify-content-center">
+                            <span
+                                (click)="openPage('EDIT', item.courseTypeId)"
+                                class="pi pi-pencil cursor-pointer"
+                            ></span>
+                            <!-- <span
+                                (click)="openPage('EDIT', item.courseTypeId)"
+                                class="pi pi-trash cursor-pointer"
+                            ></span> -->
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="7">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-course-type-manage
+        [mode]="mode"
+        (backToListPage)="openPage($event)"
+        [item]="editData"
+    ></app-course-type-manage>
+</div>

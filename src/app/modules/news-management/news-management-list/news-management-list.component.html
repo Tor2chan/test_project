@@ -1,0 +1,305 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast></p-toast>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                {
+                    label: 'newsManagement.newsInformation' | translate,
+                    routerLink: '/news-management/news-management-list'
+                }
+            ]"
+        >
+        </p-breadcrumb>
+    </ng-template>
+    <div>
+        <div class="p-fluid mt-4">
+            <header class="d-flex justify-content-md-between">
+                <div class="grid">
+                    <div class="col-9">
+                        <h3 style="color: var(--font-color-header)">
+                            {{ 'newsManagement.newsInformation' | translate }}
+                        </h3>
+                    </div>
+                </div>
+            </header>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </div>
+        <div class="mt-4">
+            <p-accordion [activeIndex]="0">
+                <p-accordionTab [header]="'common.searchData' | translate">
+                    <div class="container">
+                        <div class="formgrid grid ml-1">
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'newsManagement.newsHeadlines' | translate }}</label>
+                                    <input pInputText type="text" [(ngModel)]="criteria.newsHeading" />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'newsManagement.newsFormat' | translate }}</label>
+                                    <p-dropdown
+                                        [options]="newsFormatList"
+                                        [(ngModel)]="criteria.newsFormat"
+                                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [filter]="false"
+                                        [placeholder]="'teacherPortal.pleaseselect' | translate"
+                                    >
+                                    </p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'newsManagement.publicRelationStartDate' | translate
+                                    }}</label>
+                                    <p-calendar
+                                        [showIcon]="true"
+                                        inputId="newsStart"
+                                        [(ngModel)]="criteria.newsStart"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [hideOnDateTimeSelect]="true"
+                                        appThaiCalendar
+                                        [lang]="lang"
+                                        [clickYear]="clickNewsStart"
+                                        (onYearChange)="clickNewsStart = true"
+                                        (onSelect)="clickNewsStart = false"
+                                    ></p-calendar>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{
+                                        'newsManagement.publicRelationEndDate' | translate
+                                    }}</label>
+                                    <p-calendar
+                                        [showIcon]="true"
+                                        inputId="newsEnd"
+                                        [(ngModel)]="criteria.newsEnd"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [hideOnDateTimeSelect]="true"
+                                        appThaiCalendar
+                                        [lang]="lang"
+                                        [clickYear]="clickNewsEnd"
+                                        (onYearChange)="clickNewsEnd = true"
+                                        (onSelect)="clickNewsEnd = false"
+                                    ></p-calendar>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'newsManagement.creator' | translate }}</label>
+                                    <input
+                                        pInputText
+                                        type="text"
+                                        [(ngModel)]="criteria.createdByNameTh"
+                                    />
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label style="height: 25px">{{ 'newsManagement.status' | translate }}</label>
+
+                                    <p-dropdown
+                                        [options]="statusList"
+                                        [(ngModel)]="criteria.activeFlag"
+                                        optionLabel="nameTh"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [filter]="false"
+                                        [placeholder]="'teacherPortal.pleaseselect' | translate"
+                                    >
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-content-center gap-2 mt-4">
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.search' | translate"
+                                    icon="pi pi-search"
+                                    styleClass="p-button-primary p-button-sm"
+                                    size="small"
+                                    (click)="onSearch()"
+                                >
+                                </p-button>
+                            </div>
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.clear' | translate"
+                                    icon="pi pi-refresh"
+                                    styleClass="p-button-secondary p-button-sm"
+                                    size="small"
+                                    (click)="onClear()"
+                                >
+                                </p-button>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div class="mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid formgrid grid col-12 flex justify-content-between ">
+                        <div class="flex align-items-center justify-content-center ">
+                            <h3 style="color: black; margin-bottom: 0px;">{{ 'newsManagement.newsInformationList' | translate }}</h3>
+                        </div>
+                        <div class="flex align-items-center justify-content-center">
+                                <p-button
+                                    [label]="'newsManagement.addGeneralNewsInformation' | translate"
+                                    icon="pi pi-plus-circle"
+                                    styleClass="p-button-primary p-button-sm"
+                                    size="small"
+                                    (click)="openPage('CREATE')"
+                                    permission
+                                    menuCode="SDB-PR1002"
+                                >
+                                </p-button>
+                        </div>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid; color: black" />
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="container">
+                <div class="formgrid grid ml-1">
+                    <div class="p-fluid col-12">
+                        <p-confirmDialog
+                            header="{{ 'newsManagement.comfirmDeleteHeader' | translate }}"
+                            key="confirm1"
+                            icon="pi pi-exclamation-triangle"
+                            message="{{ 'newsManagement.comfirmDelete' | translate }}"
+                            [style]="{ width: '350px' }"
+                        ></p-confirmDialog>
+
+                        <p-table
+                            [value]="items"
+                            [totalRecords]="totalRecords"
+                            [paginator]="true"
+                            [rowHover]="true"
+                            [lazy]="true"
+                            [rows]="5"
+                            [rowsPerPageOptions]="[5, 10, 20]"
+                            styleClass="p-datatable-striped"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                            (onPage)="onSearch($event)"
+                            [showCurrentPageReport]="true"
+                            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th scope="col" class="text-center" style="width: 5%">
+                                        {{ 'common.table.column.no' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 31%">
+                                        {{ 'newsManagement.newsHeadlines' | translate }}
+                                    </th>
+                                    <th scope="col" class="" style="width: 10%">
+                                        {{ 'newsManagement.newsFormat' | translate }}
+                                    </th>
+                                    <th scope="col" class="" style="width: 9%">
+                                        {{ 'newsManagement.dateStart' | translate }}
+                                    </th>
+                                    <th scope="col" class="" style="width: 9%">
+                                        {{ 'newsManagement.dateEnd' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 10%">
+                                        {{ 'newsManagement.creator' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%">
+                                        {{ 'newsManagement.newsHilight' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 6%">
+                                        {{ 'newsManagement.status' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%">
+                                        {{ 'newsManagement.detail' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%" permission menuCode="SDB-PR1004">
+                                        {{ 'newsManagement.editInfo' | translate }}
+                                    </th>
+                                    <th scope="col" class="text-center" style="width: 5%" permission menuCode="SDB-PR1005">
+                                        {{ 'newsManagement.deleteInfo' | translate }}
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td class="text-center">{{ item.rowNum }}</td>
+                                    <td class="" style="white-space: nowrap;">{{ item.newsHeading }}</td>
+                                    <td class="" style="white-space: nowrap;">
+                                        {{ lang == 'th' ? item.newsFormatNameTh : item.newsFormatNameEn }}
+                                    </td>
+                                    <td class="">
+                                        {{ item.newsStart | formatdate: lang }}
+                                    </td>
+                                    <td class="">
+                                        {{ item.newsEnd | formatdate: lang }}
+                                    </td>
+                                    <td class="text-center" style="white-space: nowrap;">
+                                        <span> {{ lang == 'th' ? item.firstnameTh+" "+item.lastnameTh : item.firstnameEn+" "+item.lastnameEn }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span> {{item.newsHilight}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span
+                                            (click)="openPage('VIEW', item.newsId)"
+                                            class="pi pi-search cursor-pointer"
+                                        ></span>
+                                    </td>
+                                    <td class="text-center" permission menuCode="SDB-PR1004">
+                                        <span
+                                            (click)="openPage('EDIT', item.newsId)"
+                                            class="pi pi-pencil cursor-pointer"
+                                        ></span>
+                                    </td>
+                                    <td class="text-center" permission menuCode="SDB-PR1005">
+                                        <span
+                                            (click)="deleteNewsInfo($event, item)"
+                                            class="pi pi-trash cursor-pointer"
+                                        ></span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td class="text-center" colspan="11">{{ 'common.dataNotFound' | translate }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!-- <div class="flex justify-content-center gap-2 mt-4">
+                            <div class="">
+                                <p-button
+                                    [label]="'common.button.cancel' | translate"
+                                    icon="pi pi-times-circle"
+                                    styleClass="p-button-secondary p-button-sm"
+                                    size="small"
+                                    (click)="onBack()"
+                                >
+                                </p-button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-news-management-create-general
+        [mode]="mode"
+        [item]="editData"
+        (backToListPage)="openPage($event)"
+    ></app-news-management-create-general>
+</div>
+<div *ngIf="mode === 'VIEW'">
+    <app-news-management-detail
+        [mode]="mode"
+        [item]="editData"
+        (goBack)="openPage($event)"
+    ></app-news-management-detail>
+</div>

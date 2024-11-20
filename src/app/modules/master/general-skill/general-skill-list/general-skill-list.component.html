@@ -1,0 +1,197 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[{ label: 'common.module.master' | translate }, { label: 'master.generalSkill.name' | translate }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.generalSkill.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.generalSkill.criteria.generalSkillCode' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.generalSkillCode"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.generalSkill.criteria.generalSkillName' | translate }}</label>
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.generalSkillNameTh"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.generalSkill.form.skillFormat' | translate }}</label>
+                                <p-dropdown
+                                    [options]="categorySkillList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    placeholder="กรุณาเลือก"
+                                    [(ngModel)]="criteria.skillFormat"
+                                ></p-dropdown>
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'common.status.name' | translate }}</label>
+                                <p-dropdown
+                                    [options]="activeFlagList"
+                                    optionLabel="nameTh"
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    placeholder="กรุณาเลือก"
+                                    [(ngModel)]="criteria.activeFlag"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.generalSkill.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                permission
+                menuCode="SDB-MS4002"
+                [label]="'common.button.add' | translate"
+                icon="pi pi-plus-circle"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (click)="openPage('CREATE')"
+            >
+            </p-button>
+        </div>
+        <hr />
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 15%">
+                        {{ 'master.generalSkill.table.column.generalSkillCode' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.generalSkill.table.column.generalSkillNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="width: 25%">
+                        {{ 'master.generalSkill.table.column.generalSkillNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="width: 10%">
+                        {{ 'master.generalSkill.table.column.skillFormat' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 10%">
+                        {{ 'master.generalSkill.table.column.uploadCategorySkill' | translate }}
+                    </th>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.status' | translate }}
+                    </th>
+                    <th permission menuCode="SDB-MS4003" scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.manage' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ item.generalSkillCode }}</td>
+                    <td>{{ item.generalSkillNameTh }}</td>
+                    <td>{{ item.generalSkillNameEn }}</td>
+                    <td>{{ lang === 'th' ? item.skillFormatTh : item.skillFormatEn }}</td>
+                    <td class="text-center">
+                        <div *ngIf="item.base64">
+                            <img alt="20x20" width="20" height="20" [src]="item.base64" />
+                        </div>
+                        <div *ngIf="!!!item.base64">
+                            <img alt="20x20" width="20" height="20" [src]="imgSrc" />
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.activeFlag" class="text-green-700 pi pi-check"></span>
+                        <span *ngIf="!item.activeFlag" class="text-red-700 pi pi-times"></span>
+                    </td>
+                    <td permission menuCode="SDB-MS4003" class="text-center">
+                        <span
+                            (click)="openPage('EDIT', item.generalSkillId)"
+                            class="pi pi-pencil cursor-pointer"
+                        ></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-center" colspan="8">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+<div *ngIf="mode === 'CREATE' || mode === 'EDIT'">
+    <app-general-skill-manage
+        [mode]="mode"
+        (backToListPage)="openPage($event)"
+        [item]="editData"
+    ></app-general-skill-manage>
+</div>

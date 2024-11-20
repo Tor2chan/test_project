@@ -1,0 +1,192 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel>
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                information,
+                coursetype,
+                {
+                    label:
+                        ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.courseType.form.name' | translate)
+                }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((mode === 'CREATE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.courseType.form.name' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.courseType.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label>{{ 'master.courseType.form.courseTypeCode' | translate }}</label>
+                        <input
+                            pInputText
+                            [(ngModel)]="item.courseTypeCode"
+                            type="text"
+                            placeholder="AUTO GENERATE"
+                            disabled="true"
+
+                        />
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.courseType.form.courseTypeNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.courseTypeNameTh"
+                            type="text"
+                            [class]="showError == true && !!!item.courseTypeNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.courseTypeNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label
+                            ><a style="color: red">*</a
+                            >{{ 'master.courseType.form.courseTypeNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            [(ngModel)]="item.courseTypeNameEn"
+                            type="text"
+                            [class]="showError == true && !!!item.courseTypeNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.courseTypeNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 flex gap-2">
+                        <p-inputSwitch [(ngModel)]="item.courseMappingStatus"> </p-inputSwitch>
+                        <label class="ml-2">{{ 'master.courseType.form.curriculumMappingStatus' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div class="flex justify-content-center mb-4">
+                            <img
+                                *ngIf="item.filename && !showUpload"
+                                [src]="imgSrc"
+                                alt="masCoursetypeThumnail"
+                                [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                            />
+
+                        </div>
+
+                        <div >
+                            <div class="flex justify-content-center" >
+                                <p-button
+                                *ngIf="item.filename && !showUpload"
+                                [label]="'common.button.delete' | translate"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                icon="pi pi-pencil"
+                                [disabled]="processing"
+                                (onClick)="showUpload = !showUpload"
+                            ></p-button>
+                            </div>
+                            <label *ngIf="this.fileUpload"
+                            ><a style="color: red">*</a
+                            >{{ lang === 'th' ? 'กรุณาอัปโหลดไฟล์ภาพ' : 'Please upload an image file.' }}</label
+                        >
+                            <small *ngIf="showError && !!!item.filename" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+                            <p-fileUpload
+                                *ngIf="showUpload || !!!item.filename"
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUpload($event)"
+                                (onRemove)="onRemoveUpload($event, fileUpload)"
+                                [chooseLabel]="'newsManagement.uploadFile' | translate"
+                                name="file"
+                                accept=".png, .jpg, .jpeg"
+                                [auto]="true"
+                                [maxFileSize]="2000000000"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                                [class]="
+                                    showError == true && this.showUpload && !!!item.filename
+                                        ? 'ng-invalid ng-dirty'
+                                        : ''
+                                "
+                                [ngStyle]="{ 'max-width.px': 338, 'max-height.px': 226 }"
+                                (load)="onCheckImageSize($event)"
+                            >
+                            </p-fileUpload>
+
+                        </div>
+                        <!-- <div style="opacity: 60%;">{{
+                            'newsManagement.sizePNGJPG' | translate
+                        }}</div>
+                        <small *ngIf="showErrorOverImg && showError" class="p-error" id="text-error">
+                            {{ 'common.alert.overImg' | translate }}
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ lang === 'th' ? 'สถานะ' : 'Access' }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    permission
+                    [menuCode]="mode === 'CREATE' ? 'SDB-MS7002' : 'SDB-MS7003'"
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>

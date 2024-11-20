@@ -1,0 +1,234 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{ 'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.name' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>
+                {{
+                    'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.detailSection'
+                        | translate
+                }}
+            </h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.topicProcessDetailTh'
+                                    | translate
+                            }}</label
+                        >
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            [(ngModel)]="item.courseActivityTopicTh"
+                            style="resize: vertical; min-height: 80px; max-height: 200px;"
+                            (input)="checkInputLength(item.courseActivityTopicTh)"
+                            maxlength="1023"
+                            [class]="showError == true && !!!item.courseActivityTopicTh ? 'ng-invalid ng-dirty' : ''"
+                        ></textarea>
+                        <small *ngIf="showError && !!!item.courseActivityTopicTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showError && item.courseActivityTopicTh?.length > 1023" class="p-error" id="text-error">
+                            {{ 'ข้อความมีความยาวเกิน 1023 ตัวอักษร' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.topicProcessDetailEn'
+                                    | translate
+                            }}</label
+                        >
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            [(ngModel)]="item.courseActivityTopicEn"
+                            style="resize: vertical; min-height: 80px; max-height: 200px"
+                            (input)="checkInputLength(item.courseActivityTopicEn)"
+                            maxlength="1023"
+                            [class]="showError == true && !!!item.courseActivityTopicEn ? 'ng-invalid ng-dirty' : ''"
+                        ></textarea>
+
+                        <small *ngIf="showError && !!!item.courseActivityTopicEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <small *ngIf="showError && item.courseActivityTopicEn?.length > 1023" class="p-error" id="text-error">
+                            {{ 'ข้อความมีความยาวเกิน 1023 ตัวอักษร' | translate }}
+                        </small>
+
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.teachingMethod'
+                                    | translate
+                            }}</label
+                        >
+
+                        <p-multiSelect
+                            [options]="coursMethodList"
+                            [(ngModel)]="courseActivityMethodTemp"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            display="chip"
+                            [showClear]="true"
+                            (onFilter)="lazyLoadMethod($event)"
+                            [class]="
+                                showError == true && (courseActivityMethodTemp || []).length === 0
+                                    ? 'ng-invalid ng-dirty'
+                                    : ''
+                            "
+                        >
+                        </p-multiSelect>
+                        <small
+                            *ngIf="showError && (courseActivityMethodTemp || []).length === 0"
+                            class="p-error"
+                            id="text-error"
+                        >
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            >
+                            {{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.moreDetailOfActivity'
+                                    | translate
+                            }}</label
+                        >
+
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            maxlength="1023"
+                            [(ngModel)]="item.courseActivityMethodMore"
+                            style="resize: vertical; min-height: 80px; max-height: 200px"
+                        ></textarea>
+
+
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.period'
+                                    | translate
+                            }}</label
+                        >
+                        <p-inputNumber
+                            [(ngModel)]="item.courseActivityPeriod"
+                            inputId="courseActivityPeriod"
+                            [min]="0"
+                            [max]="1000000"
+                            mode="decimal"
+                            [minFractionDigits]="2"
+                            [maxFractionDigits]="2"
+                            [class]="
+                                showError == true && !!!item.courseActivityPeriod && item.courseActivityPeriod !== 0 ? 'ng-invalid ng-dirty' : ''
+                            "
+                        >
+                        </p-inputNumber>
+                        <small *ngIf="showError && !!!item.courseActivityPeriod  && item.courseActivityPeriod !== 0 " class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.assessmentTh'
+                                    | translate
+                            }}</label
+                        >
+
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            [(ngModel)]="item.courseActivityAssessTh"
+                            style="resize: vertical; min-height: 80px; max-height: 200px"
+                            maxlength="1023"
+                            [class]="showError == true && !!!item.courseActivityAssessTh ? 'ng-invalid ng-dirty' : ''"
+                        ></textarea>
+
+                        <small *ngIf="showError && !!!item.courseActivityAssessTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                        <small *ngIf="showError && item.courseActivityAssessTh?.length > 1023" class="p-error" id="text-error">
+                            {{ 'ข้อความมีความยาวเกิน 1023 ตัวอักษร' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{
+                                'courseManagement.tabLearningOutcomeAndSkill.tabLearningManagementProcess.form.assessmentEn'
+                                    | translate
+                            }}</label
+                        >
+
+                        <textarea
+                            rows="2"
+                            cols="30"
+                            pInputTextarea
+                            [(ngModel)]="item.courseActivityAssessEn"
+                            style="resize: vertical; min-height: 80px; max-height: 200px"
+                            maxlength="1023"
+                            [class]="showError == true && !!!item.courseActivityAssessEn ? 'ng-invalid ng-dirty' : ''"
+                        ></textarea>
+
+                        <small *ngIf="showError && !!!item.courseActivityAssessEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                        <small *ngIf="showError && item.courseActivityAssessEn?.length > 1023" class="p-error" id="text-error">
+                            {{ 'ข้อความมีความยาวเกิน 1023 ตัวอักษร' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

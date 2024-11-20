@@ -1,0 +1,102 @@
+<p-panel *ngIf="mode === 'VIEW' && item">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[ information, consentmanage,
+            {
+                label:('menu.master.consent.preview'| translate)
+            }]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{'menu.master.consent.preview'| translate}}</h3>
+            <hr style="border-top: 1px solid red" />
+        </header>
+        <header>
+            <h5>{{ 'master.consentManagement.table.column.formName' | translate }}:&nbsp; {{ lang === "th" ? item.formNameTh : item.formNameEn  }}</h5>
+        </header>
+    </div>
+
+    <div class="container mx-8">
+        <div class="formgrid grid ml-1">
+            <div class="p-fluid col-12">
+                <p-table
+                    [value]="items"
+                    [totalRecords]="totalRecords"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [lazy]="true"
+                    [rows]="5"
+                    [rowsPerPageOptions]="[5, 10, 20]"
+                    styleClass="p-datatable-striped"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    (onPage)="fetchTable($event)"
+                    [showCurrentPageReport]="true"
+                    [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center" scope="col" style="width: 5%">{{ 'common.table.column.no' | translate }}</th>
+                            <th class="text-center" scope="col" style="width: 5%">สัญชาติ</th>
+                            <th scope="col" style="width: 25%">
+                                เลขประจำตัวประชาชน/หมายเลขพาสปอร์ต
+                            </th>
+                            <th scope="col" style="width: 25%">ชื่อ-สกุล (ภาษาไทย)</th>
+                            <th scope="col" style="width: 25%">ชื่อ-สกุล (ภาษาอังกฤษ)</th>
+                            <th class="text-center" scope="col" style="width: 20%">วันให้ความยินยอม</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <!-- ดิงชื่อไฟล์ -->
+                            <td class="text-center">{{ item.rowNum }}</td>
+                            <td class="text-center">
+
+                                <div *ngIf="item.memberCountryType == 30028001 || item.memberCountryType == 30028002">
+                                    {{ lang === 'th' ? item.countryTypeTh : item.countryTypeEn }}
+                                </div>
+                                <div *ngIf="item.countryId && !!!item.memberCountryType">
+                                    {{ lang === 'th' ? item.countryNameTh : item.countryNameEn }}
+                                </div>
+                                <div *ngIf=" item.memberCountryType == null">
+                                    {{ lang === 'th' ? "ไม่ระบุ" : "N/A" }}
+                                </div>
+
+                            </td>
+                            <td>{{ item.memberCardno }}</td>
+                            <td>{{ item.fullNameTh }}</td>
+                            <td>{{ item.fullNameEn }}</td>
+                            <td class="text-center">{{ item.actionDatetime | formatdate : lang }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td class="text-center" colspan="6">{{ 'common.dataNotFound' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center gap-2 mt-4">
+        <div class="flex gap-2">
+            <p-button
+                [label]="'common.button.export' | translate"
+                icon="pi pi-download"
+                styleClass="p-button-success p-button-sm p-button-outlined"
+                size="small"
+                (click)="onExport()"
+            ></p-button>
+            <p-button
+                [label]="'common.button.back' | translate"
+                icon="pi pi-angle-left"
+                styleClass="p-button-secondary p-button-sm"
+                size="small"
+                (click)="onBack()"
+            >
+            </p-button>
+        </div>
+    </div>
+</p-panel>

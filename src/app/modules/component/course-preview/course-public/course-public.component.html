@@ -1,0 +1,127 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast></p-toast>
+<div class="card" *ngIf="coursepublicMain">
+    <div class="p-fluid">
+        <header class="flex justify-content-between">
+            <div class="flex align-items-end">
+                <h3 style="color: var(--font-color-header); margin-bottom: 0">
+                    {{ 'menu.course.courseManagement.courseRound' | translate }}
+                </h3>
+            </div>
+            <div class="flex align-items-end">
+                <p-button
+                    [label]="'teacherPortal.viewcoursed' | translate"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (click)="openCourse();"
+                >
+                </p-button>
+            </div>
+        </header>
+        <hr style="border-top: 1px solid var(--font-color-header)" />
+    </div>
+
+    <div class="container">
+        <div class="grid p-fluid ml-1">
+            <aside class="col-12 md:col-3 lg:col-3" style="min-height: 100vh">
+                <p-menu
+                    [model]="menuItems"
+                    [showTransitionOptions]="'.12s cubic-bezier(0, 0, 0.9, 1)'"
+                    class="w-full"
+                    [style]="{ width: '100%', height: '100vh' }"
+                    (click)="activeMenu($event)"
+                ></p-menu>
+            </aside>
+            <div class="field col-12 md:col-9 lg:col-9">
+                <app-view-round-open-course-round
+                    *ngIf="page == pageType.ROUND_OPEN_COURSE_ROUND"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-open-course-round>
+                <app-view-round-location-and-study-location
+                    *ngIf="page == pageType.ROUND_LOCATION_AND_STUDY_LOCATION"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-location-and-study-location>
+                <app-view-round-instructor
+                    *ngIf="page == pageType.ROUND_INSTRUCTOR"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-instructor>
+                <app-view-round-worker
+                    *ngIf="page == pageType.ROUND_WORKER"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-worker>
+                <app-view-round-teaching-documents
+                    *ngIf="page == pageType.ROUND_TEACHING_DOCUMENTS"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-teaching-documents>
+                <app-view-round-expenses-and-share-of-registration-fees
+                    *ngIf="page == pageType.ROUND_EXPENSES_AND_SHARE_OF_REGISTRATION_FEES"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-expenses-and-share-of-registration-fees>
+                <app-view-round-accompanying-video
+                    *ngIf="page == pageType.ROUND_ACCOMPANYING_VIDEO"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-accompanying-video>
+                <app-view-round-thumbnail
+                    *ngIf="page == pageType.ROUND_THUMBNAIL"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-thumbnail>
+                <app-view-round-other-illustrations
+                    *ngIf="page == pageType.ROUND_OTHER_ILLUSTRATIONS"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-other-illustrations>
+                <app-view-round-certificate
+                    *ngIf="page == pageType.ROUND_CERTIFICATE"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-view-round-certificate>
+
+                <!-- <app-round-open-course-round
+                    *ngIf="page == pageType.ROUND_OPEN_COURSE_ROUND"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-round-open-course-round>
+                <app-round-location-and-study-location
+                    *ngIf="page == pageType.ROUND_LOCATION_AND_STUDY_LOCATION"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-round-location-and-study-location>
+                <app-round-instructor
+                    *ngIf="page == pageType.ROUND_INSTRUCTOR"
+                    [lang]="lang"
+                ></app-round-instructor>
+                <app-round-teaching-documents
+                    *ngIf="page == pageType.ROUND_TEACHING_DOCUMENTS"
+                    [lang]="lang"
+                ></app-round-teaching-documents>
+                <app-round-expenses-and-share-of-registration-fees
+                    *ngIf="page == pageType.ROUND_EXPENSES_AND_SHARE_OF_REGISTRATION_FEES"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-round-expenses-and-share-of-registration-fees>
+                <app-round-accompanying-video
+                    *ngIf="page == pageType.ROUND_ACCOMPANYING_VIDEO"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-round-accompanying-video>
+                <app-round-thumbnail
+                    *ngIf="page == pageType.ROUND_THUMBNAIL"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                ></app-round-thumbnail>
+                <app-round-other-illustrations
+                    *ngIf="page == pageType.ROUND_OTHER_ILLUSTRATIONS"
+                    [lang]="lang"
+                ></app-round-other-illustrations> -->
+            </div>
+        </div>
+    </div>
+</div>

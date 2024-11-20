@@ -1,0 +1,110 @@
+<div class="card" *ngIf="coursepublicMain && initForm" permission menuCode="SDB-CM2002,SDB-CM2003">
+    <div class="p-fluid">
+        <header class="d-flex justify-content-md-between">
+            <div class="flex justify-content-between">
+                <h3 style="color: var(--font-color-header)" >{{ 'courseManagement.menuTab.attachedDocuments.saveApprovalDocuments' | translate }}</h3>
+                <p-button
+                    [label]="'common.button.back' | translate"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    (click)="onBack()"
+                >
+                </p-button>
+            </div>
+        </header>
+        <hr style="border-top: 1px solid var(--font-color-header)" />
+    </div>
+
+    <div class="container">
+        <div class="grid p-fluid ml-1">
+            <aside class="col-12 md:col-3 lg:col-3" style="min-height: 100vh">
+                <p-menu
+                    [model]="menuItems"
+                    [showTransitionOptions]="'.12s cubic-bezier(0, 0, 0.9, 1)'"
+                    class="w-full"
+                    [style]="{ width: '100%', height: '100vh' }"
+                    (click)="activeMenu($event)"
+                ></p-menu>
+            </aside>
+            <div class="field col-12 md:col-9 lg:col-9">
+                <app-round-open-course-round
+                    *ngIf="page == pageType.ROUND_OPEN_COURSE_ROUND"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+
+                ></app-round-open-course-round>
+                <app-round-location-and-study-location
+                    *ngIf="page == pageType.ROUND_LOCATION_AND_STUDY_LOCATION"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-location-and-study-location>
+                <app-round-instructor
+                    *ngIf="page == pageType.ROUND_INSTRUCTOR"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-instructor>
+                <app-round-worker
+                    *ngIf="page == pageType.ROUND_WORKER"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-worker>
+                <app-round-teaching-documents
+                    *ngIf="page == pageType.ROUND_TEACHING_DOCUMENTS"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-teaching-documents>
+                <app-round-expenses-and-share-of-registration-fees
+                    *ngIf="page == pageType.ROUND_EXPENSES_AND_SHARE_OF_REGISTRATION_FEES"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-expenses-and-share-of-registration-fees>
+                <app-round-accompanying-video
+                    *ngIf="page == pageType.ROUND_ACCOMPANYING_VIDEO"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-accompanying-video>
+                <app-round-thumbnail
+                    *ngIf="page == pageType.ROUND_THUMBNAIL"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain($event)"
+                    (backToList)="onBack()"
+                ></app-round-thumbnail>
+                <app-round-other-illustrations
+                    *ngIf="page == pageType.ROUND_OTHER_ILLUSTRATIONS"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (afterSaveCourseMain)="afterSaveCourseMain()"
+                    (backToList)="onBack()"
+                ></app-round-other-illustrations>
+                <app-round-more-detail
+                    *ngIf="page == pageType.ROUND_MORE_DETAIL"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (backToList)="onBack()"
+                >
+                </app-round-more-detail>
+                <app-round-certificate
+                    *ngIf="page == pageType.ROUND_CERTIFICATE"
+                    [lang]="lang"
+                    [coursepublicMain]="coursepublicMain"
+                    (backToList)="onBack()" >
+                </app-round-certificate>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,340 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card" *ngIf="coursepublicMain && initForm">
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+
+    <div class="p-fluid m-0 mb-4">
+        <div class="p-fluid m-0 mb-4">
+            <header class="p-fluid">
+                <h5 class="text-primary">
+                    {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.openCourseRound' | translate }}
+                </h5>
+                <p-divider type="solid"></p-divider>
+            </header>
+        </div>
+        <div class="col-12 md:col-12">
+            <label class="font-bold">{{
+                'courseManagement.tabRoundGeneral.tabOpenCourseRound.nameCourseTh' | translate
+            }}</label>
+            <input pInputText type="text" [(ngModel)]="coursepublicMain.publicNameTh" />
+        </div>
+
+        <div class="col-12 md:col-12">
+            <label class="font-bold">{{
+                'courseManagement.tabRoundGeneral.tabOpenCourseRound.nameCourseEn' | translate
+            }}</label>
+            <input pInputText type="text" [(ngModel)]="coursepublicMain.publicNameEn" />
+        </div>
+        <div class="col-12 md:col-12 flex grid pl-3 gap-3 align-items-center">
+            <div>
+                <label class="font-bold">
+                    {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.format' | translate }} :
+                </label>
+            </div>
+            <div class="pl-3 flex grid" >
+                <div *ngFor="let item of publicFormatList" class="flex align-items-center mr-3">
+                    <p-radioButton
+                        name="publicFormat"
+                        [value]="item.value"
+                        [(ngModel)]="coursepublicMain.publicFormat"
+                        (onClick)="onChangePublicFormat()"
+                    ></p-radioButton>
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}</label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-12 grid-flex grid pr-0 ">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                <label class="font-bold">{{
+                    'courseManagement.tabRoundGeneral.tabOpenCourseRound.generation' | translate
+                }}</label>
+                <input pInputText type="text" [disabled]="true" [(ngModel)]="coursepublicMain.courseGeneration" />
+            </div>
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-6 mb-0 pr-0">
+                <label class="font-bold"><a style="color: red">*</a>
+                {{
+                    'courseManagement.tabRoundGeneral.tabOpenCourseRound.maximumApplicant' | translate
+                }}</label>
+                <p-inputNumber
+                    [min]="0"
+                    [max]="1000000"
+                    [(ngModel)]="coursepublicMain.maxEnroll"
+                    inputId="maxEnroll"
+                    mode="decimal"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    [class]="showError == true && !!!coursepublicMain.maxEnroll ? 'ng-invalid ng-dirty' : ''"
+                >
+                </p-inputNumber>
+                <small> &nbsp;{{ lang === 'th' ? '(หากไม่จำกัดจำนวน ให้กรอก 99,999 ในช่องด้านล่าง)' : '(If there is no limit, enter 99,999 in the box below.)' }}</small>
+
+                <small *ngIf="showError && !!!coursepublicMain.maxEnroll" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseEnter' | translate }}</p>
+                </small>
+            </div>
+        </div>
+        <div class="flex pt-1 p-2">
+            <p-inputSwitch [(ngModel)]="coursepublicMain.publicStatus"></p-inputSwitch>
+            <p class="ml-2">{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.publishStatus' | translate }}</p>
+        </div>
+
+        <div class="formgrid grid ml-1 pt-2">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.publishDateStart' | translate }}</label
+                >
+                <p-calendar
+                    [showIcon]="true"
+                    inputId="coursePublicStart"
+                    [(ngModel)]="coursepublicMain.coursePublicStart"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    (onSelect)="changeClearDateAll(); clickCoursePublicStart = false"
+                    [class]="showError == true && !!!coursepublicMain.coursePublicStart ? 'ng-invalid ng-dirty' : ''"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCoursePublicStart"
+                    (onYearChange)="clickCoursePublicStart = true"
+                ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.coursePublicStart" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2" *ngIf="coursepublicMain.publicFormat === 30007002">
+                <label class="font-bold">
+                    <a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.publishDateEnd' | translate }}</label
+                >
+                <p-calendar
+                    [disabled]="null == coursepublicMain.coursePublicStart"
+                    [showIcon]="true"
+                    inputId="coursePublicEnd"
+                    [(ngModel)]="coursepublicMain.coursePublicEnd"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCoursePublicEnd"
+                    (onYearChange)="clickCoursePublicEnd = true"
+                    (onSelect)="clickCoursePublicEnd = false"
+                    [class]="showError == true && !!!coursepublicMain.coursePublicEnd ? 'ng-invalid ng-dirty' : ''"
+                    [minDate]="coursepublicMain.coursePublicStart"
+                ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.coursePublicEnd" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2 align-items-end flex mb-0">
+                <div class="mb-2 ml-2" style="color: green">*ต้องเลือกวันที่เริ่มแสดงบนเว็บอันดับแรก</div>
+            </div>
+        </div>
+
+        <div class="formgrid grid ml-1 pt-2">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{
+                        'courseManagement.tabRoundGeneral.tabOpenCourseRound.registrationDateStart' | translate
+                    }}</label
+                >
+                <p-calendar
+                    [disabled]="null == coursepublicMain.coursePublicStart"
+                    [showIcon]="true"
+                    inputId="courseRegisStart"
+                    [(ngModel)]="coursepublicMain.courseRegisStart"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCourseRegisStart"
+                    (onYearChange)="clickCourseRegisStart = true"
+                    [class]="showError == true && !!!coursepublicMain.courseRegisStart ? 'ng-invalid ng-dirty' : ''"
+                    (onSelect)="changeClearRegisEndAndClass(); clickCourseRegisStart = false"
+                    [minDate]="coursepublicMain.coursePublicStart"
+                ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.courseRegisStart" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2" *ngIf="coursepublicMain.publicFormat === 30007002">
+                <label class="font-bold">
+                    <a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.registrationDateEnd' | translate }}</label
+                >
+                <p-calendar
+                    [disabled]="!!!coursepublicMain.courseRegisStart"
+                    [showIcon]="true"
+                    inputId="courseRegisEnd"
+                    [(ngModel)]="coursepublicMain.courseRegisEnd"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCourseRegisEnd"
+                    (onYearChange)="clickCourseRegisEnd = true"
+                    (onSelect)="clickCourseRegisEnd = false"
+                    [class]="showError == true && !!!coursepublicMain.courseRegisEnd ? 'ng-invalid ng-dirty' : ''"
+                    [minDate]="coursepublicMain.courseRegisStart"
+                ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.courseRegisEnd" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2 align-items-end flex mb-0">
+                <div class="mb-2 ml-2" style="color: green">*ต้องเลือกวันที่เริ่มแสดงบนเว็บก่อน</div>
+            </div>
+        </div>
+
+        <div class="formgrid grid ml-1 pt-2">
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2">
+                <label class="font-bold"
+                    ><a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.classDateStart' | translate }}</label
+                >
+                <p-calendar
+                    [disabled]="null == coursepublicMain.courseRegisStart"
+                    [showIcon]="true"
+                    inputId="courseClassStart"
+                    [(ngModel)]="coursepublicMain.courseClassStart"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCourseClassStart"
+                    (onYearChange)="clickCourseClassStart = true"
+                    [class]="showError == true && !!!coursepublicMain.courseClassStart ? 'ng-invalid ng-dirty' : ''"
+                    (onSelect)="changeClearClassEnd(); clickCourseClassStart = false"
+                    [minDate]="coursepublicMain.courseRegisStart"
+                    ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.courseClassStart" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2" *ngIf="coursepublicMain.publicFormat === 30007002">
+                <label class="font-bold">
+                    <a style="color: red">*</a
+                    >{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.classDateEnd' | translate }}</label
+                >
+                <p-calendar
+                    [disabled]="null == coursepublicMain.courseClassStart"
+                    [showIcon]="true"
+                    inputId="courseClassEnd"
+                    [(ngModel)]="coursepublicMain.courseClassEnd"
+                    [placeholder]="'common.pleaseSelect' | translate"
+                    [hideOnDateTimeSelect]="true"
+                    appThaiCalendar
+                    [lang]="lang"
+                    [clickYear]="clickCourseClassEnd"
+                    (onYearChange)="clickCourseClassEnd = true"
+                    (onSelect)="clickCourseClassEnd = false"
+                    [class]="showError == true && !!!coursepublicMain.courseClassEnd ? 'ng-invalid ng-dirty' : ''"
+                    [minDate]="coursepublicMain.courseClassStart"
+                ></p-calendar>
+                <small *ngIf="showError && !!!coursepublicMain.courseClassEnd" class="p-error" id="text-error">
+                    <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+                </small>
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-6 lg:col-4 p-0 pl-2 align-items-end flex mb-0">
+                <div class="mb-2 ml-2" style="color: green">*ต้องเลือกวันที่เริ่มเปิดรับสมัครก่อน</div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <!-- task 109 -->
+        <!-- <div class="p-fluid m-0 mb-4" *ngIf="coursepublicMain.publicFormat === 30007002" > -->
+        <div class="p-fluid m-0 mb-4" *ngIf="coursepublicMain.publicFormat === 30007002">
+            <header class="p-fluid">
+                <h5 class="text-primary">
+                    {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.openCourse' | translate }}
+                </h5>
+                <p-divider type="solid"></p-divider>
+            </header>
+        </div>
+        <div class="flex p-2" *ngIf="coursepublicMain.publicFormat === 30007002">
+            <p-inputSwitch [(ngModel)]="coursepublicMain.buasriStatus"></p-inputSwitch>
+            <p class="ml-2">{{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.providedBuasri' | translate }}</p>
+        </div>
+
+        <!-- <div class="col-12 md:col-12 flex">
+            <div>
+                <label class="font-bold"
+                    ><a style="color: red">*</a>
+                    {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.certificate' | translate }} :
+                </label>
+            </div>
+            <div class="flex align-items-center m-0">
+                <div *ngFor="let item of certificateFormatList" class="pl-3">
+                    <p-checkbox
+                        [label]="lang === 'th' ? item.nameTh : item.nameEn"
+                        name="certificateFormat"
+                        [value]="item.value"
+                        [(ngModel)]="coursepublicMain.certificateFormat"
+                        [class]="
+                            showError == true && !!!coursepublicMain.certificateFormat ? 'ng-invalid ng-dirty' : ''
+                        "
+                    ></p-checkbox>
+                </div>
+            </div>
+        </div>
+        <small *ngIf="showError && !!!coursepublicMain.certificateFormat" class="p-error" id="text-error">
+            <p class="ml-2">{{ 'common.pleaseSelect' | translate }}</p>
+        </small> -->
+        <br />
+
+        <div class="p-fluid m-0 mb-4">
+            <header class="p-fluid">
+                <h5 class="text-primary">
+                    {{ 'courseManagement.tabRoundGeneral.tabOpenCourseRound.status' | translate }}
+                </h5>
+                <p-divider type="solid"></p-divider>
+            </header>
+        </div>
+        <div class="col-12 flex gap-2">
+            <p-inputSwitch [(ngModel)]="coursepublicMain.activeFlag"> </p-inputSwitch>
+            <label class="ml-2">{{
+                coursepublicMain.activeFlag
+                    ? ('common.status.active' | translate)
+                    : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

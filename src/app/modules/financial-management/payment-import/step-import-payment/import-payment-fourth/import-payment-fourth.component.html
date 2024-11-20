@@ -1,0 +1,81 @@
+<p-toast></p-toast>
+<div class="card mt-4" *ngIf="initForm && model">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">
+                {{ 'financeManagement.financeImport.import.confirm.confirm' | translate }}
+            </h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+    <div class="m-2 flex-wrap">
+        <div class="justify-content-center align-items-center flex grid">
+            <div class="justify-content-center flex mt-8 align-items-center">
+                <div class="m-5">
+                    <div class="flex pi pi-exclamation-circle" style="font-size: 6rem; color: var(--surface-400)"></div>
+                </div>
+
+                <div class="align-items-center">
+                    <div class="flex">
+                        <h5 class="text-primary">
+                            {{ 'financeManagement.financeImport.import.confirm.confirm' | translate }}
+                        </h5>
+                    </div>
+                    <div class="flex m-2">
+                        <div class="font-bold mr-4">
+                            {{ 'financeManagement.financeImport.import.confirm.fileName' | translate }} :
+                        </div>
+                        <div>{{ model.impFileName }}</div>
+                    </div>
+                    <div class="flex m-2">
+                        <div class="font-bold mr-4">
+                            {{ 'financeManagement.financeImport.import.confirm.course' | translate }} :
+                        </div>
+                        <div>
+                            {{
+                                lang === 'th'
+                                    ? model.coursepublicMainData.publicNameTh
+                                    : model.coursepublicMainData.publicNameEn
+                            }}
+                        </div>
+                    </div>
+                    <div class="flex m-2">
+                        <div class="font-bold mr-4">
+                            {{ 'financeManagement.financeImport.import.confirm.amount' | translate }} :
+                        </div>
+                        <div>{{ model.impFileRow | number }}</div>
+                    </div>
+                    <div class="flex m-2">
+                        <div class="font-bold mr-4">
+                            {{ 'financeManagement.financeImport.import.confirm.priceTotal' | translate }} :
+                        </div>
+                        <div>{{ model.impFileMoney | number: ".2" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col m-4">
+            <div class="flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.back' | translate"
+                        icon="pi pi-angle-left"
+                        styleClass="p-button-secondary p-button-sm"
+                        size="small"
+                        (onClick)="onBack()"
+                    ></p-button>
+                </div>
+                <div class="flex align-items-center justify-content-center">
+                    <p-button
+                        [label]="'common.button.save' | translate"
+                        icon="pi pi-save"
+                        styleClass="p-button-primary p-button-sm"
+                        size="small"
+                        (onClick)="onNext()"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

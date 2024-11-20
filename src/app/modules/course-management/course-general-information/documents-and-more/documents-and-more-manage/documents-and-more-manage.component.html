@@ -1,0 +1,144 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.name' | translate }}</h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div>
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.file' | translate }}</label
+                            >
+                        </div>
+                        <div *ngIf="item.filename && !showUpload " class="card">
+                            <div class="flex justify-content-between">
+                                <div>
+                                    <span (click)="previewPdf(item)" class="pi pi-file-pdf text-primary cursor-pointer"></span> <a > {{item.fileNameTh ? (item.fileNameTh+'.pdf') : 'courseManagement.tabGeneral.tabDocumentsOthers.form.fileNameTh' | translate}}</a>
+                                </div>
+
+                                <span
+                            *ngIf="item.filename || !showUpload "
+                            class="pi pi-times cursor-pointer ml-2"
+                            (click)="showUpload = !showUpload"></span>
+                            </div>
+
+
+                        </div>
+
+                        <div >
+
+                            <p-fileUpload
+                            *ngIf="showUpload"
+                                styleClass="w-full"
+                                name="file"
+                                [multiple]="false"
+                                [customUpload]="true"
+                                [fileLimit]="1"
+                                [showUploadButton]="false"
+                                [showCancelButton]="false"
+                                [auto]="true"
+                                [chooseLabel]="'common.pleaseSelect' | translate"
+                                accept=".pdf"
+                                #fileUpload
+                                (uploadHandler)="onAdvancedUpload($event)"
+                                (onRemove)="onRemoveUpload($event, fileUpload)"
+                                [class]="showError == true && !!!item.filename ? 'ng-invalid ng-dirty' : ''"
+                                >
+                                <ng-template pTemplate="content" let-files>
+                                    <div *ngIf="showUpload">{{ 'common.dragAndDrop' | translate }}</div>
+                                </ng-template>
+
+                            </p-fileUpload>
+
+                            <!-- แจ้งเตือนเมื่อไฟล์มีขนาดเกิน 20MB -->
+                            <small *ngIf="showError && fileSizeExceeded && item.filename" class="p-error" id="text-error">{{ lang === 'th'?'ไฟล์เกินขนาด 20MB' : 'The file exceeds 20MB in size.' }}
+                            </small>
+
+                            <small *ngIf="showErrorFile " class="p-error" id="text-error">
+                                {{ lang === 'th'?'ไฟล์เกินขนาด 20MB' : 'The file exceeds 20MB in size.'}}
+                            </small>
+
+                            <!-- แจ้งเตือนเมื่อไม่ได้เลือกไฟล์ -->
+                            <small *ngIf="showError && !!!item.filename" class="p-error" id="text-error">
+                                {{ 'common.pleaseEnter' | translate }}
+                            </small>
+
+                        </div>
+                        <div style="color: var(--surface-500);">{{lang === 'th' ? 'รองรับเฉพาะไฟล์ PDF เท่านั้น กรุณาแปลงเอกสารของท่านเป็นไฟล์ PDF ก่อนทำการอัปโหลด' : 'Only PDF files are supported. Please convert your document to a PDF file before uploading.' }}</div>
+
+                        <small *ngIf="showError && !!!item" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.fileNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.fileNameTh"
+                            [class]="showError == true && !!!item.fileNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.fileNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a
+                            >{{ 'courseManagement.tabGeneral.tabDocumentsOthers.form.fileNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="item.fileNameEn"
+                            [class]="showError == true && !!!item.fileNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.fileNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

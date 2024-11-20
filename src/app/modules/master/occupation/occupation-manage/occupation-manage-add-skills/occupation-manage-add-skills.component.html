@@ -1,0 +1,86 @@
+<p-toast id="lv2" (onClose)="onCloseLevel2($event)"></p-toast>
+<div class="card" *ngIf="item">
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">
+                {{
+                    ((modeChilde === 'CREATE_CHILDE' ? 'common.mode.add' : 'common.mode.edit') | translate) +
+                        ('master.occupantion.form.subForm.name' | translate)
+                }}
+            </h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.occupantion.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="formgrid grid">
+            <div class="p-fluid formgrid grid col-12">
+                <div class="field col-12">
+                    <label style="line-height: 2.5" class="mb-0">
+                        <span style="color: red">*</span>
+                        {{ 'master.occupantion.form.subForm.generalSkillId' | translate }}
+                    </label>
+                    <p-dropdown
+                        [options]="generalSkillList"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        (onFilter)="lazyLoadGeneralSkill($event)"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                        [(ngModel)]="item.generalSkillId"
+                        [class]="showError == true && !!!item.generalSkillId ? 'ng-invalid ng-dirty' : ''"
+                    ></p-dropdown>
+                    <small *ngIf="showError && !!!item.generalSkillId" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+            <div class="p-fluid formgrid grid col-12">
+                <div class="field col-12">
+                    <label style="line-height: 2.5" class="mb-0">
+                        <span style="color: red">*</span>
+                        {{ 'master.occupantion.form.subForm.occSkillLevel' | translate }}
+                    </label>
+                    <p-dropdown
+                        [options]="skillLevelList"
+                        [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                        optionValue="value"
+                        [showClear]="true"
+                        [filter]="true"
+                        [placeholder]="'common.pleaseSelect' | translate"
+                        [(ngModel)]="item.occSkillLevel"
+                        [class]="showError == true && !!!item.occSkillLevel ? 'ng-invalid ng-dirty' : ''"
+                    ></p-dropdown>
+                    <small *ngIf="showError && !!!item.occSkillLevel" class="p-error" id="text-error">
+                        {{ 'common.pleaseEnter' | translate }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2 justify-content-center align-items-center mt-4">
+        <p-button
+            [label]="'common.button.ok' | translate"
+            icon="pi pi-save"
+            styleClass="p-button-primary p-button-sm"
+            size="small"
+            [disabled]="processing"
+            (onClick)="onSave()"
+        >
+        </p-button>
+
+        <p-button
+            [label]="'common.button.cancel' | translate"
+            icon="pi pi-times-circle"
+            styleClass="p-button-sm p-button-secondary"
+            severity="secondary"
+            size="small"
+            (onClick)="onBack()"
+        >
+        </p-button>
+    </div>
+</div>

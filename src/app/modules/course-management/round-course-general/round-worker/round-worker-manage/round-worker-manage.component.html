@@ -1,0 +1,214 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+
+<div class="card">
+    <div class="p-fluid m-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{ 'courseManagement.tabGeneral.tabWorkerGroup.form.name' | translate }}</h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'courseManagement.tabGeneral.tabTeachingProfessor.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="m-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-12">
+                        <div class="flex align-items-center gap-2">
+                            <p-checkbox
+                                [(ngModel)]="item.workerType"
+                                [binary]="true"
+                                inputId="workerType"
+                                (onChange)="onChangeWorkerType($event)"
+                            ></p-checkbox>
+                            <label class="font-bold">{{
+                                'courseManagement.tabGeneral.tabWorkerGroup.form.workerType' | translate
+                            }}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-12" *ngIf="!item.workerType">
+                        <label class="font-bold"
+                            ><a style="color: red">*</a>
+                            {{ 'courseManagement.tabGeneral.tabWorkerGroup.form.internalName' | translate }}</label
+                        >
+                        <p-dropdown
+                            [options]="personalList"
+                            [(ngModel)]="item.workerId"
+                            [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                            optionValue="value"
+                            [showClear]="true"
+                            [filter]="true"
+                            (onClick)="lazyLoadPersonal()"
+                            (onFilter)="lazyLoadPersonal($event)"
+                            [placeholder]="'common.pleaseSelect' | translate"
+                        ></p-dropdown>
+                        <!-- (onChange)="changePersonal()" -->
+                        <small
+                            *ngIf="showError && !!!item.workerId && item.workerType != true"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div *ngIf="item.workerType" class="col-12 md:col-12">
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabGeneral.tabWorkerGroup.form.externalNameTh' | translate
+                                }}</label
+                            >
+                            <p-autoComplete
+                                id="externalNameTh"
+                                #externalNameTh
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalNameTh"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameTh"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalNameTh && item.workerType"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <div *ngIf="item.workerType" class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{
+                                    'courseManagement.tabGeneral.tabWorkerGroup.form.externalNameEn' | translate
+                                }}</label
+                            >
+                            <p-autoComplete
+                                id="externalNameEn"
+                                #externalNameEn
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalNameEn"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameTh"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalNameEn && item.workerType"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <div *ngIf="item.workerType" class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.tabGeneral.tabWorkerGroup.form.email' | translate }}</label
+                            >
+                            <p-autoComplete
+                                id="externalEmail"
+                                #externalEmail
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalEmail"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameTh"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalEmail && item.workerType"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+
+                        <div *ngIf="item.workerType" class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.tabGeneral.tabWorkerGroup.form.organization' | translate }}</label
+                            >
+                            <p-autoComplete
+                                id="externalDepName"
+                                #externalDepName
+                                dataKey="personalId"
+                                field="displayText"
+                                [(ngModel)]="item.externalDepName"
+                                [suggestions]="suggestions"
+                                (completeMethod)="onKeyupExternal($event)"
+                                autoCompleteOptionValue
+                                [delay]="150"
+                                optionValue="fullnameTh"
+                                (callBackDirective)="onSelectedExternal($event)"
+                            />
+                        </div>
+                        <small
+                            *ngIf="showError && !!!item.externalDepName && item.workerType"
+                            class="p-error"
+                            id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <div class="col-12 md:col-12">
+                            <label class="font-bold"
+                                ><a style="color: red">*</a
+                                >{{ 'courseManagement.tabGeneral.tabWorkerGroup.form.position' | translate }}</label
+                            >
+                            <p-dropdown
+                                [options]="positionList"
+                                [(ngModel)]="item.positionType"
+                                [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn'"
+                                optionValue="value"
+                                [showClear]="true"
+                                [placeholder]="'common.pleaseSelect' | translate"
+                                [class]="showError && !!!item.positionType ? 'ng-invalid ng-dirty' : ''"
+                            ></p-dropdown>
+                        </div>
+                        <small *ngIf="showError && !!!item.positionType" class="p-error" id="text-error"
+                            >{{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

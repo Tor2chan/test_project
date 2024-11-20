@@ -1,0 +1,145 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<div class="card" *ngIf="coursepublicMain">
+    <div class="p-fluid m-0 mb-4" style="opacity: 0.5">
+        <h4>
+            [{{ coursepublicMain.courseCode }}]&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h4>
+    </div>
+
+    <div>
+        <h5 class="text-primary">{{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.name' | translate }}</h5>
+        <hr />
+        <div class="col-12 flex grid">
+            <div class="lg:col-6 md:col-6 sm:col-12 ">
+                <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.videoNameTh' | translate }}</label>
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="coursepublicMedia.mediaNameTh"
+                    [class]="showError == true && !!!coursepublicMedia.mediaNameTh ? 'ng-invalid ng-dirty' : ''"
+                />
+                <small *ngIf="showError && !!!coursepublicMedia.mediaNameTh" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+            <div class="lg:col-6 md:col-6 sm:col-12 pr-0">
+                <label class="font-bold"><a style="color: red">*</a>{{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.videoNameEn' | translate }}</label>
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="coursepublicMedia.mediaNameEn"
+                    [class]="showError == true && !!!coursepublicMedia.mediaNameEn ? 'ng-invalid ng-dirty' : ''"
+                />
+                <small *ngIf="showError && !!!coursepublicMedia.mediaNameEn" class="p-error" id="text-error">
+                    {{ 'common.pleaseEnter' | translate }}
+                </small>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-12 flex grid pl-3 gap-3 align-items-center mt-1">
+            <div>
+                <label class="font-bold">
+                    {{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.videoOption' | translate }} :
+                </label>
+            </div>
+            <div class="pl-3 flex grid" >
+                <div *ngFor="let item of videoOptionList" class="flex align-items-center mr-3">
+                    <p-radioButton
+                        name="videoDisplayOption"
+                        [value]="item.value"
+                        [(ngModel)]="coursepublicMedia.videoDisplayOption"
+                        (onClick)="onChangeVideoDisplayOption()"
+                    ></p-radioButton>
+                    <label for="ingredient1" class="ml-2 justify-content-center">
+                        {{ lang === 'th' ? item.nameTh : item.nameEn }}</label
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="coursepublicMedia.videoDisplayOption==30045001" class="col-12">
+            <label for="" class=" font-bold">
+            {{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.fileVideo' | translate }}
+            </label>
+            <span  *ngIf="coursepublicMedia.filename && !showUpload" class="pi pi-pencil cursor-pointer" (click)="onEditVideo()"></span>
+            <p style="color: var(--surface-500);">
+                {{ lang === 'th' ? 'ความยาวของวิดีโอไม่เกิน 5 นาที และใช้คุณภาพระดับ Full HD เท่านั้น' : 'The video length should not exceed 5 minutes and use Full HD quality only.'  }}
+            </p>
+            <p-fileUpload
+                *ngIf="showUpload"
+                #fileUpload
+                (uploadHandler)="onAdvancedUpload($event)"
+                (onRemove)="onRemoveUpload($event, fileUpload)"
+                chooseLabel="อัปโหลดวิดีโอ"
+                name="file"
+                accept=".avi, .mp4, .m4v, .mov, .mpg, .mpeg, .wmv"
+                [auto]="true"
+                [maxFileSize]="2000000000"
+                [multiple]="false"
+                [customUpload]="true"
+                [fileLimit]="1"
+                [class]="showError == true && !!!coursepublicMedia.filename ? 'ng-invalid ng-dirty' : ''"
+            >
+            </p-fileUpload>
+
+
+            <div style="opacity: 60%;">{{
+                '.avi, .mp4, .m4v, .mov, .mpg, .mpeg, .wmv' | translate
+            }}</div>
+
+            <!-- <small *ngIf="showError && !!!coursepublicMedia.filename" class="p-error" id="text-error">
+                {{ 'common.pleaseEnter' | translate }}
+            </small> -->
+
+            <vg-player *ngIf="!showUpload">
+                <video [vgMedia]="$any(media)" #media id="singleVideo" preload="metadata" controls >
+                    <source
+                        [src]="videoUrl"
+                        [type]="videoType"
+                    />
+                </video>
+            </vg-player>
+        </div>
+
+        <div *ngIf="coursepublicMedia.videoDisplayOption==30045002" class="col-12">
+            <label for="" class=" font-bold">
+            {{ 'courseManagement.tabRoundGeneral.tabAccompanyingVideo.linkYoutube' | translate }}
+            </label>
+            <textarea
+                rows="5"
+                cols="30"
+                pInputTextarea
+                [(ngModel)]="coursepublicMedia.youtubePath"
+                style="resize: vertical; min-height: 80px; max-height: 200px"
+            ></textarea>
+
+
+        </div>
+
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,301 @@
+<ngx-ui-loader></ngx-ui-loader>
+
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="col-12 p-0 "
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+            [model]="[
+                { label: 'common.module.report' | translate, routerLink: '/report/enrollment-list-report' },
+                { label: 'report.course.enrollmentListReport.name' | translate, routerLink: '/report/enrollment-list-report' }
+            ]"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4 mr-4 ml-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'report.course.enrollmentListReport.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4 mr-4 ml-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.course' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.fullCourseTh"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.student' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.fullNameTh"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.receiptNumber' | translate }}</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="criteria.receiptNo"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.paymentType' | translate }}</label>
+                                <p-dropdown
+                                    [options]="paymentTypeList"
+                                    [(ngModel)]="criteria.payType"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+
+
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.receiptDate' | translate }}</label>
+                                <p-calendar
+                                    [showIcon]="true"
+                                    inputId="receiptDate"
+                                    [(ngModel)]="criteria.receiptDateList"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [hideOnDateTimeSelect]="true"
+                                    selectionMode="range"
+                                    appThaiCalendarRange
+                                    [lang]="lang"
+                                    [clickYear]="clickReceiptDate"
+                                    (onYearChange)="clickReceiptDate = true"
+                                    (onSelect)="clickReceiptDate = false"
+                                ></p-calendar>
+                            </div> -->
+                        </div>
+
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-12 lg:col-4">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.receiptDate' | translate }}</label>
+                                <div class="flex gap-0">
+                                    <div class="col-6" style="padding-left: 0px;">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="receiptDate"
+                                            [(ngModel)]="criteria.receiptDateStart"
+                                            [placeholder]="'common.between.begin' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearStart"
+                                            (onYearChange)="clickYearStart = true"
+                                            (onSelect)="clickYearStart = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [maxDate]="criteria.receiptDateEnd"
+                                            ></p-calendar>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="receiptDate"
+                                            [(ngModel)]="criteria.receiptDateEnd"
+                                            [placeholder]="'common.between.end' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearEnd"
+                                            (onYearChange)="clickYearEnd = true"
+                                            (onSelect)="clickYearEnd = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [minDate]="criteria.receiptDateStart"
+                                            ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-12 lg:col-4">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.paymentDate' | translate }}</label>
+                                <div class="flex gap-0">
+                                    <div class="col-6" style="padding-left: 0px;">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="transactionDatetime"
+                                            [(ngModel)]="criteria.transactionDatetimeStart"
+                                            [placeholder]="'common.between.begin' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearStart"
+                                            (onYearChange)="clickYearStart = true"
+                                            (onSelect)="clickYearStart = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [maxDate]="criteria.transactionDatetimeEnd"
+                                            ></p-calendar>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-calendar
+                                            [showIcon]="true"
+                                            inputId="transactionDatetime"
+                                            [(ngModel)]="criteria.transactionDatetimeEnd"
+                                            [placeholder]="'common.between.end' | translate"
+                                            [hideOnDateTimeSelect]="true"
+                                            appThaiCalendar
+                                            [lang]="lang"
+                                            [clickYear]="clickYearEnd"
+                                            (onYearChange)="clickYearEnd = true"
+                                            (onSelect)="clickYearEnd = false"
+                                            [showTime]="true"
+                                            [hourFormat]="'24'"
+                                            [minDate]="criteria.transactionDatetimeStart"
+                                            ></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.paymentDate' | translate }}</label>
+                                <p-calendar
+                                    [showIcon]="true"
+                                    inputId="transactionDatetime"
+                                    [(ngModel)]="criteria.transactionDatetimeList"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                    [hideOnDateTimeSelect]="true"
+                                    selectionMode="range"
+                                    appThaiCalendarRange
+                                    [lang]="lang"
+                                    [clickYear]="clictransactionDatetimeList"
+                                    (onYearChange)="clictransactionDatetimeList = true"
+                                    (onSelect)="clictransactionDatetimeList = false"
+                                ></p-calendar>
+                            </div> -->
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'report.course.enrollmentListReport.criteria.status' | translate }}</label>
+                                <p-dropdown
+                                    [options]="statusList"
+                                    [(ngModel)]="criteria.studyStatus"
+                                    [optionLabel]="lang === 'th' ? 'nameTh' : 'nameEn' "
+                                    optionValue="value"
+                                    [showClear]="true"
+                                    [placeholder]="'common.pleaseSelect' | translate"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'report.course.enrollmentListReport.table.name' | translate }}</h5>
+            </div>
+            <p-button
+                [label]="'common.button.export' | translate"
+                icon="pi pi-download"
+                styleClass="p-button-success p-button-sm p-button-outlined"
+                size="small"
+                (click)="onExport()"
+            ></p-button>
+        </div>
+        <hr />
+
+        <p-table
+            [(rows)]="rows"
+            [value]="items"
+            [totalRecords]="totalRecords"
+            [paginator]="true"
+            [rowHover]="true"
+            [lazy]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [paginator]="true"
+            styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            (onPage)="onSearch($event)"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5% ">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="width: 17%" >{{ 'report.course.enrollmentListReport.table.course' | translate }}</th>
+                    <th scope="col" style="width: 12%">{{ 'report.course.enrollmentListReport.table.student' | translate }}</th>
+                    <th scope="col" style="width: 8%">{{ 'report.course.enrollmentListReport.table.receiptNumber' | translate }}</th>
+                    <th scope="col" style="width: 10%" class="text-center" >{{ 'report.course.enrollmentListReport.table.receiptDate' | translate }}</th>
+                    <th scope="col" style="width: 10%" class="text-center" >{{ 'report.course.enrollmentListReport.table.paymentType' | translate }}</th>
+                    <th scope="col" style="width: 8%" class="text-right" >{{ 'report.course.enrollmentListReport.table.registrationFee' | translate }}</th>
+                    <th scope="col" style="width: 10%" class="text-center" >{{ 'report.course.enrollmentListReport.table.paymentDate' | translate }}</th>
+                    <th scope="col" style="width: 10%" class="text-center" >{{ 'report.course.enrollmentListReport.table.resultGrade' | translate }}</th>
+                    <th scope="col" style="width: 10%" class="text-center" >{{ 'common.status.name' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td>{{ lang === 'th' ? item.fullCourseTh : item.fullCourseEn }}</td>
+                    <td>{{ lang === 'th' ? item.fullNameTh : item.fullNameEn }}</td>
+                    <td>{{ item.receiptNo }}</td>
+                    <td class="text-center">{{ item.receiptDate | formatdatetime : lang }}</td>
+                    <td class="text-center">{{ lang === 'th' ? item.payTypeTh : item.payTypeEn }}</td>
+                    <td class="text-right">{{ item.paymentAmount | number: ".2" }}</td>
+                    <td class="text-center">{{ item.transactionDatetime | formatdatetime : lang }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item.passStatus" class="text-green-700">{{ item.resultGrade }}</span>
+                        <span *ngIf="!item.passStatus" class="text-red-700">{{ item.resultGrade }}</span>
+                    </td>
+                    <td class="text-center">{{ lang === 'th' ? item.studyStatusTh : item.studyStatusEn }}</td>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="11" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>

@@ -1,0 +1,111 @@
+<div class="card" *ngIf="initForm && courseMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ courseMain.courseCode }}&nbsp;&colon;&nbsp;{{ lang === 'th' ? courseMain.courseNameTh : courseMain.courseNameEn }}
+        </h2>
+    </div>
+    <div class="p-fluid m-0 mb-4" >
+        <header class=" ">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabTeachingInformation.name' | translate  }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <!-- รูปแบบการเรียนการสอน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingMetodology' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.courseFormatTh : courseMain.courseFormatEn }}
+            </div>
+        </div>
+        <!-- รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาไทย) -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingDescriptionTh' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseFormatDescTh }}
+            </div>
+        </div>
+        <!-- รายละเอียดรูปแบบการสอนเพิ่มเติม (ภาษาอังกฤษ)-->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.teachingDescriptionEn' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseFormatDescEn }}
+            </div>
+        </div>
+        <!--รวมจำนวนชั่วโมงเรียน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalClassHours' | translate}}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" *ngIf="!!!courseMain.courseTotalH">
+                &nbsp;
+                <!-- 0 {{'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalHours.hours'| translate}} &nbsp; ({{'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalHours.theory'| translate}} 0 {{'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalHours.hours'| translate}},&nbsp; {{'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalHours.practice'| translate}} 0  {{'courseManagement.tabGeneral.tabTeachingInformation.criteria.totalHours.hours'| translate}}) -->
+            </div>
+
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0" *ngIf="courseMain.courseTotalH">
+                <span>
+                    {{ courseMain.courseTotalH }}
+                    {{ courseMain.courseTotalH > 1 ? ('courseManagement.courseApproval.general.hrs' | translate ): ('courseManagement.courseApproval.general.hr' | translate) }} ( {{'courseManagement.courseApproval.general.theory' | translate }}
+                    {{ !!!courseMain.courseTheoryH ? 0 : courseMain.courseTheoryH }}
+                    {{ courseMain.courseTheoryH  > 1 ? ('courseManagement.courseApproval.general.hrs' | translate ): ('courseManagement.courseApproval.general.hr' | translate) }} , {{'courseManagement.courseApproval.general.action' | translate }}
+                    {{ !!!courseMain.courseActionH ? 0 : courseMain.courseActionH}}
+                    {{ courseMain.courseActionH  > 1 ? ('courseManagement.courseApproval.general.hrs' | translate ): ('courseManagement.courseApproval.general.hr' | translate) }} )
+                </span>
+            </div>
+
+        </div>
+        <!--ระยะเวลาเรียนตลอดหลักสูตรอบรมระยะสั้น -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.coursePeriod' | translate }}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.courseDurationTime }}&nbsp; {{ lang === 'th' ? courseMain.durationTimeUnitTh : courseMain.durationTimeUnitEn }}
+            </div>
+        </div>
+
+        <header class=" mt-5">
+            <h5 class="text-primary">{{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.name' | translate}}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+         <!-- รูปแบบผลการเรียน -->
+         <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.skillAssessment.name' | translate}}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                <span
+                    *ngIf="courseMain.evaluateFlag">
+                    {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.skillAssessment.evaluation' | translate}}
+                </span>
+
+                <span
+                    *ngIf="!courseMain.evaluateFlag">
+                    {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.skillAssessment.nonEvaluation' | translate}}
+                </span>
+            </div>
+        </div>
+        <!-- รูปแบบผลการเรียน -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.gradeFormat.name' | translate}}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ lang === 'th' ? courseMain.gradeFormatTh : courseMain.gradeFormatEn }}
+            </div>
+        </div>
+        <!--จำนวนหน่วยกิต -->
+        <div class="col-12 md:col-12 grid-flex grid ml-1 ">
+            <div class="field col-12 sm:col-12 md:col-4 lg:col-3 font-bold mb-0 pb-0">
+                {{ 'courseManagement.tabGeneral.tabTeachingInformation.criteria.grade.numOfCredits' | translate}}
+            </div>
+            <div class="field col-12 sm:col-12 md:col-8 lg:col-9 pl-4 mb-0">
+                {{ courseMain.creditAmount }}
+            </div>
+        </div>
+    </div>
+</div>

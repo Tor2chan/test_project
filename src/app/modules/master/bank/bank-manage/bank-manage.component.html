@@ -1,0 +1,116 @@
+<p-toast (onClose)="onClose($event)"></p-toast>
+<p-panel>
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate },
+                { label: 'master.bank.name' | translate },
+                { label: 'master.bank.form.name' | translate }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        >
+        </p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mx-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: red">{{ 'master.bank.form.name' | translate }}</h3>
+            <hr style="border-top: 1px solid red" />
+            <h5>{{ 'master.bank.form.detailSection' | translate }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+    </div>
+
+    <div class="mx-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="col col-12">
+                <div class="grid p-fluid">
+                    <div class="field col-12" style="margin-bottom: 5px; padding-bottom: 0px; padding-top: 0px">
+                        <label style="height: 25px"
+                            ><a style="color: red">*</a>{{ 'master.bank.form.bankCode' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="bankCode"
+                            type="text"
+                            [(ngModel)]="item.bankCode"
+                            [class]="showError == true && !!!item.bankCode ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.bankCode" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="field col-12" style="margin-bottom: 5px; padding-bottom: 0px; padding-top: 0px">
+                        <label style="height: 25px"
+                            ><a style="color: red">*</a>{{ 'master.bank.form.bankNameTh' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="bankNameTh"
+                            type="text"
+                            [(ngModel)]="item.bankNameTh"
+                            [class]="showError == true && !!!item.bankNameTh ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.bankNameTh" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                    <div class="field col-12" style="margin-bottom: 5px; padding-bottom: 0px; padding-top: 0px">
+                        <label style="height: 25px"
+                            ><a style="color: red">*</a>{{ 'master.bank.form.bankNameEn' | translate }}</label
+                        >
+                        <input
+                            pInputText
+                            id="bankNameEn"
+                            type="text"
+                            [(ngModel)]="item.bankNameEn"
+                            [class]="showError == true && !!!item.bankNameEn ? 'ng-invalid ng-dirty' : ''"
+                        />
+                        <small *ngIf="showError && !!!item.bankNameEn" class="p-error" id="text-error">
+                            {{ 'common.pleaseEnter' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-fluid mx-4">
+        <header class="d-flex justify-content-md-between">
+            <h5>{{ lang === 'th' ? 'สถานะ' : 'Access' }}</h5>
+            <p-divider type="solid"></p-divider>
+        </header>
+        <div class="col-12 flex gap-0">
+            <p-inputSwitch [style]="{ padding: '5px' }" [(ngModel)]="item.activeFlag"> </p-inputSwitch>
+            <label class="ml-2 text-center">{{
+                item.activeFlag ? ('common.status.active' | translate) : ('common.status.inActive' | translate)
+            }}</label>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-center align-items-center flex-wrap gap-2">
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.save' | translate"
+                    icon="pi pi-save"
+                    styleClass="p-button-primary p-button-sm"
+                    size="small"
+                    [disabled]="processing"
+                    (onClick)="onSave()"
+                ></p-button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <p-button
+                    [label]="'common.button.cancel' | translate"
+                    icon="pi pi-times-circle"
+                    styleClass="p-button-secondary p-button-sm"
+                    size="small"
+                    (onClick)="onBack()"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</p-panel>

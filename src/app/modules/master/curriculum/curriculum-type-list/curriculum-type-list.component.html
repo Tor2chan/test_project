@@ -1,0 +1,286 @@
+<ngx-ui-loader></ngx-ui-loader>
+<p-panel *ngIf="mode === 'LIST' && initForm">
+    <ng-template pTemplate="header">
+        <p-breadcrumb
+            class="max-w-full w-full"
+            [model]="[
+                { label: 'common.module.master' | translate, routerLink: '/master/curriculum' },
+                { label: 'master.courseType.name' | translate, routerLink: '/master/curriculum' }
+            ]"
+            [home]="{ icon: 'pi pi-home', routerLink: '/' }"
+        ></p-breadcrumb>
+    </ng-template>
+
+    <div class="p-fluid mt-4">
+        <header class="d-flex justify-content-md-between">
+            <h3 style="color: var(--font-color-header)">{{ 'master.curriculum.name' | translate }}</h3>
+            <hr style="border-top: 1px solid var(--font-color-header)" />
+        </header>
+    </div>
+
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.curriculum.criteria.curriculumSwuId' | translate }}</label>
+                                <!-- <label>หลักสูตร</label> -->
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.curriculumSwuId"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.curriculum.criteria.creditStudy' | translate }}</label>
+                                <!-- <label>จำนวนหน่วยกิตไม่เกิน</label> -->
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.creditStudy"
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.curriculum.criteria.degreeCode' | translate }}</label>
+                                <!-- <label>ปริญญา</label> -->
+                                <input
+                                    pInputText
+                                    [(ngModel)]="criteria.degreeCode "
+                                    type="text"
+                                    (keyup.enter)="onSearch()"
+                                />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label>{{ 'master.curriculum.criteria.majorCode' | translate }}</label>
+                                  <!-- <label>สาขาวิชา</label> -->
+                                  <input
+                                  pInputText
+                                  [(ngModel)]="criteria.majorCode"
+                                  type="text"
+                                  (keyup.enter)="onSearch()"
+                              />
+                            </div>
+                            <div class="p-fluid formgrid grid col-12">
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.curriculum.criteria.eduLevelCode' | translate }}</label>
+                                      <!-- <label>ระดับการศึกษา</label> -->
+                                    <p-dropdown
+                                        [options]="eduLevelCodeList"
+                                        optionLabel="nameTh"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [(ngModel)]="criteria.eduLevelCode"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.curriculum.criteria.studyYear' | translate }}</label>
+                                      <!-- <label>ระยะเวลาเรียน (ปี)</label> -->
+                                    <p-dropdown
+                                        [options]="studyYearList"
+                                        optionLabel="nameTh"
+                                        optionValue="value"
+                                        [showClear]="true"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [(ngModel)]="criteria.studyYear"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.curriculum.criteria.depId' | translate }}</label>
+                                      <!-- <label>หน่วยงาน</label> -->
+                                    <p-dropdown
+                                        [options]="depList"
+                                        [optionLabel]= "lang === 'th' ? 'depNameTh' : 'depNameEn'" 
+                                        optionValue="depCode"
+                                        [showClear]="true"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [(ngModel)]="criteria.depId"
+                                    ></p-dropdown>
+                                </div>
+                                <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                    <label>{{ 'master.curriculum.criteria.faculty' | translate }}</label>
+                                    <!-- <label>ส่วนงาน</label> -->
+                                    <p-dropdown
+                                        [options]="facultyList"
+                                        [optionLabel]="lang === 'th' ? 'depNameTh' : 'depNameEn'" 
+                                        optionValue="depCode"
+                                        [showClear]="true"
+                                        [placeholder]="'common.pleaseSelect' | translate"
+                                        [(ngModel)]="criteria.faculty"
+                                    ></p-dropdown>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div>
+                            <p-button
+                                [label]="'common.button.search' | translate"
+                                icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm"
+                                size="small"
+                                (click)="onSearch()"
+                            >
+                            </p-button>
+                        </div>
+                        <div>
+                            <p-button
+                                [label]="'common.button.clear' | translate"
+                                icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onClear()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="flex-wrap m-4">
+        <div class="flex justify-content-between">
+            <div class="align-items-center">
+                <h5 class="mt-2 mb-0">{{ 'master.curriculum.table.name' | translate }}</h5>
+            </div>
+            <div class="flex gap-2">
+                <span class="align-items-right pt-2">{{ 'common.syncLastest' | translate }} {{ syncDate | formatdatetime: lang }}</span>
+                <p-button
+                            permission
+                            menuCode="SDB-MS3002"
+                            [label]="
+                               progress < 100 ? progress + ' %' : ('master.curriculum.table.button' | translate)
+                               "
+          
+                            icon="pi pi-sync"
+                            styleClass="p-button-primary p-button-sm"
+                            size="small"
+                            (click)="onRepull()"
+                           
+                        >
+                </p-button>
+                </div>
+
+        </div>
+        <hr />
+        <p-table
+    [(rows)]="rows"
+    [value]="items"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rowHover]="true"
+    [lazy]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [scrollable]="true"
+    scrollHeight="flex"
+    styleClass="p-datatable-striped"
+    (onPage)="onSearch($event)"
+    [showCurrentPageReport]="true"
+    [currentPageReportTemplate]="'common.table.pageMessage' | translate"
+>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="text-center" style="width: 5%">
+                        {{ 'common.table.column.no' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.curriculumSwuId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.curriculumMhesiId' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.curriculumNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.curriculumNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.creditStudy' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.degreeCode' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.degreeNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.degreeNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.majorCode' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.majorNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.majorNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.eduLevelNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.eduLevelNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.studyYear' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.ownerFacultyNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.ownerFacultyNameEn' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.ownerDepNameTh' | translate }}
+                    </th>
+                    <th scope="col" style="min-width: 150px">
+                        {{ 'master.curriculum.table.column.ownerDepNameEn' | translate }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="text-center">{{ item.rowNum }}</td>
+                    <td class="text-left">{{ item.curriculumSwuId }}</td>
+                    <td class="text-left">{{ item.curriculumMhesiId }}</td>
+                    <td class="text-left">{{ item.curriculumNameTh }}</td>
+                    <td class="text-left">{{ item.curriculumNameEn }}</td>
+                    <td class="text-center">{{ item.creditStudy }}</td>
+                    <td class="text-center">{{ item.degreeCode }}</td>
+                    <td class="text-left">{{ item.degreeShortTh }}/{{ item.degreeNameTh }}</td>
+                    <td class="text-left">{{ item.degreeShortEn }}/{{ item.degreeNameTh }}</td>
+                    <td class="text-left">{{ item.majorCode }}</td>
+                    <td class="text-left">{{ item.majorNameTh }}</td>
+                    <td class="text-left">{{ item.majorNameEn }}</td>
+                    <td class="text-left">{{ item.eduLevelNameTh }}</td>
+                    <td class="text-left">{{ item.eduLevelNameEn }}</td>
+                    <td class="text-center">{{ item.studyYear }}</td>
+                    <td class="text-left">{{ item.ownerFacultyNameTh }}</td>
+                    <td class="text-left">{{ item.ownerFacultyNameEn }}</td>
+                    <td class="text-left">{{ item.ownerDepNameTh }}</td>
+                    <td class="text-left">{{ item.ownerDepNameEn }}</td>
+                    
+
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="text-left" colspan="9">{{ 'common.dataNotFound' | translate }}</td>
+                </tr>
+            </ng-template>
+            
+        </p-table>
+        <br /><br />
+    </div>
+</p-panel>
+

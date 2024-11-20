@@ -1,0 +1,164 @@
+<div class="card p-fluid m-0 mb-4" *ngIf="coursepublicMain">
+    <div class="p-fluid m-0 mb-4">
+        <h2>
+            {{ coursepublicMain.courseCode }}&nbsp;-&nbsp;{{
+                lang === 'th' ? coursepublicMain.publicNameTh : coursepublicMain.publicNameEn
+            }}
+        </h2>
+    </div>
+    <header class="flex justify-content-between">
+
+        <div class="flex align-coursepublicMains-end">
+            <h5 class="mt-3 text-primary align-coursepublicMains-end m-0">
+                {{ 'courseManagement.tabRoundGeneral.tabRoundCertificate.departmentLogo' | translate }}</h5>
+        </div>
+        <div class="flex">
+            <p-button
+                [label]="'Preview Certificate'"
+                styleClass="p-button-primary p-button-sm"
+                size="small"
+                (onClick)="previewPdf()"
+                >
+            </p-button>
+        </div>
+
+    </header>
+
+    <p-dialog header="Preview" [(visible)]="visible" [style]="{width: '75vw'}">
+        <div *ngIf="base64String">
+            <iframe [src]="base64String | safe" width="100%" height="800px"></iframe>
+          </div>
+    </p-dialog>
+
+    <hr />
+
+    <div class="mb-5 m-3">
+        <div class="m-3">
+            <p-table
+                [value]="coursepublicMainCertificateItems"
+                [totalRecords]="coursepublicMainCertificateTotalRecords"
+                [rowHover]="true"
+                [lazy]="true"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                (onPage)="fetchCertificate($event)"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th scope="col" style="width: 25">
+                            {{ 'courseManagement.roundApproval.certificate.logoTh' | translate }}
+                        </th>
+                        <th class="text-center" scope="col" style="width: 25%">
+                            {{ 'courseManagement.roundApproval.certificate.imgTh' | translate }}
+                        </th>
+                        <th scope="col" style="width: 25%">
+                            {{ 'courseManagement.roundApproval.certificate.logoEn' | translate }}
+                        </th>
+                        <th class="text-center" scope="col" style="width: 25%">
+                            {{ 'courseManagement.roundApproval.certificate.imgEn' | translate }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>Preview_Logo.png</td>
+                        <td class="text-center">
+                            <span *ngIf="item.fullpathCertificateFilenameTh">
+                                <img alt="420x40" width="420" height="40" [src]="item.fullpathCertificateFilenameTh" />
+                            </span>
+                        </td>
+                        <td>Preview_Logo.png</td>
+                        <td class="text-center">
+                            <span *ngIf="item.fullpathCertificateFilenameEn">
+                                <img alt="420x40" width="420" height="40" [src]="item.fullpathCertificateFilenameEn" />
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <div class="mb-5 m-3 p-3 card">
+        <div class="">
+            <div class="flex grid col-12 mb-2 align-items-center">
+                <div class="field lg:col-2 md:col-3 sm:col-6">
+                    <span class="font-bold"> {{ 'courseManagement.roundApproval.certificate.numOfSign' | translate }}</span>
+                </div>
+                <div *ngIf="coursepublicMain.certificateSignAmount"
+                    class="field p-2 pl-4 lg:col-9 md:col-8 sm:col-6" >
+                    <span>{{ coursepublicMain.certificateSignAmount }}</span>
+                    <span> {{ 'courseManagement.roundApproval.certificate.sign' | translate }} </span>
+                </div>
+            </div>
+            <p-table
+                [value]="certificateSignItems"
+                [totalRecords]="certificateSignTotalRecords"
+                [rowHover]="true"
+                [lazy]="true"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                (onPage)="fetchCertificateSign($event)"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center" scope="col" style="width: 1 0">
+                            {{ 'courseManagement.roundApproval.certificate.table.no' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.nameTh' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.positionTh' | translate }}
+                        </th>
+                        <th class="text-center" scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.signTh' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.nameEn' | translate }}
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.positionEn' | translate }}
+                        </th>
+                        <th class="text-center" scope="col" style="width: 15%">
+                            {{ 'courseManagement.roundApproval.certificate.table.signEn' | translate }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="text-center">{{item.rowNum}}</td>
+                        <td>{{item.certificateSignNameTh}}</td>
+                        <td>{{item.certificateSignPositionTh}}</td>
+                        <td class="text-center">
+                            <span *ngIf="item.fullpathTh">
+                                <img alt="50x50" width="50" height="50" [src]="item.fullpathTh" />
+                            </span>
+                        </td>
+                        <td>{{item.certificateSignNameEn}}</td>
+                        <td>{{item.certificateSignPositionEn}}</td>
+                        <td class="text-center">
+                            <span *ngIf="item.fullpathEn">
+                                <img alt="50x50" width="50" height="50" [src]="item.fullpathEn" />
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5" class="text-center">{{ 'common.dataNotFound' | translate }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+
+
+
+</div>

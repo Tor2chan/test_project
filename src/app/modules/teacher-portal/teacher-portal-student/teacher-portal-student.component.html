@@ -1,0 +1,165 @@
+<div *ngIf="mode === 'LIST'" permission menuCode="SDB-TC1003" >
+<p-panel>
+    <div class="p-fluid">
+        <header class="flex justify-content-between">
+            <div class="flex align-items-end">
+                <h3 style="color: var(--font-color-header)">{{ 'teacherPortal.studentlist' | translate }}</h3>
+           </div>
+            <div class="flex align-items-end">
+                <p-button [label]="'teacherPortal.viewcoursedetail' | translate" icon=""
+                        styleClass="p-button-primary p-button-sm" size="small" (click)="previewCoursepublic()">
+                </p-button>
+            </div>
+        </header>
+        <hr style="border-top: 1px solid var(--font-color-header)" />
+    </div>
+    <div class="p-fluid mt-4">
+        <h3 style="color: gray">{{courseInfoData.courseCode +
+            '-' +
+            (lang === 'th' ? courseInfoData.publicNameTh : courseInfoData.publicNameEn)}}</h3>
+    </div>
+    <div class="mt-4">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab [header]="'common.searchData' | translate">
+                <div class="container">
+                    <div class="formgrid grid ml-1">
+                        <div class="p-fluid formgrid grid col-12">
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'teacherPortal.memberId' | translate }}</label>
+                                <input pInputText type="text" [(ngModel)]="criteria.memberNo"
+                                     />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'teacherPortal.nameSurname' | translate }}</label>
+                                <input  *ngIf="lang=='th'" pInputText type="text" [(ngModel)]="criteria.nameOrSurnameTh"
+                                 />
+                                <input  *ngIf="lang!='th'" pInputText type="text" [(ngModel)]="criteria.nameOrSurnameEn"
+                                 />
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'teacherPortal.paymenttype' | translate }}</label>
+                                <p-dropdown [options]="paymentList" [(ngModel)]="criteria.paymentStatus"
+                                    [optionLabel]="lang==='th'?'nameTh':'nameEn'" optionValue="value" [showClear]="true"
+                                    [filter]="false" [placeholder]="'teacherPortal.pleaseselect' | translate">
+                                </p-dropdown>
+                            </div>
+                            <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                                <label style="height: 25px">{{ 'teacherPortal.coursestatus' | translate }}</label>
+                                <p-dropdown [options]="studyStatusList" [(ngModel)]="criteria.studyStatus"
+                                [optionLabel]="lang==='th'?'nameTh':'nameEn'" optionValue="value" [showClear]="true"
+                                [filter]="false" [placeholder]="'teacherPortal.pleaseselect' | translate">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div class="">
+                            <p-button [label]="'common.button.search' | translate" icon="pi pi-search"
+                                styleClass="p-button-primary p-button-sm" size="small" (click)="onSearch()">
+                            </p-button>
+                        </div>
+                        <div class="">
+                            <p-button [label]="'common.button.clear' | translate" icon="pi pi-refresh"
+                                styleClass="p-button-secondary p-button-sm" size="small" (click)="onClear()">
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="mt-4">
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="p-fluid formgrid grid col-12">
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-4">
+                        <h3 style="color: black">{{'teacherPortal.studentlist'| translate}}</h3>
+                    </div>
+                    <div class="field col-12 sm:col-12 md:col-6 lg:col-3">
+                    </div>
+                    <div class="field col-12 formgrid grid sm:col-12 md:col-6 lg:col-5">
+                        <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                        </div>
+                        <!-- <div class="field col-12 sm:col-12 md:col-6 lg:col-6">
+                            <p-button [label]="'teacherPortal.export' | translate" icon="pi pi-download"
+                                styleClass="p-button-primary p-button-sm" size="small"
+                                (click)="onExport()">
+                            </p-button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid;color: black;" />
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="container">
+            <div class="formgrid grid ml-1">
+                <div class="p-fluid col-12">
+                    <p-table
+                        [value]="items"
+                        [totalRecords]="totalRecords"
+                        [paginator]="true"
+                        [rowHover]="true"
+                        [lazy]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]" styleClass="p-datatable-striped"
+                        [tableStyle]="{ 'min-width': '50rem' }"  (onPage)="onSearch($event)"
+                        [showCurrentPageReport]="true"
+                        [currentPageReportTemplate]=" 'common.table.pageMessage' | translate"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 5%">
+                                    {{ 'common.table.column.no' | translate }}
+                                </th>
+                                <th scope="col" style="width: 20%">{{ 'teacherPortal.memberId' | translate }}</th>
+                                <th scope="col" style="width: 20%">{{ 'teacherPortal.student' | translate }}</th>
+                                <th scope="col" class="text-center" style="width: 20%">{{ 'teacherPortal.registerDate' | translate }}</th>
+                                <th scope="col" class="text-center" style="width: 15%">{{ 'teacherPortal.paymenttype' | translate }}</th>
+                                <th scope="col" class="text-center" style="width: 20%">
+                                    {{ 'teacherPortal.coursestatus' | translate }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center">{{ item.rowNum }}</td>
+                                <td>{{ item.memberNo }}</td>
+                                <td>
+                                    <span *ngIf="lang=='th'">{{item.prefixnameNameTh}} {{item.memberFirstnameTh}} {{item.memberLastnameTh}}</span>
+                                    <span *ngIf="lang!='th'">{{item.prefixnameNameEn}} {{item.memberFirstnameEn}} {{item.memberLastnameEn}}</span>
+                                </td>
+                                <td class="text-center">
+                                    {{item.registerDate | formatdate: lang }}
+                                </td>
+                                <td class="text-center">
+                                    {{lang=='th'?item.paymentNameLo:item.paymentNameEn}}
+                                </td>
+                                <td class="text-center">
+                                    {{lang=='th'?item.studyStatusNameLo:item.studyStatusNameEn}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="text-center" colspan="7">{{ 'common.dataNotFound' | translate }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <div class="flex justify-content-center gap-2 mt-4">
+                        <div class="">
+                            <p-button
+                                [label]="'common.button.cancel' | translate"
+                                icon="pi pi-times-circle"
+                                styleClass="p-button-secondary p-button-sm"
+                                size="small"
+                                (click)="onBack()"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-panel>
+</div>

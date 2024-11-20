@@ -1,0 +1,7 @@
+:host ::ng-deep .p-menuitem-link.ng-star-inserted.active > span {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+:host ::ng-deep .p-menuitem-link.ng-star-inserted.active > span:hover {
+    color: var(--primary-color);
+}
