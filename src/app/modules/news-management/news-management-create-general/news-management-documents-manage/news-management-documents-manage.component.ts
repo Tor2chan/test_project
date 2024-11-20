@@ -54,6 +54,7 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
     }
 
     openPage(page: MODE_PAGE_CHILDE) {
+        console.log('openPage called with:', page);
         this.backToMain.emit('LIST');
     }
 

@@ -92,6 +92,7 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
     }
     
     nPage(page: MODE_PAGE_CHILDE){
+        console.log('openPage called with:', page);
         this.backToListPage.emit('LIST');
     }
 
