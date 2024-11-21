@@ -87,16 +87,16 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
     setItems() {
         this.news_information = {
          label: this.translate.instant('newsManagement.newsInformation'),
-        command: () => this.nPage('LIST')
+        command: () => this.onBack()
         };
     }
     
     nPage(page: MODE_PAGE_CHILDE){
         this.backToListPage.emit('LIST');        
     }
-
+    
     onBack(){
-        this.backToListPage.emit();
+        this.backToListPage.emit('LIST');
     }
     
 
@@ -104,13 +104,14 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
         if (!this.initForm) {
             this.initForm = !this.initForm;
             this.fetchTable();
+            this.setItems()
         }
         if (this.lang != localStorage.getItem('lang')) {
             this.lang = localStorage.getItem('lang');
             this.newsFormatList = [{ value: null, nameTh: this.translate.instant('common.pleaseSelect') }];
             this.clickNewsStart = false;
             this.clickNewsEnd = false;
-            this.setItems()
+         
         }
     }
     ngOnInit(): void {
