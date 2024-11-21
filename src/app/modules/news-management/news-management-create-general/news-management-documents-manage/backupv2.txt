@@ -4,7 +4,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService , MenuItem} from 'primeng/api';
 import { FileRemoveEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 import { ToastCloseEvent } from 'primeng/toast';
-import { MODE_PAGE_CHILDE,MODE_PAGE } from 'src/app/models/common';
+import { MODE_PAGE_CHILDE } from 'src/app/models/common';
 import { NewsInfoAttachData } from 'src/app/models/news-management/NewsInfoAttachData';
 import { NewsManagementService } from 'src/app/services/news-management.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
@@ -21,7 +21,7 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
 
     lang: string;
 
-
+    @Output() backToMain = new EventEmitter();
 
     @Input() modeChilde : MODE_PAGE_CHILDE = 'MAIN';
 
@@ -31,11 +31,7 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
 
     news_information: MenuItem;
     news_add: MenuItem;
-    @Input() mode: MODE_PAGE ;
 
-    @Output() backToMain = new EventEmitter();
-    @Output() backToListPage = new EventEmitter();
-    @Output() nPage = new EventEmitter()
 
     constructor(
         public translate: TranslateService,
@@ -47,27 +43,28 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
 
     setItems() {
         this.news_information = {
-            label: this.translate.instant('newsManagement.newsInformation'),
-            command: () => this.listPage('LIST') 
+        label: this.translate.instant('newsManagement.newsInformation'),
+        command: () => this.openPage('LIST')
         };
+
         this.news_add = {
-            label: this.translate.instant('newsManagement.addNewsInformation'),
-            command: () => this.addPage('ADD') 
+        label: this.translate.instant('newsManagement.addNewsInformation'),
+        command: () => this.openPage('LIST')
         };
-    }
-    
-    addPage(page: string){
-        if(page === 'ADD'){
-            this.backToMain.emit(page);
-        }
     }
 
-    listPage(page: MODE_PAGE_CHILDE){
-        this.nPage.emit('ADD');
-    }
-  
-    onBack(){
-        this.backToMain.emit();
+    openPage(page: MODE_PAGE_CHILDE) {
+        // เปลี่ยน mode ก่อน
+        this.modeChilde = page;
+        console.log('openPage called with:', page);
+        console.log('Current modeChilde:', this.modeChilde);
+    
+        // ส่งออบเจ็กต์แทนที่จะส่งเป็นสตริง
+        this.backToMain.emit({
+            mode: 'LIST',
+            // คุณอาจเพิ่มข้อมูลอื่นๆ ที่จำเป็น เช่น
+            // rowNum: หรือ data ที่ต้องการส่งกลับ
+        });
     }
 
     ngDoCheck(): void {
@@ -75,11 +72,11 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
             this.initForm = !this.initForm;
             this.item;
             this.setItems();
+
         }
 
         if (this.lang != localStorage.getItem('lang')) {
             this.lang = localStorage.getItem('lang');
-            this.setItems();
         }
 
     }
@@ -166,6 +163,9 @@ export class NewsManagementDocumentsManageComponent implements DoCheck {
             this.loaderService.stop();
             this.backToMain.emit('this.item');
         }
+    }
+    onBack() {
+        this.backToMain.emit('LIST');
     }
 
     onCloseLevel2(event: ToastCloseEvent) {

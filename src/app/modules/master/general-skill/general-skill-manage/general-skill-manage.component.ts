@@ -12,6 +12,7 @@ import { DropdownService } from 'src/app/services/dropdown.service';
 import { MasterService } from 'src/app/services/master.service';
 import { PreviewFileService } from 'src/app/services/preview-file.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { orderBy} from 'lodash' ;
 
 @Component({
     selector: 'app-general-skill-manage',
@@ -94,6 +95,10 @@ export class GeneralSkillManageComponent implements OnInit {
         if (this.lang != localStorage.getItem('lang')) {
             this.lang = localStorage.getItem('lang');
             this.categorySkillList = [{ value: null, nameTh: this.translate.instant('common.pleaseSelect') }];
+        }
+        if (this.item.skillLevelList){
+            this.item.skillLevelList = orderBy(this.item.skillLevelList, ['levelNo'], ['asc']);
+
         }
     }
 

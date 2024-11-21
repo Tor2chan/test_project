@@ -1,17 +1,17 @@
 <p-toast id="lv2" (onClose)="onCloseLevel2($event)"></p-toast>
-<p-panel >
+<p-panel>
     <ng-template pTemplate="header">
-    <p-breadcrumb
+    <!-- <p-breadcrumb
         class="col-12 p-0"
         [model]="[ news_information, news_add,
             {
                 label: 'newsManagement.uploadFile' | translate,
-            },   
+            },  
         ]"
         [home]="{ icon: 'pi pi-home', routerLink: '/' }"
 
     >
-    </p-breadcrumb>
+    </p-breadcrumb> -->
 </ng-template>
 <div class="card" *ngIf="item">
     <div class="p-fluid m-4">
@@ -111,7 +111,7 @@
                     icon="pi pi-times-circle"
                     styleClass="p-button-secondary p-button-sm"
                     size="small"
-                    (click)="onBack()"
+                    (onClick)="onBack()"
                 ></p-button>
             </div>
         </div>

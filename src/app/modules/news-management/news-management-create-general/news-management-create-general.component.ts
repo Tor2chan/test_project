@@ -92,9 +92,13 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
     }
     
     nPage(page: MODE_PAGE_CHILDE){
-        console.log('openPage called with:', page);
-        this.backToListPage.emit('LIST');
+        this.backToListPage.emit('LIST');        
     }
+
+    onBack(){
+        this.backToListPage.emit();
+    }
+    
 
     ngDoCheck(): void {
         if (!this.initForm) {
@@ -308,9 +312,7 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
                 }
             });
     }
-    onBack() {
-        this.backToListPage.emit('LIST');
-    }
+
     onClose(event: ToastCloseEvent) {
         if (event.message.severity === 'success' && event.message.id != 'subDelete') {
             this.backToListPage.emit('LIST');
@@ -356,57 +358,43 @@ export class NewsManagementCreateGeneralComponent implements DoCheck, OnInit {
     }
 
     callbackChilde(data?: NewsInfoAttachData) {
-        if (data) {
-            if (this.items.length == 0) {
-                data.rowNum = 1;
-                this.items.push(data);
-            } else {
-                let list: NewsInfoAttachData[] = structuredClone(this.items);
-
-                // check duplicate
-                if (data.rowNum) {
-                    list = list.filter(({ rowNum }) => rowNum != this.editRownum);
-                    const count = list.filter(({ fileNameEn, fileNameTh }) => `${fileNameEn}-${fileNameTh}`).length;
-                    if (count > 0) {
-                        // duplicate
-                        this.loaderService.start();
-                        // this.messageService.add({
-                        //     severity: 'error',
-                        //     summary: this.translate.instant('common.alert.fail'),
-                        //     detail: this.translate.instant('common.alert.dupplicate'),
-                        //     life: 2000
-                        // });
-                        this.loaderService.stop();
-                        this.items = this.items.map((o) => {
-                            if (o.rowNum == this.editRownum) {
-                                o = data;
-                            }
-                            return o;
-                        });
-                    }
-                } else {
-                    const count = list.filter(({ fileNameEn, fileNameTh }) => `${fileNameEn}-${fileNameTh}`).length;
-                    if (count > 0) {
-                        // duplicate
-                        this.loaderService.start();
-                        // this.messageService.add({
-                        //     severity: 'error',
-                        //     summary: this.translate.instant('common.alert.fail'),
-                        //     detail: this.translate.instant('common.alert.dupplicate'),
-                        //     life: 2000
-
-                        // });
-                        this.loaderService.stop();
-                        data.rowNum = this.items.length + 1;
-                        this.items.push(data);
-                    }
-                }
+        if (typeof data === 'string') {
+            if (data === 'ADD') {
+                this.modeChilde = 'MAIN';
+                return;
             }
         }
+        if (data) {    
+            const isDuplicate = this.items.some(
+                item => item.fileNameEn === data.fileNameEn && 
+                        item.fileNameTh === data.fileNameTh && 
+                        item.rowNum !== data.rowNum
+            );
+    
+            if (isDuplicate) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: this.translate.instant('common.alert.fail'),
+                    detail: this.translate.instant('common.alert.duplicate'),
+                    life: 2000
+                });
+                return;
+            }
+    
+            if (data.rowNum) {
+                this.items = this.items.map(item => 
+                    item.rowNum === data.rowNum ? data : item
+                );
+            } else {
+                // กรณีเพิ่มเอกสารใหม่
+                data.rowNum = this.items.length + 1;
+                this.items.push(data);
+            }
+        }
+    
         this.modeChilde = 'MAIN';
         this.fetchTable();
     }
-
     onAdvancedUpload(event: FileUploadHandlerEvent) {
         this.loaderService.start();
         const file = event.files[0];
