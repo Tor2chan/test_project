@@ -84,6 +84,8 @@ export class TeacherPortalService {
             criteria
         );
     }
+
+    
     findStudyResultList(criteria): Observable<ResponseListIf<MemberCourseData>> {
         return this.http.post<ResponseListIf<MemberCourseData>>(
             `${environment.apiUrl}/teacher-portal/find-study-result-list`,
